@@ -3,8 +3,6 @@
 
 int main()
 {
-    // srand(time(0));
-    // int random;
     struct BinarySearchTree binary_search_tree = binary_search_tree_construct();
     char x = 23;
     char y = 211;
@@ -14,5 +12,5 @@ int main()
     binary_search_tree.insert(&binary_search_tree, &y, 1);
     binary_search_tree.insert(&binary_search_tree, &z, 1);
     binary_search_tree.insert(&binary_search_tree, &a, 1);
-    binary_tree_print(&binary_search_tree);
+    binary_search_tree_print(&binary_search_tree);
 }

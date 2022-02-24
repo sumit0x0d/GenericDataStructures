@@ -36,13 +36,10 @@ void queue_distroy(struct Queue *queue)
 
 void queue_enqueue(struct Queue *queue, void *data)
 {
-    assert(queue);
-    assert(data);
-
     if(queue->size < queue->capacity) {
         queue->back++;
         memcpy(&queue->array[queue->back], data, queue->data_type_size);
-        queue->size++;
+        ++queue->size;
     }
 }
 

@@ -30,7 +30,7 @@ struct BinaryTreeNode *insert(struct BinaryTree *binary_tree, void *data, size_t
     node->left = NULL;
     node->right = NULL;
     
-    binary_tree->size++;
+    ++binary_tree->size;
     
     return node;
 }

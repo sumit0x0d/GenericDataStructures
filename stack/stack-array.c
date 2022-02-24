@@ -36,7 +36,7 @@ void stack_push(struct Stack *stack, int data)
     if(stack->size < stack->capacity) {
         stack->array[stack->top] = data;
         stack->top++;
-        stack->size++;
+        ++stack->size+;
     }
 }
 
@@ -44,6 +44,6 @@ void stack_pop(struct Stack *stack)
 {
     if(stack->size) {
         stack->top--;
-        stack->size--;
+        --stack->size;
     }
 }

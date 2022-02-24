@@ -5,6 +5,7 @@
 
 struct BinarySearchTreeNode *search(struct BinarySearchTree *binary_search_tree, void *data, size_t data_tyep_size);
 void insert(struct BinarySearchTree *binary_search_tree, void *data, size_t data_type_size);
+void remove(struct BinarySearchTree *binary_search_tree, void *data, size_t data_type_size);
 
 struct BinarySearchTree binary_search_tree_construct()
 {
@@ -15,6 +16,7 @@ struct BinarySearchTree binary_search_tree_construct()
 
     binary_search_tree.search = search;
     binary_search_tree.insert = insert;
+    binary_search_tree.remove = remove;
 
     return binary_search_tree;
 }
@@ -58,7 +60,7 @@ void insert(struct BinarySearchTree *binary_search_tree, void *data, size_t data
 {
     if(!binary_search_tree->size) {
         binary_search_tree->root = node_construct(binary_search_tree, data, data_type_size);
-        binary_search_tree->size++;
+        ++binary_search_tree->size;
         return;
     }
 
@@ -83,7 +85,7 @@ void insert(struct BinarySearchTree *binary_search_tree, void *data, size_t data
         node_parent->left = node;
     else
         node_parent->right = node;
-    binary_search_tree->size++;
+    ++binary_search_tree->size;
 }
 
 // void binary_search_tree_node_remove(struct BinarySearchTreeNode *node)

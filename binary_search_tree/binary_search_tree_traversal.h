@@ -41,7 +41,7 @@ void enqueue(struct Queue *queue, struct BinarySearchTreeNode *data)
         queue->back->next = node;
     queue->back = node;
 
-    queue->size++;
+    ++queue->size;
 }
 
 void dequeue(struct Queue *queue)
@@ -85,7 +85,7 @@ void push(struct Stack *stack, struct BinarySearchTreeNode *data)
     node->next = stack->top;
     stack->top = node;
 
-    stack->size++;
+    ++stack->size;
 }
 
 void pop(struct Stack *stack)
@@ -192,7 +192,7 @@ void levelorder_traverse(struct BinarySearchTree *binary_search_tree)
     }
 }
 
-void binary_tree_print(struct BinarySearchTree *binary_search_tree)
+void binary_search_tree_print(struct BinarySearchTree *binary_search_tree)
 {
     if(!binary_search_tree->size) return;
 

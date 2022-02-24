@@ -72,14 +72,15 @@ void push_front(struct LinkedList *linked_list, int data)
         linked_list->tail = node;
     }
     linked_list->head = node;
-    linked_list->size++;
+    ++linked_list->size;
 }
 
 void push_back(struct LinkedList *linked_list, int data)
 {
     struct LinkedListNode *node = malloc(sizeof(struct LinkedListNode));
-    assert(node);
+    
     node->data = data;
+    
     node->next = NULL;
     if(linked_list->size) {
         linked_list->tail->next = node;
@@ -89,7 +90,8 @@ void push_back(struct LinkedList *linked_list, int data)
         linked_list->head = node;
         linked_list->tail = node;
     }
-    linked_list->size++;
+    
+    ++linked_list->size;
 }
 
 void insert(struct LinkedList *linked_list, size_t index, int data)
@@ -98,17 +100,21 @@ void insert(struct LinkedList *linked_list, size_t index, int data)
         push_front(linked_list, data);
         return;
     }
+
     if(index > linked_list->size)
         return;
+
     struct LinkedListNode *node = linked_list->head;
     struct LinkedListNode *node_new = malloc(sizeof(struct LinkedListNode));
-    assert(node_new);
+
     node_new->data = data;
+    
     for(size_t i = 0; i < index-1; i++)
         node = node->next;
     node_new->next = node->next;
     node->next = node_new;
-    linked_list->size++;
+    
+    ++linked_list->size;
 }
 
 void sorted_insert(struct LinkedList *linked_list, int data)
@@ -117,49 +123,60 @@ void sorted_insert(struct LinkedList *linked_list, int data)
         push_front(linked_list, data);
         return;
     }
+    
     if(data >= linked_list->tail->data) {
         push_back(linked_list, data);
         return;
     }
+    
     struct LinkedListNode *node = linked_list->head;
     struct LinkedListNode *node_new = malloc(sizeof(struct LinkedListNode));
-    assert(node_new);
+    
     node_new->data = data;
+    
     while(node && data > node->next->data) {
         node = node->next;
     }
     node_new->next = node->next;
     node->next = node_new;
-    linked_list->size++;
+    
+    ++linked_list->size;
 }
 
 void pop_front(struct LinkedList *linked_list)
 {
-    if(!linked_list->size)
-        return;
+    if(!linked_list->size) return;
+    
     struct LinkedListNode *node = linked_list->head;
+    
     linked_list->head = linked_list->head->next;
     if(!linked_list->size)
         linked_list->tail = NULL;
+    
     free(node);
-    linked_list->size--;
+    
+    --linked_list->size;
 }
 
 void pop_back(struct LinkedList *linked_list)
 {
     if(!linked_list->size)
         return;
+    
     if(linked_list->head == linked_list->tail) {
         free(linked_list->head);
         return;
     }
+    
     struct LinkedListNode *node = linked_list->head;
+    
     while(node->next != linked_list->tail)
         node = node->next;
     node->next = NULL;
     free(linked_list->tail);
     linked_list->tail = node;
-    linked_list->size--;
+    
+    --linked_list->size;
 }
 
 void erase(struct LinkedList *linked_list, size_t index)
@@ -168,17 +185,21 @@ void erase(struct LinkedList *linked_list, size_t index)
         pop_front(linked_list);
         return;
     }
+
     if(index > linked_list->size)
         return;
+    
     struct LinkedListNode *node = linked_list->head;
     struct LinkedListNode *node_previous = NULL;
+    
     for(size_t i = 0; i < index-1; i++) {
         node_previous = node;
         node = node->next;
     }
     node_previous->next = node->next;
     free(node);
-    linked_list->size--;
+    
+    --linked_list->size;
 }
 
 void remove(struct LinkedList *linked_list, int data)

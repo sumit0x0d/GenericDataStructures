@@ -1,18 +1,12 @@
 #include "avl_tree.h"
-// #include "binary_search_tree.h"
-// #include "avl_tree.h"
-// #include "red-black_tree.h"
-
-#include <stdio.h>
-#include <stdlib.h>
 
 int main()
 {
     // srand(time(0));
     // int random;
-    struct BinaryTree binary_tree = binary_tree_construct();
+    struct AVLTree avl_tree = avl_tree_construct();
     char x = 'c';
-    binary_tree.root = binary_tree.insert(&binary_tree, &x, 1);
+    avl_tree.root = avl_tree.insert(&avl_tree, &x, 1);
     // binary_tree->root->left = binary_tree_insert(binary_tree, &y, 4);
     // for(int i = 0; i < 10; i++) {
         // random = rand()%10;
@@ -25,5 +19,5 @@ int main()
     // binary_search_tree_insert(binary_search_tree, 100);
     // binary_search_tree_insert(binary_search_tree, 200);
     // binary_search_tree_insert(binary_search_tree, 300);
-    binary_tree_print(&binary_tree);
+    avl_tree_print(&avl_tree);
 }

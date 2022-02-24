@@ -69,12 +69,11 @@ void enqueue(struct Queue *queue, void *data, size_t data_type_size)
         queue->front = node;
 
     queue->back = node;
-    queue->size++;
+    ++queue->size;
 }
 
 void dequeue(struct Queue *queue)
 {
-    assert(queue);
     if(!queue->size) return;
 
     struct LinkedListNode *node = queue->front;
@@ -91,5 +90,5 @@ void dequeue(struct Queue *queue)
     free(node);
     node = NULL;
 
-    queue->size--;
+    --queue->size;
 }

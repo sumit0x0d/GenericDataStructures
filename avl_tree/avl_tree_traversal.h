@@ -41,7 +41,7 @@ void enqueue(struct Queue *queue, struct AVLTreeNode *data)
         queue->back->next = node;
     queue->back = node;
 
-    queue->size++;
+    ++queue->size;
 }
 
 void dequeue(struct Queue *queue)
@@ -58,7 +58,7 @@ void dequeue(struct Queue *queue)
     free(node);
     node = NULL;
     
-    queue->size--;
+    --queue->size;
 }
 
 struct Queue queue_construct()
@@ -85,7 +85,7 @@ void push(struct Stack *stack, struct AVLTreeNode *data)
     node->next = stack->top;
     stack->top = node;
 
-    stack->size++;
+    ++stack->size;
 }
 
 void pop(struct Stack *stack)
@@ -100,7 +100,7 @@ void pop(struct Stack *stack)
     free(node);
     node = NULL;
 
-    stack->size--;
+    --stack->size;
 }
 
 struct Stack stack_construct()
@@ -192,7 +192,7 @@ void levelorder_traverse(struct AVLTree *avl_tree)
     }
 }
 
-void binary_tree_print(struct AVLTree *avl_tree)
+void avl_print(struct AVLTree *avl_tree)
 {
     if(!avl_tree->size) return;
 

@@ -34,7 +34,7 @@ void stack_distruct(struct Stack *stack)
     }
 }
 
-void print(struct Stack *stack)
+void stack_print(struct Stack *stack)
 {
     if(!stack->size) return;
 

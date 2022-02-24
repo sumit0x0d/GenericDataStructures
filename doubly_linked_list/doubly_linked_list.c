@@ -64,7 +64,7 @@ void linked_list_push_back(struct LinkedList *linked_list, int data)
         linked_list->head = node;
         linked_list->tail = node;
     }
-    linked_list->size++;
+    ++linked_list->size;
 }
 
 void linked_list_insert(struct LinkedList *linked_list, size_t index, int data)

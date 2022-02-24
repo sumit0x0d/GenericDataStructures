@@ -43,7 +43,7 @@ void deque_push_back(struct Deque *deque, int data)
         deque->front = node;
         deque->back = node;
     }
-    deque->size++;
+    ++deque->size;
 }
 
 void deque_pop_front(struct Deque *deque)
@@ -55,7 +55,7 @@ void deque_pop_front(struct Deque *deque)
     if(!deque->front)
         deque->back = NULL;
     free(node);
-    deque->size--;
+    --deque->size;
 }
 
 void deque_pop_back(struct Deque *deque, int data)

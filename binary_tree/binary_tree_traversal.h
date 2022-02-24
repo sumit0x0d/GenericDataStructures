@@ -40,20 +40,25 @@ void enqueue(struct Queue *queue, struct BinaryTreeNode *data)
     else
         queue->back->next = node;
     queue->back = node;
-    queue->size++;
+    
+    ++queue->size;
 }
 
 void dequeue(struct Queue *queue)
 {
     if(!queue->size) return;
+    
     struct LinkedListNode *node = queue->front;
+    
     queue->front = node->next;
     if(!queue->front)
         queue->back = NULL;
+    
     memset(node, 0, sizeof(struct LinkedListNode));
     free(node);
     node = NULL;
-    queue->size--;
+    
+    --queue->size;
 }
 
 struct Queue queue_construct()
@@ -73,19 +78,28 @@ void push(struct Stack *stack, struct BinaryTreeNode *data)
 {
     struct LinkedListNode *node = malloc(sizeof(struct LinkedListNode));
     if(!node) return;
+    
     node->data = data;
+    
     node->next = stack->top;
     stack->top = node;
+    
+    ++stack->size;
 }
 
 void pop(struct Stack *stack)
 {
     if(!stack->size) return;
+    
     struct LinkedListNode *node = stack->top;
+    
     stack->top = stack->top->next;
+    
     memset(node, 0, sizeof(struct LinkedListNode));
     free(node);
     node = NULL;
+    
+    stack->size;
 }
 
 struct Stack stack_construct()

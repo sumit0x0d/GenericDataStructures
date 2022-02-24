@@ -13,14 +13,14 @@ struct AVLTreeNode {
 };
 
 struct AVLTree {
-    struct AVLTree *root;
+    struct AVLTreeNode *root;
     size_t size;
     struct AVLTreeNode *(*search)(struct AVLTree *avl_tree, void *data, size_t data_type_size);
     struct AVLTree *(*insert)(struct AVLTree *avl_tree, void *data, size_t data_type_size);
     void (*remove)(struct AVLTree *avl_tree, void *data, size_t data_type_size);
 };
 
-struct AVLTree binary_search_tree_construct();
-void binary_search_tree_distruct(struct AVLTree *avl_tree);
+struct AVLTree avl_tree_construct();
+void avl_tree_distruct(struct AVLTree *avl_tree);
 
 #endif

@@ -43,7 +43,7 @@ void hash_table_insert(struct HashTable *hash_table, int data)
     hash_mod(hash_table->capacity, data);
     if(!hash_table->array[mod])
     hash_table->array[mod] = data;
-    hash_table->size++;
+    ++hash_table->size;
 }
 
 void hash_table_remove(struct HashTable *hash_table)
