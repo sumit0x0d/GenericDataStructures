@@ -73,7 +73,6 @@ void linked_list_insert(struct LinkedList *linked_list, size_t index, int data)
         return;
     struct LinkedListNode *node = head;
     struct LinkedListNode *node_new = malloc(sizeof(struct LinkedListNode));
-    assert(node_new);
     node_new->data = data;
     if(index==0) {
         node_new->previous = NULL;

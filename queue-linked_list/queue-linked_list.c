@@ -51,10 +51,6 @@ void print(struct Queue *queue)
 
 void enqueue(struct Queue *queue, void *data, size_t data_type_size)
 {
-    assert(queue);
-    assert(data);
-    assert(data_type_size);
-
     struct LinkedListNode *node = malloc(sizeof(struct LinkedListNode));
     if(!node) return;
 
