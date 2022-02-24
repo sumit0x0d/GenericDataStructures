@@ -3,9 +3,6 @@
 // #include "avl_tree.h"
 // #include "red-black_tree.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-
 int main()
 {
     // srand(time(0));
@@ -25,5 +22,5 @@ int main()
     // binary_search_tree_insert(binary_search_tree, 100);
     // binary_search_tree_insert(binary_search_tree, 200);
     // binary_search_tree_insert(binary_search_tree, 300);
-    binary_tree_print(&binary_tree);
+    // binary_tree_print(&binary_tree);
 }

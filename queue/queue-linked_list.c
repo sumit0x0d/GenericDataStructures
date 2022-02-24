@@ -16,6 +16,7 @@ struct Queue queue_construct()
 
     queue.enqueue = enqueue;
     queue.dequeue = dequeue;
+
     return queue;
 }
 
