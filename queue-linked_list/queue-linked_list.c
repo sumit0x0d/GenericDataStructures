@@ -41,6 +41,7 @@ struct LinkedListNode *node_construct(void *data, size_t data_type_size)
 
     node->data = malloc(data_type_size);
     memcpy(node->data, data, data_type_size);
+    
     node->data_type_size = data_type_size;
 
     node->next = NULL;

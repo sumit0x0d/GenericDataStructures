@@ -17,7 +17,6 @@ struct Stack {
     void (*pop)(struct Stack *stack);
 };
 
-void stack_print(struct Stack *stack);
 struct Stack stack_construct();
 void stack_distruct(struct Stack *stack);
 

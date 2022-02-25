@@ -1,7 +1,8 @@
 #ifndef AVL_TREE_H
 #define AVL_TREE_H
 
-#include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
 
 struct AVLTreeNode {
     void *data;

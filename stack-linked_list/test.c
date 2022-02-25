@@ -1,4 +1,3 @@
-// #include "stack-array.h"
 #include "stack-linked_list.h"
 
 int main()

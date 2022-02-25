@@ -1,7 +1,5 @@
 #include "avl_tree.h"
 
-#include <string.h>
-
 struct AVLTreeNode *search(struct AVLTree *avl_tree, void *data, size_t data_type_size)
 {
     struct AVLTreeNode *node = avl_tree->root;
@@ -99,13 +97,13 @@ struct AVLTreeNode *node_rotate_left_right(struct AVLTreeNode *node)
 void node_rebalance(struct AVLTreeNode *node)
 {
     if(node->balance_factor == -2 && node->left->balance_factor == -1)
-        node = avl_tree_node_rotate_right(node);
+        node = node_rotate_right(node);
     else if(node->balance_factor == 2 && node->right->balance_factor == 1)
-        node = avl_tree_node_rotate_left(node);
+        node = node_rotate_left(node);
     else if(node->balance_factor == 2 && node->right->balance_factor == -1)
-        node = avl_tree_node_rotate_right_left(node);
+        node = node_rotate_right_left(node);
     else if(node->balance_factor == -2 && node->left->balance_factor == 1)
-        node = avl_tree_node_rotate_left_right(node);
+        node = node_rotate_left_right(node);
 }
 
 struct AVLTreeNode *node_construct(void *data, size_t data_type_size)
@@ -124,7 +122,6 @@ struct AVLTreeNode *node_construct(void *data, size_t data_type_size)
 
     return node;
 }
-
 
 void insert(struct AVLTree *avl_tree, void *data, size_t data_type_size)
 {
@@ -156,16 +153,16 @@ void insert(struct AVLTree *avl_tree, void *data, size_t data_type_size)
         node_parent->right = node;
 
     while(node_parent) {
-        node_parent->balance_factor = avl_tree_node_balance_factor(node_parent);
+        node_parent->balance_factor = node_balance_factor(node_parent);
         if(node_parent->balance_factor == 2 || node_parent->balance_factor == -2)
-            avl_tree_node_rebalance(node_parent);
+            node_rebalance(node_parent);
         if(!node_parent->parent)
             avl_tree->root = node_parent;
         node_parent = node_parent->parent;
     }
 }
 
-void avl_tree_remove(struct AVLTree *avl_tree, void *data, size_t data_type_size)
+void remove(struct AVLTree *avl_tree, void *data, size_t data_type_size)
 {
     
 }
