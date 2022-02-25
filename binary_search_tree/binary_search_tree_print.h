@@ -1,11 +1,11 @@
-#ifndef BINARY_SEARCH_TREE_TRAVERSAL
-#define BINARY_SEARCH_TREE_TRAVERSAL
+#ifndef BINARY_SEARCH_TREE_PRINT
+#define BINARY_SEARCH_TREE_PRINT
 
 #include "binary_search_tree.h"
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
+void binary_search_tree_print(struct BinarySearchTree *binary_search_tree);
 
 struct LinkedListNode {
     struct BinarySearchTreeNode *data;

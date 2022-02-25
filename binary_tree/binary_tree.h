@@ -1,7 +1,9 @@
 #ifndef BINARY_TREE_H
 #define BINARY_TREE_H
 
-#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 struct BinaryTreeNode {
     void *data;

@@ -1,7 +1,8 @@
 #ifndef BINARY_SEARCH_TREE_H
 #define BINARY_SEARCH_TREE_H
 
-#include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
 
 struct BinarySearchTreeNode {
     void *data;

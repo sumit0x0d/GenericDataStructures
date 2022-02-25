@@ -3,10 +3,6 @@
 
 #include "binary_tree.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 struct LinkedListNode {
     struct BinaryTreeNode *data;
     struct LinkedListNode *next;
@@ -174,7 +170,7 @@ void levelorder_traverse(struct BinaryTree *binary_tree)
     printf("%d ", *(int *)binary_tree->root->data);
     queue.enqueue(&queue, binary_tree->root);
 
-    while(&queue.size) {
+    while(queue.size) {
         node = queue.front->data;
         queue.dequeue(&queue);
         if(node->left) {
@@ -188,7 +184,7 @@ void levelorder_traverse(struct BinaryTree *binary_tree)
     }
 }
 
-void print(struct BinaryTree *binary_tree)
+void binary_tree_print(struct BinaryTree *binary_tree)
 {
     if(!binary_tree->size) return;
 

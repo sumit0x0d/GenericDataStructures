@@ -2,7 +2,6 @@
 
 #include <string.h>
 
-void print(struct Queue *queue);
 void enqueue(struct Queue *queue, void *data, size_t data_type_size);
 void dequeue(struct Queue *queue);
 
@@ -20,7 +19,7 @@ struct Queue queue_construct()
     return queue;
 }
 
-void stack_distruct(struct Queue *queue)
+void queue_distruct(struct Queue *queue)
 {
     struct LinkedListNode *node = queue->front;
     while(node) {
@@ -35,37 +34,42 @@ void stack_distruct(struct Queue *queue)
     }
 }
 
-void print(struct Queue *queue)
-{
-   if(!queue->size)
-        return;
-    struct LinkedListNode *node = queue->front;
-    printf("Queue Linked List: ");
-    while(node != queue->back) {
-        printf("%c ", *(char *)node->data);
-        node = node->next;
-    }
-    printf("%c\n", *(char *)node->data);
-    printf("Queue Linked List Size: %zu\n", queue->size);
-}
-
-void enqueue(struct Queue *queue, void *data, size_t data_type_size)
+struct LinkedListNode *node_construct(void *data, size_t data_type_size)
 {
     struct LinkedListNode *node = malloc(sizeof(struct LinkedListNode));
-    if(!node) return;
+    if(!node) return NULL;
 
     node->data = malloc(data_type_size);
     memcpy(node->data, data, data_type_size);
     node->data_type_size = data_type_size;
 
     node->next = NULL;
+
+    return node;
+}
+
+void enqueue(struct Queue *queue, void *data, size_t data_type_size)
+{
+    struct LinkedListNode *node = node_construct(data, data_type_size);
+
     if(queue->size)
         queue->back->next = node;
     else 
         queue->front = node;
-
     queue->back = node;
+
     ++queue->size;
+}
+
+void node_distruct(struct LinkedListNode *node)
+{
+    memset(node->data, 0, node->data_type_size);
+    free(node->data);
+    node->data = NULL;
+
+    memset(node, 0, sizeof(struct LinkedListNode));
+    free(node);
+    node = NULL;
 }
 
 void dequeue(struct Queue *queue)
@@ -78,13 +82,7 @@ void dequeue(struct Queue *queue)
     if(!queue->front)
         queue->back = NULL;
 
-    memset(node->data, 0, node->data_type_size);
-    free(node->data);
-    node->data = NULL;
-
-    memset(node, 0, sizeof(struct LinkedListNode));
-    free(node);
-    node = NULL;
+    node_distruct(node);
 
     --queue->size;
 }

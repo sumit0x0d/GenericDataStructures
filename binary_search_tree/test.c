@@ -1,5 +1,5 @@
 #include "binary_search_tree.h"
-#include "binary_search_tree_traversal.h"
+#include "binary_search_tree_print.h"
 
 int main()
 {

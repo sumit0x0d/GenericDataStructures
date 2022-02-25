@@ -1,8 +1,5 @@
 #include "binary_search_tree.h"
 
-#include <stdlib.h>
-#include <string.h>
-
 struct BinarySearchTreeNode *search(struct BinarySearchTree *binary_search_tree, void *data, size_t data_tyep_size);
 void insert(struct BinarySearchTree *binary_search_tree, void *data, size_t data_type_size);
 void remove(struct BinarySearchTree *binary_search_tree, void *data, size_t data_type_size);
@@ -41,7 +38,7 @@ struct BinarySearchTreeNode *search(struct BinarySearchTree *binary_search_tree,
     return NULL;
 }
 
-struct BinarySearchTreeNode *node_construct(struct BinarySearchTree *binary_search_tree, void *data, size_t data_type_size)
+struct BinarySearchTreeNode *node_construct(void *data, size_t data_type_size)
 {
     struct BinarySearchTreeNode *node = malloc(sizeof(struct BinarySearchTreeNode));
     if(!node) return NULL;
@@ -59,7 +56,7 @@ struct BinarySearchTreeNode *node_construct(struct BinarySearchTree *binary_sear
 void insert(struct BinarySearchTree *binary_search_tree, void *data, size_t data_type_size)
 {
     if(!binary_search_tree->size) {
-        binary_search_tree->root = node_construct(binary_search_tree, data, data_type_size);
+        binary_search_tree->root = node_construct(data, data_type_size);
         ++binary_search_tree->size;
         return;
     }
@@ -79,12 +76,13 @@ void insert(struct BinarySearchTree *binary_search_tree, void *data, size_t data
             node = node->right;
     }
 
-    node = node_construct(binary_search_tree, data, data_type_size);
+    node = node_construct(data, data_type_size);
     // compare = memcmp(data, node_parent->data, node->data_type_size);
     if(compare < 0)
         node_parent->left = node;
     else
         node_parent->right = node;
+
     ++binary_search_tree->size;
 }
 
