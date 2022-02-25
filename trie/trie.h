@@ -1,20 +1,22 @@
 #ifndef TRIE_H
 #define TRIE_H
 
-#include <stddef.h>
 #include <stdbool.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
 
 struct TrieNode {
     void *data;
     size_t data_type_size;
     bool terminal;
-    struct TrieNode *next;
+    struct TrieNode *children[256];
 };
 
 struct Trie {
     struct TrieNode *root;
     size_t size;
-    void *(*search)(struct Trie *trie, void *data, size_t data_type_size);
+    struct TrieNode *(*search)(struct Trie *trie, void *data, size_t data_type_size);
     void (*insert)(struct Trie *trie, void *data, size_t data_type_size);
     void (*remove)(struct Trie *trie, void *data, size_t data_type_size);
 };
