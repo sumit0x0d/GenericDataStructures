@@ -56,8 +56,9 @@ struct LinkedListNode *linked_list_search(struct LinkedList *linked_list, int da
 void linked_list_push_front(struct LinkedList *linked_list, int data)
 {
     struct LinkedListNode *node = malloc(sizeof(struct LinkedListNode));
-    assert(node);
+    
     node->data = data;
+    
     if(linked_list->size)
         node->next = linked_list->head;
     else {
@@ -65,7 +66,8 @@ void linked_list_push_front(struct LinkedList *linked_list, int data)
         linked_list->tail = node;
     }
     linked_list->head = node;
-    linked_list->size++;
+    
+    ++linked_list->size;
 }
 
 void linked_list_push_back(struct LinkedList *linked_list, int data)

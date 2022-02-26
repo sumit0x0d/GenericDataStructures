@@ -45,5 +45,8 @@ queue-array:
 queue-linked_list:
 	$(CC) $(CFLAGS) ./queue-linked_list/queue-linked_list.c ./queue-linked_list/test.c -o $(TARGET)
 
+trie:
+	$(CC) $(CFLAGS) ./trie/trie.c ./trie/test.c -o $(TARGET)
+
 clean:
 	rm $(TARGET)

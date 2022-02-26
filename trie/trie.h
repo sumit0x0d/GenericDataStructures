@@ -7,8 +7,7 @@
 #include <string.h>
 
 struct TrieNode {
-    void *data;
-    size_t data_type_size;
+    char data;
     bool terminal;
     struct TrieNode *children[256];
 };
@@ -16,9 +15,9 @@ struct TrieNode {
 struct Trie {
     struct TrieNode *root;
     size_t size;
-    struct TrieNode *(*search)(struct Trie *trie, void *data, size_t data_type_size);
-    void (*insert)(struct Trie *trie, void *data, size_t data_type_size);
-    void (*remove)(struct Trie *trie, void *data, size_t data_type_size);
+    struct TrieNode *(*search)(struct Trie *trie, char data);
+    void (*insert)(struct Trie *trie, char data);
+    void (*remove)(struct Trie *trie, char data);
 };
 
 struct Trie trie_construct();
