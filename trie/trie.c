@@ -1,6 +1,5 @@
 #include "trie.h"
 
-
 struct TrieNode *search(struct Trie *trie, char data);
 void insert(struct Trie *trie, char data);
 void remove(struct Trie *trie, char data);
@@ -26,14 +25,15 @@ struct TrieNode *node_construct(char data)
 
     node->data = data;
 
-    node->children[256] = NULL;
     node->terminal = false;
+    node->children[256] = NULL;
 
     return node;
 }
 
 void insert(struct Trie *trie, char data)
 {
-    struct TrieNode *node = node_construct(data);
+    struct TrieNode *node = trie->root;
+
     ++trie->size;
 }

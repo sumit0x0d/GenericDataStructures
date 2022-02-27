@@ -1,7 +1,5 @@
 #include "stack-linked_list.h"
 
-#include <string.h>
-
 void push(struct Stack *stack, void *data, size_t data_type_size);
 void pop(struct Stack *stack);
 
@@ -52,7 +50,7 @@ void push(struct Stack *stack, void *data, size_t data_type_size)
 
     node->next = stack->top;
     stack->top = node;
-    
+
     ++stack->size;
 }
 
