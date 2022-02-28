@@ -7,7 +7,7 @@ void remove(struct BinarySearchTree *binary_search_tree, void *data, size_t data
 struct BinarySearchTree binary_search_tree_construct()
 {
     struct BinarySearchTree binary_search_tree;
-    
+
     binary_search_tree.root = NULL;
     binary_search_tree.size = 0;
 

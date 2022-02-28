@@ -1,7 +1,7 @@
 #ifndef QUEUE_PRINT_H
 #define QUEUE_PRINT_H
 
-#include "queue-linked_list.h"
+#include "queue-array.h"
 
 void stack_print(struct Stack *stack)
 {

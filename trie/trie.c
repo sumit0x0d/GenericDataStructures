@@ -36,19 +36,15 @@ void insert(struct Trie *trie, char *string)
     struct TrieNode *node = trie->root;
     char character = *string;
 
-    size_t len = strlen(string);
-    for (size_t i = 0; i < len; i++) {
+    size_t length = strlen(string);
+    for(size_t i = 0; i < length; i++) {
         if(node->children[string[i]] == NULL)
-            node->children[string[i]] = node_construct(character);
+            node->children[string[i]] = node_construct(string[i]);
     }
     if(node->terminal)
         return;
     else
         node->terminal = true;
-    while(character) {
-        struct TrieNode *node = node_construct(character);
-        character = string + 1;
-    }
 
     ++trie->size;
 }

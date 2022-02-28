@@ -16,12 +16,10 @@ struct RedBlackTree {
     struct RedBlackTree *root;
     size_t size;
     struct RedBlackTreeNode *(*search)(struct RedBlackTree *binary_search_tree, void *data, size_t data_type_size);
-    struct RedBlackTree *(*insert)(struct RedBlackTree *avl_tree, void *data, size_t data_type_size);
+    void (*insert)(struct RedBlackTree *avl_tree, void *data, size_t data_type_size);
     void (*remove)(struct RedBlackTree *avl_tree, void *data, size_t data_type_size);
 };
 
 struct BinaryTreeNode *avl_tree_search(struct RedBlackTree *avl_tree, void *data, size_t data_type_size);
-void avl_tree_insert(struct RedBlackTree *avl_tree, void *data, size_t data_type_size);
-void avl_tree_remove(struct RedBlackTree *avl_tree, void *data, size_t data_type_size);
 
 #endif

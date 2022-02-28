@@ -1,33 +1,21 @@
 #include "doubly_linked_list.h"
 
-void linked_list_print(struct LinkedList *linked_list)
-{
-    if(!linked_list->size)
-        return;
-    struct LinkedListNode *node = linked_list->head;
-    printf("Doubly Linked List: ");
-    while(node != linked_list->tail) {
-        printf("%d ", node->data);
-        node = node->next;
-    }
-    printf("%d\n", linked_list->tail->data);
-    printf("Doubly Linked List Size: %zu\n", linked_list->size);
-}
-
-struct LinkedList *linked_list_construct()
+struct LinkedList *construct()
 {
     struct LinkedList *linked_list = malloc(sizeof(struct LinkedList));
-    assert(linked_list);
+    if(!linked_list) return;
+
     linked_list->head = NULL;
     linked_list->tail = NULL;
     linked_list->size = 0;
+
     return linked_list;
 }
 
-struct LinkedListNode *linked_list_search(struct LinkedList *linked_list, int data)
+struct LinkedListNode *search(struct LinkedList *linked_list, int data)
 {
-    if(!linked_list->size)
-        return NULL;
+    if(!linked_list->size) return NULL;
+
     struct LinkedListNode *node = malloc(sizeof(struct LinkedListNode));
     while(node) {
         if(data == node->data)
@@ -37,7 +25,7 @@ struct LinkedListNode *linked_list_search(struct LinkedList *linked_list, int da
     return NULL;
 }
 
-void linked_list_push_front(struct LinkedList *linked_list, int data)
+void push_front(struct LinkedList *linked_list, int data)
 {
     struct LinkedListNode *node = malloc(sizeof(struct LinkedListNode));
     assert(node);
@@ -48,7 +36,7 @@ void linked_list_push_front(struct LinkedList *linked_list, int data)
     linked_list->head = node;
 }
 
-void linked_list_push_back(struct LinkedList *linked_list, int data)
+void push_back(struct LinkedList *linked_list, int data)
 {
     struct LinkedListNode *node = malloc(sizeof(struct LinkedListNode));
     assert(node);
@@ -67,7 +55,7 @@ void linked_list_push_back(struct LinkedList *linked_list, int data)
     ++linked_list->size;
 }
 
-void linked_list_insert(struct LinkedList *linked_list, size_t index, int data)
+void insert(struct LinkedList *linked_list, size_t index, int data)
 {
     if(index > linked_list->size)
         return;
@@ -91,12 +79,12 @@ void linked_list_insert(struct LinkedList *linked_list, size_t index, int data)
     }
 }
 
-void linked_list_sorted_insert(struct LinkedList *linked_list, int data)
+void sorted_insert(struct LinkedList *linked_list, int data)
 {
 
 }
 
-void linked_list_pop_front(struct LinkedList *linked_list)
+void pop_front(struct LinkedList *linked_list)
 {
     if(!linked_list->head)
         return;
@@ -107,7 +95,7 @@ void linked_list_pop_front(struct LinkedList *linked_list)
     free(node);
 }
 
-void linked_list_pop_back(struct LinkedList *linked_list)
+void pop_back(struct LinkedList *linked_list)
 {
     if(!linked_list->head)
         return;
@@ -121,12 +109,12 @@ void linked_list_pop_back(struct LinkedList *linked_list)
     free(node);
 }
 
-void linked_list_erase(struct LinkedList *linked_list, size_t index)
+void erase(struct LinkedList *linked_list, size_t index)
 {
     if(index == 0 || index > linked_list->size)
         return;
     if(index == 1)
-        linked_list_pop_front(head);
+        pop_front(head);
     struct LinkedListNode *node = linked_list->head;
     for(size_t i = 0; i < index-1; ++i) {
         node->previous = node;
@@ -136,7 +124,7 @@ void linked_list_erase(struct LinkedList *linked_list, size_t index)
     free(node);
 }
 
-void linked_list_remove(struct LinkedList *linked_list, int data)
+void remove(struct LinkedList *linked_list, int data)
 {
     struct LinkedListNode *node = head;
     size_t count = 0;
@@ -145,5 +133,5 @@ void linked_list_remove(struct LinkedList *linked_list, int data)
         node = node->next;
     }
     if(node->data == data)
-        linked_list_erase(head, count);
+        erase(head, count);
 }

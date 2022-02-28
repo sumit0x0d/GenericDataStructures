@@ -1,20 +1,22 @@
 #ifndef QUEUE_PRINT_H
 #define QUEUE_PRINT_H
 
-#include "queue-linked_list.h"
+#include "singly_linked_list.h"
 
-void queue_print(struct Queue *queue)
+#include <stdio.h>
+
+void print(struct LinkedList *linked_list)
 {
-   if(!queue->size)
+    if(!linked_list->size)
         return;
-    struct LinkedListNode *node = queue->front;
-    printf("Queue Linked List: ");
-    while(node != queue->back) {
-        printf("%c ", *(char *)node->data);
+    struct LinkedListNode *node = linked_list->head;
+    printf("Singly Linked List: ");
+    while(node != linked_list->tail) {
+        printf("%d ", node->data);
         node = node->next;
     }
-    printf("%c\n", *(char *)node->data);
-    printf("Queue Linked List Size: %zu\n", queue->size);
+    printf("%d\n", linked_list->tail->data);
+    printf("Singly Linked List Size: %zu\n", linked_list->size);
 }
 
 #endif

@@ -26,7 +26,7 @@ struct DynamicArray *dynamic_array_construct(size_t capacity, double growth_fact
     return dynamic_array;
 }
 
-void dynamic_array++_distroy(struct DynamicArray *dynamic_array)
+void dynamic_array_distroy(struct DynamicArray *dynamic_array)
 {
     free(dynamic_array->array);
     free(dynamic_array);
@@ -44,7 +44,7 @@ void dynamic_array_push_front(struct DynamicArray *dynamic_array, int data)
 {
     if(dynamic_array->size == dynamic_array->capacity) {
         dynamic_array->capacity = dynamic_array->capacity * dynamic_array->growth_factor;
-        dynamic_array->array = realloc(dynamic_array->array, sizeof(int) * dynamic_array->capacity);
+        dynamic_array->array = realloc(dynamic_array->array, sizeof (int) * dynamic_array->capacity);
     }
     
     for(size_t i = dynamic_array->size; i > 0; i--)
@@ -58,7 +58,7 @@ void dynamic_array_push_back(struct DynamicArray *dynamic_array, int data)
 {
     if(dynamic_array->size == dynamic_array->capacity) {
         dynamic_array->capacity = dynamic_array->capacity * dynamic_array->growth_factor;
-        dynamic_array->array = realloc(dynamic_array->array, sizeof(int) * dynamic_array->capacity);
+        dynamic_array->array = realloc(dynamic_array->array, sizeof (int) * dynamic_array->capacity);
     }
     dynamic_array->array[dynamic_array->size] = data;
     ++dynamic_array->size;
@@ -68,7 +68,7 @@ void dynamic_array_insert(struct DynamicArray *dynamic_array, size_t index, int 
 {
     if(dynamic_array->size == dynamic_array->capacity) {
         dynamic_array->capacity = dynamic_array->capacity * dynamic_array->growth_factor;
-        dynamic_array->array = realloc(dynamic_array->array, sizeof(int) * dynamic_array->capacity);
+        dynamic_array->array = realloc(dynamic_array->array, sizeof (int) * dynamic_array->capacity);
     }
     
     for(size_t i = dynamic_array->size; i > index; i--)
