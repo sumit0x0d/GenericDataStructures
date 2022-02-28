@@ -3,6 +3,8 @@
 
 #include "binary_tree.h"
 
+#include <stdio.h>
+
 struct LinkedListNode {
     struct BinaryTreeNode *data;
     struct LinkedListNode *next;

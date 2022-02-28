@@ -1,13 +1,13 @@
 #include "trie.h"
 
-struct TrieNode *search(struct Trie *trie, char data);
-void insert(struct Trie *trie, char data);
-void remove(struct Trie *trie, char data);
+struct TrieNode *search(struct Trie *trie, char *string);
+void insert(struct Trie *trie, char *string);
+void remove(struct Trie *trie, char *string);
 
 struct Trie trie_construct()
 {
     struct Trie trie;
-    
+
     trie.root = NULL;
     trie.size = 0;
 
@@ -18,22 +18,43 @@ struct Trie trie_construct()
     return trie;
 }
 
-struct TrieNode *node_construct(char data)
+struct TrieNode *node_construct(char character)
 {
     struct TrieNode *node = malloc(sizeof (struct TrieNode));
     if(!node) return;
 
-    node->data = data;
+    node->character = character;
 
     node->terminal = false;
-    node->children[256] = NULL;
+    memset(node->children, 0, 128);
 
     return node;
 }
 
-void insert(struct Trie *trie, char data)
+void insert(struct Trie *trie, char *string)
 {
     struct TrieNode *node = trie->root;
+    char character = *string;
+
+    size_t len = strlen(string);
+    for (size_t i = 0; i < len; i++) {
+        if(node->children[string[i]] == NULL)
+            node->children[string[i]] = node_construct(character);
+    }
+    if(node->terminal)
+        return;
+    else
+        node->terminal = true;
+    while(character) {
+        struct TrieNode *node = node_construct(character);
+        character = string + 1;
+    }
 
     ++trie->size;
+}
+
+void node_distruct(struct Trie *trie, char character)
+{
+    struct Trie *node = trie->root;
+    free(node);
 }

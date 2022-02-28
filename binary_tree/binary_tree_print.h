@@ -3,6 +3,8 @@
 
 #include "binary_tree.h"
 
+#include <stdio.h>
+
 struct LinkedListNode {
     struct BinaryTreeNode *data;
     struct LinkedListNode *next;
@@ -101,10 +103,13 @@ void pop(struct Stack *stack)
 struct Stack stack_construct()
 {
     struct Stack stack;
+
     stack.top = NULL;
     stack.size = 0;
+    
     stack.push = push;
     stack.pop = pop;
+    
     return stack;
 }
 

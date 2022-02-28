@@ -3,5 +3,5 @@
 int main()
 {
     struct Trie trie = trie_construct();
-    trie.insert(&trie, 'a');
+    trie.insert(&trie, "Sumit");
 }

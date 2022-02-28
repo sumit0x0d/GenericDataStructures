@@ -1,8 +1,6 @@
 #ifndef STACK_ARRAY_H
 #define STACK_ARRAY_H
 
-
-#include <stdio.h>
 #include <stdlib.h>
 
 struct Stack {

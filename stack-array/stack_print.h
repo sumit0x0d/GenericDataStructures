@@ -3,18 +3,17 @@
 
 #include "queue-linked_list.h"
 
-void queue_print(struct Queue *queue)
+void stack_print(struct Stack *stack)
 {
-   if(!queue->size)
-        return;
-    struct LinkedListNode *node = queue->front;
-    printf("Queue Linked List: ");
-    while(node != queue->back) {
-        printf("%c ", *(char *)node->data);
-        node = node->next;
+    printf("Stack: ");
+    size_t i = 0;
+    while(i < stack->top-1) {
+        printf("%d ", stack->array[i]);
+        i++;
     }
-    printf("%c\n", *(char *)node->data);
-    printf("Queue Linked List Size: %zu\n", queue->size);
+    printf("%d\n", stack->array[stack->top]);
+    printf("Stack Size: %zu\n", stack->size);
+    printf("Stack Capacity: %zu\n", stack->capacity);
 }
 
 #endif

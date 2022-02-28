@@ -6,17 +6,17 @@
 #include <string.h>
 
 struct TrieNode {
-    char data;
+    char character;
     bool terminal;
-    struct TrieNode *children[256];
+    struct TrieNode *children[128];
 };
 
 struct Trie {
     struct TrieNode *root;
     size_t size;
-    struct TrieNode *(*search)(struct Trie *trie, char data);
-    void (*insert)(struct Trie *trie, char data);
-    void (*remove)(struct Trie *trie, char data);
+    struct TrieNode *(*search)(struct Trie *trie, char *string);
+    void (*insert)(struct Trie *trie, char *string);
+    void (*remove)(struct Trie *trie, char *string);
 };
 
 struct Trie trie_construct();
