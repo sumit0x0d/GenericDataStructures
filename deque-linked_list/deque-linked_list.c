@@ -13,7 +13,7 @@ struct Deque *deque_construct()
     deque->front = NULL;
     deque->back = NULL;
     deque->size = 0;
-    
+
     deque->push_front = push_front;
     deque->push_back = push_back;
     deque->pop_front = pop_front;
@@ -110,5 +110,10 @@ void pop_back(struct Deque *deque)
 
     struct LinkedListNode *node = deque->back;
 
-    node->
+    deque->back = deque->back->previous;
+    deque->back->next = NULL;
+
+    node_distruct(node);
+
+    --deque->size;
 }

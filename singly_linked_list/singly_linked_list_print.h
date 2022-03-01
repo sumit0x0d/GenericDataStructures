@@ -5,18 +5,19 @@
 
 #include <stdio.h>
 
-void print(struct LinkedList *linked_list)
+void linked_list_print(struct LinkedList *linked_list)
 {
-    if(!linked_list->size)
-        return;
+    if(!linked_list->size) return;
+
     struct LinkedListNode *node = linked_list->head;
-    printf("Singly Linked List: ");
-    while(node != linked_list->tail) {
-        printf("%d ", node->data);
+
+    printf("Linked List: ");
+    do {
+        printf("%d ", *(int *)node->data);
         node = node->next;
-    }
-    printf("%d\n", linked_list->tail->data);
-    printf("Singly Linked List Size: %zu\n", linked_list->size);
+    } while(node);
+
+    printf("\b\nLinked List Size: %zu\n", linked_list->size);
 }
 
 #endif

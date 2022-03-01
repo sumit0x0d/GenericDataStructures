@@ -7,15 +7,17 @@
 
 void deque_print(struct Deque *deque)
 {
-   if(!deque->size)
-        return;
+    if(!deque->size) return;
+
     struct LinkedListNode *node = deque->front;
-    printf("Queue: ");
-    while(node != deque->back) {
-        printf("%d ", node->data);
+
+    printf("Deque: ");
+    do {
+        printf("%d ", *(int *)node->data);
         node = node->next;
-    }
-    printf("%d\n", deque->back->data);
-    printf("Queue Size: %zu\n", deque->size);
+    } while(node);
+
+    printf("\b\nDeque Size: %zu\n", deque->size);
 }
+
 #endif
