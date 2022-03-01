@@ -1,20 +1,21 @@
-#ifndef QUEUE_PRINT_H
-#define QUEUE_PRINT_H
+#ifndef DEQUE_LINKED_LIST_PRINT_H
+#define DEQUE_LINKED_LIST_PRINT_H
 
-#include "queue-linked_list.h"
+#include "deque-linked_list.h"
 
-void queue_print(struct Queue *queue)
+#include <stdio.h>
+
+void deque_print(struct Deque *deque)
 {
-   if(!queue->size)
+   if(!deque->size)
         return;
-    struct LinkedListNode *node = queue->front;
-    printf("Queue Linked List: ");
-    while(node != queue->back) {
-        printf("%c ", *(char *)node->data);
+    struct LinkedListNode *node = deque->front;
+    printf("Queue: ");
+    while(node != deque->back) {
+        printf("%d ", node->data);
         node = node->next;
     }
-    printf("%c\n", *(char *)node->data);
-    printf("Queue Linked List Size: %zu\n", queue->size);
+    printf("%d\n", deque->back->data);
+    printf("Queue Size: %zu\n", deque->size);
 }
-
 #endif

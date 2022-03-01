@@ -1,12 +1,13 @@
 #ifndef DEQUE_LINKED_LIST_H
 #define DEQUE_LINKED_LIST_H
 
-
-#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 struct LinkedListNode {
-    int data;
+    void *data;
+    size_t data_type_size;
+    struct LinkedListNode *previous;
     struct LinkedListNode *next;
 };
 
@@ -14,13 +15,13 @@ struct Deque {
     struct LinkedListNode *front;
     struct LinkedListNode *back;
     size_t size;
+    void (*push_front)(struct Deque *deque, void *data, size_t data_type_size);
+    void (*push_back)(struct Deque *deque, void *data, size_t data_type_size);
+    void (*pop_front)(struct Deque *deque);
+    void (*pop_back)(struct Deque *deque);
 };
 
-void deque_print(struct Deque deque);
 struct Deque *deque_construct();
-void deque_push_front(struct Deque *deque, int data);
-void deque_push_back(struct Deque *deque, int data);
-void deque_pop_front(struct Deque *deque);
-void deque_pop_back(struct Deque *deque);
+void deque_distruct(struct Deque *deque);
 
 #endif

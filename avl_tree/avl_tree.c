@@ -1,5 +1,9 @@
 #include "avl_tree.h"
 
+struct AVLTreeNode *search(struct AVLTree *avl_tree, void *data, size_t data_type_size);
+void insert(struct AVLTree *avl_tree, void *data, size_t data_type_size);
+void remove(struct AVLTree *avl_tree, void *data, size_t data_type_size;
+
 struct AVLTreeNode *search(struct AVLTree *avl_tree, void *data, size_t data_type_size)
 {
     struct AVLTreeNode *node = avl_tree->root;
@@ -112,6 +116,12 @@ struct AVLTreeNode *node_construct(void *data, size_t data_type_size)
     if(!node) return NULL;
 
     node->data = malloc(data_type_size);
+    if(!node->data) {
+        free(node);
+        node = NULL;
+        return NULL;
+    }
+    
     memcpy(node->data, data, data_type_size);
 
     node->data_type_size = data_type_size;

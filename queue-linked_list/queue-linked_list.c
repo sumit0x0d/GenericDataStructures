@@ -40,6 +40,12 @@ struct LinkedListNode *node_construct(void *data, size_t data_type_size)
     if(!node) return NULL;
 
     node->data = malloc(data_type_size);
+    if(!node->data) {
+        free(node);
+        node = NULL;
+        return NULL;
+    }
+    
     memcpy(node->data, data, data_type_size);
     
     node->data_type_size = data_type_size;
