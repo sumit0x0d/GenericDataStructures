@@ -5,11 +5,11 @@
 
 #include <stdio.h>
 
-void linked_list_print(struct LinkedList *linked_list)
+void singly_linked_list_print(struct SinglyLinkedList *linked_list)
 {
     if(!linked_list->size) return;
 
-    struct LinkedListNode *node = linked_list->head;
+    struct SinglyLinkedListNode *node = linked_list->head;
 
     printf("Linked List: ");
     do {

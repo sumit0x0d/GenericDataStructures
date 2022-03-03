@@ -27,7 +27,7 @@ struct SinglyLinkedList {
     void (*circular)(struct SinglyLinkedList *linked_list);
 };
 
-struct SinglyLinkedList linked_list_construct();
-void linked_list_distroy(struct SinglyLinkedList *linked_list);
+struct SinglyLinkedList singly_linked_list_construct();
+void singly_linked_list_distroy(struct SinglyLinkedList *linked_list);
 
 #endif

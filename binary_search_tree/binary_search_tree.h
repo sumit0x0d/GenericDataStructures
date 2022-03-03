@@ -14,12 +14,12 @@ struct BinarySearchTreeNode {
 struct BinarySearchTree {
     struct BinarySearchTreeNode *root;
     size_t size;
-    struct BinarySearchTreeNode *(*search)(struct BinarySearchTree *binary_search_tree, void *data, size_t data_type_size);
+    struct BinarySearchTreeNode *(*search)(struct BinarySearchTree *binary_tree, void *data, size_t data_type_size);
     void (*insert)(struct BinarySearchTree *binary_tree, void *data, size_t data_type_size);
     void (*remove)(struct BinarySearchTree *binary_tree, void *data, size_t data_type_size);
 };
 
 struct BinarySearchTree binary_search_tree_construct();
-void binary_search_tree_distruct(struct BinarySearchTree *binary_search_tree);
+void binary_search_tree_distruct(struct BinarySearchTree *binary_tree);
 
 #endif

@@ -5,7 +5,7 @@
 
 #include <stdio.h>
 
-void binary_search_tree_print(struct BinarySearchTree *binary_search_tree);
+void binary_search_tree_print(struct BinarySearchTree *binary_tree);
 
 struct LinkedListNode {
     struct BinarySearchTreeNode *data;
@@ -100,7 +100,7 @@ void pop(struct Stack *stack)
     free(node);
     node = NULL;
 
-    stack->size--;
+    --stack->size;
 }
 
 struct Stack stack_construct()
@@ -116,9 +116,9 @@ struct Stack stack_construct()
     return stack;
 }
 
-void preorder_traverse(struct BinarySearchTree *binary_search_tree)
+void preorder_traverse(struct BinarySearchTree *binary_tree)
 {
-    struct BinarySearchTreeNode *node = binary_search_tree->root;
+    struct BinarySearchTreeNode *node = binary_tree->root;
     struct Stack stack = stack_construct();
 
     while(node || stack.size)
@@ -134,9 +134,9 @@ void preorder_traverse(struct BinarySearchTree *binary_search_tree)
         }
 }
 
-void inorder_traverse(struct BinarySearchTree *binary_search_tree)
+void inorder_traverse(struct BinarySearchTree *binary_tree)
 {
-    struct BinarySearchTreeNode *node = binary_search_tree->root;
+    struct BinarySearchTreeNode *node = binary_tree->root;
     struct Stack stack = stack_construct();
 
     while(node || stack.size)
@@ -152,9 +152,9 @@ void inorder_traverse(struct BinarySearchTree *binary_search_tree)
         }
 }
 
-void postorder_traverse(struct BinarySearchTree *binary_search_tree)
+void postorder_traverse(struct BinarySearchTree *binary_tree)
 {
-    struct BinarySearchTreeNode *node = binary_search_tree->root;
+    struct BinarySearchTreeNode *node = binary_tree->root;
     struct Stack stack = stack_construct();
     
     while(node || stack.size)
@@ -170,13 +170,13 @@ void postorder_traverse(struct BinarySearchTree *binary_search_tree)
         }
 }
 
-void levelorder_traverse(struct BinarySearchTree *binary_search_tree)
+void levelorder_traverse(struct BinarySearchTree *binary_tree)
 {
-    struct BinarySearchTreeNode *node = binary_search_tree->root;
+    struct BinarySearchTreeNode *node = binary_tree->root;
     struct Queue queue = queue_construct();
 
-    printf("%d ", *(int *)binary_search_tree->root->data);
-    queue.enqueue(&queue, binary_search_tree->root);
+    printf("%d ", *(int *)binary_tree->root->data);
+    queue.enqueue(&queue, binary_tree->root);
 
     while(queue.size) {
         node = queue.front->data;
@@ -192,23 +192,23 @@ void levelorder_traverse(struct BinarySearchTree *binary_search_tree)
     }
 }
 
-void binary_search_tree_print(struct BinarySearchTree *binary_search_tree)
+void binary_search_tree_print(struct BinarySearchTree *binary_tree)
 {
-    if(!binary_search_tree->size) return;
+    if(!binary_tree->size) return;
 
     printf("Pre-order Traverse: ");
-    preorder_traverse(binary_search_tree);
+    preorder_traverse(binary_tree);
     
     printf("\nIn-order Traverse: ");
-    inorder_traverse(binary_search_tree);
+    inorder_traverse(binary_tree);
     
     printf("\nPost-order Traverse: ");
-    postorder_traverse(binary_search_tree);
+    postorder_traverse(binary_tree);
     
     printf("\nLevel-order Traverse: ");
-    levelorder_traverse(binary_search_tree);
+    levelorder_traverse(binary_tree);
     
-    printf("\nBinary Search Tree Size: %zu\n", binary_search_tree->size);
+    printf("\nBinary Search Tree Size: %zu\n", binary_tree->size);
 }
 
 #endif

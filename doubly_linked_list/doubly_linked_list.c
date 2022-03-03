@@ -1,13 +1,12 @@
 #include "doubly_linked_list.h"
 
-struct DoublyLinkedList *construct()
+struct DoublyLinkedList doubly_linked_list_construct()
 {
-    struct DoublyLinkedList *linked_list = malloc(sizeof(struct DoublyLinkedList));
-    if(!linked_list) return;
+    struct DoublyLinkedList linked_list;
 
-    linked_list->head = NULL;
-    linked_list->tail = NULL;
-    linked_list->size = 0;
+    linked_list.head = NULL;
+    linked_list.tail = NULL;
+    linked_list.size = 0;
 
     return linked_list;
 }
@@ -22,6 +21,7 @@ struct DoublyLinkedListNode *search(struct DoublyLinkedList *linked_list, int da
             return node;
         node = node->next;
     }
+    
     return NULL;
 }
 

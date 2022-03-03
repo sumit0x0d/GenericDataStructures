@@ -27,7 +27,7 @@ struct DoublyLinkedList {
     void (*circular)(struct DoublyLinkedList *linked_list);
 };
 
-struct DoublyLinkedList *linked_list_construct();
-void linked_list_distroy(struct DoublyLinkedList *linked_list);
+struct DoublyLinkedList doubly_linked_list_construct();
+void doubly_linked_list_distroy(struct DoublyLinkedList *linked_list);
 
 #endif

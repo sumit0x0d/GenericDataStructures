@@ -11,7 +11,7 @@ void erase(struct SinglyLinkedList *linked_list, size_t index);
 void linear(struct SinglyLinkedList *linked_list);
 void circular(struct SinglyLinkedList *linked_list);
 
-struct SinglyLinkedList construct()
+struct SinglyLinkedList singly_linked_list_construct()
 {
     struct SinglyLinkedList linked_list;
 
