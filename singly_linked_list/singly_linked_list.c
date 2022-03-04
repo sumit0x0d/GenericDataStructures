@@ -17,6 +17,7 @@ struct SinglyLinkedList singly_linked_list_construct()
 
     linked_list.head = NULL;
     linked_list.tail = NULL;
+
     linked_list.size = 0;
 
     linked_list.push_front = push_front;

@@ -1,5 +1,5 @@
-#ifndef DEQUE_ARRAY_PRINT_H
-#define DEQUE_ARRAY_PRINT_H
+#ifndef DEQUE_PRINT_H
+#define DEQUE_PRINT_H
 
 #include "deque-array.h"
 

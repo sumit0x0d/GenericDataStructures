@@ -1,5 +1,5 @@
-#ifndef DEQUE_ARRAY_H
-#define DEQUE_ARRAY_H
+#ifndef DEQUE_H
+#define DEQUE_H
 
 
 #include <stdio.h>

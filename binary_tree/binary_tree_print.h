@@ -13,14 +13,12 @@ struct LinkedListNode {
 struct Queue {
     struct LinkedListNode *front;
     struct LinkedListNode *back;
-    size_t size;
     void (*enqueue)(struct Queue *queue, struct BinaryTreeNode *data);
     void (*dequeue)(struct Queue *queue);
 };
 
 struct Stack {
     struct LinkedListNode *top;
-    size_t size;
     void (*push)(struct Stack *stack, struct BinaryTreeNode *data);
     void (*pop)(struct Stack *stack);
 };
@@ -33,18 +31,16 @@ void enqueue(struct Queue *queue, struct BinaryTreeNode *data)
     node->data = data;
     
     node->next = NULL;
-    if(!queue->size)
+    if(!queue->front)
         queue->front = node;
     else
         queue->back->next = node;
     queue->back = node;
-    
-    ++queue->size;
 }
 
 void dequeue(struct Queue *queue)
 {
-    if(!queue->size) return;
+    if(!queue->front) return;
     
     struct LinkedListNode *node = queue->front;
     
@@ -55,8 +51,6 @@ void dequeue(struct Queue *queue)
     memset(node, 0, sizeof(struct LinkedListNode));
     free(node);
     node = NULL;
-    
-    --queue->size;
 }
 
 struct Queue queue_construct()
@@ -65,10 +59,10 @@ struct Queue queue_construct()
 
     queue.front = NULL;
     queue.back = NULL;
-    queue.size = 0;
 
     queue.enqueue = enqueue;
     queue.dequeue = dequeue;
+    
     return queue;
 }
 
@@ -81,13 +75,11 @@ void push(struct Stack *stack, struct BinaryTreeNode *data)
     
     node->next = stack->top;
     stack->top = node;
-    
-    ++stack->size;
 }
 
 void pop(struct Stack *stack)
 {
-    if(!stack->size) return;
+    if(!stack->top) return;
     
     struct LinkedListNode *node = stack->top;
     
@@ -96,8 +88,6 @@ void pop(struct Stack *stack)
     memset(node, 0, sizeof(struct LinkedListNode));
     free(node);
     node = NULL;
-    
-    stack->size;
 }
 
 struct Stack stack_construct()
@@ -105,7 +95,6 @@ struct Stack stack_construct()
     struct Stack stack;
 
     stack.top = NULL;
-    stack.size = 0;
     
     stack.push = push;
     stack.pop = pop;
@@ -113,12 +102,12 @@ struct Stack stack_construct()
     return stack;
 }
 
-void preorder_traverse(struct BinaryTree *binary_tree)
+void preorder_traverse(struct BinaryTree *tree)
 {
-    struct BinaryTreeNode *node = binary_tree->root;
+    struct BinaryTreeNode *node = tree->root;
     struct Stack stack = stack_construct();
 
-    while(node || stack.size)
+    while(node || stack.top)
         if(node) {
             printf("%d ", *(int *)node->data);
             stack.push(&stack, node);
@@ -131,12 +120,12 @@ void preorder_traverse(struct BinaryTree *binary_tree)
         }
 }
 
-void inorder_traverse(struct BinaryTree *binary_tree)
+void inorder_traverse(struct BinaryTree *tree)
 {
-    struct BinaryTreeNode *node = binary_tree->root;
+    struct BinaryTreeNode *node = tree->root;
     struct Stack stack = stack_construct();
 
-    while(node || stack.size)
+    while(node || stack.top)
         if(node) {
             stack.push(&stack, node);
             node = node->left;
@@ -149,12 +138,12 @@ void inorder_traverse(struct BinaryTree *binary_tree)
         }
 }
 
-void postorder_traverse(struct BinaryTree *binary_tree)
+void postorder_traverse(struct BinaryTree *tree)
 {
-    struct BinaryTreeNode *node = binary_tree->root;
+    struct BinaryTreeNode *node = tree->root;
     struct Stack stack = stack_construct();
     
-    while(node || stack.size)
+    while(node || stack.top)
         if(node) {
             stack.push(&stack, node);
             node = node->left;
@@ -167,15 +156,15 @@ void postorder_traverse(struct BinaryTree *binary_tree)
         }
 }
 
-void levelorder_traverse(struct BinaryTree *binary_tree)
+void levelorder_traverse(struct BinaryTree *tree)
 {
-    struct BinaryTreeNode *node = binary_tree->root;
+    struct BinaryTreeNode *node = tree->root;
     struct Queue queue = queue_construct();
 
-    printf("%d ", *(int *)binary_tree->root->data);
-    queue.enqueue(&queue, binary_tree->root);
+    printf("%d ", *(int *)tree->root->data);
+    queue.enqueue(&queue, tree->root);
 
-    while(queue.size) {
+    while(queue.front) {
         node = queue.front->data;
         queue.dequeue(&queue);
         if(node->left) {
@@ -189,24 +178,24 @@ void levelorder_traverse(struct BinaryTree *binary_tree)
     }
 }
 
-void binary_tree_print(struct BinaryTree *binary_tree)
+void binary_tree_print(struct BinaryTree *tree)
 {
-    if(!binary_tree->size) return;
+    if(!tree->size) return;
 
     printf("Pre-order Traverse: ");
-    preorder_traverse(binary_tree);
+    preorder_traverse(tree);
     
     printf("\nIn-order Traverse: ");
-    inorder_traverse(binary_tree);
+    inorder_traverse(tree);
     
     printf("\nPost-order Traverse: ");
-    postorder_traverse(binary_tree);
+    postorder_traverse(tree);
     
     // printf("\nLevel-order Traverse: ");
-    // levelorder_traverse(binary_tree);
+    // levelorder_traverse(tree);
     
     printf("\n");
-    printf("\b\nBinary Tree Size: %zu\n", binary_tree->size);
+    printf("\b\nBinary Tree Size: %zu\n", tree->size);
 }
 
 #endif

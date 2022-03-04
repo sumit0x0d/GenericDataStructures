@@ -1,4 +1,7 @@
-#ifndef MERKLE_TREE_PRINT
-#define MERKLE_TREE_PRINT
+#ifndef MERKLE_TREE
+#define MERKLE_TREE
+
+#include "merkle_tree.h"
+
 
 #endif

@@ -1,8 +1,8 @@
 #include "red-black_tree.h"
 
-struct BinaryTreeNode *binary_search_tree_search(struct BinaryTree *binary_tree, int data)
+struct BinaryTreeNode *binary_search_tree_search(struct BinaryTree *tree, int data)
 {
-    struct BinaryTreeNode *node = binary_tree->root;
+    struct BinaryTreeNode *node = tree->root;
     while(node)
         if(data == node->data)
             return node;
@@ -13,15 +13,15 @@ struct BinaryTreeNode *binary_search_tree_search(struct BinaryTree *binary_tree,
     return NULL;
 }
 
-void red_black_tree_insert(struct BinaryTree *binary_tree, int data)
+void red_black_tree_insert(struct BinaryTree *tree, int data)
 {
-    if(!binary_tree->size) {
-        binary_tree->root = binary_tree_insert(binary_tree, data);
-        binary_tree->root->color = BLACK;
-        binary_tree->root->parent = NULL;
+    if(!tree->size) {
+        tree->root = binary_tree_insert(binary_tree, data);
+        tree->root->color = BLACK;
+        tree->root->parent = NULL;
         return;
     }
-    struct BinaryTreeNode *node = binary_tree->root;
+    struct BinaryTreeNode *node = tree->root;
     struct BinaryTreeNode *node_parent = NULL;
     while(node) {
         if(data == node->data)
@@ -41,7 +41,7 @@ void red_black_tree_insert(struct BinaryTree *binary_tree, int data)
         node_parent->right = node;
 }
 
-void red_black_tree_remove(struct BinaryTree *binary_tree, int data)
+void red_black_tree_remove(struct BinaryTree *tree, int data)
 {
 
 }

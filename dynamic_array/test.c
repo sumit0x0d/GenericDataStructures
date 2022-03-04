@@ -6,7 +6,7 @@ int main()
 {
     srand(time(0));
     int random;
-    struct DynamicArray *dynamic_array = dynamic_array_construct(10, PHI);
+    struct DynamicArray *dynamic_array = dynamic_array_construct(10, 1.6);
     dynamic_array_push_back(dynamic_array, 10);
     for(size_t i = 0; i < 10; i++) {
         random = rand() % 1000;

@@ -14,11 +14,11 @@ struct RedBlackTreeNode {
 };
 
 struct RedBlackTree {
-    struct RedBlackTree *root;
+    struct RedBlackTreeNode *root;
     size_t size;
-    struct RedBlackTreeNode *(*search)(struct RedBlackTree *binary_search_tree, void *data, size_t data_type_size);
-    void (*insert)(struct RedBlackTree *avl_tree, void *data, size_t data_type_size);
-    void (*remove)(struct RedBlackTree *avl_tree, void *data, size_t data_type_size);
+    struct RedBlackTreeNode *(*search)(struct RedBlackTree *tree, void *data, size_t data_type_size);
+    void (*insert)(struct RedBlackTree *tree, void *data, size_t data_type_size);
+    void (*remove)(struct RedBlackTree *tree, void *data, size_t data_type_size);
 };
 
 struct RedBlackTree red_black_tree_construct();

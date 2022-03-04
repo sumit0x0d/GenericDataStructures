@@ -14,10 +14,10 @@ struct BinaryTreeNode {
 struct BinaryTree {
     struct BinaryTreeNode *root;
     size_t size;
-    struct BinaryTreeNode *(*insert)(struct BinaryTree *binary_tree, void *data, size_t data_type_size);
+    struct BinaryTreeNode *(*insert)(struct BinaryTree *tree, void *data, size_t data_type_size);
 };
 
 struct BinaryTree binary_tree_construct();
-void binary_tree_distruct(struct BinaryTree *binary_tree);
+void binary_tree_distruct(struct BinaryTree *tree);
 
 #endif

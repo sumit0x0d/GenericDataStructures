@@ -1,7 +1,5 @@
 #include "queue-linked_list.h"
 
-#include <string.h>
-
 void enqueue(struct Queue *queue, void *data, size_t data_type_size);
 void dequeue(struct Queue *queue);
 

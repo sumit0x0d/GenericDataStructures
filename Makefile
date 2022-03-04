@@ -10,7 +10,7 @@ binary_search_tree:
 	$(CC) $(CFLAGS) ./binary_search_tree/binary_search_tree.c ./binary_search_tree/test.c -o $(TARGET)
 
 binary_tree:
-	$(CC) $(CFLAGS) ./binary_tree/black_tree.c ./binary_tree/test.c -o $(TARGET)
+	$(CC) $(CFLAGS) ./binary_tree/binary_tree.c ./binary_tree/test.c -o $(TARGET)
 
 deque-array:
 	$(CC) $(CFLAGS) ./deque-array/deque-array.c ./deque-array/test.c -o $(TARGET)

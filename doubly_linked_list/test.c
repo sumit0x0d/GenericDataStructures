@@ -3,9 +3,9 @@
 
 int main()
 {
-    struct DoublyLinkedList *linked_list = doubly_linked_list_construct();
+    struct DoublyLinkedList linked_list = doubly_linked_list_construct();
     for(size_t i = 0; i < 10; i++) {
-        doubly_linked_list_push_front(linked_list, &i);
+        linked_list.push_front(&linked_list, &i, sizeof i);
     }
     doubly_linked_list_print(linked_list);
 }

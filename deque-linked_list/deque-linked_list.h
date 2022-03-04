@@ -1,5 +1,5 @@
-#ifndef DEQUE_LINKED_LIST_H
-#define DEQUE_LINKED_LIST_H
+#ifndef DEQUE_H
+#define DEQUE_H
 
 #include <stdlib.h>
 #include <string.h>

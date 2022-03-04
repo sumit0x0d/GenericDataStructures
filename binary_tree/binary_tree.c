@@ -1,6 +1,6 @@
 #include "binary_tree.h"
 
-struct BinaryTreeNode *insert(struct BinaryTree *binary_tree, void *data, size_t data_type_size);
+struct BinaryTreeNode *insert(struct BinaryTree *tree, void *data, size_t data_type_size);
 
 struct BinaryTree binary_tree_construct()
 {
@@ -35,11 +35,11 @@ struct BinaryTreeNode *node_construct(void *data, size_t data_type_size)
     return node;
 }
 
-struct BinaryTreeNode *insert(struct BinaryTree *binary_tree, void *data, size_t data_type_size)
+struct BinaryTreeNode *insert(struct BinaryTree *tree, void *data, size_t data_type_size)
 {
     struct BinaryTreeNode *node = node_construct(data, data_type_size);
 
-    ++binary_tree->size;
+    ++tree->size;
 
     return node;
 }
@@ -66,7 +66,7 @@ struct BinaryTreeNode *insert(struct BinaryTree *binary_tree, void *data, size_t
 //     return height;
 // }
 
-struct BinaryTreeNode *binary_tree_node_inorder_predecessor(struct BinaryTreeNode *node)
+struct BinaryTreeNode *tree_node_inorder_predecessor(struct BinaryTreeNode *node)
 {
     if(node->left) {
         node = node->left;
@@ -76,7 +76,7 @@ struct BinaryTreeNode *binary_tree_node_inorder_predecessor(struct BinaryTreeNod
     return node;
 }
 
-struct BinaryTreeNode *binary_tree_node_inorder_successor(struct BinaryTreeNode *node)
+struct BinaryTreeNode *tree_node_inorder_successor(struct BinaryTreeNode *node)
 {    
     if(node->right) {
         node = node->right;
@@ -86,7 +86,7 @@ struct BinaryTreeNode *binary_tree_node_inorder_successor(struct BinaryTreeNode 
     return node;
 }
 
-// struct BinaryTree *binary_tree_from_preorder(int preorder[], size_t preorder_size, int inorder[], size_t inorder_size)
+// struct BinaryTree *tree_from_preorder(int preorder[], size_t preorder_size, int inorder[], size_t inorder_size)
 // {
 //     if(preorder_size != inorder_size)
 //         return NULL;
@@ -101,7 +101,7 @@ struct BinaryTreeNode *binary_tree_node_inorder_successor(struct BinaryTreeNode 
 //     return root;
 // }
 
-// struct BinaryTree *binary_tree_from_postorder(int *postorder, size_t postorder_size, int *inorder, size_t inorder_size)
+// struct BinaryTree *tree_from_postorder(int *postorder, size_t postorder_size, int *inorder, size_t inorder_size)
 // {
 //     if(postorder_size != inorder_size)
 //         return NULL;

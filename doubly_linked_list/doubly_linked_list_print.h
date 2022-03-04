@@ -5,11 +5,11 @@
 
 #include <stdio.h>
 
-void linked_list_print(struct LinkedList *linked_list)
+void doubly_linked_list_print(struct DoublyLinkedList *linked_list)
 {
     if(!linked_list->size) return;
 
-    struct LinkedListNode *node = linked_list->head;
+    struct DoublyLinkedListNode *node = linked_list->head;
     printf("Doubly Linked List: ");
     do {
         printf("%d ", node->data);

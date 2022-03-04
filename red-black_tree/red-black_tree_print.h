@@ -1,31 +1,29 @@
-#ifndef TRAVERSAL
-#define TRAVERSAL
+#ifndef RED_BLACK_TREE_PRINT
+#define RED_BLACK_TREE_PRINT
 
-#include "binary_tree.h"
+#include "red-black_tree.h"
 
 #include <stdio.h>
 
 struct LinkedListNode {
-    struct BinaryTreeNode *data;
+    struct RedBlackTreeNode *data;
     struct LinkedListNode *next;
 };
 
 struct Queue {
     struct LinkedListNode *front;
     struct LinkedListNode *back;
-    size_t size;
-    void (*enqueue)(struct Queue *queue, struct BinaryTreeNode *data);
+    void (*enqueue)(struct Queue *queue, struct RedBlackTreeNode *data);
     void (*dequeue)(struct Queue *queue);
 };
 
 struct Stack {
     struct LinkedListNode *top;
-    size_t size;
-    void (*push)(struct Stack *stack, struct BinaryTreeNode *data);
+    void (*push)(struct Stack *stack, struct RedBlackTreeNode *data);
     void (*pop)(struct Stack *stack);
 };
 
-void enqueue(struct Queue *queue, struct BinaryTreeNode *data)
+void enqueue(struct Queue *queue, struct RedBlackTreeNode *data)
 {
     struct LinkedListNode *node = malloc(sizeof(struct LinkedListNode));
     if(!node) return;
@@ -33,18 +31,16 @@ void enqueue(struct Queue *queue, struct BinaryTreeNode *data)
     node->data = data;
     
     node->next = NULL;
-    if(!queue->size)
+    if(!queue->front)
         queue->front = node;
     else
         queue->back->next = node;
     queue->back = node;
-    
-    ++queue->size;
 }
 
 void dequeue(struct Queue *queue)
 {
-    if(!queue->size) return;
+    if(!queue->front) return;
     
     struct LinkedListNode *node = queue->front;
     
@@ -55,8 +51,6 @@ void dequeue(struct Queue *queue)
     memset(node, 0, sizeof(struct LinkedListNode));
     free(node);
     node = NULL;
-    
-    --queue->size;
 }
 
 struct Queue queue_construct()
@@ -65,14 +59,14 @@ struct Queue queue_construct()
 
     queue.front = NULL;
     queue.back = NULL;
-    queue.size = 0;
 
     queue.enqueue = enqueue;
     queue.dequeue = dequeue;
+    
     return queue;
 }
 
-void push(struct Stack *stack, struct BinaryTreeNode *data)
+void push(struct Stack *stack, struct RedBlackTreeNode *data)
 {
     struct LinkedListNode *node = malloc(sizeof(struct LinkedListNode));
     if(!node) return;
@@ -81,13 +75,11 @@ void push(struct Stack *stack, struct BinaryTreeNode *data)
     
     node->next = stack->top;
     stack->top = node;
-    
-    ++stack->size;
 }
 
 void pop(struct Stack *stack)
 {
-    if(!stack->size) return;
+    if(!stack->top) return;
     
     struct LinkedListNode *node = stack->top;
     
@@ -96,26 +88,26 @@ void pop(struct Stack *stack)
     memset(node, 0, sizeof(struct LinkedListNode));
     free(node);
     node = NULL;
-    
-    stack->size;
 }
 
 struct Stack stack_construct()
 {
     struct Stack stack;
+
     stack.top = NULL;
-    stack.size = 0;
+    
     stack.push = push;
     stack.pop = pop;
+    
     return stack;
 }
 
-void preorder_traverse(struct BinaryTree *binary_tree)
+void preorder_traverse(struct RedBlackTree *tree)
 {
-    struct BinaryTreeNode *node = binary_tree->root;
+    struct RedBlackTreeNode *node = tree->root;
     struct Stack stack = stack_construct();
 
-    while(node || stack.size)
+    while(node || stack.top)
         if(node) {
             printf("%d ", *(int *)node->data);
             stack.push(&stack, node);
@@ -128,12 +120,12 @@ void preorder_traverse(struct BinaryTree *binary_tree)
         }
 }
 
-void inorder_traverse(struct BinaryTree *binary_tree)
+void inorder_traverse(struct RedBlackTree *tree)
 {
-    struct BinaryTreeNode *node = binary_tree->root;
+    struct RedBlackTreeNode *node = tree->root;
     struct Stack stack = stack_construct();
 
-    while(node || stack.size)
+    while(node || stack.top)
         if(node) {
             stack.push(&stack, node);
             node = node->left;
@@ -146,12 +138,12 @@ void inorder_traverse(struct BinaryTree *binary_tree)
         }
 }
 
-void postorder_traverse(struct BinaryTree *binary_tree)
+void postorder_traverse(struct RedBlackTree *tree)
 {
-    struct BinaryTreeNode *node = binary_tree->root;
+    struct RedBlackTreeNode *node = tree->root;
     struct Stack stack = stack_construct();
     
-    while(node || stack.size)
+    while(node || stack.top)
         if(node) {
             stack.push(&stack, node);
             node = node->left;
@@ -164,15 +156,15 @@ void postorder_traverse(struct BinaryTree *binary_tree)
         }
 }
 
-void levelorder_traverse(struct BinaryTree *binary_tree)
+void levelorder_traverse(struct RedBlackTree *tree)
 {
-    struct BinaryTreeNode *node = binary_tree->root;
+    struct RedBlackTreeNode *node = tree->root;
     struct Queue queue = queue_construct();
 
-    printf("%d ", *(int *)binary_tree->root->data);
-    queue.enqueue(&queue, binary_tree->root);
+    printf("%d ", *(int *)tree->root->data);
+    queue.enqueue(&queue, tree->root);
 
-    while(queue.size) {
+    while(queue.front) {
         node = queue.front->data;
         queue.dequeue(&queue);
         if(node->left) {
@@ -186,24 +178,24 @@ void levelorder_traverse(struct BinaryTree *binary_tree)
     }
 }
 
-void binary_tree_print(struct BinaryTree *binary_tree)
+void red_black_tree_print(struct RedBlackTree *tree)
 {
-    if(!binary_tree->size) return;
+    if(!tree->size) return;
 
     printf("Pre-order Traverse: ");
-    preorder_traverse(binary_tree);
+    preorder_traverse(tree);
     
     printf("\nIn-order Traverse: ");
-    inorder_traverse(binary_tree);
+    inorder_traverse(tree);
     
     printf("\nPost-order Traverse: ");
-    postorder_traverse(binary_tree);
+    postorder_traverse(tree);
     
     // printf("\nLevel-order Traverse: ");
-    // levelorder_traverse(binary_tree);
+    // levelorder_traverse(tree);
     
     printf("\n");
-    printf("\b\nBinary Tree Size: %zu\n", binary_tree->size);
+    printf("\b\nRed Black Tree Size: %zu\n", tree->size);
 }
 
 #endif

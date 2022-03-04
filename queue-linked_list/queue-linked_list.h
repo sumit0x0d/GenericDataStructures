@@ -1,9 +1,10 @@
-#ifndef QUEUE_LINKED_LIST_H
-#define QUEUE_LINKED_LIST_H
-
+#ifndef QUEUE_H
+#define QUEUE_H
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 
 struct LinkedListNode {
     void *data;

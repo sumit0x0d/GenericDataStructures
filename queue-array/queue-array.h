@@ -1,5 +1,5 @@
-#ifndef QUEUE_ARRAY_H
-#define QUEUE_ARRAY_H
+#ifndef QUEUE_H
+#define QUEUE_H
 
 
 #include <stdio.h>

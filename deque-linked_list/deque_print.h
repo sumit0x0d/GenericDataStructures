@@ -1,5 +1,5 @@
-#ifndef DEQUE_LINKED_LIST_PRINT_H
-#define DEQUE_LINKED_LIST_PRINT_H
+#ifndef DEQUE_PRINT_H
+#define DEQUE_PRINT_H
 
 #include "deque-linked_list.h"
 

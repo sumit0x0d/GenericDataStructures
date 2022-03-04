@@ -1,12 +1,12 @@
 #include "avl_tree.h"
 
-struct AVLTreeNode *search(struct AVLTree *binary_tree, void *data, size_t data_type_size);
-void insert(struct AVLTree *binary_tree, void *data, size_t data_type_size);
-void remove(struct AVLTree *binary_tree, void *data, size_t data_type_size);
+struct AVLTreeNode *search(struct AVLTree *tree, void *data, size_t data_type_size);
+void insert(struct AVLTree *tree, void *data, size_t data_type_size);
+void remove(struct AVLTree *tree, void *data, size_t data_type_size);
 
-struct AVLTreeNode *search(struct AVLTree *binary_tree, void *data, size_t data_type_size)
+struct AVLTreeNode *search(struct AVLTree *tree, void *data, size_t data_type_size)
 {
-    struct AVLTreeNode *node = binary_tree->root;
+    struct AVLTreeNode *node = tree->root;
     while(node) {
         int compare = memcmp(data, node->data, data_type_size);
         if(compare == 0)
@@ -134,15 +134,15 @@ struct AVLTreeNode *node_construct(void *data, size_t data_type_size)
     return node;
 }
 
-void insert(struct AVLTree *binary_tree, void *data, size_t data_type_size)
+void insert(struct AVLTree *tree, void *data, size_t data_type_size)
 {
-    if(!binary_tree->size) {
-        binary_tree->root = node_construct(data, data_type_size);
-        ++binary_tree->size;
+    if(!tree->size) {
+        tree->root = node_construct(data, data_type_size);
+        ++tree->size;
         return;
     }
     
-    struct AVLTreeNode *node = binary_tree->root;
+    struct AVLTreeNode *node = tree->root;
     struct AVLTreeNode *node_parent = NULL;
     
     while(node) {
@@ -156,7 +156,7 @@ void insert(struct AVLTree *binary_tree, void *data, size_t data_type_size)
     }
 
     node = node_construct(data, data_type_size);
-    ++binary_tree->size;
+    ++tree->size;
 
     if(node->data < node_parent->data)
         node_parent->left = node;
@@ -168,12 +168,12 @@ void insert(struct AVLTree *binary_tree, void *data, size_t data_type_size)
         if(node_parent->balance_factor == 2 || node_parent->balance_factor == -2)
             node_rebalance(node_parent);
         if(!node_parent->parent)
-            binary_tree->root = node_parent;
+            tree->root = node_parent;
         node_parent = node_parent->parent;
     }
 }
 
-void remove(struct AVLTree *binary_tree, void *data, size_t data_type_size)
+void remove(struct AVLTree *tree, void *data, size_t data_type_size)
 {
     
 }
