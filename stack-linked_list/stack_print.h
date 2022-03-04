@@ -5,6 +5,26 @@
 
 #include <stdio.h>
 
+void node_print(struct LinkedListNode *node)
+{
+    switch(node->data_type_size) {
+    case sizeof (char):
+        printf("%c ", *(char *)node->data);
+        break;
+    case sizeof (int):
+        if((int)*(float *)node->data == 0.0)
+            printf("%d ", *(int *)node->data);
+        else
+            printf("%f ", *(float *)node->data);
+        break;
+    case sizeof (long):
+        printf("%ld ", *(long *)node->data);
+        break;
+    default:
+        break;
+    }
+}
+
 void stack_print(struct Stack *stack)
 {
     if(!stack->size) return;
@@ -13,7 +33,7 @@ void stack_print(struct Stack *stack)
 
     printf("Stack: ");
     do {
-        printf("%d ", *(int *)node->data);
+        node_print(node);
         node = node->next;
     } while(node);
 

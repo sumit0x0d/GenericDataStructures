@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 struct LinkedListNode {
     void *data;
     size_t data_type_size;

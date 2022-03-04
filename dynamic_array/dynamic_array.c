@@ -18,7 +18,7 @@ struct DynamicArray *dynamic_array_construct(size_t capacity, double growth_fact
 {
     struct DynamicArray *dynamic_array = malloc(sizeof(struct DynamicArray));
     
-    dynamic_array->array = malloc(sizeof(int) * capacity);
+    dynamic_array->array = malloc(sizeof (int) * capacity);
     dynamic_array->size = 0;
     dynamic_array->capacity = capacity;
     dynamic_array->growth_factor = growth_factor;

@@ -5,13 +5,13 @@
 
 #include <stdio.h>
 
-void trie_print(struct Trie *trie)
+void trie_print(struct Trie *tree)
 {
-    if(!trie->size) return;
-    struct TrieNode *node = trie->root;
+    if(!tree->size) return;
+    struct TrieNode *node = tree->root;
     
     do {
-        printf("%c", node->character);
+        printf("%c ", node->character);
     } while(node);
 }
 

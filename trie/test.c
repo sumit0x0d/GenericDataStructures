@@ -1,7 +1,10 @@
 #include "trie.h"
+#include "trie_print.h"
 
 int main()
 {
-    struct Trie trie = trie_construct();
-    trie.insert(&trie, "Sumit");
+    struct Trie tree = trie_construct();
+    char *s = "a";
+    tree.insert(&tree, s);
+    // trie_print(&tree);
 }

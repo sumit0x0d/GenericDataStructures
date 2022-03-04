@@ -11,10 +11,10 @@ int main()
     stack.push(&stack, &c, sizeof c);
     char a = 'a';
     stack.push(&stack, &a, sizeof a);
-    int i = 10;
+    int i = 0;
     stack.push(&stack, &i, sizeof i);
-    // char b = 'c';
-    // stack.push(&stack, &b, sizeof c);
+    float b = 1.26;
+    stack.push(&stack, &b, sizeof b);
     // char d = 'c';
     // stack.push(&stack, &c, sizeof c);
     // char e = 'd';
