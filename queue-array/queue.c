@@ -4,7 +4,7 @@ struct Queue *queue_construct(size_t data_type_size, size_t capacity)
 {
     assert(capacity);
 
-    struct Queue *queue = malloc(sizeof(struct Queue));
+    struct Queue *queue = malloc(sizeof (struct Queue));
     if(!queue) return NULL;
 
     queue->array = malloc(data_type_size * capacity);

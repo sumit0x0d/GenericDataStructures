@@ -16,7 +16,7 @@ struct BinaryTree binary_tree_construct()
 
 struct BinaryTreeNode *node_construct(void *data, size_t data_type_size)
 {
-    struct BinaryTreeNode *node = malloc(sizeof(struct BinaryTreeNode));
+    struct BinaryTreeNode *node = malloc(sizeof (struct BinaryTreeNode));
     if(!node) return NULL;
 
     node->data = malloc(data_type_size);

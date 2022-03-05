@@ -32,7 +32,7 @@ void linked_list_print(struct LinkedList *linked_list)
 
 struct LinkedList *linked_list_construct()
 {
-    struct LinkedList *linked_list = malloc(sizeof(struct LinkedList));
+    struct LinkedList *linked_list = malloc(sizeof (struct LinkedList));
     assert(linked_list);
     linked_list->head = NULL;
     linked_list->tail = NULL;
@@ -44,7 +44,7 @@ struct LinkedListNode *linked_list_search(struct LinkedList *linked_list, int da
 {
     if(!linked_list->size)
         return NULL;
-    struct LinkedListNode *node = malloc(sizeof(struct LinkedListNode));
+    struct LinkedListNode *node = malloc(sizeof (struct LinkedListNode));
     while(node) {
         if(data == node->data)
             return node;
@@ -55,7 +55,7 @@ struct LinkedListNode *linked_list_search(struct LinkedList *linked_list, int da
 
 void linked_list_push_front(struct LinkedList *linked_list, int data)
 {
-    struct LinkedListNode *node = malloc(sizeof(struct LinkedListNode));
+    struct LinkedListNode *node = malloc(sizeof (struct LinkedListNode));
     
     node->data = data;
     
@@ -72,7 +72,7 @@ void linked_list_push_front(struct LinkedList *linked_list, int data)
 
 void linked_list_push_back(struct LinkedList *linked_list, int data)
 {    
-    struct LinkedListNode *node = malloc(sizeof(struct LinkedListNode));
+    struct LinkedListNode *node = malloc(sizeof (struct LinkedListNode));
     assert(node);
     node->data = data;
     node->next = NULL;
@@ -98,7 +98,7 @@ void linked_list_sorted_insert(struct LinkedList *linked_list, int data)
         return;
     }
     struct LinkedListNode *node = linked_list->head;
-    struct LinkedListNode *node_new = malloc(sizeof(struct LinkedListNode));
+    struct LinkedListNode *node_new = malloc(sizeof (struct LinkedListNode));
     assert(node_new);
     node_new->data = data;
     while(node && data > node->next->data)

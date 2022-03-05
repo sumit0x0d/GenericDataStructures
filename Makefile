@@ -27,6 +27,15 @@ dynamic_array.c:
 hash_table:
 	$(CC) $(CFLAGS) ./hash_table/test.c -o $(TARGET)
 
+queue-array:
+	$(CC) $(CFLAGS) ./queue-array/queue.c ./queue-array/print.c ./queue-array/test.c -o $(TARGET)
+
+queue-linked_list:
+	$(CC) $(CFLAGS) ./queue-linked_list/queue.c ./queue-linked_list/print.c ./queue-linked_list/test.c -o $(TARGET)
+
+red-black_tree:
+	$(CC) $(CFLAGS) ./binary_tree/red-black_tree.c ./binary_tree/print.c ./red-black_tree/test.c -o $(TARGET)
+
 singly_linked_list:
 	$(CC) $(CFLAGS) ./singly_linked_list/singly_linked_list.c ./singly_linked_list/print.c ./singly_linked_list/test.c -o $(TARGET)
 
@@ -35,15 +44,6 @@ stack-array:
 
 stack-linked_list:
 	$(CC) $(CFLAGS) ./stack-linked_list/stack.c ./stack-linked_list/print.c ./stack-linked_list/test.c -o $(TARGET)
-
-red-black_tree:
-	$(CC) $(CFLAGS) ./binary_tree/red-black_tree.c ./binary_tree/print.c ./red-black_tree/test.c -o $(TARGET)
-
-queue-array:
-	$(CC) $(CFLAGS) ./queue-array/queue.c ./queue-array/print.c ./queue-array/test.c -o $(TARGET)
-
-queue-linked_list:
-	$(CC) $(CFLAGS) ./queue-linked_list/queue.c ./queue-linked_list/print.c ./queue-linked_list/test.c -o $(TARGET)
 
 trie:
 	$(CC) $(CFLAGS) ./trie/trie.c ./trie/print.c ./trie/test.c -o $(TARGET)

@@ -16,7 +16,7 @@ void dynamic_array_print(struct DynamicArray *dynamic_array)
 
 struct DynamicArray *dynamic_array_construct(size_t capacity, double growth_factor)
 {
-    struct DynamicArray *dynamic_array = malloc(sizeof(struct DynamicArray));
+    struct DynamicArray *dynamic_array = malloc(sizeof (struct DynamicArray));
     
     dynamic_array->array = malloc(sizeof (int) * capacity);
     dynamic_array->size = 0;

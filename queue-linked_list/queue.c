@@ -34,7 +34,7 @@ void queue_distruct(struct Queue *queue)
 
 struct QueueNode *node_construct(void *data, size_t data_type_size)
 {
-    struct QueueNode *node = malloc(sizeof(struct QueueNode));
+    struct QueueNode *node = malloc(sizeof (struct QueueNode));
     if(!node) return NULL;
 
     node->data = malloc(data_type_size);
@@ -71,7 +71,7 @@ void node_distruct(struct QueueNode *node)
     free(node->data);
     node->data = NULL;
 
-    memset(node, 0, sizeof(struct QueueNode));
+    memset(node, 0, sizeof (struct QueueNode));
     free(node);
     node = NULL;
 }

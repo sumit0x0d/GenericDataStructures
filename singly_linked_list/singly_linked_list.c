@@ -38,7 +38,7 @@ struct SinglyLinkedListNode *search(struct SinglyLinkedList *linked_list, int da
 {
     if(!linked_list->size)
         return NULL;
-    struct SinglyLinkedListNode *node = malloc(sizeof(struct SinglyLinkedListNode));
+    struct SinglyLinkedListNode *node = malloc(sizeof (struct SinglyLinkedListNode));
     while(node) {
         if(data == node->data)
             return node;
@@ -49,7 +49,7 @@ struct SinglyLinkedListNode *search(struct SinglyLinkedList *linked_list, int da
 
 struct SinglyLinkedListNode *node_construct(void *data, size_t data_type_size)
 {
-    struct SinglyLinkedListNode *node = malloc(sizeof(struct SinglyLinkedListNode));
+    struct SinglyLinkedListNode *node = malloc(sizeof (struct SinglyLinkedListNode));
     if(!node) return NULL;
 
     node->data = malloc(data_type_size);
@@ -147,7 +147,7 @@ void node_distruct(struct SinglyLinkedListNode *node)
     free(node->data);
     node->data = NULL;
 
-    memset(node, 0, sizeof(struct SinglyLinkedListNode));
+    memset(node, 0, sizeof (struct SinglyLinkedListNode));
     free(node);
     node = NULL;
 }

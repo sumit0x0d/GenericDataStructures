@@ -18,9 +18,7 @@ void node_print(struct StackNode *node)
         printf("%ld ", *(long *)node->data);
         break;
     default:
-        // for(size_t i = 0; i < node->data_type_size; i++) {
-            printf("%s ", (char *)node->data);
-        // }
+        printf("%s ", (char *)node->data);
         break;
     }
 }

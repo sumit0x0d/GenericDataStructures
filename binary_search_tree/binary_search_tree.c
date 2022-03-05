@@ -40,7 +40,7 @@ struct BinarySearchTreeNode *search(struct BinarySearchTree *tree, void *data, s
 
 struct BinarySearchTreeNode *node_construct(void *data, size_t data_type_size)
 {
-    struct BinarySearchTreeNode *node = malloc(sizeof(struct BinarySearchTreeNode));
+    struct BinarySearchTreeNode *node = malloc(sizeof (struct BinarySearchTreeNode));
     if(!node) return NULL;
 
     node->data = malloc(data_type_size);

@@ -15,7 +15,7 @@ struct DoublyLinkedListNode *search(struct DoublyLinkedList *linked_list, int da
 {
     if(!linked_list->size) return NULL;
 
-    struct DoublyLinkedListNode *node = malloc(sizeof(struct DoublyLinkedListNode));
+    struct DoublyLinkedListNode *node = malloc(sizeof (struct DoublyLinkedListNode));
     while(node) {
         if(data == node->data)
             return node;
@@ -27,7 +27,7 @@ struct DoublyLinkedListNode *search(struct DoublyLinkedList *linked_list, int da
 
 void push_front(struct DoublyLinkedList *linked_list, int data)
 {
-    struct DoublyLinkedListNode *node = malloc(sizeof(struct DoublyLinkedListNode));
+    struct DoublyLinkedListNode *node = malloc(sizeof (struct DoublyLinkedListNode));
     assert(node);
     node->previous = NULL;
     node->data = data;
@@ -38,7 +38,7 @@ void push_front(struct DoublyLinkedList *linked_list, int data)
 
 void push_back(struct DoublyLinkedList *linked_list, int data)
 {
-    struct DoublyLinkedListNode *node = malloc(sizeof(struct DoublyLinkedListNode));
+    struct DoublyLinkedListNode *node = malloc(sizeof (struct DoublyLinkedListNode));
     assert(node);
     node->data = data;
     node->next = NULL;
@@ -60,7 +60,7 @@ void insert(struct DoublyLinkedList *linked_list, size_t index, int data)
     if(index > linked_list->size)
         return;
     struct DoublyLinkedListNode *node = head;
-    struct DoublyLinkedListNode *node_new = malloc(sizeof(struct DoublyLinkedListNode));
+    struct DoublyLinkedListNode *node_new = malloc(sizeof (struct DoublyLinkedListNode));
     node_new->data = data;
     if(index==0) {
         node_new->previous = NULL;

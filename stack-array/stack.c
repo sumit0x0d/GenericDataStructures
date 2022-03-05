@@ -3,9 +3,9 @@
 
 struct Stack *stack_construct(size_t capacity)
 {
-    struct Stack *stack = malloc(sizeof(struct Stack));
+    struct Stack *stack = malloc(sizeof (struct Stack));
     assert(stack);
-    stack->array = malloc(sizeof(sizeof(int) * capacity));
+    stack->array = malloc(sizeof (sizeof (int) * capacity));
     assert(stack->array);
     stack->top = 0;
     stack->size = 0;

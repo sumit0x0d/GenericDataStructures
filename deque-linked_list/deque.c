@@ -7,7 +7,7 @@ void pop_back(struct Deque *deque);
 
 struct Deque *deque_construct()
 {
-    struct Deque *deque = malloc(sizeof(struct Deque));
+    struct Deque *deque = malloc(sizeof (struct Deque));
     if(!deque) return;
 
     deque->front = NULL;

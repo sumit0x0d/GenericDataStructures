@@ -2,10 +2,10 @@
 
 struct Deque *deque_construct(size_t capacity)
 {
-    struct Deque *deque = malloc(sizeof(struct Deque));
+    struct Deque *deque = malloc(sizeof (struct Deque));
     if(!deque) return;
 
-    deque->array = malloc(sizeof(sizeof(int) * capacity));
+    deque->array = malloc(sizeof (sizeof (int) * capacity));
     if(!deque->array) {
         free(deque);
         deque = NULL;

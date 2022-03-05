@@ -27,7 +27,7 @@ struct Stack {
 
 void enqueue(struct Queue *queue, struct BinaryTreeNode *data)
 {
-    struct QueueNode *node = malloc(sizeof(struct QueueNode));
+    struct QueueNode *node = malloc(sizeof (struct QueueNode));
     if(!node) return;
 
     node->data = data;
@@ -50,7 +50,7 @@ void dequeue(struct Queue *queue)
     if(!queue->front)
         queue->back = NULL;
     
-    memset(node, 0, sizeof(struct QueueNode));
+    memset(node, 0, sizeof (struct QueueNode));
     free(node);
     node = NULL;
 }
@@ -70,7 +70,7 @@ struct Queue queue_construct()
 
 void push(struct Stack *stack, struct BinaryTreeNode *data)
 {
-    struct StackNode *node = malloc(sizeof(struct StackNode));
+    struct StackNode *node = malloc(sizeof (struct StackNode));
     if(!node) return;
     
     node->data = data;
@@ -87,7 +87,7 @@ void pop(struct Stack *stack)
     
     stack->top = stack->top->next;
     
-    memset(node, 0, sizeof(struct StackNode));
+    memset(node, 0, sizeof (struct StackNode));
     free(node);
     node = NULL;
 }

@@ -19,7 +19,7 @@ struct Stack stack_construct()
 void stack_distruct(struct Stack *stack)
 {
     struct StackNode *node = stack->top;
-    while(node) {
+    while(node)
         if(node->next) {
             stack->pop(stack);
             node = stack->top;   
@@ -28,12 +28,11 @@ void stack_distruct(struct Stack *stack)
             stack->pop(stack);
             break;
         }
-    }
 }
 
 struct StackNode *node_construct(void *data, size_t data_type_size)
 {
-    struct StackNode *node = malloc(sizeof(struct StackNode));
+    struct StackNode *node = malloc(sizeof (struct StackNode));
     if(!node) return NULL;
 
     node->data = malloc(data_type_size);
@@ -66,7 +65,7 @@ void node_distruct(struct StackNode *node)
     free(node->data);
     node->data = NULL;
 
-    memset(node, 0, sizeof(struct StackNode));
+    memset(node, 0, sizeof (struct StackNode));
     free(node);
     node = NULL;
 }

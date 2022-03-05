@@ -30,9 +30,9 @@ void hash_table_print(struct HashTable *hash_table)
 
 struct HashTable *hash_table_construct(size_t capacity)
 {
-    struct HashTable *hash_table = malloc(sizeof(struct HashTable));
+    struct HashTable *hash_table = malloc(sizeof (struct HashTable));
     assert(hash_table);
-    hash_table->array = malloc(sizeof(int) * capacity);
+    hash_table->array = malloc(sizeof (int) * capacity);
     hash_table->size = 0;
     hash_table->capacity = capacity;
     return hash_table;

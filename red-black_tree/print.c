@@ -22,7 +22,7 @@ struct Stack {
 
 void enqueue(struct Queue *queue, struct RedBlackTreeNode *data)
 {
-    struct SinglyLinkedListNode *node = malloc(sizeof(struct SinglyLinkedListNode));
+    struct SinglyLinkedListNode *node = malloc(sizeof (struct SinglyLinkedListNode));
     if(!node) return;
 
     node->data = data;
@@ -45,7 +45,7 @@ void dequeue(struct Queue *queue)
     if(!queue->front)
         queue->back = NULL;
     
-    memset(node, 0, sizeof(struct SinglyLinkedListNode));
+    memset(node, 0, sizeof (struct SinglyLinkedListNode));
     free(node);
     node = NULL;
 }
@@ -65,7 +65,7 @@ struct Queue queue_construct()
 
 void push(struct Stack *stack, struct RedBlackTreeNode *data)
 {
-    struct SinglyLinkedListNode *node = malloc(sizeof(struct SinglyLinkedListNode));
+    struct SinglyLinkedListNode *node = malloc(sizeof (struct SinglyLinkedListNode));
     if(!node) return;
     
     node->data = data;
@@ -82,7 +82,7 @@ void pop(struct Stack *stack)
     
     stack->top = stack->top->next;
     
-    memset(node, 0, sizeof(struct SinglyLinkedListNode));
+    memset(node, 0, sizeof (struct SinglyLinkedListNode));
     free(node);
     node = NULL;
 }
