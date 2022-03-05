@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void node_print(struct LinkedListNode *node)
+void node_print(struct StackNode *node)
 {
     switch(node->data_type_size) {
     case sizeof (char):
@@ -29,7 +29,7 @@ void stack_print(struct Stack *stack)
 {
     if(!stack->size) return;
 
-    struct LinkedListNode *node = stack->top;
+    struct StackNode *node = stack->top;
 
     printf("Stack: ");
     do {

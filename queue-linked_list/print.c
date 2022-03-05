@@ -4,7 +4,7 @@ void queue_print(struct Queue *queue)
 {
    if(!queue->size)
         return;
-    struct LinkedListNode *node = queue->front;
+    struct QueueNode *node = queue->front;
     printf("Queue Linked List: ");
     while(node != queue->back) {
         printf("%c ", *(char *)node->data);

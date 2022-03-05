@@ -19,7 +19,7 @@ struct Queue queue_construct()
 
 void queue_distruct(struct Queue *queue)
 {
-    struct SinglyLinkedListNode *node = queue->front;
+    struct QueueNode *node = queue->front;
     while(node) {
         if(node->next) {
             queue->dequeue(queue);
@@ -32,9 +32,9 @@ void queue_distruct(struct Queue *queue)
     }
 }
 
-struct SinglyLinkedListNode *node_construct(void *data, size_t data_type_size)
+struct QueueNode *node_construct(void *data, size_t data_type_size)
 {
-    struct SinglyLinkedListNode *node = malloc(sizeof(struct SinglyLinkedListNode));
+    struct QueueNode *node = malloc(sizeof(struct QueueNode));
     if(!node) return NULL;
 
     node->data = malloc(data_type_size);
@@ -53,7 +53,7 @@ struct SinglyLinkedListNode *node_construct(void *data, size_t data_type_size)
 
 void enqueue(struct Queue *queue, void *data, size_t data_type_size)
 {
-    struct SinglyLinkedListNode *node = node_construct(data, data_type_size);
+    struct QueueNode *node = node_construct(data, data_type_size);
 
     node->next = NULL;
     if(queue->size)
@@ -65,13 +65,13 @@ void enqueue(struct Queue *queue, void *data, size_t data_type_size)
     ++queue->size;
 }
 
-void node_distruct(struct SinglyLinkedListNode *node)
+void node_distruct(struct QueueNode *node)
 {
     memset(node->data, 0, node->data_type_size);
     free(node->data);
     node->data = NULL;
 
-    memset(node, 0, sizeof(struct SinglyLinkedListNode));
+    memset(node, 0, sizeof(struct QueueNode));
     free(node);
     node = NULL;
 }
@@ -80,7 +80,7 @@ void dequeue(struct Queue *queue)
 {
     if(!queue->size) return;
 
-    struct SinglyLinkedListNode *node = queue->front;
+    struct QueueNode *node = queue->front;
 
     queue->front = queue->front->next;
     if(!queue->front)

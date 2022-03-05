@@ -22,9 +22,9 @@ struct Deque *deque_construct()
     return deque;
 }
 
-struct DoublyLinkedListNode *node_construct(void *data, size_t data_type_size)
+struct DequeNode *node_construct(void *data, size_t data_type_size)
 {
-    struct DoublyLinkedListNode *node = malloc(sizeof (struct DoublyLinkedListNode));
+    struct DequeNode *node = malloc(sizeof (struct DequeNode));
     if(!node) return;
 
     node->data = malloc(data_type_size);
@@ -43,7 +43,7 @@ struct DoublyLinkedListNode *node_construct(void *data, size_t data_type_size)
 
 void push_front(struct Deque *deque, void *data, size_t data_type_size)
 {
-    struct DoublyLinkedListNode *node = node_construct(data, data_type_size);
+    struct DequeNode *node = node_construct(data, data_type_size);
 
     node->previous = NULL;
     if(deque->size) {
@@ -61,7 +61,7 @@ void push_front(struct Deque *deque, void *data, size_t data_type_size)
 
 void push_back(struct Deque *deque, void *data, size_t data_type_size)
 {
-    struct DoublyLinkedListNode *node = node_construct(data, data_type_size);
+    struct DequeNode *node = node_construct(data, data_type_size);
 
     node->next = NULL;
     if(deque->size) {
@@ -78,13 +78,13 @@ void push_back(struct Deque *deque, void *data, size_t data_type_size)
     ++deque->size;
 }
 
-void node_distruct(struct DoublyLinkedListNode *node)
+void node_distruct(struct DequeNode *node)
 {
     memset(node->data, 0, node->data_type_size);
     free(node->data);
     node->data = NULL;
 
-    memset(node, 0, sizeof (struct DoublyLinkedListNode));
+    memset(node, 0, sizeof (struct DequeNode));
     free(node);
     node = NULL;
 }
@@ -93,7 +93,7 @@ void pop_front(struct Deque *deque)
 {
     if(!deque->size) return;
 
-    struct DoublyLinkedListNode *node = deque->front;
+    struct DequeNode *node = deque->front;
 
     deque->front = deque->front->next;
     if(!deque->front)
@@ -108,7 +108,7 @@ void pop_back(struct Deque *deque)
 {
     if(!deque->size) return;
 
-    struct DoublyLinkedListNode *node = deque->back;
+    struct DequeNode *node = deque->back;
 
     deque->back = deque->back->previous;
     deque->back->next = NULL;

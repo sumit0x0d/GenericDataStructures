@@ -4,14 +4,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct SinglyLinkedListNode {
+struct StackNode {
     void *data;
     size_t data_type_size;
-    struct SinglyLinkedListNode *next;
+    struct StackNode *next;
 };
 
 struct Stack {
-    struct SinglyLinkedListNode *top;
+    struct StackNode *top;
     size_t size;
     void (*push)(struct Stack *stack, void *data, size_t data_type_size);
     void (*pop)(struct Stack *stack);

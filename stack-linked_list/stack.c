@@ -18,7 +18,7 @@ struct Stack stack_construct()
 
 void stack_distruct(struct Stack *stack)
 {
-    struct SinglyLinkedListNode *node = stack->top;
+    struct StackNode *node = stack->top;
     while(node) {
         if(node->next) {
             stack->pop(stack);
@@ -31,9 +31,9 @@ void stack_distruct(struct Stack *stack)
     }
 }
 
-struct SinglyLinkedListNode *node_construct(void *data, size_t data_type_size)
+struct StackNode *node_construct(void *data, size_t data_type_size)
 {
-    struct SinglyLinkedListNode *node = malloc(sizeof(struct SinglyLinkedListNode));
+    struct StackNode *node = malloc(sizeof(struct StackNode));
     if(!node) return NULL;
 
     node->data = malloc(data_type_size);
@@ -52,7 +52,7 @@ struct SinglyLinkedListNode *node_construct(void *data, size_t data_type_size)
 
 void push(struct Stack *stack, void *data, size_t data_type_size)
 {
-    struct SinglyLinkedListNode *node = node_construct(data, data_type_size);
+    struct StackNode *node = node_construct(data, data_type_size);
 
     node->next = stack->top;
     stack->top = node;
@@ -60,13 +60,13 @@ void push(struct Stack *stack, void *data, size_t data_type_size)
     ++stack->size;
 }
 
-void node_distruct(struct SinglyLinkedListNode *node)
+void node_distruct(struct StackNode *node)
 {
     memset(node->data, 0, node->data_type_size);
     free(node->data);
     node->data = NULL;
 
-    memset(node, 0, sizeof(struct SinglyLinkedListNode));
+    memset(node, 0, sizeof(struct StackNode));
     free(node);
     node = NULL;
 }
@@ -75,7 +75,7 @@ void pop(struct Stack *stack)
 {
     if(!stack->size) return;
 
-    struct SinglyLinkedListNode *node = stack->top;
+    struct StackNode *node = stack->top;
 
     stack->top = stack->top->next;
 
