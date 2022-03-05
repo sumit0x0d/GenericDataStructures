@@ -18,6 +18,6 @@ struct BinaryTree {
 };
 
 struct BinaryTree binary_tree_construct();
-void binary_tree_distruct(struct BinaryTree *tree);
+void binary_tree_destruct(struct BinaryTree *tree);
 
 #endif

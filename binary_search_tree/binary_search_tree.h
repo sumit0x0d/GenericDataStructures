@@ -20,6 +20,6 @@ struct BinarySearchTree {
 };
 
 struct BinarySearchTree binary_search_tree_construct();
-// void binary_search_tree_distruct(struct BinarySearchTree *tree);
+// void binary_search_tree_destruct(struct BinarySearchTree *tree);
 
 #endif

@@ -17,7 +17,7 @@ struct Queue queue_construct()
     return queue;
 }
 
-void queue_distruct(struct Queue *queue)
+void queue_destruct(struct Queue *queue)
 {
     struct QueueNode *node = queue->front;
     while(node) {
@@ -65,7 +65,7 @@ void enqueue(struct Queue *queue, void *data, size_t data_type_size)
     ++queue->size;
 }
 
-void node_distruct(struct QueueNode *node)
+void node_destruct(struct QueueNode *node)
 {
     memset(node->data, 0, node->data_type_size);
     free(node->data);
@@ -86,7 +86,7 @@ void dequeue(struct Queue *queue)
     if(!queue->front)
         queue->back = NULL;
 
-    node_distruct(node);
+    node_destruct(node);
 
     --queue->size;
 }

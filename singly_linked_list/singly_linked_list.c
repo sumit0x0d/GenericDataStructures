@@ -141,7 +141,7 @@ void sorted_insert(struct SinglyLinkedList *linked_list, void *data, size_t data
     ++linked_list->size;
 }
 
-void node_distruct(struct SinglyLinkedListNode *node)
+void node_destruct(struct SinglyLinkedListNode *node)
 {
     memset(node->data, 0, node->data_type_size);
     free(node->data);
@@ -163,7 +163,7 @@ void pop_front(struct SinglyLinkedList *linked_list)
     if(!linked_list->size)
         linked_list->tail = NULL;
 
-    node_distruct(node);
+    node_destruct(node);
 
     --linked_list->size;
 }

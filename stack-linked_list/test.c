@@ -21,6 +21,6 @@ int main()
     // char e = 'd';
     // stack.push(&stack, &e, sizeof d
     stack_print(&stack);
-    stack_distruct(&stack);
+    stack_destruct(&stack);
     stack_print(&stack);
 }

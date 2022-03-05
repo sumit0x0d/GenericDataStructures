@@ -64,7 +64,7 @@ void insert(struct Trie *tree, char *string)
     // ++tree->size;
 }
 
-void node_distruct(struct Trie *tree, char character)
+void node_destruct(struct Trie *tree, char character)
 {
     struct TrieNode *node = tree->root;
     free(node);

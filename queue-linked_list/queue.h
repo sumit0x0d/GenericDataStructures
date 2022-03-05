@@ -20,6 +20,6 @@ struct Queue {
 };
 
 struct Queue queue_construct();
-void queue_distruct(struct Queue *queue);
+void queue_destruct(struct Queue *queue);
 
 #endif

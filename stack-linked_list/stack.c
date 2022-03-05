@@ -16,7 +16,7 @@ struct Stack stack_construct()
     return stack;
 }
 
-void stack_distruct(struct Stack *stack)
+void stack_destruct(struct Stack *stack)
 {
     struct StackNode *node = stack->top;
     while(node)
@@ -59,7 +59,7 @@ void push(struct Stack *stack, void *data, size_t data_type_size)
     ++stack->size;
 }
 
-void node_distruct(struct StackNode *node)
+void node_destruct(struct StackNode *node)
 {
     memset(node->data, 0, node->data_type_size);
     free(node->data);
@@ -78,7 +78,7 @@ void pop(struct Stack *stack)
 
     stack->top = stack->top->next;
 
-    node_distruct(node);
+    node_destruct(node);
 
     --stack->size;
 }

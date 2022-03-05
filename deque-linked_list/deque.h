@@ -22,6 +22,6 @@ struct Deque {
 };
 
 struct Deque *deque_construct();
-void deque_distruct(struct Deque *deque);
+void deque_destruct(struct Deque *deque);
 
 #endif

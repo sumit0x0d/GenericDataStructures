@@ -1,7 +1,8 @@
-CC = clang
+CC = gcc
 TARGET = main
 
-CFLAGS = -std=c17 -O0 -g -Wall -Werror
+CFLAGS = -std=c17 -O0 -g -Wall 
+# -Werror
 
 avl_tree:
 	$(CC) $(CFLAGS) ./avl_tree/avl_tree.c ./avl_tree/print.c ./avl_tree/test.c -o $(TARGET)
@@ -21,8 +22,14 @@ deque-linked_list:
 doubly_linked_list:
 	$(CC) $(CFLAGS) ./doubly_linked_list/doubly_linked_list.c ./doubly_linked_list/print.c ./doubly_linked_list/test.c -o $(TARGET)
 
-dynamic_array.c:
+dynamic_array:
 	$(CC) $(CFLAGS) ./dynamic_array/dynamic_array.c ./dynamic_array/print.c ./dynamic_array/test.c -o $(TARGET)
+
+graph-adjacency_list:
+	$(CC) $(CFLAGS) ./graph-adjacency_list/graph.c ./graph-adjacency_list/print.c ./graph-adjacency_list/test.c -o $(TARGET)
+
+graph-adjacency_matrix:
+	$(CC) $(CFLAGS) ./graph-adjacency_matrix/graph.c ./graph-adjacency_matrix/print.c ./graph-adjacency_list/test.c -o $(TARGET)
 
 hash_table:
 	$(CC) $(CFLAGS) ./hash_table/test.c -o $(TARGET)

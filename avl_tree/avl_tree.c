@@ -113,7 +113,7 @@ void node_rebalance(struct AVLTreeNode *node)
 
 struct AVLTreeNode *node_construct(void *data, size_t data_type_size)
 {
-    struct AVLTreeNode *node = malloc(sizeof(struct AVLTreeNode));
+    struct AVLTreeNode *node = malloc(sizeof (struct AVLTreeNode));
     if(!node) return NULL;
 
     node->data = malloc(data_type_size);

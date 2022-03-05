@@ -1,15 +1,27 @@
-#include "queue.h"
+#include "dynamic_array.h"
 
-void queue_print(struct Queue *queue)
+#include <stdio.h>
+
+void dynamic_array_print(struct DynamicArray *dynamic_array)
 {
-   if(!queue->size)
-        return;
-    struct LinkedListNode *node = queue->front;
-    printf("Queue Linked List: ");
-    while(node != queue->back) {
-        printf("%c ", *(char *)node->data);
-        node = node->next;
-    }
-    printf("%c\n", *(char *)node->data);
-    printf("Queue Linked List Size: %zu\n", queue->size);
+    printf("Dynamic Array: ");
+    // size_t i = 0;
+    // while(i < dynamic_array->size) {
+        printf("%d ", *(int *)(dynamic_array->array));
+        printf("%d ", *(int *)(dynamic_array->array+1));
+        printf("%d ", *(int *)(dynamic_array->array+2));
+        printf("%d ", *(int *)(dynamic_array->array+3));
+        printf("%d ", *(int *)(dynamic_array->array+4));
+        printf("%d ", *(int *)(dynamic_array->array+5));
+        printf("%d ", *(int *)(dynamic_array->array+6));
+        printf("%d ", *(int *)(dynamic_array->array+8));
+        printf("%d ", *(int *)(dynamic_array->array+9));
+        printf("%d ", *(int *)(dynamic_array->array+10));
+        printf("%d ", *(int *)(dynamic_array->array+11));
+        // i++;
+    // }
+    // printf("%d\n", dynamic_array->array[dynamic_array->size]);
+    printf("Dynamic Array Size: %zu\n", dynamic_array->size);
+    printf("Dynamic Array Capacity: %zu\n", dynamic_array->capacity);
+    printf("Dynamic Array Growth Factor: %lf\n", dynamic_array->growth_factor);
 }

@@ -22,6 +22,6 @@ struct AVLTree {
 };
 
 struct AVLTree avl_tree_construct();
-void avl_tree_distruct(struct AVLTree *tree);
+void avl_tree_destruct(struct AVLTree *tree);
 
 #endif

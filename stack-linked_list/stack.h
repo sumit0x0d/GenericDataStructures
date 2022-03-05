@@ -18,6 +18,6 @@ struct Stack {
 };
 
 struct Stack stack_construct();
-void stack_distruct(struct Stack *stack);
+void stack_destruct(struct Stack *stack);
 
 #endif

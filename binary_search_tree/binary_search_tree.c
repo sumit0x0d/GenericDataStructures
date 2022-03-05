@@ -18,7 +18,7 @@ struct BinarySearchTree binary_search_tree_construct()
     return binary_search_tree;
 }
 
-void binary_search_tree_distruct(struct BinarySearchTree *tree)
+void binary_search_tree_destruct(struct BinarySearchTree *tree)
 {
 
 }
