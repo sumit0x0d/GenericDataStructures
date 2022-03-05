@@ -1,29 +1,26 @@
-#ifndef AVL_TREE_PRINT
-#define AVL_TREE_PRINT
-
-#include "avl_tree.h"
+#include "red-black_tree.h"
 
 #include <stdio.h>
 
 struct LinkedListNode {
-    struct AVLTreeNode *data;
+    struct RedBlackTreeNode *data;
     struct LinkedListNode *next;
 };
 
 struct Queue {
     struct LinkedListNode *front;
     struct LinkedListNode *back;
-    void (*enqueue)(struct Queue *queue, struct AVLTreeNode *data);
+    void (*enqueue)(struct Queue *queue, struct RedBlackTreeNode *data);
     void (*dequeue)(struct Queue *queue);
 };
 
 struct Stack {
     struct LinkedListNode *top;
-    void (*push)(struct Stack *stack, struct AVLTreeNode *data);
+    void (*push)(struct Stack *stack, struct RedBlackTreeNode *data);
     void (*pop)(struct Stack *stack);
 };
 
-void enqueue(struct Queue *queue, struct AVLTreeNode *data)
+void enqueue(struct Queue *queue, struct RedBlackTreeNode *data)
 {
     struct LinkedListNode *node = malloc(sizeof(struct LinkedListNode));
     if(!node) return;
@@ -62,11 +59,11 @@ struct Queue queue_construct()
 
     queue.enqueue = enqueue;
     queue.dequeue = dequeue;
-
+    
     return queue;
 }
 
-void push(struct Stack *stack, struct AVLTreeNode *data)
+void push(struct Stack *stack, struct RedBlackTreeNode *data)
 {
     struct LinkedListNode *node = malloc(sizeof(struct LinkedListNode));
     if(!node) return;
@@ -95,16 +92,16 @@ struct Stack stack_construct()
     struct Stack stack;
 
     stack.top = NULL;
-
+    
     stack.push = push;
     stack.pop = pop;
-
+    
     return stack;
 }
 
-void preorder_traverse(struct AVLTree *tree)
+void preorder_traverse(struct RedBlackTree *tree)
 {
-    struct AVLTreeNode *node = tree->root;
+    struct RedBlackTreeNode *node = tree->root;
     struct Stack stack = stack_construct();
 
     while(node || stack.top)
@@ -120,9 +117,9 @@ void preorder_traverse(struct AVLTree *tree)
         }
 }
 
-void inorder_traverse(struct AVLTree *tree)
+void inorder_traverse(struct RedBlackTree *tree)
 {
-    struct AVLTreeNode *node = tree->root;
+    struct RedBlackTreeNode *node = tree->root;
     struct Stack stack = stack_construct();
 
     while(node || stack.top)
@@ -138,9 +135,9 @@ void inorder_traverse(struct AVLTree *tree)
         }
 }
 
-void postorder_traverse(struct AVLTree *tree)
+void postorder_traverse(struct RedBlackTree *tree)
 {
-    struct AVLTreeNode *node = tree->root;
+    struct RedBlackTreeNode *node = tree->root;
     struct Stack stack = stack_construct();
     
     while(node || stack.top)
@@ -156,9 +153,9 @@ void postorder_traverse(struct AVLTree *tree)
         }
 }
 
-void levelorder_traverse(struct AVLTree *tree)
+void levelorder_traverse(struct RedBlackTree *tree)
 {
-    struct AVLTreeNode *node = tree->root;
+    struct RedBlackTreeNode *node = tree->root;
     struct Queue queue = queue_construct();
 
     printf("%d ", *(int *)tree->root->data);
@@ -178,7 +175,7 @@ void levelorder_traverse(struct AVLTree *tree)
     }
 }
 
-void avl_tree_print(struct AVLTree *tree)
+void red_black_tree_print(struct RedBlackTree *tree)
 {
     if(!tree->size) return;
 
@@ -190,12 +187,10 @@ void avl_tree_print(struct AVLTree *tree)
     
     printf("\nPost-order Traverse: ");
     postorder_traverse(tree);
-
+    
     // printf("\nLevel-order Traverse: ");
     // levelorder_traverse(tree);
-
+    
     printf("\n");
-    printf("\b\nAVL Tree Size: %zu\n", tree->size);
+    printf("\b\nRed Black Tree Size: %zu\n", tree->size);
 }
-
-#endif

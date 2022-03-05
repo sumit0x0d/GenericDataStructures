@@ -1,7 +1,4 @@
-#ifndef QUEUE_PRINT_H
-#define QUEUE_PRINT_H
-
-#include "queue-array.h"
+#include "stack.h"
 
 void stack_print(struct Stack *stack)
 {
@@ -15,5 +12,3 @@ void stack_print(struct Stack *stack)
     printf("Stack Size: %zu\n", stack->size);
     printf("Stack Capacity: %zu\n", stack->capacity);
 }
-
-#endif

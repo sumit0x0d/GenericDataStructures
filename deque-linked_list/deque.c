@@ -1,4 +1,4 @@
-#include "deque-linked_list.h"
+#include "deque.h"
 
 void push_front(struct Deque *deque, void *data, size_t data_type_size);
 void push_back(struct Deque *deque, void *data, size_t data_type_size);

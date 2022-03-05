@@ -1,4 +1,4 @@
-#include "queue-linked_list.h"
+#include "queue.h"
 
 void enqueue(struct Queue *queue, void *data, size_t data_type_size);
 void dequeue(struct Queue *queue);
@@ -48,8 +48,6 @@ struct LinkedListNode *node_construct(void *data, size_t data_type_size)
     
     node->data_type_size = data_type_size;
 
-    node->next = NULL;
-
     return node;
 }
 
@@ -57,6 +55,7 @@ void enqueue(struct Queue *queue, void *data, size_t data_type_size)
 {
     struct LinkedListNode *node = node_construct(data, data_type_size);
 
+    node->next = NULL;
     if(queue->size)
         queue->back->next = node;
     else 

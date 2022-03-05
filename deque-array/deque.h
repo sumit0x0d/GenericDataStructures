@@ -1,7 +1,6 @@
 #ifndef DEQUE_H
 #define DEQUE_H
 
-
 #include <stdio.h>
 #include <stdlib.h>
 

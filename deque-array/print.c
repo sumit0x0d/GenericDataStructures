@@ -1,7 +1,4 @@
-#ifndef DEQUE_PRINT_H
-#define DEQUE_PRINT_H
-
-#include "deque-array.h"
+#include "deque.h"
 
 void deque_print(struct Deque *deque)
 {
@@ -15,5 +12,3 @@ void deque_print(struct Deque *deque)
     printf("Deque Size: %zu\n", deque->size);
     printf("deque Capacity: %zu\n", deque->capacity);
 }
-
-#endif

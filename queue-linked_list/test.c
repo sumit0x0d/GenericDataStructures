@@ -1,5 +1,6 @@
-#include "queue-linked_list.h"
-#include "queue_print.h"
+#include "queue.h"
+
+extern void queue_print(struct Queue *queue);
 
 #include <stdint.h>
 

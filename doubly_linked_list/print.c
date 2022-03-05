@@ -1,6 +1,3 @@
-#ifndef DOUBLY_LINKED_LIST_PRINT_H
-#define DOUBLY_LINKED_LIST_PRINT_H
-
 #include "doubly_linked_list.h"
 
 #include <stdio.h>
@@ -17,5 +14,3 @@ void doubly_linked_list_print(struct DoublyLinkedList *linked_list)
     } while(node);
     printf("\b\nDoubly Linked List Size: %zu\n", linked_list->size);
 }
-
-#endif

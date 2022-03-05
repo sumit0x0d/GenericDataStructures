@@ -1,4 +1,4 @@
-#include "deque-array.h"
+#include "deque.h"
 
 struct Deque *deque_construct(size_t capacity)
 {

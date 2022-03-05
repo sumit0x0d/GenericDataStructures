@@ -6,7 +6,6 @@
 #include <string.h>
 
 struct TrieNode {
-    unsigned char character;
     bool terminal;
     struct TrieNode *children[128];
 };

@@ -1,15 +1,14 @@
 #include "red-black_tree.h"
 
-#include <stdio.h>
-#include <stdlib.h>
+extern void red_black_tree_print(struct RedBlackTree *red_black_tree);
 
 int main()
 {
     // srand(time(0));
     // int random;
-    struct BinaryTree red_black_tree = red_black_tree_construct();
+    struct RedBlackTree red_black_tree = red_black_tree_construct();
     char x = 'c';
-    red_black_tree.root = red_black_tree.insert(&red_black_tree, &x, 1);
+    red_black_tree.insert(&red_black_tree, &x, 1);
     // tree->root->left = binary_tree_insert(binary_tree, &y, 4);
     // for(int i = 0; i < 10; i++) {
         // random = rand()%10;

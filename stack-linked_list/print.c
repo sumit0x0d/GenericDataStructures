@@ -1,7 +1,4 @@
-#ifndef STACK_PRINT_H
-#define STACK_PRINT_H
-
-#include "stack-linked_list.h"
+#include "stack.h"
 
 #include <stdio.h>
 
@@ -12,7 +9,7 @@ void node_print(struct LinkedListNode *node)
         printf("%c ", *(char *)node->data);
         break;
     case sizeof (int):
-        if((int)*(float *)node->data == 0.0)
+        if((int)*(float *)node->data == *(float *)node->data)
             printf("%d ", *(int *)node->data);
         else
             printf("%f ", *(float *)node->data);
@@ -21,6 +18,9 @@ void node_print(struct LinkedListNode *node)
         printf("%ld ", *(long *)node->data);
         break;
     default:
+        // for(size_t i = 0; i < node->data_type_size; i++) {
+            printf("%s ", (char *)node->data);
+        // }
         break;
     }
 }
@@ -39,5 +39,3 @@ void stack_print(struct Stack *stack)
 
     printf("\b\nStack Size: %zu\n", stack->size);
 }
-
-#endif

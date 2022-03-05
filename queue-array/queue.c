@@ -1,4 +1,4 @@
-#include "queue-array.h"
+#include "queue.h"
 
 void queue_print(struct Queue *queue)
 {

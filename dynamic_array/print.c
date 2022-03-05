@@ -1,7 +1,4 @@
-#ifndef QUEUE_PRINT_H
-#define QUEUE_PRINT_H
-
-#include "queue-linked_list.h"
+#include "queue.h"
 
 void queue_print(struct Queue *queue)
 {
@@ -16,5 +13,3 @@ void queue_print(struct Queue *queue)
     printf("%c\n", *(char *)node->data);
     printf("Queue Linked List Size: %zu\n", queue->size);
 }
-
-#endif

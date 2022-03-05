@@ -1,4 +1,4 @@
-#include "stack-linked_list.h"
+#include "stack.h"
 
 void push(struct Stack *stack, void *data, size_t data_type_size);
 void pop(struct Stack *stack);

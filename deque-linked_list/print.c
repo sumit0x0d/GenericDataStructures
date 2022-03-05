@@ -1,7 +1,4 @@
-#ifndef DEQUE_PRINT_H
-#define DEQUE_PRINT_H
-
-#include "deque-linked_list.h"
+#include "deque.h"
 
 #include <stdio.h>
 
@@ -19,5 +16,3 @@ void deque_print(struct Deque *deque)
 
     printf("\b\nDeque Size: %zu\n", deque->size);
 }
-
-#endif

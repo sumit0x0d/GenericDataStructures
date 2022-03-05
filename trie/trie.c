@@ -10,7 +10,7 @@ struct Trie trie_construct()
 
     trie.root = NULL;
     trie.size = 0;
-    
+
     trie.search = search;
     trie.insert = insert;
     trie.remove = remove;
@@ -24,15 +24,16 @@ struct TrieNode *search(struct Trie *tree, char *string)
     return node;
 }
 
-struct TrieNode *node_construct(unsigned char character)
+struct TrieNode *node_construct()
 {
     struct TrieNode *node = malloc(sizeof (struct TrieNode));
     if(!node) return NULL;
 
-    node->character = character;
-
     node->terminal = false;
-    memset(node->children, 0, sizeof (node->children) * 128);
+
+    for(int i = 0; i < 128; i++)
+        node->children[i] = NULL;
+    // memset(node->children, 0, sizeof (node->children) * 128);
 
     return node;
 }
@@ -40,11 +41,15 @@ struct TrieNode *node_construct(unsigned char character)
 void insert(struct Trie *tree, char *string)
 {
     struct TrieNode *node = tree->root;
-    unsigned char character = *string;
+    if(!node) {
+        node = node_construct();
 
-    while(character != '\0') {
-        // if(node->children[character] == 0)
-            node->children[character] = node_construct(character);
+    }
+    // node->character = 'a';
+    while(*string != '\0') {
+        if(node->children[(size_t)*string] == NULL)
+            node->children[(size_t)*string] = node_construct();
+        string++;
     }
     // size_t length = strlen(string);
     // for(size_t i = 0; i < length; i++) {
@@ -56,7 +61,7 @@ void insert(struct Trie *tree, char *string)
     else
         node->terminal = true;
 
-    ++tree->size;
+    // ++tree->size;
 }
 
 void node_distruct(struct Trie *tree, char character)

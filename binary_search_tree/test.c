@@ -1,5 +1,6 @@
 #include "binary_search_tree.h"
-#include "binary_search_tree_print.h"
+
+extern void binary_search_tree_print(struct BinarySearchTree *tree);
 
 int main()
 {
