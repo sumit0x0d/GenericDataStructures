@@ -58,8 +58,7 @@ void push_front(struct DynamicArray *dynamic_array, void *data)
         dynamic_array->array = realloc(dynamic_array->array, dynamic_array->element_size * dynamic_array->capacity);
     }
 
-    for(size_t i = dynamic_array->size; i > 0; i--)
-        memmove(dynamic_array->array + i, dynamic_array->array + i - 1, dynamic_array->element_size);
+    memmove((char *)dynamic_array->array + dynamic_array->element_size, dynamic_array->array, dynamic_array->size * dynamic_array->element_size);
 
     memcpy(dynamic_array->array, data, dynamic_array->element_size);
 
@@ -73,7 +72,7 @@ void push_back(struct DynamicArray *dynamic_array, void *data)
         dynamic_array->array = realloc(dynamic_array->array, dynamic_array->element_size * dynamic_array->capacity);
     }
 
-    memcpy(dynamic_array->array + dynamic_array->size, data, dynamic_array->element_size);
+    memcpy((char *)dynamic_array->array + (dynamic_array->size * dynamic_array->element_size), data, dynamic_array->element_size);
 
     ++dynamic_array->size;
 }
