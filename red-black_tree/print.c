@@ -2,27 +2,27 @@
 
 #include <stdio.h>
 
-struct LinkedListNode {
+struct SinglyLinkedListNode {
     struct RedBlackTreeNode *data;
-    struct LinkedListNode *next;
+    struct SinglyLinkedListNode *next;
 };
 
 struct Queue {
-    struct LinkedListNode *front;
-    struct LinkedListNode *back;
+    struct SinglyLinkedListNode *front;
+    struct SinglyLinkedListNode *back;
     void (*enqueue)(struct Queue *queue, struct RedBlackTreeNode *data);
     void (*dequeue)(struct Queue *queue);
 };
 
 struct Stack {
-    struct LinkedListNode *top;
+    struct SinglyLinkedListNode *top;
     void (*push)(struct Stack *stack, struct RedBlackTreeNode *data);
     void (*pop)(struct Stack *stack);
 };
 
 void enqueue(struct Queue *queue, struct RedBlackTreeNode *data)
 {
-    struct LinkedListNode *node = malloc(sizeof(struct LinkedListNode));
+    struct SinglyLinkedListNode *node = malloc(sizeof(struct SinglyLinkedListNode));
     if(!node) return;
 
     node->data = data;
@@ -39,13 +39,13 @@ void dequeue(struct Queue *queue)
 {
     if(!queue->front) return;
     
-    struct LinkedListNode *node = queue->front;
+    struct SinglyLinkedListNode *node = queue->front;
     
     queue->front = node->next;
     if(!queue->front)
         queue->back = NULL;
     
-    memset(node, 0, sizeof(struct LinkedListNode));
+    memset(node, 0, sizeof(struct SinglyLinkedListNode));
     free(node);
     node = NULL;
 }
@@ -65,7 +65,7 @@ struct Queue queue_construct()
 
 void push(struct Stack *stack, struct RedBlackTreeNode *data)
 {
-    struct LinkedListNode *node = malloc(sizeof(struct LinkedListNode));
+    struct SinglyLinkedListNode *node = malloc(sizeof(struct SinglyLinkedListNode));
     if(!node) return;
     
     node->data = data;
@@ -78,11 +78,11 @@ void pop(struct Stack *stack)
 {
     if(!stack->top) return;
     
-    struct LinkedListNode *node = stack->top;
+    struct SinglyLinkedListNode *node = stack->top;
     
     stack->top = stack->top->next;
     
-    memset(node, 0, sizeof(struct LinkedListNode));
+    memset(node, 0, sizeof(struct SinglyLinkedListNode));
     free(node);
     node = NULL;
 }

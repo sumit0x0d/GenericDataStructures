@@ -22,9 +22,9 @@ struct Deque *deque_construct()
     return deque;
 }
 
-struct LinkedListNode *node_construct(void *data, size_t data_type_size)
+struct DoublyLinkedListNode *node_construct(void *data, size_t data_type_size)
 {
-    struct LinkedListNode *node = malloc(sizeof (struct LinkedListNode));
+    struct DoublyLinkedListNode *node = malloc(sizeof (struct DoublyLinkedListNode));
     if(!node) return;
 
     node->data = malloc(data_type_size);
@@ -43,7 +43,7 @@ struct LinkedListNode *node_construct(void *data, size_t data_type_size)
 
 void push_front(struct Deque *deque, void *data, size_t data_type_size)
 {
-    struct LinkedListNode *node = node_construct(data, data_type_size);
+    struct DoublyLinkedListNode *node = node_construct(data, data_type_size);
 
     node->previous = NULL;
     if(deque->size) {
@@ -61,7 +61,7 @@ void push_front(struct Deque *deque, void *data, size_t data_type_size)
 
 void push_back(struct Deque *deque, void *data, size_t data_type_size)
 {
-    struct LinkedListNode *node = node_construct(data, data_type_size);
+    struct DoublyLinkedListNode *node = node_construct(data, data_type_size);
 
     node->next = NULL;
     if(deque->size) {
@@ -78,13 +78,13 @@ void push_back(struct Deque *deque, void *data, size_t data_type_size)
     ++deque->size;
 }
 
-void node_distruct(struct LinkedListNode *node)
+void node_distruct(struct DoublyLinkedListNode *node)
 {
     memset(node->data, 0, node->data_type_size);
     free(node->data);
     node->data = NULL;
 
-    memset(node, 0, sizeof (struct LinkedListNode));
+    memset(node, 0, sizeof (struct DoublyLinkedListNode));
     free(node);
     node = NULL;
 }
@@ -93,7 +93,7 @@ void pop_front(struct Deque *deque)
 {
     if(!deque->size) return;
 
-    struct LinkedListNode *node = deque->front;
+    struct DoublyLinkedListNode *node = deque->front;
 
     deque->front = deque->front->next;
     if(!deque->front)
@@ -108,7 +108,7 @@ void pop_back(struct Deque *deque)
 {
     if(!deque->size) return;
 
-    struct LinkedListNode *node = deque->back;
+    struct DoublyLinkedListNode *node = deque->back;
 
     deque->back = deque->back->previous;
     deque->back->next = NULL;

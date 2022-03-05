@@ -5,15 +5,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct LinkedListNode {
+struct SinglyLinkedListNode {
     void *data;
     size_t data_type_size;
-    struct LinkedListNode *next;
+    struct SinglyLinkedListNode *next;
 };
 
 struct Queue {
-    struct LinkedListNode *front;
-    struct LinkedListNode *back;
+    struct SinglyLinkedListNode *front;
+    struct SinglyLinkedListNode *back;
     size_t size;
     void (*enqueue)(struct Queue *stack, void *data, size_t data_type_size);
     void (*dequeue)(struct Queue *stack);

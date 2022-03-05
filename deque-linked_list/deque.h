@@ -4,16 +4,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct LinkedListNode {
+struct DoublyLinkedListNode {
     void *data;
     size_t data_type_size;
-    struct LinkedListNode *previous;
-    struct LinkedListNode *next;
+    struct DoublyLinkedListNode *previous;
+    struct DoublyLinkedListNode *next;
 };
 
 struct Deque {
-    struct LinkedListNode *front;
-    struct LinkedListNode *back;
+    struct DoublyLinkedListNode *front;
+    struct DoublyLinkedListNode *back;
     size_t size;
     void (*push_front)(struct Deque *deque, void *data, size_t data_type_size);
     void (*push_back)(struct Deque *deque, void *data, size_t data_type_size);
