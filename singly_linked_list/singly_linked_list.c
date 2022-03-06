@@ -13,25 +13,25 @@ void circular(struct SinglyLinkedList *sll);
 
 struct SinglyLinkedList singly_linked_list_construct()
 {
-    struct SinglyLinkedList linked_list;
+    struct SinglyLinkedList sll;
 
-    linked_list.head = NULL;
-    linked_list.tail = NULL;
+    sll.head = NULL;
+    sll.tail = NULL;
 
-    linked_list.size = 0;
+    sll.size = 0;
 
-    linked_list.push_front = push_front;
-    linked_list.push_back = push_back;
-    linked_list.insert = insert;
-    linked_list.sorted_insert = sorted_insert;
-    linked_list.pop_front = pop_front;
-    linked_list.pop_back = pop_back;
-    linked_list.remove = remove;
-    linked_list.erase = erase;
-    linked_list.linear = linear;
-    linked_list.circular = circular;
+    sll.push_front = push_front;
+    sll.push_back = push_back;
+    sll.insert = insert;
+    sll.sorted_insert = sorted_insert;
+    sll.pop_front = pop_front;
+    sll.pop_back = pop_back;
+    sll.remove = remove;
+    sll.erase = erase;
+    sll.linear = linear;
+    sll.circular = circular;
 
-    return linked_list;
+    return sll;
 }
 
 struct SinglyLinkedListNode *search(struct SinglyLinkedList *sll, int data)
@@ -101,7 +101,7 @@ void push_back(struct SinglyLinkedList *sll, void *data, size_t data_type_size)
 void insert(struct SinglyLinkedList *sll, size_t index, void *data, size_t data_type_size)
 {
     if(!index) {
-        push_front(linked_list, data, data_type_size);
+        push_front(sll, data, data_type_size);
         return;
     }
     if(index > sll->size)
@@ -121,11 +121,11 @@ void insert(struct SinglyLinkedList *sll, size_t index, void *data, size_t data_
 void sorted_insert(struct SinglyLinkedList *sll, void *data, size_t data_type_size)
 {
     if(!sll->size || data <= sll->head->data) {
-        push_front(linked_list, data, data_type_size);
+        push_front(sll, data, data_type_size);
         return;
     }
     if(data >= sll->tail->data) {
-        push_back(linked_list, data, data_type_size);
+        push_back(sll, data, data_type_size);
         return;
     }
 
@@ -191,7 +191,7 @@ void pop_back(struct SinglyLinkedList *sll)
 void erase(struct SinglyLinkedList *sll, size_t index)
 {
     if(!index) {
-        pop_front(linked_list);
+        pop_front(sll);
         return;
     }
     if(index > sll->size)
@@ -217,7 +217,7 @@ void remove(struct SinglyLinkedList *sll, void *data, size_t data_type_size)
     while(node) {
         count++;
         if(node->data == data)
-            erase(linked_list, count);
+            erase(sll, count);
     }
     sll->size--;
 }

@@ -14,7 +14,7 @@ struct DoublyLinkedList {
     struct DoublyLinkedListNode *head;
     struct DoublyLinkedListNode *tail;   
     size_t size;
-    struct DoublyLinkedListNode *(*list_search)(struct DoublyLinkedList *dll, void *data, size_t data_type_size);
+    struct DoublyLinkedListNode *(*search)(struct DoublyLinkedList *dll, void *data, size_t data_type_size);
     void (*push_front)(struct DoublyLinkedList *dll, void *data, size_t data_type_size);
     void (*push_back)(struct DoublyLinkedList *dll, void *data, size_t data_type_size);
     void (*insert)(struct DoublyLinkedList *dll, size_t index, void *data, size_t data_type_size);

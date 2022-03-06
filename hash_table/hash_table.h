@@ -10,43 +10,43 @@ struct HashTable {
     size_t capacity;
 };
 
-void hash_table_print(struct HashTable *hash_table);
-struct HashTable *hash_table_construct();
-void hash_table_insert(struct HashTable *hash_table, void *data, size_t data_type_size);
-void hash_table_remove(struct HashTable *hash_table);
+void hash_table_print(struct HashTable *ht);
+struct HashTable *ht_construct();
+void hash_table_insert(struct HashTable *ht, void *data, size_t data_type_size);
+void hash_table_remove(struct HashTable *ht);
 
-void hash_table_print(struct HashTable *hash_table)
+void hash_table_print(struct HashTable *ht)
 {
     printf("Hash-Table: ");
     size_t i = 0;
-    while(i < hash_table->capacity-1) {
-        printf("%d ", hash_table->array[i]);
+    while(i < ht->capacity-1) {
+        printf("%d ", ht->array[i]);
         i++;
     }
-    printf("%d\n", hash_table->array[hash_table->capacity-1]);
-    printf("Hash-Table Size: %zu\n", hash_table->size);
-    printf("Hash-Table Capacity: %zu\n", hash_table->capacity);
+    printf("%d\n", ht->array[ht->capacity-1]);
+    printf("Hash-Table Size: %zu\n", ht->size);
+    printf("Hash-Table Capacity: %zu\n", ht->capacity);
 }
 
-struct HashTable *hash_table_construct(size_t capacity)
+struct HashTable *ht_construct(size_t capacity)
 {
-    struct HashTable *hash_table = malloc(sizeof (struct HashTable));
-    assert(hash_table);
-    hash_table->array = malloc(sizeof (int) * capacity);
-    hash_table->size = 0;
-    hash_table->capacity = capacity;
-    return hash_table;
+    struct HashTable *ht = malloc(sizeof (struct HashTable));
+    assert(ht);
+    ht->array = malloc(sizeof (int) * capacity);
+    ht->size = 0;
+    ht->capacity = capacity;
+    return ht;
 }
 
-void hash_table_insert(struct HashTable *hash_table, int data)
+void hash_table_insert(struct HashTable *ht, int data)
 {
-    hash_mod(hash_table->capacity, data);
-    if(!hash_table->array[mod])
-    hash_table->array[mod] = data;
-    ++hash_table->size;
+    hash_mod(ht->capacity, data);
+    if(!ht->array[mod])
+    ht->array[mod] = data;
+    ++ht->size;
 }
 
-void hash_table_remove(struct HashTable *hash_table)
+void hash_table_remove(struct HashTable *ht)
 {
 
 }

@@ -11,24 +11,24 @@ void erase(struct DynamicArray *da, size_t index);
 
 struct DynamicArray dynamic_array_construct(size_t element_size, size_t capacity, double growth_factor)
 {
-    struct DynamicArray dynamic_array;
+    struct DynamicArray da;
     
-    dynamic_array.array = malloc(element_size * capacity);
-    dynamic_array.element_size = element_size;
-    dynamic_array.size = 0;
-    dynamic_array.capacity = capacity;
-    dynamic_array.growth_factor = growth_factor;
+    da.array = malloc(element_size * capacity);
+    da.element_size = element_size;
+    da.size = 0;
+    da.capacity = capacity;
+    da.growth_factor = growth_factor;
 
-    dynamic_array.push_front = push_front;
-    dynamic_array.push_back = push_back;
+    da.push_front = push_front;
+    da.push_back = push_back;
     // dynamic_array.insert = insert;
     // dynamic_array.sorted_insert = sorted_insert;
     // dynamic_array.pop_front = pop_front;
     // dynamic_array.pop_back = pop_back;
     // dynamic_array.remove = remove;
     // dynamic_array.erase = erase;
-    
-    return dynamic_array;
+
+    return da;
 }
 
 void distroy(struct DynamicArray *da)

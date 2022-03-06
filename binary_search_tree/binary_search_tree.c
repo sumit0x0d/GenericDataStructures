@@ -6,16 +6,16 @@ void remove(struct BinarySearchTree *bst, void *data, size_t data_type_size);
 
 struct BinarySearchTree binary_search_tree_construct()
 {
-    struct BinarySearchTree binary_search_tree;
+    struct BinarySearchTree bst;
 
-    binary_search_tree.root = NULL;
-    binary_search_tree.size = 0;
+    bst.root = NULL;
+    bst.size = 0;
 
-    binary_search_tree.search = search;
-    binary_search_tree.insert = insert;
-    binary_search_tree.remove = remove;
+    bst.search = search;
+    bst.insert = insert;
+    bst.remove = remove;
 
-    return binary_search_tree;
+    return bst;
 }
 
 void binary_search_tree_destruct(struct BinarySearchTree *bst)
@@ -23,7 +23,7 @@ void binary_search_tree_destruct(struct BinarySearchTree *bst)
 
 }
 
-struct BinarySearchTreeNode *search(struct BinarySearchTree *bst, void *data, size_t data_tyep_size)
+struct BinarySearchTreeNode *search(struct BinarySearchTree *bst, void *data, size_t data_type_size)
 {
     struct BinarySearchTreeNode *node = bst->root;
     

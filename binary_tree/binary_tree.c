@@ -4,14 +4,14 @@ struct BinaryTreeNode *insert(struct BinaryTree *bt, void *data, size_t data_typ
 
 struct BinaryTree binary_tree_construct()
 {
-    struct BinaryTree binary_tree;
+    struct BinaryTree bt;
 
-    binary_tree.root = NULL;
-    binary_tree.size = 0;
+    bt.root = NULL;
+    bt.size = 0;
     
-    binary_tree.insert = insert;
+    bt.insert = insert;
     
-    return binary_tree;
+    return bt;
 }
 
 struct BinaryTreeNode *node_construct(void *data, size_t data_type_size)
