@@ -20,7 +20,7 @@ struct DynamicArray {
     void (*erase)(struct DynamicArray *da, size_t index);
 };
 
-struct DynamicArray dynamic_array_construct(size_t element_size, size_t capacity, double growth_factor);
+struct DynamicArray dynamic_array_construct(size_t element_size, double growth_factor);
 void *dynamic_array_search(struct DynamicArray *da, void *data);
 
 #endif

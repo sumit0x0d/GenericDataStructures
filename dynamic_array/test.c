@@ -4,13 +4,9 @@ extern void dynamic_array_print(struct DynamicArray *da);
 
 int main()
 {
-    struct DynamicArray dynamic_array = dynamic_array_construct(sizeof (char), 10, 1.6);
-    char a = 'a';
-    char b = 'b';
-    char c = 'c';
-    char d = 'd';
-    dynamic_array.push_front(&dynamic_array, &a);
-    dynamic_array.push_front(&dynamic_array, &b);
+    struct DynamicArray dynamic_array = dynamic_array_construct(sizeof (int), 1.5);
+    for(long i = 0; i < 10; i++)
+        dynamic_array.push_back(&dynamic_array, &i);
     // dynamic_array.push_front(&dynamic_array, &c);
     // dynamic_array.push_front(&dynamic_array, &d);
     // for(size_t i = 0; i < 10; i++) {

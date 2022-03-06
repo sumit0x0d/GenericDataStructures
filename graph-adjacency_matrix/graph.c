@@ -7,12 +7,12 @@ void remove_vertex(struct Graph *graph, unsigned long vertex);
 void insert_edge(struct Graph *graph, unsigned long vertex_source, unsigned long vertex_destination);
 void remove_edge(struct Graph *graph, unsigned long vertex_source, unsigned long vertex_destination);
 
-struct Graph graph_construct(unsigned long vertex)
+struct Graph graph_construct()
 {
     struct Graph graph;
 
-    graph.adjacency_matrix = malloc(sizeof (int) * vertex);
-    graph.vertex = vertex;
+    graph.adjacency_matrix = NULL;
+    graph.vertex = 0;
 
     graph.adjacent = adjacent;
     graph.neighbors = neighbors;
