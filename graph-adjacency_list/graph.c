@@ -9,7 +9,7 @@ struct Graph graph_construct(size_t data_type_size)
 {
     struct Graph graph;
 
-    graph.adjacency_list = NULL;
+    graph.adjacency_list = malloc(sizeof (struct Vertex));
     graph.data_type_size = data_type_size;
     graph.vertices = 0;
 
@@ -49,7 +49,7 @@ void insert_vertex(struct Graph *graph, void *data)
     struct Vertex *vertex = vertex_construct(data, graph->data_type_size);
     graph->vertices = graph->vertices + 1;
     graph->adjacency_list = realloc(graph->adjacency_list, sizeof (struct Vertex) * graph->vertices);
-    graph->adjacency_list[graph->vertices - 1] = vertex;
+    memcpy(graph->adjacency_list + sizeof (struct Vertex) * (graph->vertices - 1), vertex, sizeof (struct Vertex));
 }
 
 // void insert_edge(struct Graph *graph, struct Vertex vertex_source, struct Vertex vertex_destination)

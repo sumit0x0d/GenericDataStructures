@@ -10,7 +10,7 @@ struct Vertex {
 };
 
 struct Graph {
-    struct Vertex **adjacency_list;
+    struct Vertex *adjacency_list;
     size_t data_type_size;
     unsigned long vertices;
     void (*insert_vertex)(struct Graph *graph, void *data);
