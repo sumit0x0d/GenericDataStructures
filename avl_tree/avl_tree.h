@@ -16,12 +16,12 @@ struct AVLTreeNode {
 struct AVLTree {
     struct AVLTreeNode *root;
     size_t size;
-    struct AVLTreeNode *(*search)(struct AVLTree *tree, void *data, size_t data_type_size);
-    void (*insert)(struct AVLTree *tree, void *data, size_t data_type_size);
-    void (*remove)(struct AVLTree *tree, void *data, size_t data_type_size);
+    struct AVLTreeNode *(*search)(struct AVLTree *avlt, void *data, size_t data_type_size);
+    void (*insert)(struct AVLTree *avlt, void *data, size_t data_type_size);
+    void (*remove)(struct AVLTree *avlt, void *data, size_t data_type_size);
 };
 
 struct AVLTree avl_tree_construct();
-void avl_tree_destruct(struct AVLTree *tree);
+void avl_tree_destruct(struct AVLTree *avlt);
 
 #endif

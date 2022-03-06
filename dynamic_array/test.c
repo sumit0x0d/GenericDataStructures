@@ -1,6 +1,6 @@
 #include "dynamic_array.h"
 
-extern void dynamic_array_print(struct DynamicArray *dynamic_array);
+extern void dynamic_array_print(struct DynamicArray *da);
 
 int main()
 {

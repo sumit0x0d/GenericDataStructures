@@ -1,6 +1,6 @@
 #include "binary_tree.h"
 
-struct BinaryTreeNode *insert(struct BinaryTree *tree, void *data, size_t data_type_size);
+struct BinaryTreeNode *insert(struct BinaryTree *bt, void *data, size_t data_type_size);
 
 struct BinaryTree binary_tree_construct()
 {
@@ -35,11 +35,11 @@ struct BinaryTreeNode *node_construct(void *data, size_t data_type_size)
     return node;
 }
 
-struct BinaryTreeNode *insert(struct BinaryTree *tree, void *data, size_t data_type_size)
+struct BinaryTreeNode *insert(struct BinaryTree *bt, void *data, size_t data_type_size)
 {
     struct BinaryTreeNode *node = node_construct(data, data_type_size);
 
-    ++tree->size;
+    ++bt->size;
 
     return node;
 }

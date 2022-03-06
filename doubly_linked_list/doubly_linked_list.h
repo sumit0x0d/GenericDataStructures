@@ -14,20 +14,20 @@ struct DoublyLinkedList {
     struct DoublyLinkedListNode *head;
     struct DoublyLinkedListNode *tail;   
     size_t size;
-    struct DoublyLinkedListNode *(*list_search)(struct DoublyLinkedList *linked_list, void *data, size_t data_type_size);
-    void (*push_front)(struct DoublyLinkedList *linked_list, void *data, size_t data_type_size);
-    void (*push_back)(struct DoublyLinkedList *linked_list, void *data, size_t data_type_size);
-    void (*insert)(struct DoublyLinkedList *linked_list, size_t index, void *data, size_t data_type_size);
-    void (*sorted_insert)(struct DoublyLinkedList *linked_list, void *data, size_t data_type_size);
-    void (*pop_front)(struct DoublyLinkedList *linked_listlinked_list);
-    void (*pop_back)(struct DoublyLinkedList *linked_list);
-    void (*remove)(struct DoublyLinkedList *linked_list, void *data, size_t data_type_size);
-    void (*erase)(struct DoublyLinkedList *linked_list, size_t index);
-    void (*linear)(struct DoublyLinkedList *linked_list);
-    void (*circular)(struct DoublyLinkedList *linked_list);
+    struct DoublyLinkedListNode *(*list_search)(struct DoublyLinkedList *dll, void *data, size_t data_type_size);
+    void (*push_front)(struct DoublyLinkedList *dll, void *data, size_t data_type_size);
+    void (*push_back)(struct DoublyLinkedList *dll, void *data, size_t data_type_size);
+    void (*insert)(struct DoublyLinkedList *dll, size_t index, void *data, size_t data_type_size);
+    void (*sorted_insert)(struct DoublyLinkedList *dll, void *data, size_t data_type_size);
+    void (*pop_front)(struct DoublyLinkedList *dll);
+    void (*pop_back)(struct DoublyLinkedList *dll);
+    void (*remove)(struct DoublyLinkedList *dll, void *data, size_t data_type_size);
+    void (*erase)(struct DoublyLinkedList *dll, size_t index);
+    void (*linear)(struct DoublyLinkedList *dll);
+    void (*circular)(struct DoublyLinkedList *dll);
 };
 
 struct DoublyLinkedList doubly_linked_list_construct();
-void doubly_linked_list_distroy(struct DoublyLinkedList *linked_list);
+void doubly_linked_list_distroy(struct DoublyLinkedList *dll);
 
 #endif

@@ -16,9 +16,9 @@ struct RedBlackTreeNode {
 struct RedBlackTree {
     struct RedBlackTreeNode *root;
     size_t size;
-    struct RedBlackTreeNode *(*search)(struct RedBlackTree *tree, void *data, size_t data_type_size);
-    void (*insert)(struct RedBlackTree *tree, void *data, size_t data_type_size);
-    void (*remove)(struct RedBlackTree *tree, void *data, size_t data_type_size);
+    struct RedBlackTreeNode *(*search)(struct RedBlackTree *rbt, void *data, size_t data_type_size);
+    void (*insert)(struct RedBlackTree *rbt, void *data, size_t data_type_size);
+    void (*remove)(struct RedBlackTree *rbt, void *data, size_t data_type_size);
 };
 
 struct RedBlackTree red_black_tree_construct();

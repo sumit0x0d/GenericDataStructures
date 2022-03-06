@@ -99,9 +99,9 @@ struct Stack stack_construct()
     return stack;
 }
 
-void preorder_traverse(struct RedBlackTree *tree)
+void preorder_traverse(struct RedBlackTree *rbt)
 {
-    struct RedBlackTreeNode *node = tree->root;
+    struct RedBlackTreeNode *node = rbt->root;
     struct Stack stack = stack_construct();
 
     while(node || stack.top)
@@ -117,9 +117,9 @@ void preorder_traverse(struct RedBlackTree *tree)
         }
 }
 
-void inorder_traverse(struct RedBlackTree *tree)
+void inorder_traverse(struct RedBlackTree *rbt)
 {
-    struct RedBlackTreeNode *node = tree->root;
+    struct RedBlackTreeNode *node = rbt->root;
     struct Stack stack = stack_construct();
 
     while(node || stack.top)
@@ -135,9 +135,9 @@ void inorder_traverse(struct RedBlackTree *tree)
         }
 }
 
-void postorder_traverse(struct RedBlackTree *tree)
+void postorder_traverse(struct RedBlackTree *rbt)
 {
-    struct RedBlackTreeNode *node = tree->root;
+    struct RedBlackTreeNode *node = rbt->root;
     struct Stack stack = stack_construct();
     
     while(node || stack.top)
@@ -153,13 +153,13 @@ void postorder_traverse(struct RedBlackTree *tree)
         }
 }
 
-void levelorder_traverse(struct RedBlackTree *tree)
+void levelorder_traverse(struct RedBlackTree *rbt)
 {
-    struct RedBlackTreeNode *node = tree->root;
+    struct RedBlackTreeNode *node = rbt->root;
     struct Queue queue = queue_construct();
 
-    printf("%d ", *(int *)tree->root->data);
-    queue.enqueue(&queue, tree->root);
+    printf("%d ", *(int *)rbt->root->data);
+    queue.enqueue(&queue, rbt->root);
 
     while(queue.front) {
         node = queue.front->data;
@@ -175,22 +175,22 @@ void levelorder_traverse(struct RedBlackTree *tree)
     }
 }
 
-void red_black_tree_print(struct RedBlackTree *tree)
+void red_black_tree_print(struct RedBlackTree *rbt)
 {
-    if(!tree->size) return;
+    if(!rbt->size) return;
 
     printf("Pre-order Traverse: ");
-    preorder_traverse(tree);
+    preorder_traverse(rbt);
     
     printf("\nIn-order Traverse: ");
-    inorder_traverse(tree);
+    inorder_traverse(rbt);
     
     printf("\nPost-order Traverse: ");
-    postorder_traverse(tree);
+    postorder_traverse(rbt);
     
     // printf("\nLevel-order Traverse: ");
     // levelorder_traverse(tree);
     
     printf("\n");
-    printf("\b\nRed Black Tree Size: %zu\n", tree->size);
+    printf("\b\nRed Black Tree Size: %zu\n", rbt->size);
 }

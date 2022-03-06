@@ -104,9 +104,9 @@ struct Stack stack_construct()
     return stack;
 }
 
-void preorder_traverse(struct BinaryTree *tree)
+void preorder_traverse(struct BinaryTree *bt)
 {
-    struct BinaryTreeNode *node = tree->root;
+    struct BinaryTreeNode *node = bt->root;
     struct Stack stack = stack_construct();
 
     while(node || stack.top)
@@ -122,9 +122,9 @@ void preorder_traverse(struct BinaryTree *tree)
         }
 }
 
-void inorder_traverse(struct BinaryTree *tree)
+void inorder_traverse(struct BinaryTree *bt)
 {
-    struct BinaryTreeNode *node = tree->root;
+    struct BinaryTreeNode *node = bt->root;
     struct Stack stack = stack_construct();
 
     while(node || stack.top)
@@ -140,9 +140,9 @@ void inorder_traverse(struct BinaryTree *tree)
         }
 }
 
-void postorder_traverse(struct BinaryTree *tree)
+void postorder_traverse(struct BinaryTree *bt)
 {
-    struct BinaryTreeNode *node = tree->root;
+    struct BinaryTreeNode *node = bt->root;
     struct Stack stack = stack_construct();
     
     while(node || stack.top)
@@ -158,13 +158,13 @@ void postorder_traverse(struct BinaryTree *tree)
         }
 }
 
-void levelorder_traverse(struct BinaryTree *tree)
+void levelorder_traverse(struct BinaryTree *bt)
 {
-    struct BinaryTreeNode *node = tree->root;
+    struct BinaryTreeNode *node = bt->root;
     struct Queue queue = queue_construct();
 
-    printf("%d ", *(int *)tree->root->data);
-    queue.enqueue(&queue, tree->root);
+    printf("%d ", *(int *)bt->root->data);
+    queue.enqueue(&queue, bt->root);
 
     while(queue.front) {
         node = queue.front->data;
@@ -180,9 +180,9 @@ void levelorder_traverse(struct BinaryTree *tree)
     }
 }
 
-void binary_tree_print(struct BinaryTree *tree)
+void binary_tree_print(struct BinaryTree *bt)
 {
-    if(!tree->size) return;
+    if(!bt->size) return;
 
     printf("Pre-order Traverse: ");
     preorder_traverse(tree);
@@ -197,5 +197,5 @@ void binary_tree_print(struct BinaryTree *tree)
     // levelorder_traverse(tree);
     
     printf("\n");
-    printf("\b\nBinary Tree Size: %zu\n", tree->size);
+    printf("\b\nBinary Tree Size: %zu\n", bt->size);
 }

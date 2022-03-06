@@ -104,9 +104,9 @@ struct Stack stack_construct()
     return stack;
 }
 
-void preorder_traverse(struct AVLTree *tree)
+void preorder_traverse(struct AVLTree *avlt)
 {
-    struct AVLTreeNode *node = tree->root;
+    struct AVLTreeNode *node = avlt->root;
     struct Stack stack = stack_construct();
 
     while(node || stack.top)
@@ -122,9 +122,9 @@ void preorder_traverse(struct AVLTree *tree)
         }
 }
 
-void inorder_traverse(struct AVLTree *tree)
+void inorder_traverse(struct AVLTree *avlt)
 {
-    struct AVLTreeNode *node = tree->root;
+    struct AVLTreeNode *node = avlt->root;
     struct Stack stack = stack_construct();
 
     while(node || stack.top)
@@ -140,9 +140,9 @@ void inorder_traverse(struct AVLTree *tree)
         }
 }
 
-void postorder_traverse(struct AVLTree *tree)
+void postorder_traverse(struct AVLTree *avlt)
 {
-    struct AVLTreeNode *node = tree->root;
+    struct AVLTreeNode *node = avlt->root;
     struct Stack stack = stack_construct();
     
     while(node || stack.top)
@@ -158,13 +158,13 @@ void postorder_traverse(struct AVLTree *tree)
         }
 }
 
-void levelorder_traverse(struct AVLTree *tree)
+void levelorder_traverse(struct AVLTree *avlt)
 {
-    struct AVLTreeNode *node = tree->root;
+    struct AVLTreeNode *node = avlt->root;
     struct Queue queue = queue_construct();
 
-    printf("%d ", *(int *)tree->root->data);
-    queue.enqueue(&queue, tree->root);
+    printf("%d ", *(int *)avlt->root->data);
+    queue.enqueue(&queue, avlt->root);
 
     while(queue.front) {
         node = queue.front->data;
@@ -180,22 +180,22 @@ void levelorder_traverse(struct AVLTree *tree)
     }
 }
 
-void avl_tree_print(struct AVLTree *tree)
+void avl_tree_print(struct AVLTree *avlt)
 {
-    if(!tree->size) return;
+    if(!avlt->size) return;
 
     printf("Pre-order Traverse: ");
-    preorder_traverse(tree);
+    preorder_traverse(avlt);
     
     printf("\nIn-order Traverse: ");
-    inorder_traverse(tree);
+    inorder_traverse(avlt);
     
     printf("\nPost-order Traverse: ");
-    postorder_traverse(tree);
+    postorder_traverse(avlt);
 
     // printf("\nLevel-order Traverse: ");
     // levelorder_traverse(tree);
 
     printf("\n");
-    printf("\b\nAVL Tree Size: %zu\n", tree->size);
+    printf("\b\nAVL Tree Size: %zu\n", avlt->size);
 }

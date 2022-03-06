@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void doubly_linked_list_print(struct DoublyLinkedList *linked_list)
+void doubly_linked_list_print(struct DoublyLinkedList *dll)
 {
     if(!linked_list->size) return;
 
