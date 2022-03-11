@@ -31,7 +31,7 @@ void deque_push_front(struct Deque *deque, int data)
 void deque_push_back(struct Deque *deque, int data)
 {
     if(deque->back != deque->size-1) {
-        deque->back++;
+        deque->back = deque->back + 1;
         deque->array[deque->back] = data;
     }
 }
@@ -39,7 +39,7 @@ void deque_push_back(struct Deque *deque, int data)
 void deque_pop_front(struct Deque *deque)
 {
     if(deque->front != deque->back) {
-        deque->front++;
+        deque->front = deque->front + 1;
     }
 }
 

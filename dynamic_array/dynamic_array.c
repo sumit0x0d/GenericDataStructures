@@ -62,7 +62,7 @@ void push_front(struct DynamicArray *da, void *data)
 
     memcpy(da->array, data, da->element_size);
 
-    ++da->size;
+    da->size = da->size + 1;
 }
 
 void push_back(struct DynamicArray *da, void *data)
@@ -74,7 +74,7 @@ void push_back(struct DynamicArray *da, void *data)
 
     memcpy((char *)da->array + (da->element_size * da->size), data, da->element_size);
 
-    ++da->size;
+    da->size = da->size + 1;
 }
 
 // void insert(struct DynamicArray *da, size_t index, int data)
@@ -100,12 +100,12 @@ void pop_front(struct DynamicArray *da)
 {
     memmove(da->array, (char *)da->array + da->element_size, (da->size - 1) * da->element_size);
 
-    --da->size;
+    da->size = da->size - 1;
 }
 
 void pop_back(struct DynamicArray *da)
 {
-    --da->size;
+    da->size = da->size - 1;
 }
 
 // void erase(struct DynamicArray *da, size_t index)
@@ -113,5 +113,5 @@ void pop_back(struct DynamicArray *da)
 //     for(size_t i = index; i < da->size; i++)
 //         da->array[i] = da->array[i+1];
     
-//     --da->size;
+//     da->size = da->size - 1;
 // }

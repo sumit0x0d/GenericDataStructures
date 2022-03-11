@@ -63,7 +63,7 @@ void insert(struct BinarySearchTree *bst, void *data, size_t data_type_size)
 {
     if(!bst->size) {
         bst->root = node_construct(data, data_type_size);
-        ++bst->size;
+        bst->size = bst->size + 1;
         return;
     }
 
@@ -89,7 +89,7 @@ void insert(struct BinarySearchTree *bst, void *data, size_t data_type_size)
     else
         node_parent->right = node;
 
-    ++bst->size;
+    bst->size = bst->size + 1;
 }
 
 // void binary_search_tree_node_remove(struct BinarySearchTreeNode *node)

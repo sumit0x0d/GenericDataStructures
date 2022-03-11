@@ -62,7 +62,7 @@ void enqueue(struct Queue *queue, void *data, size_t data_type_size)
         queue->front = node;
     queue->back = node;
 
-    ++queue->size;
+    queue->size = queue->size + 1;
 }
 
 void node_destruct(struct QueueNode *node)
@@ -88,5 +88,5 @@ void dequeue(struct Queue *queue)
 
     node_destruct(node);
 
-    --queue->size;
+    queue->size = queue->size - 1;
 }

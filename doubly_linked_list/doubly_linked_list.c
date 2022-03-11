@@ -28,7 +28,7 @@ struct DoublyLinkedListNode *search(struct DoublyLinkedList *dll, int data)
 void push_front(struct DoublyLinkedList *dll, int data)
 {
     struct DoublyLinkedListNode *node = malloc(sizeof (struct DoublyLinkedListNode));
-    assert(node);
+    if(!node) return;
     node->previous = NULL;
     node->data = data;
     node->next = dll->head;
@@ -52,7 +52,7 @@ void push_back(struct DoublyLinkedList *dll, int data)
         dll->head = node;
         dll->tail = node;
     }
-    ++dll->size;
+    dll->size = dll->size + 1;
 }
 
 void insert(struct DoublyLinkedList *dll, size_t index, int data)

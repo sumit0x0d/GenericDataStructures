@@ -23,15 +23,15 @@ void stack_push(struct Stack *stack, int data)
 {
     if(stack->size < stack->capacity) {
         stack->array[stack->top] = data;
-        stack->top++;
-        ++stack->size;
+        stack->top = stack->top + 1;
+        stack->size = stack->size + 1;
     }
 }
 
 void stack_pop(struct Stack *stack)
 {
     if(stack->size) {
-        stack->top--;
-        --stack->size;
+        stack->top = stack->top - 1;
+        stack->size = stack->size - 1;
     }
 }

@@ -78,7 +78,7 @@ void push_front(struct SinglyLinkedList *sll, void *data, size_t data_type_size)
     }
     sll->head = node;
 
-    ++sll->size;
+    sll->size = sll->size + 1;
 }
 
 void push_back(struct SinglyLinkedList *sll, void *data, size_t data_type_size)
@@ -95,7 +95,7 @@ void push_back(struct SinglyLinkedList *sll, void *data, size_t data_type_size)
         sll->tail = node;
     }
     
-    ++sll->size;
+    sll->size = sll->size + 1;
 }
 
 void insert(struct SinglyLinkedList *sll, size_t index, void *data, size_t data_type_size)
@@ -115,7 +115,7 @@ void insert(struct SinglyLinkedList *sll, size_t index, void *data, size_t data_
     node_new->next = node->next;
     node->next = node_new;
 
-    ++sll->size;
+    sll->size = sll->size + 1;
 }
 
 void sorted_insert(struct SinglyLinkedList *sll, void *data, size_t data_type_size)
@@ -138,7 +138,7 @@ void sorted_insert(struct SinglyLinkedList *sll, void *data, size_t data_type_si
     node_new->next = node->next;
     node->next = node_new;
     
-    ++sll->size;
+    sll->size = sll->size + 1;
 }
 
 void node_destruct(struct SinglyLinkedListNode *node)
@@ -165,7 +165,7 @@ void pop_front(struct SinglyLinkedList *sll)
 
     node_destruct(node);
 
-    --sll->size;
+    sll->size = sll->size - 1;
 }
 
 void pop_back(struct SinglyLinkedList *sll)
@@ -185,7 +185,7 @@ void pop_back(struct SinglyLinkedList *sll)
     free(sll->tail);
     sll->tail = node;
 
-    --sll->size;
+    sll->size = sll->size - 1;
 }
 
 void erase(struct SinglyLinkedList *sll, size_t index)
@@ -207,7 +207,7 @@ void erase(struct SinglyLinkedList *sll, size_t index)
     node_previous->next = node->next;
     free(node);
 
-    --sll->size;
+    sll->size = sll->size - 1;
 }
 
 void remove(struct SinglyLinkedList *sll, void *data, size_t data_type_size)
@@ -219,7 +219,8 @@ void remove(struct SinglyLinkedList *sll, void *data, size_t data_type_size)
         if(node->data == data)
             erase(sll, count);
     }
-    sll->size--;
+    
+    sll->size = sll->size - 1;
 }
 
 void linear(struct SinglyLinkedList *sll)

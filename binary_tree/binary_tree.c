@@ -39,7 +39,7 @@ struct BinaryTreeNode *insert(struct BinaryTree *bt, void *data, size_t data_typ
 {
     struct BinaryTreeNode *node = node_construct(data, data_type_size);
 
-    ++bt->size;
+    bt->size = bt->size + 1;
 
     return node;
 }

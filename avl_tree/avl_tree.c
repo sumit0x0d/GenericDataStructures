@@ -23,10 +23,12 @@ int node_balance_factor(struct AVLTreeNode *node)
 {
     size_t node_left_height = 0;
     size_t node_right_height = 0;
+
     if(node->left)
         node_left_height = node_height(node->left);
     if(node->right)
         node_right_height = node_height(node->right);
+    
     return (int)(node_right_height - node_left_height);
 }
 
@@ -34,6 +36,7 @@ struct AVLTreeNode *node_rotate_left(struct AVLTreeNode *node)
 {
     struct AVLTreeNode *node_right = node->right;
     struct AVLTreeNode *node_right_left = node_right->left;
+
     node_right->left = node;
     node_right->parent = node->parent;
     if(node_right->parent)
@@ -42,8 +45,10 @@ struct AVLTreeNode *node_rotate_left(struct AVLTreeNode *node)
     node->right = node_right_left;
     if(node_right_left)
         node_right_left->parent = node;
+
     node->balance_factor = node_balance_factor(node);
     node_right->balance_factor = node_balance_factor(node_right);
+    
     return node_right;
 }
 
@@ -51,6 +56,7 @@ struct AVLTreeNode *node_rotate_right(struct AVLTreeNode *node)
 {
     struct AVLTreeNode *node_left = node->left;
     struct AVLTreeNode *node_left_right = node_left->right;
+
     node_left->right = node;
     node_left->parent = node->parent;
     if(node_left->parent)
@@ -59,8 +65,10 @@ struct AVLTreeNode *node_rotate_right(struct AVLTreeNode *node)
         node_left_right->parent = node;
     node->parent = node_left;
     node->left = node_left_right;
+    
     node->balance_factor = node_balance_factor(node);;
     node_left->balance_factor = node_balance_factor(node_left);
+    
     return node_left;
 }
 
@@ -68,12 +76,15 @@ struct AVLTreeNode *_node_rotate_right_left(struct AVLTreeNode *node)
 {
     struct AVLTreeNode *node_right = node->right;
     struct AVLTreeNode *node_right_left = node_right->left;
+    
     node_right->left = node_right_left->right;
     node->right = node_right_left->left;
     node_right_left->left = node_right;
     node_right_left->right = node;
+    
     node->balance_factor = node_balance_factor(node);
     node_right_left->balance_factor = node_balance_factor(node_right_left);
+    
     return node_right_left;
 }
 
@@ -138,7 +149,7 @@ void insert(struct AVLTree *avlt, void *data, size_t data_type_size)
 {
     if(!avlt->size) {
         avlt->root = node_construct(data, data_type_size);
-        ++avlt->size;
+        avlt->size = avlt->size + 1;
         return;
     }
     
@@ -156,7 +167,7 @@ void insert(struct AVLTree *avlt, void *data, size_t data_type_size)
     }
 
     node = node_construct(data, data_type_size);
-    ++avlt->size;
+    avlt->size = avlt->size + 1;
 
     if(node->data < node_parent->data)
         node_parent->left = node;
