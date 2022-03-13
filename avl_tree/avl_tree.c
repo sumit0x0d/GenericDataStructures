@@ -138,7 +138,6 @@ struct AVLTreeNode *node_construct(void *data, size_t data_type_size)
 
     node->left = NULL;
     node->right = NULL;
-    node->parent = NULL;
     node->balance_factor = 0;
 
     return node;
@@ -148,6 +147,7 @@ void insert(struct AVLTree *avlt, void *data)
 {
     if(!avlt->size) {
         avlt->root = node_construct(data, avlt->data_type_size);
+        avlt->root->parent = NULL;
 
         avlt->size = avlt->size + 1;
 
@@ -168,7 +168,8 @@ void insert(struct AVLTree *avlt, void *data)
     }
 
     node = node_construct(data, avlt->data_type_size);
-    
+    node->parent = node_parent;
+
     avlt->size = avlt->size + 1;
 
     if(node->data < node_parent->data)

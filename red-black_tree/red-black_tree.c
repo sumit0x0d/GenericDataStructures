@@ -1,6 +1,6 @@
 #include "red-black_tree.h"
 
-struct RedBlackTreeNode *binary_search_tree_search(struct RedBlackTree *rbt, int data)
+struct RedBlackTreeNode *binary_search_tree_search(struct RedBlackTree *rbt, void *data)
 {
     struct RedBlackTreeNode *node = rbt->root;
     while(node)
@@ -13,12 +13,34 @@ struct RedBlackTreeNode *binary_search_tree_search(struct RedBlackTree *rbt, int
     return NULL;
 }
 
-void red_black_tree_insert(struct RedBlackTree *rbt, int data)
+struct RedBlackTreeNode *node_construct(void *data, size_t data_type_size)
+{
+    struct RedBlackTreeNode *node = malloc(sizeof (struct RedBlackTreeNode));
+    if(!node) return NULL;
+
+    node->data = malloc(data_type_size);
+    if(!node->data) {
+        free(node);
+        node = NULL;
+        return NULL;
+    }
+
+    memcpy(node->data, data, data_type_size);
+
+    node->left = NULL;
+    node->right = NULL;
+
+    return node;
+}
+
+void red_black_tree_insert(struct RedBlackTree *rbt, void *data)
 {
     if(!rbt->size) {
-        rbt->root = binary_tree_insert(rbt, data);
+        rbt->root = node_construct(data, rbt->data_type_size);
+
         rbt->root->color = BLACK;
         rbt->root->parent = NULL;
+        
         return;
     }
     struct RedBlackTreeNode *node = rbt->root;
@@ -32,9 +54,10 @@ void red_black_tree_insert(struct RedBlackTree *rbt, int data)
         else
             node = node->right;
     }
-    node = binary_tree_insert(rbt, data);
-    node->color = RED;
+    node = node_construct(data, rbt->data_type_size);
     node->parent = node_parent;
+    node->color = RED;
+    
     if(node->data < node_parent->data)
         node_parent->left = node;
     else
