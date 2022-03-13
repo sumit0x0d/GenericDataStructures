@@ -109,7 +109,8 @@ void pop_back(struct Deque *deque)
     struct DequeNode *node = deque->back;
 
     deque->back = deque->back->previous;
-    deque->back->next = NULL;
+    if(deque->back)
+        deque->back->next = NULL;
 
     node_destruct(node, deque->data_type_size);
 
