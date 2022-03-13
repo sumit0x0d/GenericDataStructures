@@ -7,19 +7,19 @@
 
 struct QueueNode {
     void *data;
-    size_t data_type_size;
     struct QueueNode *next;
 };
 
 struct Queue {
     struct QueueNode *front;
     struct QueueNode *back;
+    size_t data_type_size;
     size_t size;
-    void (*enqueue)(struct Queue *stack, void *data, size_t data_type_size);
+    void (*enqueue)(struct Queue *stack, void *data);
     void (*dequeue)(struct Queue *stack);
 };
 
-struct Queue queue_construct();
+struct Queue queue_construct(size_t data_type_size);
 void queue_destruct(struct Queue *queue);
 
 #endif

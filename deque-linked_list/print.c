@@ -6,7 +6,7 @@ void deque_print(struct Deque *deque)
 {
     if(!deque->size) return;
 
-    struct LinkedListNode *node = deque->front;
+    struct DequeNode *node = deque->front;
 
     printf("Deque: ");
     do {

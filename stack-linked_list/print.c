@@ -2,9 +2,9 @@
 
 #include <stdio.h>
 
-void node_print(struct StackNode *node)
+void node_print(struct StackNode *node, size_t data_type_size)
 {
-    switch(node->data_type_size) {
+    switch(data_type_size) {
     case sizeof (char):
         printf("%c ", *(char *)node->data);
         break;
@@ -31,7 +31,7 @@ void stack_print(struct Stack *stack)
 
     printf("Stack: ");
     do {
-        node_print(node);
+        node_print(node, stack->data_type_size);
         node = node->next;
     } while(node);
 

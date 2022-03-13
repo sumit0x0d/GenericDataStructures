@@ -33,7 +33,7 @@ void enqueue(struct Queue *queue, struct BinarySearchTreeNode *data)
     if(!node) return;
 
     node->data = data;
-    
+
     node->next = NULL;
     if(!queue->front)
         queue->front = node;

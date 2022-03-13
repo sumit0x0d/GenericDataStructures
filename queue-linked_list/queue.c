@@ -1,14 +1,15 @@
 #include "queue.h"
 
-void enqueue(struct Queue *queue, void *data, size_t data_type_size);
+void enqueue(struct Queue *queue, void *data);
 void dequeue(struct Queue *queue);
 
-struct Queue queue_construct()
+struct Queue queue_construct(size_t data_type_size)
 {
     struct Queue queue;
 
     queue.front = NULL;
     queue.back = NULL;
+    queue.data_type_size = data_type_size;
     queue.size = 0;
 
     queue.enqueue = enqueue;
@@ -20,7 +21,7 @@ struct Queue queue_construct()
 void queue_destruct(struct Queue *queue)
 {
     struct QueueNode *node = queue->front;
-    while(node) {
+    while(node)
         if(node->next) {
             queue->dequeue(queue);
             node = queue->front;   
@@ -29,7 +30,6 @@ void queue_destruct(struct Queue *queue)
             queue->dequeue(queue);
             break;
         }
-    }
 }
 
 struct QueueNode *node_construct(void *data, size_t data_type_size)
@@ -46,16 +46,16 @@ struct QueueNode *node_construct(void *data, size_t data_type_size)
     
     memcpy(node->data, data, data_type_size);
     
-    node->data_type_size = data_type_size;
+    node->next = NULL;
 
     return node;
 }
 
-void enqueue(struct Queue *queue, void *data, size_t data_type_size)
+void enqueue(struct Queue *queue, void *data)
 {
-    struct QueueNode *node = node_construct(data, data_type_size);
+    struct QueueNode *node = node_construct(data, queue->data_type_size);
 
-    node->next = NULL;
+    
     if(queue->size)
         queue->back->next = node;
     else 
@@ -65,9 +65,9 @@ void enqueue(struct Queue *queue, void *data, size_t data_type_size)
     queue->size = queue->size + 1;
 }
 
-void node_destruct(struct QueueNode *node)
+void node_destruct(struct QueueNode *node, size_t data_type_size)
 {
-    memset(node->data, 0, node->data_type_size);
+    memset(node->data, 0, data_type_size);
     free(node->data);
     node->data = NULL;
 
@@ -86,7 +86,7 @@ void dequeue(struct Queue *queue)
     if(!queue->front)
         queue->back = NULL;
 
-    node_destruct(node);
+    node_destruct(node, queue->data_type_size);
 
     queue->size = queue->size - 1;
 }

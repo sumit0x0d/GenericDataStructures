@@ -6,20 +6,20 @@
 
 struct BinarySearchTreeNode {
     void *data;
-    size_t data_type_size;
     struct BinarySearchTreeNode *left;
     struct BinarySearchTreeNode *right;
 };
 
 struct BinarySearchTree {
     struct BinarySearchTreeNode *root;
+    size_t data_type_size;
     size_t size;
-    struct BinarySearchTreeNode *(*search)(struct BinarySearchTree *bst, void *data, size_t data_type_size);
-    void (*insert)(struct BinarySearchTree *bst, void *data, size_t data_type_size);
-    void (*remove)(struct BinarySearchTree *bst, void *data, size_t data_type_size);
+    struct BinarySearchTreeNode *(*search)(struct BinarySearchTree *bst, void *data);
+    void (*insert)(struct BinarySearchTree *bst, void *data);
+    void (*remove)(struct BinarySearchTree *bst, void *data);
 };
 
-struct BinarySearchTree binary_search_tree_construct();
+struct BinarySearchTree binary_search_tree_construct(size_t data_type_size);
 // void binary_search_tree_destruct(struct BinarySearchTree *bst);
 
 #endif

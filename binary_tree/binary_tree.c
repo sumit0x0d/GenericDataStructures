@@ -1,8 +1,8 @@
 #include "binary_tree.h"
 
-struct BinaryTreeNode *insert(struct BinaryTree *bt, void *data, size_t data_type_size);
+struct BinaryTreeNode *insert(struct BinaryTree *bt, void *data);
 
-struct BinaryTree binary_tree_construct()
+struct BinaryTree binary_tree_construct(size_t data_type_size)
 {
     struct BinaryTree bt;
 
@@ -28,16 +28,15 @@ struct BinaryTreeNode *node_construct(void *data, size_t data_type_size)
 
     memcpy(node->data, data, data_type_size);
 
-    node->data_type_size = data_type_size;
-    node->left = NULL;
-    node->right = NULL;
-
     return node;
 }
 
-struct BinaryTreeNode *insert(struct BinaryTree *bt, void *data, size_t data_type_size)
+struct BinaryTreeNode *insert(struct BinaryTree *bt, void *data)
 {
-    struct BinaryTreeNode *node = node_construct(data, data_type_size);
+    struct BinaryTreeNode *node = node_construct(data, bt->data_type_size);
+
+    node->left = NULL;
+    node->right = NULL;
 
     bt->size = bt->size + 1;
 

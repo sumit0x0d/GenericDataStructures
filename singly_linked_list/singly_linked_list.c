@@ -1,9 +1,9 @@
 #include "singly_linked_list.h"
 
-void push_front(struct SinglyLinkedList *sll, void *data, size_t data_type_size);
-void push_back(struct SinglyLinkedList *sll, void *data, size_t data_type_size);
-void insert(struct SinglyLinkedList *sll, size_t index, void *data, size_t data_type_size);
-void sorted_insert(struct SinglyLinkedList *sll, void *data, size_t data_type_size);
+void push_front(struct SinglyLinkedList *sll, void *data);
+void push_back(struct SinglyLinkedList *sll, void *data);
+void insert(struct SinglyLinkedList *sll, size_t index, void *data);
+void sorted_insert(struct SinglyLinkedList *sll, void *data);
 void pop_front(struct SinglyLinkedList *sll);
 void pop_back(struct SinglyLinkedList *sll);
 void remove(struct SinglyLinkedList *sll, void *data, size_t data_type_size);
@@ -11,13 +11,13 @@ void erase(struct SinglyLinkedList *sll, size_t index);
 void linear(struct SinglyLinkedList *sll);
 void circular(struct SinglyLinkedList *sll);
 
-struct SinglyLinkedList singly_linked_list_construct()
+struct SinglyLinkedList singly_linked_list_construct(size_t data_type_size)
 {
     struct SinglyLinkedList sll;
 
     sll.head = NULL;
     sll.tail = NULL;
-
+    sll.data_type_size = data_type_size;
     sll.size = 0;
 
     sll.push_front = push_front;
@@ -61,14 +61,12 @@ struct SinglyLinkedListNode *node_construct(void *data, size_t data_type_size)
 
     memcpy(node->data, data, data_type_size);
 
-    node->data_type_size = data_type_size;
-
     return node;
 }
 
-void push_front(struct SinglyLinkedList *sll, void *data, size_t data_type_size)
+void push_front(struct SinglyLinkedList *sll, void *data)
 {
-    struct SinglyLinkedListNode *node = node_construct(data, data_type_size);
+    struct SinglyLinkedListNode *node = node_construct(data, sll->data_type_size);
 
     if(sll->size)
         node->next = sll->head;
@@ -81,9 +79,9 @@ void push_front(struct SinglyLinkedList *sll, void *data, size_t data_type_size)
     sll->size = sll->size + 1;
 }
 
-void push_back(struct SinglyLinkedList *sll, void *data, size_t data_type_size)
+void push_back(struct SinglyLinkedList *sll, void *data)
 {
-    struct SinglyLinkedListNode *node = node_construct(data, data_type_size);
+    struct SinglyLinkedListNode *node = node_construct(data, sll->data_type_size);
     
     node->next = NULL;
     if(sll->size) {
@@ -98,17 +96,17 @@ void push_back(struct SinglyLinkedList *sll, void *data, size_t data_type_size)
     sll->size = sll->size + 1;
 }
 
-void insert(struct SinglyLinkedList *sll, size_t index, void *data, size_t data_type_size)
+void insert(struct SinglyLinkedList *sll, size_t index, void *data)
 {
     if(!index) {
-        push_front(sll, data, data_type_size);
+        push_front(sll, data);
         return;
     }
     if(index > sll->size)
         return;
 
     struct SinglyLinkedListNode *node = sll->head;
-    struct SinglyLinkedListNode *node_new = node_construct(data, data_type_size);
+    struct SinglyLinkedListNode *node_new = node_construct(data, sll->data_type_size);
 
     for(size_t i = 0; i < index-1; i++)
         node = node->next;
@@ -118,19 +116,19 @@ void insert(struct SinglyLinkedList *sll, size_t index, void *data, size_t data_
     sll->size = sll->size + 1;
 }
 
-void sorted_insert(struct SinglyLinkedList *sll, void *data, size_t data_type_size)
+void sorted_insert(struct SinglyLinkedList *sll, void *data)
 {
-    if(!sll->size || data <= sll->head->data) {
-        push_front(sll, data, data_type_size);
+    if(!sll->size || memcmp(data, sll->head->data, sll->data_type_size) < 0) {
+        push_front(sll, data);
         return;
     }
-    if(data >= sll->tail->data) {
-        push_back(sll, data, data_type_size);
+    if(memcmp(data, sll->tail->data, sll->data_type_size) > 0) {
+        push_back(sll, data);
         return;
     }
 
     struct SinglyLinkedListNode *node = sll->head;
-    struct SinglyLinkedListNode *node_new = node_construct(data, data_type_size);
+    struct SinglyLinkedListNode *node_new = node_construct(data, sll->data_type_size);
 
     while(node && data > node->next->data) {
         node = node->next;
@@ -141,9 +139,9 @@ void sorted_insert(struct SinglyLinkedList *sll, void *data, size_t data_type_si
     sll->size = sll->size + 1;
 }
 
-void node_destruct(struct SinglyLinkedListNode *node)
+void node_destruct(struct SinglyLinkedListNode *node, size_t data_type_size)
 {
-    memset(node->data, 0, node->data_type_size);
+    memset(node->data, 0, data_type_size);
     free(node->data);
     node->data = NULL;
 
@@ -163,7 +161,7 @@ void pop_front(struct SinglyLinkedList *sll)
     if(!sll->size)
         sll->tail = NULL;
 
-    node_destruct(node);
+    node_destruct(node, sll->data_type_size);
 
     sll->size = sll->size - 1;
 }

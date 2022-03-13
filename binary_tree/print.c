@@ -185,13 +185,13 @@ void binary_tree_print(struct BinaryTree *bt)
     if(!bt->size) return;
 
     printf("Pre-order Traverse: ");
-    preorder_traverse(tree);
+    preorder_traverse(bt);
     
     printf("\nIn-order Traverse: ");
-    inorder_traverse(tree);
+    inorder_traverse(bt);
     
     printf("\nPost-order Traverse: ");
-    postorder_traverse(tree);
+    postorder_traverse(bt);
     
     // printf("\nLevel-order Traverse: ");
     // levelorder_traverse(tree);
