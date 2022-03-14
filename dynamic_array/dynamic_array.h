@@ -6,7 +6,7 @@
 
 struct DynamicArray {
     void **array;
-    size_t data_type_size;
+    size_t element_size;
     size_t size;
     size_t capacity;
     double growth_factor;
