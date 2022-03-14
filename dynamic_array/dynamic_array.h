@@ -4,15 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct Array {
-    void *data;
-    // size_t data_type_size;
-    // size_t size;
-    // size_t capacity;
-};
-
 struct DynamicArray {
-    // struct Array *array;
     void **array;
     size_t data_type_size;
     size_t size;

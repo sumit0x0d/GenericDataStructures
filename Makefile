@@ -1,8 +1,8 @@
 CC = gcc
 TARGET = main
 
-CFLAGS = -std=c17 -O0 -g -Wall -Werror -Wpedantic -Wextra
-
+CFLAGS = -std=c17 -O0 -g -Wall -Wpedantic -Wextra
+# -Werror 
 avl_tree:
 	$(CC) $(CFLAGS) ./avl_tree/avl_tree.c ./avl_tree/print.c ./avl_tree/test.c -o $(TARGET)
 

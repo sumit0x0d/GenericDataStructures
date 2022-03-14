@@ -24,7 +24,7 @@ struct DynamicArray dynamic_array_construct(size_t data_type_size, size_t capaci
     da.capacity = capacity;
     da.growth_factor = growth_factor;
 
-    da.push_front = push_front;
+    // da.push_front = push_front;
     da.push_back = push_back;
     // da.insert = insert;
     // da.sorted_insert = sorted_insert;
@@ -56,24 +56,32 @@ void dynamic_array_distroy(struct DynamicArray *da)
 //     return NULL;
 // }
 
- void array_construct(void *array, size_t element_size, size_t size, size_t capacity, double growth_factor)
+void array_construct(void **array, size_t data_type_size, size_t size, size_t *capacity, double growth_factor)
 {
-    if(!array)
-        array = malloc(element_size * capacity);
-
-    if(size == capacity) {
-        capacity = capacity * growth_factor;
-        array = realloc(array, element_size * capacity);
+    if(!array) {
+        array = malloc(data_type_size);
+        if(!array) return;
     }
 
-    // return array;
+    if(size == (*capacity)) {
+        (*capacity) = (*capacity) * growth_factor;
+        array = realloc(array, data_type_size * (*capacity));
+    }
 }
 
 void push_front(struct DynamicArray *da, void *data)
 {
-    array_construct(da->array, da->data_type_size, da->size, da->capacity, da->growth_factor);
+    if(!da->array) {
+        da->array = malloc(da->data_type_size);
+        if(!da->array) return;
+    }
 
-    memmove((char *)da->array + da->data_type_size, da->array, da->data_type_size * da->size);
+    if(da->size == da->capacity) {
+        da->capacity = da->capacity * da->growth_factor;
+        da->array = realloc(da->array, da->data_type_size * da->capacity);
+    }
+
+    memmove((char *)da->array + da->data_type_size, *da->array, da->data_type_size * da->size);
 
     memcpy(da->array, data, da->data_type_size);
 
@@ -82,9 +90,11 @@ void push_front(struct DynamicArray *da, void *data)
 
 void push_back(struct DynamicArray *da, void *data)
 {
-    if(!da->array)
-        da->array = malloc(da->data_type_size * da->capacity);
- 
+    if(!da->array) {
+        da->array = malloc(da->data_type_size);
+        if(!da->array) return;
+    }
+
     if(da->size == da->capacity) {
         da->capacity = da->capacity * da->growth_factor;
         da->array = realloc(da->array, da->data_type_size * da->capacity);
@@ -114,17 +124,17 @@ void push_back(struct DynamicArray *da, void *data)
     
 // }
 
-void pop_front(struct DynamicArray *da)
-{
-    memmove(da->array, (char *)da->array + da->data_type_size, (da->size - 1) * da->data_type_size);
+// void pop_front(struct DynamicArray *da)
+// {
+//     memmove(da->array, (char *)da->array + da->data_type_size, (da->size - 1) * da->data_type_size);
 
-    da->size = da->size - 1;
-}
+//     da->size = da->size - 1;
+// }
 
-void pop_back(struct DynamicArray *da)
-{
-    da->size = da->size - 1;
-}
+// void pop_back(struct DynamicArray *da)
+// {
+//     da->size = da->size - 1;
+// }
 
 // void erase(struct DynamicArray *da, size_t index)
 // {
