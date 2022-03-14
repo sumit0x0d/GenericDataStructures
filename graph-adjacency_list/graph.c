@@ -41,7 +41,7 @@ struct Vertex *vertex_construct(void *data, size_t data_type_size)
     memcpy(vertex->data, data, data_type_size);
 
     vertex->weight = 0;
-    vertex->next = NULL;
+    vertex->edge = NULL;
 
     return vertex;
 }

@@ -8,7 +8,7 @@ struct Vertex {
     void *data;
     unsigned long weight;
     size_t index;
-    struct GraphNode *next;
+    struct GraphNode *edge;
 };
 
 struct Graph {

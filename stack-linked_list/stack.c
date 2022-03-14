@@ -51,6 +51,7 @@ struct StackNode *node_construct(void *data, size_t data_type_size)
 void push(struct Stack *stack, void *data)
 {
     struct StackNode *node = node_construct(data, stack->data_type_size);
+    if(!node) return;
 
     node->next = stack->top;
     stack->top = node;

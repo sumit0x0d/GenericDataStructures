@@ -4,9 +4,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+struct Array {
+    void *data;
+    // size_t data_type_size;
+    // size_t size;
+    // size_t capacity;
+};
+
 struct DynamicArray {
-    void *array;
-    size_t element_size;
+    struct Array *array;
+    // void **array;
+    size_t data_type_size;
     size_t size;
     size_t capacity;
     double growth_factor;
@@ -20,7 +28,7 @@ struct DynamicArray {
     void (*erase)(struct DynamicArray *da, size_t index);
 };
 
-struct DynamicArray dynamic_array_construct(size_t element_size, double growth_factor);
+struct DynamicArray dynamic_array_construct(size_t element_size, size_t capacity, double growth_factor);
 void *dynamic_array_search(struct DynamicArray *da, void *data);
 
 #endif

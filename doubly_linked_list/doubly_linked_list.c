@@ -46,6 +46,7 @@ struct DoublyLinkedListNode *node_construct(void *data, size_t data_type_size)
 void push_front(struct DoublyLinkedList *dll, void *data)
 {
     struct DoublyLinkedListNode *node = node_construct(data, dll->data_type_size);
+    if(!node) return;
 
     node->previous = NULL;
     if(dll->size) {
@@ -88,6 +89,8 @@ void insert(struct DoublyLinkedList *dll, size_t index, int data)
         return;
     struct DoublyLinkedListNode *node = dll->head;
     struct DoublyLinkedListNode *node_new = node_construct(data, dll->data_type_size);
+    if(!node_new) return;
+
     if(!index)
         push_front(dll, data);
     else if(index == dll->size)

@@ -36,8 +36,7 @@ struct SinglyLinkedList singly_linked_list_construct(size_t data_type_size)
 
 struct SinglyLinkedListNode *search(struct SinglyLinkedList *sll, int data)
 {
-    if(!sll->size)
-        return NULL;
+    if(!sll->size) return NULL;
     struct SinglyLinkedListNode *node = malloc(sizeof (struct SinglyLinkedListNode));
     while(node) {
         if(data == node->data)
@@ -67,6 +66,7 @@ struct SinglyLinkedListNode *node_construct(void *data, size_t data_type_size)
 void push_front(struct SinglyLinkedList *sll, void *data)
 {
     struct SinglyLinkedListNode *node = node_construct(data, sll->data_type_size);
+    if(!node) return;
 
     if(sll->size)
         node->next = sll->head;
@@ -82,6 +82,7 @@ void push_front(struct SinglyLinkedList *sll, void *data)
 void push_back(struct SinglyLinkedList *sll, void *data)
 {
     struct SinglyLinkedListNode *node = node_construct(data, sll->data_type_size);
+    if(!node) return;
     
     node->next = NULL;
     if(sll->size) {
@@ -107,6 +108,7 @@ void insert(struct SinglyLinkedList *sll, size_t index, void *data)
 
     struct SinglyLinkedListNode *node = sll->head;
     struct SinglyLinkedListNode *node_new = node_construct(data, sll->data_type_size);
+    if(!node_new) return;
 
     for(size_t i = 0; i < index-1; i++)
         node = node->next;
@@ -129,6 +131,7 @@ void sorted_insert(struct SinglyLinkedList *sll, void *data)
 
     struct SinglyLinkedListNode *node = sll->head;
     struct SinglyLinkedListNode *node_new = node_construct(data, sll->data_type_size);
+    if(!node_new) return;
 
     while(node && data > node->next->data) {
         node = node->next;
@@ -196,7 +199,7 @@ void erase(struct SinglyLinkedList *sll, size_t index)
         return;
 
     struct SinglyLinkedListNode *node = sll->head;
-    struct SinglyLinkedListNode *node_previous = NULL;
+    struct SinglyLinkedListNode *node_previous;
 
     for(size_t i = 0; i < index-1; i++) {
         node_previous = node;

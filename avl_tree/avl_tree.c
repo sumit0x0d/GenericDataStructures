@@ -147,6 +147,8 @@ void insert(struct AVLTree *avlt, void *data)
 {
     if(!avlt->size) {
         avlt->root = node_construct(data, avlt->data_type_size);
+        if(!avlt->root) return;
+        
         avlt->root->parent = NULL;
 
         avlt->size = avlt->size + 1;

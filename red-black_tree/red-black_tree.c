@@ -37,6 +37,7 @@ void red_black_tree_insert(struct RedBlackTree *rbt, void *data)
 {
     if(!rbt->size) {
         rbt->root = node_construct(data, rbt->data_type_size);
+        if(!rbt->root) return;
 
         rbt->root->color = BLACK;
         rbt->root->parent = NULL;
@@ -55,6 +56,8 @@ void red_black_tree_insert(struct RedBlackTree *rbt, void *data)
             node = node->right;
     }
     node = node_construct(data, rbt->data_type_size);
+    if(!node) return;
+
     node->parent = node_parent;
     node->color = RED;
     

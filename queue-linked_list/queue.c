@@ -54,8 +54,8 @@ struct QueueNode *node_construct(void *data, size_t data_type_size)
 void enqueue(struct Queue *queue, void *data)
 {
     struct QueueNode *node = node_construct(data, queue->data_type_size);
+    if(!node) return;
 
-    
     if(queue->size)
         queue->back->next = node;
     else 

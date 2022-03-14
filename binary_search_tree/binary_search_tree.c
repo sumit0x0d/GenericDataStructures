@@ -63,6 +63,7 @@ void insert(struct BinarySearchTree *bst, void *data)
 {
     if(!bst->size) {
         bst->root = node_construct(data, bst->data_type_size);
+        if(!bst->root) return;
         
         bst->size = bst->size + 1;
         
@@ -85,6 +86,7 @@ void insert(struct BinarySearchTree *bst, void *data)
     }
 
     node = node_construct(data, bst->data_type_size);
+    if(!node) return;
 
     if(compare < 0)
         node_parent->left = node;

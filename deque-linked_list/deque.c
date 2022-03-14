@@ -42,6 +42,7 @@ struct DequeNode *node_construct(void *data, size_t data_type_size)
 void push_front(struct Deque *deque, void *data)
 {
     struct DequeNode *node = node_construct(data, deque->data_type_size);
+    if(!node) return;
 
     node->previous = NULL;
     if(deque->size) {
@@ -60,6 +61,7 @@ void push_front(struct Deque *deque, void *data)
 void push_back(struct Deque *deque, void *data)
 {
     struct DequeNode *node = node_construct(data, deque->data_type_size);
+    if(!node) return;
 
     node->next = NULL;
     if(deque->size) {
