@@ -42,10 +42,8 @@ void dynamic_array_distroy(struct DynamicArray *da)
     free(da->array);
     da->array = NULL;
 
-    da->element_size = 0;
     da->size = 0;
-    da->capacity = 0;
-    da->growth_factor = 0;
+    da->capacity = 2;
 }
 
 // size_t *search(struct DynamicArray *da, int data)
