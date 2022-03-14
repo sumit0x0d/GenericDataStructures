@@ -12,8 +12,8 @@ struct Array {
 };
 
 struct DynamicArray {
-    struct Array *array;
-    // void **array;
+    // struct Array *array;
+    void **array;
     size_t data_type_size;
     size_t size;
     size_t capacity;
