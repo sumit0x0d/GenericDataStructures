@@ -2,7 +2,6 @@
 #define STACK_LINKED_LIST_H
 
 #include <stdlib.h>
-#include <string.h>
 
 struct StackNode {
     void *data;
