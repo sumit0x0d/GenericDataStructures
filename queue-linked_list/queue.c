@@ -32,7 +32,7 @@ void queue_destruct(struct Queue *Q)
         }
 }
 
-struct QueueNode *node_construct(void *data, size_t data_type_size)
+struct QueueNode *node_construct(size_t data_type_size)
 {
     struct QueueNode *node = malloc(sizeof (struct QueueNode));
     if(!node) return NULL;
@@ -43,8 +43,6 @@ struct QueueNode *node_construct(void *data, size_t data_type_size)
         node = NULL;
         return NULL;
     }
-
-    memcpy(node->data, data, data_type_size);
     
     node->next = NULL;
 
@@ -53,8 +51,10 @@ struct QueueNode *node_construct(void *data, size_t data_type_size)
 
 void enqueue(struct Queue *Q, void *data)
 {
-    struct QueueNode *node = node_construct(data, Q->data_type_size);
+    struct QueueNode *node = node_construct(Q->data_type_size);
     if(!node) return;
+
+    memcpy(node->data, data, Q->data_type_size);
 
     if(Q->size)
         Q->back->next = node;

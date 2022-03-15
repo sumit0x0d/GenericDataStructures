@@ -31,7 +31,7 @@ void stack_destruct(struct Stack *S)
         }
 }
 
-struct StackNode *node_construct(void *data, size_t data_type_size)
+struct StackNode *node_construct(size_t data_type_size)
 {
     struct StackNode *node = malloc(sizeof (struct StackNode));
     if(!node) return NULL;
@@ -43,15 +43,15 @@ struct StackNode *node_construct(void *data, size_t data_type_size)
         return NULL;
     }
 
-    memcpy(node->data, data, data_type_size);
-
     return node;
 }
 
 void push(struct Stack *S, void *data)
 {
-    struct StackNode *node = node_construct(data, S->data_type_size);
+    struct StackNode *node = node_construct(S->data_type_size);
     if(!node) return;
+
+    memcpy(node->data, data, S->data_type_size);
 
     node->next = S->top;
     S->top = node;

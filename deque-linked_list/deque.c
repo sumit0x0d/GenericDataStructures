@@ -22,7 +22,7 @@ struct Deque deque_construct(size_t data_type_size)
     return D;
 }
 
-struct DequeNode *node_construct(void *data, size_t data_type_size)
+struct DequeNode *node_construct(size_t data_type_size)
 {
     struct DequeNode *node = malloc(sizeof (struct DequeNode));
     if(!node) return;
@@ -34,15 +34,15 @@ struct DequeNode *node_construct(void *data, size_t data_type_size)
         return NULL;
     }
 
-    memcpy(node->data, data, data_type_size);
-
     return node;
 }
 
 void push_front(struct Deque *D, void *data)
 {
-    struct DequeNode *node = node_construct(data, D->data_type_size);
+    struct DequeNode *node = node_construct(D->data_type_size);
     if(!node) return;
+
+    memcpy(node->data, data, D->data_type_size);
 
     node->previous = NULL;
     if(D->size) {
@@ -60,8 +60,10 @@ void push_front(struct Deque *D, void *data)
 
 void push_back(struct Deque *D, void *data)
 {
-    struct DequeNode *node = node_construct(data, D->data_type_size);
+    struct DequeNode *node = node_construct(D->data_type_size);
     if(!node) return;
+
+    memcpy(node->data, data, D->data_type_size);
 
     node->next = NULL;
     if(D->size) {
@@ -72,7 +74,6 @@ void push_back(struct Deque *D, void *data)
         D->front = node;
         node->previous = NULL;
     }
-    
     D->back = node;
     
     D->size = D->size + 1;

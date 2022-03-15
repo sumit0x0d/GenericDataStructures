@@ -46,7 +46,7 @@ struct SinglyLinkedListNode *search(struct SinglyLinkedList *SLL, int data)
     return NULL;
 }
 
-struct SinglyLinkedListNode *node_construct(void *data, size_t data_type_size)
+struct SinglyLinkedListNode *node_construct(size_t data_type_size)
 {
     struct SinglyLinkedListNode *node = malloc(sizeof (struct SinglyLinkedListNode));
     if(!node) return NULL;
@@ -58,15 +58,15 @@ struct SinglyLinkedListNode *node_construct(void *data, size_t data_type_size)
         return NULL;
     }
 
-    memcpy(node->data, data, data_type_size);
-
     return node;
 }
 
 void push_front(struct SinglyLinkedList *SLL, void *data)
 {
-    struct SinglyLinkedListNode *node = node_construct(data, SLL->data_type_size);
+    struct SinglyLinkedListNode *node = node_construct(SLL->data_type_size);
     if(!node) return;
+
+    memcpy(node->data, data, SLL->data_type_size);
 
     if(SLL->size)
         node->next = SLL->head;
@@ -81,9 +81,11 @@ void push_front(struct SinglyLinkedList *SLL, void *data)
 
 void push_back(struct SinglyLinkedList *SLL, void *data)
 {
-    struct SinglyLinkedListNode *node = node_construct(data, SLL->data_type_size);
+    struct SinglyLinkedListNode *node = node_construct(SLL->data_type_size);
     if(!node) return;
     
+    memcpy(node->data, data, SLL->data_type_size);
+
     node->next = NULL;
     if(SLL->size) {
         SLL->tail->next = node;
@@ -107,8 +109,10 @@ void insert(struct SinglyLinkedList *SLL, size_t index, void *data)
         return;
 
     struct SinglyLinkedListNode *node = SLL->head;
-    struct SinglyLinkedListNode *node_new = node_construct(data, SLL->data_type_size);
+    struct SinglyLinkedListNode *node_new = node_construct(SLL->data_type_size);
     if(!node_new) return;
+
+    memcpy(node_new->data, data, SLL->data_type_size);
 
     for(size_t i = 0; i < index-1; i++)
         node = node->next;
@@ -131,8 +135,10 @@ void sorted_insert(struct SinglyLinkedList *SLL, void *data)
     }
 
     struct SinglyLinkedListNode *node = SLL->head;
-    struct SinglyLinkedListNode *node_new = node_construct(data, SLL->data_type_size);
+    struct SinglyLinkedListNode *node_new = node_construct(SLL->data_type_size);
     if(!node_new) return;
+
+    memcpy(node_new->data, data, SLL->data_type_size);
 
     while(node && data > node->next->data) {
         node = node->next;
