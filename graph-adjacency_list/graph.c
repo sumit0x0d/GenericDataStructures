@@ -1,24 +1,24 @@
 #include "graph.h"
 
-void vertex_insert(struct Graph *graph, void *data);
-void vertex_remove(struct Graph *graph);
-void edge_insert(struct Graph *graph, struct Vertex vertex_source, struct Vertex vertex_destination);
-void edge_remove(struct Graph *graph, struct Vertex vertex_source, struct Vertex vertex_destination);
+void vertex_insert(struct Graph *G, void *data);
+void vertex_remove(struct Graph *G);
+void edge_insert(struct Graph *G, struct Vertex vertex_source, struct Vertex vertex_destination);
+void edge_remove(struct Graph *G, struct Vertex vertex_source, struct Vertex vertex_destination);
 
 struct Graph graph_construct(size_t data_type_size)
 {
-    struct Graph graph;
+    struct Graph G;
 
-    graph.adjacency_list = malloc(sizeof (struct Vertex));
-    graph.data_type_size = data_type_size;
-    graph.vertices = 0;
+    G.adjacency_list = malloc(sizeof (struct Vertex));
+    G.data_type_size = data_type_size;
+    G.vertices = 0;
 
-    graph.vertex_insert = vertex_insert;
-    // graph.vertex_remove = vertex_remove;
-    // graph.edge_insert = edge_insert;
-    // graph.edge_remove = edge_remove;
+    G.vertex_insert = vertex_insert;
+    // G.vertex_remove = vertex_remove;
+    // G.edge_insert = edge_insert;
+    // G.edge_remove = edge_remove;
 
-    return graph;
+    return G;
 }
 
 // void graph_destruct()
@@ -46,13 +46,13 @@ struct Vertex *vertex_construct(void *data, size_t data_type_size)
     return vertex;
 }
 
-void vertex_insert(struct Graph *graph, void *data)
+void vertex_insert(struct Graph *G, void *data)
 {
-    struct Vertex *vertex = vertex_construct(data, graph->data_type_size);
-    graph->vertices = graph->vertices + 1;
-    vertex->index = graph->vertices;
-    graph->adjacency_list = realloc(graph->adjacency_list, sizeof (struct Vertex) * graph->vertices);
-    memcpy(graph->adjacency_list + sizeof (struct Vertex) * (graph->vertices - 1), vertex, sizeof (struct Vertex));
+    struct Vertex *vertex = vertex_construct(data, G->data_type_size);
+    G->vertices = G->vertices + 1;
+    vertex->index = G->vertices;
+    G->adjacency_list = realloc(G->adjacency_list, sizeof (struct Vertex) * G->vertices);
+    memcpy(G->adjacency_list + sizeof (struct Vertex) * (G->vertices - 1), vertex, sizeof (struct Vertex));
 }
 
 // void vertex_destruct(struct Vertex *vertex)
@@ -60,12 +60,12 @@ void vertex_insert(struct Graph *graph, void *data)
 
 // }
 
-// void vertex_remove(struct Graph *graph)
+// void vertex_remove(struct Graph *G)
 // {
 
 // }
 
-// void edge_insert(struct Graph *graph, struct Vertex vertex_source, struct Vertex vertex_destination)
+// void edge_insert(struct Graph *G, struct Vertex vertex_source, struct Vertex vertex_destination)
 // {
     
 // }

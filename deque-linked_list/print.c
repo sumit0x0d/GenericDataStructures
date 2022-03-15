@@ -2,11 +2,11 @@
 
 #include <stdio.h>
 
-void deque_print(struct Deque *deque)
+void deque_print(struct Deque *D)
 {
-    if(!deque->size) return;
+    if(!D->size) return;
 
-    struct DequeNode *node = deque->front;
+    struct DequeNode *node = D->front;
 
     printf("Deque: ");
     do {
@@ -14,5 +14,5 @@ void deque_print(struct Deque *deque)
         node = node->next;
     } while(node);
 
-    printf("\b\nDeque Size: %zu\n", deque->size);
+    printf("\b\nDeque Size: %zu\n", D->size);
 }

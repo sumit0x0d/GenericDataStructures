@@ -12,11 +12,11 @@ struct Stack {
     struct StackNode *top;
     size_t data_type_size;
     size_t size;
-    void (*push)(struct Stack *stack, void *data);
-    void (*pop)(struct Stack *stack);
+    void (*push)(struct Stack *S, void *data);
+    void (*pop)(struct Stack *S);
 };
 
 struct Stack stack_construct(size_t data_type_size);
-void stack_destruct(struct Stack *stack);
+void stack_destruct(struct Stack *S);
 
 #endif

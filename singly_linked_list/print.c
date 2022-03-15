@@ -2,11 +2,11 @@
 
 #include <stdio.h>
 
-void singly_linked_list_print(struct SinglyLinkedList *sll)
+void singly_linked_list_print(struct SinglyLinkedList *SLL)
 {
-    if(!sll->size) return;
+    if(!SLL->size) return;
 
-    struct SinglyLinkedListNode *node = sll->head;
+    struct SinglyLinkedListNode *node = SLL->head;
 
     printf("Linked List: ");
     do {
@@ -14,5 +14,5 @@ void singly_linked_list_print(struct SinglyLinkedList *sll)
         node = node->next;
     } while(node);
 
-    printf("\b\nLinked List Size: %zu\n", sll->size);
+    printf("\b\nLinked List Size: %zu\n", SLL->size);
 }

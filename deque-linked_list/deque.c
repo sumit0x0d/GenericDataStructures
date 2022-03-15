@@ -1,25 +1,25 @@
 #include "deque.h"
 
-void push_front(struct Deque *deque, void *data);
-void push_back(struct Deque *deque, void *data);
-void pop_front(struct Deque *deque);
-void pop_back(struct Deque *deque);
+void push_front(struct Deque *D, void *data);
+void push_back(struct Deque *D, void *data);
+void pop_front(struct Deque *D);
+void pop_back(struct Deque *D);
 
 struct Deque deque_construct(size_t data_type_size)
 {
-    struct Deque deque;
+    struct Deque D;
 
-    deque.front = NULL;
-    deque.back = NULL;
-    deque.data_type_size = data_type_size;
-    deque.size = 0;
+    D.front = NULL;
+    D.back = NULL;
+    D.data_type_size = data_type_size;
+    D.size = 0;
 
-    deque.push_front = push_front;
-    deque.push_back = push_back;
-    deque.pop_front = pop_front;
-    deque.pop_back = pop_back;
+    D.push_front = push_front;
+    D.push_back = push_back;
+    D.pop_front = pop_front;
+    D.pop_back = pop_back;
 
-    return deque;
+    return D;
 }
 
 struct DequeNode *node_construct(void *data, size_t data_type_size)
@@ -39,43 +39,43 @@ struct DequeNode *node_construct(void *data, size_t data_type_size)
     return node;
 }
 
-void push_front(struct Deque *deque, void *data)
+void push_front(struct Deque *D, void *data)
 {
-    struct DequeNode *node = node_construct(data, deque->data_type_size);
+    struct DequeNode *node = node_construct(data, D->data_type_size);
     if(!node) return;
 
     node->previous = NULL;
-    if(deque->size) {
-        deque->front->previous = node;
-        node->next = deque->front;
+    if(D->size) {
+        D->front->previous = node;
+        node->next = D->front;
     }
     else {
-        deque->back = node;
+        D->back = node;
         node->next = NULL;
     }
-    deque->front = node;
+    D->front = node;
 
-    deque->size = deque->size + 1;
+    D->size = D->size + 1;
 }
 
-void push_back(struct Deque *deque, void *data)
+void push_back(struct Deque *D, void *data)
 {
-    struct DequeNode *node = node_construct(data, deque->data_type_size);
+    struct DequeNode *node = node_construct(data, D->data_type_size);
     if(!node) return;
 
     node->next = NULL;
-    if(deque->size) {
-        deque->back->next = node;
-        node->previous = deque->back;
+    if(D->size) {
+        D->back->next = node;
+        node->previous = D->back;
     }
     else {
-        deque->front = node;
+        D->front = node;
         node->previous = NULL;
     }
     
-    deque->back = node;
+    D->back = node;
     
-    deque->size = deque->size + 1;
+    D->size = D->size + 1;
 }
 
 void node_destruct(struct DequeNode *node)
@@ -87,32 +87,32 @@ void node_destruct(struct DequeNode *node)
     node = NULL;
 }
 
-void pop_front(struct Deque *deque)
+void pop_front(struct Deque *D)
 {
-    if(!deque->size) return;
+    if(!D->size) return;
 
-    struct DequeNode *node = deque->front;
+    struct DequeNode *node = D->front;
 
-    deque->front = deque->front->next;
-    if(!deque->front)
-        deque->back = NULL;
+    D->front = D->front->next;
+    if(!D->front)
+        D->back = NULL;
 
     node_destruct(node);
 
-    deque->size = deque->size - 1;
+    D->size = D->size - 1;
 }
 
-void pop_back(struct Deque *deque)
+void pop_back(struct Deque *D)
 {
-    if(!deque->size) return;
+    if(!D->size) return;
 
-    struct DequeNode *node = deque->back;
+    struct DequeNode *node = D->back;
 
-    deque->back = deque->back->previous;
-    if(deque->back)
-        deque->back->next = NULL;
+    D->back = D->back->previous;
+    if(D->back)
+        D->back->next = NULL;
 
     node_destruct(node);
 
-    deque->size = deque->size - 1;
+    D->size = D->size - 1;
 }

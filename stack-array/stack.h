@@ -9,11 +9,11 @@ struct Stack {
     size_t size;
     size_t capacity;
 
-    void (*push)(struct Stack *stack, int data);
-    void (*pop)(struct Stack *stack);
+    void (*push)(struct Stack *S, int data);
+    void (*pop)(struct Stack *S);
 };
 
 struct Stack *stack_construct(size_t capacity);
-void stack_distroy(struct Stack *stack);
+void stack_distroy(struct Stack *S);
 
 #endif

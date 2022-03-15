@@ -2,19 +2,19 @@
 
 struct DoublyLinkedList doubly_linked_list_construct(size_t data_type_size)
 {
-    struct DoublyLinkedList dll;
+    struct DoublyLinkedList DLL;
 
-    dll.head = NULL;
-    dll.tail = NULL;
-    dll.data_type_size = data_type_size;
-    dll.size = 0;
+    DLL.head = NULL;
+    DLL.tail = NULL;
+    DLL.data_type_size = data_type_size;
+    DLL.size = 0;
 
-    return dll;
+    return DLL;
 }
 
-struct DoublyLinkedListNode *search(struct DoublyLinkedList *dll, int data)
+struct DoublyLinkedListNode *search(struct DoublyLinkedList *DLL, int data)
 {
-    if(!dll->size) return NULL;
+    if(!DLL->size) return NULL;
 
     struct DoublyLinkedListNode *node = malloc(sizeof (struct DoublyLinkedListNode));
     while(node) {
@@ -43,58 +43,58 @@ struct DoublyLinkedListNode *node_construct(void *data, size_t data_type_size)
     return node;
 }
 
-void push_front(struct DoublyLinkedList *dll, void *data)
+void push_front(struct DoublyLinkedList *DLL, void *data)
 {
-    struct DoublyLinkedListNode *node = node_construct(data, dll->data_type_size);
+    struct DoublyLinkedListNode *node = node_construct(data, DLL->data_type_size);
     if(!node) return;
 
     node->previous = NULL;
-    if(dll->size) {
-        dll->head->previous = node;
-        node->next = dll->head;
+    if(DLL->size) {
+        DLL->head->previous = node;
+        node->next = DLL->head;
     }
     else {
-        dll->tail = node;
+        DLL->tail = node;
         node->next = NULL;
     }
 
-    dll->head = node;
+    DLL->head = node;
 
-    dll->size = dll->size + 1;
+    DLL->size = DLL->size + 1;
 }
 
-void push_back(struct DoublyLinkedList *dll, void *data)
+void push_back(struct DoublyLinkedList *DLL, void *data)
 {
-    struct DoublyLinkedListNode *node = node_construct(data, dll->data_type_size);
+    struct DoublyLinkedListNode *node = node_construct(data, DLL->data_type_size);
     if(!node) return;
 
     node->next = NULL;
-    if(dll->size) {
-        dll->tail->next = node;
-        node->previous = dll->tail;
+    if(DLL->size) {
+        DLL->tail->next = node;
+        node->previous = DLL->tail;
     }
     else {
-        dll->head = node;
+        DLL->head = node;
         node->previous = NULL;
     }
 
-    dll->tail = node;
+    DLL->tail = node;
 
-    dll->size = dll->size + 1;
+    DLL->size = DLL->size + 1;
 }
 
-void insert(struct DoublyLinkedList *dll, size_t index, int data)
+void insert(struct DoublyLinkedList *DLL, size_t index, int data)
 {
-    if(index > dll->size)
+    if(index > DLL->size)
         return;
-    struct DoublyLinkedListNode *node = dll->head;
-    struct DoublyLinkedListNode *node_new = node_construct(data, dll->data_type_size);
+    struct DoublyLinkedListNode *node = DLL->head;
+    struct DoublyLinkedListNode *node_new = node_construct(data, DLL->data_type_size);
     if(!node_new) return;
 
     if(!index)
-        push_front(dll, data);
-    else if(index == dll->size)
-        push_back(dll, data);
+        push_front(DLL, data);
+    else if(index == DLL->size)
+        push_back(DLL, data);
     else {
         for(size_t i = 0; i < index-1; ++i)
             node = node->next;
@@ -105,7 +105,7 @@ void insert(struct DoublyLinkedList *dll, size_t index, int data)
     }
 }
 
-void sorted_insert(struct DoublyLinkedList *dll, int data)
+void sorted_insert(struct DoublyLinkedList *DLL, int data)
 {
 
 }
@@ -119,43 +119,43 @@ void node_destruct(struct DoublyLinkedListNode *node, size_t data_type_size)
     node = NULL;
 }
 
-void pop_front(struct DoublyLinkedList *dll)
+void pop_front(struct DoublyLinkedList *DLL)
 {
-    if(!dll->size) return;
+    if(!DLL->size) return;
 
-    struct DoublyLinkedListNode *node = dll->head;
+    struct DoublyLinkedListNode *node = DLL->head;
 
-    dll->head = dll->head->next;
-    if(!dll->head)
-        dll->tail = NULL;
+    DLL->head = DLL->head->next;
+    if(!DLL->head)
+        DLL->tail = NULL;
 
-    node_destruct(node, dll->data_type_size);
+    node_destruct(node, DLL->data_type_size);
 
-    dll->size = dll->size - 1;
+    DLL->size = DLL->size - 1;
 }
 
-void pop_back(struct DoublyLinkedList *dll)
+void pop_back(struct DoublyLinkedList *DLL)
 {
-    if(!dll->size) return;
+    if(!DLL->size) return;
 
-    struct DoublyLinkedListNode *node = dll->tail;
+    struct DoublyLinkedListNode *node = DLL->tail;
 
-    dll->tail = dll->tail->previous;
-    if(dll->tail)
-        dll->tail->next = NULL;
+    DLL->tail = DLL->tail->previous;
+    if(DLL->tail)
+        DLL->tail->next = NULL;
 
-    node_destruct(node, dll->data_type_size);
+    node_destruct(node, DLL->data_type_size);
 
-    dll->size = dll->size - 1;
+    DLL->size = DLL->size - 1;
 }
 
-void erase(struct DoublyLinkedList *dll, size_t index)
+void erase(struct DoublyLinkedList *DLL, size_t index)
 {
-    if(index == 0 || index > dll->size)
+    if(index == 0 || index > DLL->size)
         return;
     if(index == 1)
-        pop_front(dll);
-    struct DoublyLinkedListNode *node = dll->head;
+        pop_front(DLL);
+    struct DoublyLinkedListNode *node = DLL->head;
     for(size_t i = 0; i < index-1; ++i) {
         node->previous = node;
         node = node->next;
@@ -164,14 +164,14 @@ void erase(struct DoublyLinkedList *dll, size_t index)
     free(node);
 }
 
-void remove(struct DoublyLinkedList *dll, int data)
+void remove(struct DoublyLinkedList *DLL, int data)
 {
-    struct DoublyLinkedListNode *node = dll->head;
+    struct DoublyLinkedListNode *node = DLL->head;
     size_t count = 0;
     while(node) {
         count++;
         node = node->next;
     }
     if(node->data == data)
-        erase(dll, count);
+        erase(DLL, count);
 }

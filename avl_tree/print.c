@@ -15,17 +15,17 @@ struct StackNode {
 struct Queue {
     struct QueueNode *front;
     struct QueueNode *back;
-    void (*enqueue)(struct Queue *queue, struct AVLTreeNode *data);
-    void (*dequeue)(struct Queue *queue);
+    void (*enqueue)(struct Queue *Q, struct AVLTreeNode *data);
+    void (*dequeue)(struct Queue *Q);
 };
 
 struct Stack {
     struct StackNode *top;
-    void (*push)(struct Stack *stack, struct AVLTreeNode *data);
-    void (*pop)(struct Stack *stack);
+    void (*push)(struct Stack *S, struct AVLTreeNode *data);
+    void (*pop)(struct Stack *S);
 };
 
-void enqueue(struct Queue *queue, struct AVLTreeNode *data)
+void enqueue(struct Queue *Q, struct AVLTreeNode *data)
 {
     struct QueueNode *node = malloc(sizeof (struct QueueNode));
     if(!node) return;
@@ -33,22 +33,22 @@ void enqueue(struct Queue *queue, struct AVLTreeNode *data)
     node->data = data;
     
     node->next = NULL;
-    if(!queue->front)
-        queue->front = node;
+    if(!Q->front)
+        Q->front = node;
     else
-        queue->back->next = node;
-    queue->back = node;
+        Q->back->next = node;
+    Q->back = node;
 }
 
-void dequeue(struct Queue *queue)
+void dequeue(struct Queue *Q)
 {
-    if(!queue->front) return;
+    if(!Q->front) return;
     
-    struct QueueNode *node = queue->front;
+    struct QueueNode *node = Q->front;
     
-    queue->front = node->next;
-    if(!queue->front)
-        queue->back = NULL;
+    Q->front = node->next;
+    if(!Q->front)
+        Q->back = NULL;
     
     free(node);
     node = NULL;
@@ -56,35 +56,35 @@ void dequeue(struct Queue *queue)
 
 struct Queue queue_construct()
 {
-    struct Queue queue;
+    struct Queue Q;
 
-    queue.front = NULL;
-    queue.back = NULL;
+    Q.front = NULL;
+    Q.back = NULL;
 
-    queue.enqueue = enqueue;
-    queue.dequeue = dequeue;
+    Q.enqueue = enqueue;
+    Q.dequeue = dequeue;
 
-    return queue;
+    return Q;
 }
 
-void push(struct Stack *stack, struct AVLTreeNode *data)
+void push(struct Stack *S, struct AVLTreeNode *data)
 {
     struct StackNode *node = malloc(sizeof (struct StackNode));
     if(!node) return;
     
     node->data = data;
     
-    node->next = stack->top;
-    stack->top = node;
+    node->next = S->top;
+    S->top = node;
 }
 
-void pop(struct Stack *stack)
+void pop(struct Stack *S)
 {
-    if(!stack->top) return;
+    if(!S->top) return;
     
-    struct StackNode *node = stack->top;
+    struct StackNode *node = S->top;
     
-    stack->top = stack->top->next;
+    S->top = S->top->next;
     
     free(node);
     node = NULL;
@@ -92,108 +92,108 @@ void pop(struct Stack *stack)
 
 struct Stack stack_construct()
 {
-    struct Stack stack;
+    struct Stack S;
 
-    stack.top = NULL;
+    S.top = NULL;
 
-    stack.push = push;
-    stack.pop = pop;
+    S.push = push;
+    S.pop = pop;
 
-    return stack;
+    return S;
 }
 
-void preorder_traverse(struct AVLTree *avlt)
+void preorder_traverse(struct AVLTree *AVLT)
 {
-    struct AVLTreeNode *node = avlt->root;
-    struct Stack stack = stack_construct();
+    struct AVLTreeNode *node = AVLT->root;
+    struct Stack S = stack_construct();
 
-    while(node || stack.top)
+    while(node || S.top)
         if(node) {
             printf("%d ", *(int *)node->data);
-            stack.push(&stack, node);
+            S.push(&S, node);
             node = node->left;
         }
         else {
-            node = stack.top->data;
-            stack.pop(&stack);
+            node = S.top->data;
+            S.pop(&S);
             node = node->right;
         }
 }
 
-void inorder_traverse(struct AVLTree *avlt)
+void inorder_traverse(struct AVLTree *AVLT)
 {
-    struct AVLTreeNode *node = avlt->root;
-    struct Stack stack = stack_construct();
+    struct AVLTreeNode *node = AVLT->root;
+    struct Stack S = stack_construct();
 
-    while(node || stack.top)
+    while(node || S.top)
         if(node) {
-            stack.push(&stack, node);
+            S.push(&S, node);
             node = node->left;
         }
         else {
-            node = stack.top->data;
-            stack.pop(&stack);
+            node = S.top->data;
+            S.pop(&S);
             printf("%d ", *(int *)node->data);
             node = node->right;
         }
 }
 
-void postorder_traverse(struct AVLTree *avlt)
+void postorder_traverse(struct AVLTree *AVLT)
 {
-    struct AVLTreeNode *node = avlt->root;
-    struct Stack stack = stack_construct();
+    struct AVLTreeNode *node = AVLT->root;
+    struct Stack S = stack_construct();
     
-    while(node || stack.top)
+    while(node || S.top)
         if(node) {
-            stack.push(&stack, node);
+            S.push(&S, node);
             node = node->left;
         }
         else {
-            node = stack.top->data;
-            stack.pop(&stack);
+            node = S.top->data;
+            S.pop(&S);
             printf("%d ", *(int *)node->data);
             node = node->right;
         }
 }
 
-void levelorder_traverse(struct AVLTree *avlt)
+void levelorder_traverse(struct AVLTree *AVLT)
 {
-    struct AVLTreeNode *node = avlt->root;
-    struct Queue queue = queue_construct();
+    struct AVLTreeNode *node = AVLT->root;
+    struct Queue Q = queue_construct();
 
-    printf("%d ", *(int *)avlt->root->data);
-    queue.enqueue(&queue, avlt->root);
+    printf("%d ", *(int *)AVLT->root->data);
+    Q.enqueue(&Q, AVLT->root);
 
-    while(queue.front) {
-        node = queue.front->data;
-        queue.dequeue(&queue);
+    while(Q.front) {
+        node = Q.front->data;
+        Q.dequeue(&Q);
         if(node->left) {
             printf("%d ", *(int *)node->left->data);
-            queue.enqueue(&queue, node->left);
+            Q.enqueue(&Q, node->left);
         }
         if(node->right) {
             printf("%d ", *(int *)node->right->data);
-            queue.enqueue(&queue, node->right);
+            Q.enqueue(&Q, node->right);
         }
     }
 }
 
-void avl_tree_print(struct AVLTree *avlt)
+void avl_tree_print(struct AVLTree *AVLT)
 {
-    if(!avlt->size) return;
+    if(!AVLT->size) return;
 
     printf("Pre-order Traverse: ");
-    preorder_traverse(avlt);
+    preorder_traverse(AVLT);
     
     printf("\nIn-order Traverse: ");
-    inorder_traverse(avlt);
+    inorder_traverse(AVLT);
     
     printf("\nPost-order Traverse: ");
-    postorder_traverse(avlt);
+    postorder_traverse(AVLT);
 
     // printf("\nLevel-order Traverse: ");
     // levelorder_traverse(tree);
 
     printf("\n");
-    printf("\b\nAVL Tree Size: %zu\n", avlt->size);
+    printf("\b\nAVL Tree Size: %zu\n", AVLT->size);
 }

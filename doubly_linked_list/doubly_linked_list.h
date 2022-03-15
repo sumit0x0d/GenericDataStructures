@@ -14,20 +14,20 @@ struct DoublyLinkedList {
     struct DoublyLinkedListNode *tail;
     size_t data_type_size;
     size_t size;
-    struct DoublyLinkedListNode *(*search)(struct DoublyLinkedList *dll, void *data);
-    void (*push_front)(struct DoublyLinkedList *dll, void *data);
-    void (*push_back)(struct DoublyLinkedList *dll, void *data);
-    void (*insert)(struct DoublyLinkedList *dll, size_t index, void *data);
-    void (*sorted_insert)(struct DoublyLinkedList *dll, void *data);
-    void (*pop_front)(struct DoublyLinkedList *dll);
-    void (*pop_back)(struct DoublyLinkedList *dll);
-    void (*remove)(struct DoublyLinkedList *dll, void *data);
-    void (*erase)(struct DoublyLinkedList *dll, size_t index);
-    void (*linear)(struct DoublyLinkedList *dll);
-    void (*circular)(struct DoublyLinkedList *dll);
+    struct DoublyLinkedListNode *(*search)(struct DoublyLinkedList *DLL, void *data);
+    void (*push_front)(struct DoublyLinkedList *DLL, void *data);
+    void (*push_back)(struct DoublyLinkedList *DLL, void *data);
+    void (*insert)(struct DoublyLinkedList *DLL, size_t index, void *data);
+    void (*sorted_insert)(struct DoublyLinkedList *DLL, void *data);
+    void (*pop_front)(struct DoublyLinkedList *DLL);
+    void (*pop_back)(struct DoublyLinkedList *DLL);
+    void (*remove)(struct DoublyLinkedList *DLL, void *data);
+    void (*erase)(struct DoublyLinkedList *DLL, size_t index);
+    void (*linear)(struct DoublyLinkedList *DLL);
+    void (*circular)(struct DoublyLinkedList *DLL);
 };
 
 struct DoublyLinkedList doubly_linked_list_construct(size_t data_type_size);
-void doubly_linked_list_distruct(struct DoublyLinkedList *dll);
+void doubly_linked_list_destruct(struct DoublyLinkedList *DLL);
 
 #endif

@@ -1,14 +1,14 @@
 #include "deque.h"
 
-void deque_print(struct Deque *deque)
+void deque_print(struct Deque *D)
 {
     printf("Deque: ");
-    size_t i = deque->front;
-    while(i < deque->back-1) {
-        printf("%d ", deque->array[i]);
+    size_t i = D->front;
+    while(i < D->back-1) {
+        printf("%d ", D->array[i]);
         i++;
     }
-    printf("%d\n", deque->array[i]);
-    printf("Deque Size: %zu\n", deque->size);
-    printf("deque Capacity: %zu\n", deque->capacity);
+    printf("%d\n", D->array[i]);
+    printf("Deque Size: %zu\n", D->size);
+    printf("deque Capacity: %zu\n", D->capacity);
 }

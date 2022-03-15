@@ -1,14 +1,14 @@
 #include "stack.h"
 
-void stack_print(struct Stack *stack)
+void stack_print(struct Stack *S)
 {
     printf("Stack: ");
     size_t i = 0;
-    while(i < stack->top-1) {
-        printf("%d ", stack->array[i]);
+    while(i < S->top-1) {
+        printf("%d ", S->array[i]);
         i++;
     }
-    printf("%d\n", stack->array[stack->top]);
-    printf("Stack Size: %zu\n", stack->size);
-    printf("Stack Capacity: %zu\n", stack->capacity);
+    printf("%d\n", S->array[S->top]);
+    printf("Stack Size: %zu\n", S->size);
+    printf("Stack Capacity: %zu\n", S->capacity);
 }

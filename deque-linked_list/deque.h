@@ -15,13 +15,13 @@ struct Deque {
     struct DequeNode *back;
     size_t data_type_size;
     size_t size;
-    void (*push_front)(struct Deque *deque, void *data);
-    void (*push_back)(struct Deque *deque, void *data);
-    void (*pop_front)(struct Deque *deque);
-    void (*pop_back)(struct Deque *deque);
+    void (*push_front)(struct Deque *D, void *data);
+    void (*push_back)(struct Deque *D, void *data);
+    void (*pop_front)(struct Deque *D);
+    void (*pop_back)(struct Deque *D);
 };
 
 struct Deque deque_construct(size_t data_type_size);
-void deque_destruct(struct Deque *deque);
+void deque_destruct(struct Deque *D);
 
 #endif

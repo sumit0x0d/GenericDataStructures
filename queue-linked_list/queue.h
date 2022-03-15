@@ -15,11 +15,11 @@ struct Queue {
     struct QueueNode *back;
     size_t data_type_size;
     size_t size;
-    void (*enqueue)(struct Queue *stack, void *data);
-    void (*dequeue)(struct Queue *stack);
+    void (*enqueue)(struct Queue *Q, void *data);
+    void (*dequeue)(struct Queue *Q);
 };
 
 struct Queue queue_construct(size_t data_type_size);
-void queue_destruct(struct Queue *queue);
+void queue_destruct(struct Queue *Q);
 
 #endif

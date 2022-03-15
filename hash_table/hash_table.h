@@ -10,43 +10,44 @@ struct HashTable {
     size_t capacity;
 };
 
-void hash_table_print(struct HashTable *ht);
+void hash_table_print(struct HashTable *HT);
 struct HashTable *ht_construct();
-void hash_table_insert(struct HashTable *ht, void *data, size_t data_type_size);
-void hash_table_remove(struct HashTable *ht);
+void hash_table_insert(struct HashTable *HT, void *data, size_t data_type_size);
+void hash_table_remove(struct HashTable *HT);
 
-void hash_table_print(struct HashTable *ht)
+void hash_table_print(struct HashTable *HT)
 {
     printf("Hash-Table: ");
     size_t i = 0;
-    while(i < ht->capacity-1) {
-        printf("%d ", ht->array[i]);
+    while(i < HT->capacity-1) {
+        printf("%d ", HT->array[i]);
         i++;
     }
-    printf("%d\n", ht->array[ht->capacity-1]);
-    printf("Hash-Table Size: %zu\n", ht->size);
-    printf("Hash-Table Capacity: %zu\n", ht->capacity);
+    printf("%d\n", HT->array[HT->capacity-1]);
+    printf("Hash-Table Size: %zu\n", HT->size);
+    printf("Hash-Table Capacity: %zu\n", HT->capacity);
 }
 
 struct HashTable *ht_construct(size_t capacity)
 {
-    struct HashTable *ht = malloc(sizeof (struct HashTable));
-    assert(ht);
-    ht->array = malloc(sizeof (int) * capacity);
-    ht->size = 0;
-    ht->capacity = capacity;
-    return ht;
+    struct HashTable *HT = malloc(sizeof (struct HashTable));
+    assert(HT);
+    HT->array = malloc(sizeof (int) * capacity);
+    HT->size = 0;
+    HT->capacity = capacity;
+    
+    return HT;
 }
 
-void hash_table_insert(struct HashTable *ht, int data)
+void hash_table_insert(struct HashTable *HT, int data)
 {
-    hash_mod(ht->capacity, data);
-    if(!ht->array[mod])
-    ht->array[mod] = data;
-    ++ht->size;
+    hash_mod(HT->capacity, data);
+    if(!HT->array[mod])
+    HT->array[mod] = data;
+    ++HT->size;
 }
 
-void hash_table_remove(struct HashTable *ht)
+void hash_table_remove(struct HashTable *HT)
 {
 
 }

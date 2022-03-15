@@ -2,48 +2,53 @@
 
 #include <stdio.h>
 
-struct SinglyLinkedListNode {
+struct QueueNode {
     struct RedBlackTreeNode *data;
-    struct SinglyLinkedListNode *next;
+    struct QueueNode *next;
+};
+
+struct StackNode {
+    struct RedBlackTreeNode *data;
+    struct StackNode *next;
 };
 
 struct Queue {
-    struct SinglyLinkedListNode *front;
-    struct SinglyLinkedListNode *back;
-    void (*enqueue)(struct Queue *queue, struct RedBlackTreeNode *data);
-    void (*dequeue)(struct Queue *queue);
+    struct QueueNode *front;
+    struct QueueNode *back;
+    void (*enqueue)(struct Queue *Q, struct RedBlackTreeNode *data);
+    void (*dequeue)(struct Queue *Q);
 };
 
 struct Stack {
-    struct SinglyLinkedListNode *top;
-    void (*push)(struct Stack *stack, struct RedBlackTreeNode *data);
-    void (*pop)(struct Stack *stack);
+    struct StackNode *top;
+    void (*push)(struct Stack *S, struct RedBlackTreeNode *data);
+    void (*pop)(struct Stack *S);
 };
 
-void enqueue(struct Queue *queue, struct RedBlackTreeNode *data)
+void enqueue(struct Queue *Q, struct RedBlackTreeNode *data)
 {
-    struct SinglyLinkedListNode *node = malloc(sizeof (struct SinglyLinkedListNode));
+    struct QueueNode *node = malloc(sizeof (struct QueueNode));
     if(!node) return;
 
     node->data = data;
     
     node->next = NULL;
-    if(!queue->front)
-        queue->front = node;
+    if(!Q->front)
+        Q->front = node;
     else
-        queue->back->next = node;
-    queue->back = node;
+        Q->back->next = node;
+    Q->back = node;
 }
 
-void dequeue(struct Queue *queue)
+void dequeue(struct Queue *Q)
 {
-    if(!queue->front) return;
+    if(!Q->front) return;
     
-    struct SinglyLinkedListNode *node = queue->front;
+    struct QueueNode *node = Q->front;
     
-    queue->front = node->next;
-    if(!queue->front)
-        queue->back = NULL;
+    Q->front = node->next;
+    if(!Q->front)
+        Q->back = NULL;
     
     free(node);
     node = NULL;
@@ -51,35 +56,35 @@ void dequeue(struct Queue *queue)
 
 struct Queue queue_construct()
 {
-    struct Queue queue;
+    struct Queue Q;
 
-    queue.front = NULL;
-    queue.back = NULL;
+    Q.front = NULL;
+    Q.back = NULL;
 
-    queue.enqueue = enqueue;
-    queue.dequeue = dequeue;
+    Q.enqueue = enqueue;
+    Q.dequeue = dequeue;
     
-    return queue;
+    return Q;
 }
 
-void push(struct Stack *stack, struct RedBlackTreeNode *data)
+void push(struct Stack *S, struct RedBlackTreeNode *data)
 {
-    struct SinglyLinkedListNode *node = malloc(sizeof (struct SinglyLinkedListNode));
+    struct StackNode *node = malloc(sizeof (struct StackNode));
     if(!node) return;
     
     node->data = data;
     
-    node->next = stack->top;
-    stack->top = node;
+    node->next = S->top;
+    S->top = node;
 }
 
-void pop(struct Stack *stack)
+void pop(struct Stack *S)
 {
-    if(!stack->top) return;
+    if(!S->top) return;
     
-    struct SinglyLinkedListNode *node = stack->top;
+    struct StackNode *node = S->top;
     
-    stack->top = stack->top->next;
+    S->top = S->top->next;
     
     free(node);
     node = NULL;
@@ -87,108 +92,108 @@ void pop(struct Stack *stack)
 
 struct Stack stack_construct()
 {
-    struct Stack stack;
+    struct Stack S;
 
-    stack.top = NULL;
+    S.top = NULL;
     
-    stack.push = push;
-    stack.pop = pop;
+    S.push = push;
+    S.pop = pop;
     
-    return stack;
+    return S;
 }
 
-void preorder_traverse(struct RedBlackTree *rbt)
+void preorder_traverse(struct RedBlackTree *RBT)
 {
-    struct RedBlackTreeNode *node = rbt->root;
-    struct Stack stack = stack_construct();
+    struct RedBlackTreeNode *node = RBT->root;
+    struct Stack S = stack_construct();
 
-    while(node || stack.top)
+    while(node || S.top)
         if(node) {
             printf("%d ", *(int *)node->data);
-            stack.push(&stack, node);
+            S.push(&S, node);
             node = node->left;
         }
         else {
-            node = stack.top->data;
-            stack.pop(&stack);
+            node = S.top->data;
+            S.pop(&S);
             node = node->right;
         }
 }
 
-void inorder_traverse(struct RedBlackTree *rbt)
+void inorder_traverse(struct RedBlackTree *RBT)
 {
-    struct RedBlackTreeNode *node = rbt->root;
-    struct Stack stack = stack_construct();
+    struct RedBlackTreeNode *node = RBT->root;
+    struct Stack S = stack_construct();
 
-    while(node || stack.top)
+    while(node || S.top)
         if(node) {
-            stack.push(&stack, node);
+            S.push(&S, node);
             node = node->left;
         }
         else {
-            node = stack.top->data;
-            stack.pop(&stack);
-            printf("%d ", *(int *)node->data);
-            node = node->right;
-        }
-}
-
-void postorder_traverse(struct RedBlackTree *rbt)
-{
-    struct RedBlackTreeNode *node = rbt->root;
-    struct Stack stack = stack_construct();
-    
-    while(node || stack.top)
-        if(node) {
-            stack.push(&stack, node);
-            node = node->left;
-        }
-        else {
-            node = stack.top->data;
-            stack.pop(&stack);
+            node = S.top->data;
+            S.pop(&S);
             printf("%d ", *(int *)node->data);
             node = node->right;
         }
 }
 
-void levelorder_traverse(struct RedBlackTree *rbt)
+void postorder_traverse(struct RedBlackTree *RBT)
 {
-    struct RedBlackTreeNode *node = rbt->root;
-    struct Queue queue = queue_construct();
+    struct RedBlackTreeNode *node = RBT->root;
+    struct Stack S = stack_construct();
+    
+    while(node || S.top)
+        if(node) {
+            S.push(&S, node);
+            node = node->left;
+        }
+        else {
+            node = S.top->data;
+            S.pop(&S);
+            printf("%d ", *(int *)node->data);
+            node = node->right;
+        }
+}
 
-    printf("%d ", *(int *)rbt->root->data);
-    queue.enqueue(&queue, rbt->root);
+void levelorder_traverse(struct RedBlackTree *RBT)
+{
+    struct RedBlackTreeNode *node = RBT->root;
+    struct Queue Q = queue_construct();
 
-    while(queue.front) {
-        node = queue.front->data;
-        queue.dequeue(&queue);
+    printf("%d ", *(int *)RBT->root->data);
+    Q.enqueue(&Q, RBT->root);
+
+    while(Q.front) {
+        node = Q.front->data;
+        Q.dequeue(&Q);
         if(node->left) {
             printf("%d ", *(int *)node->left->data);
-            queue.enqueue(&queue, node->left);
+            Q.enqueue(&Q, node->left);
         }
         if(node->right) {
             printf("%d ", *(int *)node->right->data);
-            queue.enqueue(&queue, node->right);
+            Q.enqueue(&Q, node->right);
         }
     }
 }
 
-void red_black_tree_print(struct RedBlackTree *rbt)
+void red_black_tree_print(struct RedBlackTree *RBT)
 {
-    if(!rbt->size) return;
+    if(!RBT->size) return;
 
     printf("Pre-order Traverse: ");
-    preorder_traverse(rbt);
+    preorder_traverse(RBT);
     
     printf("\nIn-order Traverse: ");
-    inorder_traverse(rbt);
+    inorder_traverse(RBT);
     
     printf("\nPost-order Traverse: ");
-    postorder_traverse(rbt);
+    postorder_traverse(RBT);
     
     // printf("\nLevel-order Traverse: ");
     // levelorder_traverse(tree);
     
     printf("\n");
-    printf("\b\nRed Black Tree Size: %zu\n", rbt->size);
+    printf("\b\nRed Black Tree Size: %zu\n", RBT->size);
 }

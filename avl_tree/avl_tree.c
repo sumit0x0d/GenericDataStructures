@@ -1,14 +1,14 @@
 #include "avl_tree.h"
 
-struct AVLTreeNode *search(struct AVLTree *avlt, void *data);
-void insert(struct AVLTree *avlt, void *data);
-void remove(struct AVLTree *avlt, void *data);
+struct AVLTreeNode *search(struct AVLTree *AVLT, void *data);
+void insert(struct AVLTree *AVLT, void *data);
+void remove(struct AVLTree *AVLT, void *data);
 
-struct AVLTreeNode *search(struct AVLTree *avlt, void *data)
+struct AVLTreeNode *search(struct AVLTree *AVLT, void *data)
 {
-    struct AVLTreeNode *node = avlt->root;
+    struct AVLTreeNode *node = AVLT->root;
     while(node) {
-        int compare = memcmp(data, node->data, avlt->data_type_size);
+        int compare = memcmp(data, node->data, AVLT->data_type_size);
         if(compare == 0)
             return node;
         else if(compare < 0)
@@ -143,20 +143,20 @@ struct AVLTreeNode *node_construct(void *data, size_t data_type_size)
     return node;
 }
 
-void insert(struct AVLTree *avlt, void *data)
+void insert(struct AVLTree *AVLT, void *data)
 {
-    if(!avlt->size) {
-        avlt->root = node_construct(data, avlt->data_type_size);
-        if(!avlt->root) return;
+    if(!AVLT->size) {
+        AVLT->root = node_construct(data, AVLT->data_type_size);
+        if(!AVLT->root) return;
         
-        avlt->root->parent = NULL;
+        AVLT->root->parent = NULL;
 
-        avlt->size = avlt->size + 1;
+        AVLT->size = AVLT->size + 1;
 
         return;
     }
     
-    struct AVLTreeNode *node = avlt->root;
+    struct AVLTreeNode *node = AVLT->root;
     struct AVLTreeNode *node_parent = NULL;
     
     while(node) {
@@ -169,10 +169,10 @@ void insert(struct AVLTree *avlt, void *data)
             node = node->right;
     }
 
-    node = node_construct(data, avlt->data_type_size);
+    node = node_construct(data, AVLT->data_type_size);
     node->parent = node_parent;
 
-    avlt->size = avlt->size + 1;
+    AVLT->size = AVLT->size + 1;
 
     if(node->data < node_parent->data)
         node_parent->left = node;
@@ -184,12 +184,12 @@ void insert(struct AVLTree *avlt, void *data)
         if(node_parent->balance_factor == 2 || node_parent->balance_factor == -2)
             node_rebalance(node_parent);
         if(!node_parent->parent)
-            avlt->root = node_parent;
+            AVLT->root = node_parent;
         node_parent = node_parent->parent;
     }
 }
 
-void remove(struct AVLTree *avlt, void *data)
+void remove(struct AVLTree *AVLT, void *data)
 {
     
 }

@@ -1,8 +1,8 @@
 #include "red-black_tree.h"
 
-struct RedBlackTreeNode *binary_search_tree_search(struct RedBlackTree *rbt, void *data)
+struct RedBlackTreeNode *binary_search_tree_search(struct RedBlackTree *RBT, void *data)
 {
-    struct RedBlackTreeNode *node = rbt->root;
+    struct RedBlackTreeNode *node = RBT->root;
     while(node)
         if(data == node->data)
             return node;
@@ -33,19 +33,19 @@ struct RedBlackTreeNode *node_construct(void *data, size_t data_type_size)
     return node;
 }
 
-void red_black_tree_insert(struct RedBlackTree *rbt, void *data)
+void red_black_tree_insert(struct RedBlackTree *RBT, void *data)
 {
-    if(!rbt->size) {
-        rbt->root = node_construct(data, rbt->data_type_size);
-        if(!rbt->root) return;
+    if(!RBT->size) {
+        RBT->root = node_construct(data, RBT->data_type_size);
+        if(!RBT->root) return;
 
-        rbt->root->parent = NULL;
-        rbt->root->color = BLACK;
+        RBT->root->parent = NULL;
+        RBT->root->color = BLACK;
         
         return;
     }
 
-    struct RedBlackTreeNode *node = rbt->root;
+    struct RedBlackTreeNode *node = RBT->root;
     struct RedBlackTreeNode *node_parent = NULL;
 
     while(node) {
@@ -58,7 +58,7 @@ void red_black_tree_insert(struct RedBlackTree *rbt, void *data)
             node = node->right;
     }
 
-    node = node_construct(data, rbt->data_type_size);
+    node = node_construct(data, RBT->data_type_size);
     if(!node) return;
 
     node->parent = node_parent;
@@ -70,7 +70,7 @@ void red_black_tree_insert(struct RedBlackTree *rbt, void *data)
         node_parent->right = node;
 }
 
-void red_black_tree_remove(struct RedBlackTree *rbt, int data)
+void red_black_tree_remove(struct RedBlackTree *RBT, int data)
 {
 
 }

@@ -1,40 +1,40 @@
 #include "graph.h"
 
-void adjacent(struct Graph *graph, unsigned long vertex);
-void neighbors(struct Graph *graph, unsigned long vertex);
-void insert_vertex(struct Graph *graph, unsigned long vertex);
-void remove_vertex(struct Graph *graph, unsigned long vertex);
-void insert_edge(struct Graph *graph, unsigned long vertex_source, unsigned long vertex_destination);
-void remove_edge(struct Graph *graph, unsigned long vertex_source, unsigned long vertex_destination);
+void adjacent(struct Graph *G, unsigned long vertex);
+void neighbors(struct Graph *G, unsigned long vertex);
+void insert_vertex(struct Graph *G, unsigned long vertex);
+void remove_vertex(struct Graph *G, unsigned long vertex);
+void insert_edge(struct Graph *G, unsigned long vertex_source, unsigned long vertex_destination);
+void remove_edge(struct Graph *G, unsigned long vertex_source, unsigned long vertex_destination);
 
 struct Graph graph_construct()
 {
-    struct Graph graph;
+    struct Graph G;
 
-    graph.adjacency_matrix = NULL;
-    graph.vertex = 0;
+    G.adjacency_matrix = NULL;
+    G.vertex = 0;
 
-    graph.adjacent = adjacent;
-    graph.neighbors = neighbors;
-    graph.insert_vertex = insert_vertex;
-    graph.remove_vertex = remove_vertex;
-    graph.insert_edge = insert_edge;
-    graph.remove_edge = remove_edge;
+    G.adjacent = adjacent;
+    G.neighbors = neighbors;
+    G.insert_vertex = insert_vertex;
+    G.remove_vertex = remove_vertex;
+    G.insert_edge = insert_edge;
+    G.remove_edge = remove_edge;
 
-    return graph;
+    return G;
 }
 
-void graph_destruct(struct Graph *graph)
+void graph_destruct(struct Graph *G)
 {
     
 }
 
-void insert_vertex(struct Graph *graph, unsigned long vertex)
+void insert_vertex(struct Graph *G, unsigned long vertex)
 {
-    graph.
+    G.
 }
 
-void insert_edge(struct Graph *graph, unsigned long vertex_source, unsigned long vertex_destination)
+void insert_edge(struct Graph *G, unsigned long vertex_source, unsigned long vertex_destination)
 {
     
 }

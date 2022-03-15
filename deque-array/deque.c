@@ -2,48 +2,48 @@
 
 struct Deque *deque_construct(size_t capacity)
 {
-    struct Deque *deque = malloc(sizeof (struct Deque));
-    if(!deque) return;
+    struct Deque *D = malloc(sizeof (struct Deque));
+    if(!D) return;
 
-    deque->array = malloc(sizeof (sizeof (int) * capacity));
-    if(!deque->array) {
-        free(deque);
-        deque = NULL;
+    D->array = malloc(sizeof (sizeof (int) * capacity));
+    if(!D->array) {
+        free(D);
+        D = NULL;
         return NULL;
     };
 
-    deque->size = 0;
-    deque->capacity = capacity;
+    D->size = 0;
+    D->capacity = capacity;
 
-    return deque;
+    return D;
 }
 
-void deque_distroy(struct Deque *deque)
+void deque_distroy(struct Deque *D)
 {
 
 }
 
-void deque_push_front(struct Deque *deque, int data)
+void deque_push_front(struct Deque *D, int data)
 {
     
 }
 
-void deque_push_back(struct Deque *deque, int data)
+void deque_push_back(struct Deque *D, int data)
 {
-    if(deque->back != deque->size-1) {
-        deque->back = deque->back + 1;
-        deque->array[deque->back] = data;
+    if(D->back != D->size-1) {
+        D->back = D->back + 1;
+        D->array[D->back] = data;
     }
 }
 
-void deque_pop_front(struct Deque *deque)
+void deque_pop_front(struct Deque *D)
 {
-    if(deque->front != deque->back) {
-        deque->front = deque->front + 1;
+    if(D->front != D->back) {
+        D->front = D->front + 1;
     }
 }
 
-void deque_pop_back(struct Deque *deque)
+void deque_pop_back(struct Deque *D)
 {
     
 }

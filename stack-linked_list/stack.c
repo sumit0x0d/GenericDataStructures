@@ -1,32 +1,32 @@
 #include "stack.h"
 
-void push(struct Stack *stack, void *data);
-void pop(struct Stack *stack);
+void push(struct Stack *S, void *data);
+void pop(struct Stack *S);
 
 struct Stack stack_construct(size_t data_type_size)
 {
-    struct Stack stack;
+    struct Stack S;
 
-    stack.top = NULL;
-    stack.data_type_size = data_type_size;
-    stack.size = 0;
+    S.top = NULL;
+    S.data_type_size = data_type_size;
+    S.size = 0;
 
-    stack.push = push;
-    stack.pop = pop;
+    S.push = push;
+    S.pop = pop;
 
-    return stack;
+    return S;
 }
 
-void stack_destruct(struct Stack *stack)
+void stack_destruct(struct Stack *S)
 {
-    struct StackNode *node = stack->top;
+    struct StackNode *node = S->top;
     while(node)
         if(node->next) {
-            stack->pop(stack);
-            node = stack->top;   
+            S->pop(S);
+            node = S->top;   
         }
         else {
-            stack->pop(stack);
+            S->pop(S);
             break;
         }
 }
@@ -48,15 +48,15 @@ struct StackNode *node_construct(void *data, size_t data_type_size)
     return node;
 }
 
-void push(struct Stack *stack, void *data)
+void push(struct Stack *S, void *data)
 {
-    struct StackNode *node = node_construct(data, stack->data_type_size);
+    struct StackNode *node = node_construct(data, S->data_type_size);
     if(!node) return;
 
-    node->next = stack->top;
-    stack->top = node;
+    node->next = S->top;
+    S->top = node;
 
-    stack->size = stack->size + 1;
+    S->size = S->size + 1;
 }
 
 void node_destruct(struct StackNode *node)
@@ -68,15 +68,15 @@ void node_destruct(struct StackNode *node)
     node = NULL;
 }
 
-void pop(struct Stack *stack)
+void pop(struct Stack *S)
 {
-    if(!stack->size) return;
+    if(!S->size) return;
 
-    struct StackNode *node = stack->top;
+    struct StackNode *node = S->top;
 
-    stack->top = stack->top->next;
+    S->top = S->top->next;
 
     node_destruct(node);
 
-    stack->size = stack->size - 1;
+    S->size = S->size - 1;
 }
