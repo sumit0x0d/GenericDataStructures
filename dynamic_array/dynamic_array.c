@@ -36,7 +36,7 @@ struct DynamicArray dynamic_array_construct(size_t element_size, size_t capacity
     return DA;
 }
 
-void dynamic_array_distroy(struct DynamicArray *DA)
+void dynamic_array_destruct(struct DynamicArray *DA)
 {
     free(DA->array);
     DA->array = NULL;
@@ -69,7 +69,7 @@ void array_construct(void **array, size_t element_size, size_t size, size_t *cap
 void push_front(struct DynamicArray *DA, void *data)
 {
     if(!DA->array) {
-        DA->array = malloc(DA->element_size);
+        DA->array = malloc(DA->element_size * DA->capacity);
         if(!DA->array) return;
     }
 
