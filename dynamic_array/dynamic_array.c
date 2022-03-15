@@ -38,7 +38,6 @@ struct DynamicArray dynamic_array_construct(size_t element_size, size_t capacity
 
 void dynamic_array_distroy(struct DynamicArray *da)
 {
-    memset(da->array, 0, da->capacity);
     free(da->array);
     da->array = NULL;
 

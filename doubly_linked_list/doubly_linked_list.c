@@ -112,11 +112,9 @@ void sorted_insert(struct DoublyLinkedList *dll, int data)
 
 void node_destruct(struct DoublyLinkedListNode *node, size_t data_type_size)
 {
-    memset(node->data, 0, data_type_size);
     free(node->data);
     node->data = NULL;
 
-    memset(node, 0, sizeof (struct DoublyLinkedListNode));
     free(node);
     node = NULL;
 }

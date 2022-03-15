@@ -145,11 +145,9 @@ void sorted_insert(struct SinglyLinkedList *sll, void *data)
 
 void node_destruct(struct SinglyLinkedListNode *node, size_t data_type_size)
 {
-    memset(node->data, 0, data_type_size);
     free(node->data);
     node->data = NULL;
 
-    memset(node, 0, sizeof (struct SinglyLinkedListNode));
     free(node);
     node = NULL;
 }

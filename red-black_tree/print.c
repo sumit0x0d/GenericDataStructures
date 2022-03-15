@@ -45,7 +45,6 @@ void dequeue(struct Queue *queue)
     if(!queue->front)
         queue->back = NULL;
     
-    memset(node, 0, sizeof (struct SinglyLinkedListNode));
     free(node);
     node = NULL;
 }
@@ -82,7 +81,6 @@ void pop(struct Stack *stack)
     
     stack->top = stack->top->next;
     
-    memset(node, 0, sizeof (struct SinglyLinkedListNode));
     free(node);
     node = NULL;
 }
