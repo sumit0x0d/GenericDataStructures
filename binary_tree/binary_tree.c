@@ -1,17 +1,17 @@
 #include "binary_tree.h"
 
-struct BinaryTreeNode *insert(struct BinaryTree *bt, void *data);
+struct BinaryTreeNode *insert(struct BinaryTree *BT, void *data);
 
 struct BinaryTree binary_tree_construct(size_t data_type_size)
 {
-    struct BinaryTree bt;
+    struct BinaryTree BT;
 
-    bt.root = NULL;
-    bt.size = 0;
+    BT.root = NULL;
+    BT.size = 0;
     
-    bt.insert = insert;
-    
-    return bt;
+    BT.insert = insert;
+
+    return BT;
 }
 
 struct BinaryTreeNode *node_construct(void *data, size_t data_type_size)
@@ -34,12 +34,12 @@ struct BinaryTreeNode *node_construct(void *data, size_t data_type_size)
     return node;
 }
 
-struct BinaryTreeNode *insert(struct BinaryTree *bt, void *data)
+struct BinaryTreeNode *insert(struct BinaryTree *BT, void *data)
 {
-    struct BinaryTreeNode *node = node_construct(data, bt->data_type_size);
+    struct BinaryTreeNode *node = node_construct(data, BT->data_type_size);
     if(!node) return;
 
-    bt->size = bt->size + 1;
+    BT->size = BT->size + 1;
 
     return node;
 }
