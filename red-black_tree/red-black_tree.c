@@ -39,13 +39,15 @@ void red_black_tree_insert(struct RedBlackTree *rbt, void *data)
         rbt->root = node_construct(data, rbt->data_type_size);
         if(!rbt->root) return;
 
-        rbt->root->color = BLACK;
         rbt->root->parent = NULL;
+        rbt->root->color = BLACK;
         
         return;
     }
+
     struct RedBlackTreeNode *node = rbt->root;
     struct RedBlackTreeNode *node_parent = NULL;
+
     while(node) {
         if(data == node->data)
             return;
@@ -55,6 +57,7 @@ void red_black_tree_insert(struct RedBlackTree *rbt, void *data)
         else
             node = node->right;
     }
+
     node = node_construct(data, rbt->data_type_size);
     if(!node) return;
 

@@ -28,6 +28,9 @@ struct BinaryTreeNode *node_construct(void *data, size_t data_type_size)
 
     memcpy(node->data, data, data_type_size);
 
+    node->left = NULL;
+    node->right = NULL;
+
     return node;
 }
 
@@ -35,9 +38,6 @@ struct BinaryTreeNode *insert(struct BinaryTree *bt, void *data)
 {
     struct BinaryTreeNode *node = node_construct(data, bt->data_type_size);
     if(!node) return;
-
-    node->left = NULL;
-    node->right = NULL;
 
     bt->size = bt->size + 1;
 

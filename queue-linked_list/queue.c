@@ -43,7 +43,7 @@ struct QueueNode *node_construct(void *data, size_t data_type_size)
         node = NULL;
         return NULL;
     }
-    
+
     memcpy(node->data, data, data_type_size);
     
     node->next = NULL;
@@ -65,13 +65,11 @@ void enqueue(struct Queue *queue, void *data)
     queue->size = queue->size + 1;
 }
 
-void node_destruct(struct QueueNode *node, size_t data_type_size)
+void node_destruct(struct QueueNode *node)
 {
-    memset(node->data, 0, data_type_size);
     free(node->data);
     node->data = NULL;
 
-    memset(node, 0, sizeof (struct QueueNode));
     free(node);
     node = NULL;
 }
@@ -86,7 +84,7 @@ void dequeue(struct Queue *queue)
     if(!queue->front)
         queue->back = NULL;
 
-    node_destruct(node, queue->data_type_size);
+    node_destruct(node);
 
     queue->size = queue->size - 1;
 }

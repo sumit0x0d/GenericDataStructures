@@ -124,6 +124,7 @@ void sorted_insert(struct SinglyLinkedList *sll, void *data)
         push_front(sll, data);
         return;
     }
+
     if(memcmp(data, sll->tail->data, sll->data_type_size) > 0) {
         push_back(sll, data);
         return;

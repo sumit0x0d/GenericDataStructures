@@ -78,13 +78,11 @@ void push_back(struct Deque *deque, void *data)
     deque->size = deque->size + 1;
 }
 
-void node_destruct(struct DequeNode *node, size_t data_type_size)
+void node_destruct(struct DequeNode *node)
 {
-    memset(node->data, 0, data_type_size);
     free(node->data);
     node->data = NULL;
 
-    memset(node, 0, sizeof (struct DequeNode));
     free(node);
     node = NULL;
 }
@@ -99,7 +97,7 @@ void pop_front(struct Deque *deque)
     if(!deque->front)
         deque->back = NULL;
 
-    node_destruct(node, deque->data_type_size);
+    node_destruct(node);
 
     deque->size = deque->size - 1;
 }
@@ -114,7 +112,7 @@ void pop_back(struct Deque *deque)
     if(deque->back)
         deque->back->next = NULL;
 
-    node_destruct(node, deque->data_type_size);
+    node_destruct(node);
 
     deque->size = deque->size - 1;
 }
