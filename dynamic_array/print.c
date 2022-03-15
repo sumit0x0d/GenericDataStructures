@@ -8,7 +8,7 @@ void dynamic_array_print(struct DynamicArray *DA)
     // size_t i = 0;
     // while(i < da->size) {
         for(int i = 0; i < 10; i++)
-            printf("%d ", *(int *)((char *)DA->array+(4*i)));
+            printf("%ld ", *(long *)((char *)DA->array+(8*i)));
         // printf("%d ", *(int *)((char *)da->array+4));
         // i++;
     // }

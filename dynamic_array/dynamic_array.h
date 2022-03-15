@@ -5,7 +5,7 @@
 #include <string.h>
 
 struct DynamicArray {
-    void **array;
+    void *array;
     size_t element_size;
     size_t size;
     size_t capacity;
