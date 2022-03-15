@@ -24,7 +24,7 @@ struct DynamicArray dynamic_array_construct(size_t element_size, size_t capacity
     DA.capacity = capacity;
     DA.growth_factor = growth_factor;
 
-    // DA.push_front = push_front;
+    DA.push_front = push_front;
     DA.push_back = push_back;
     // DA.insert = insert;
     // DA.sorted_insert = sorted_insert;
