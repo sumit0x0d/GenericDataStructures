@@ -9,7 +9,7 @@ struct Graph graph_construct(size_t data_type_size)
 {
     struct Graph G;
 
-    G.adjacency_list = malloc(sizeof (struct Vertex));
+    G.adjacency_list = NULL;
     G.data_type_size = data_type_size;
     G.vertices = 0;
 
@@ -26,7 +26,16 @@ struct Graph graph_construct(size_t data_type_size)
 
 // }
 
-struct Vertex *vertex_construct(void *data, size_t data_type_size)
+void adjacency_list_construct(struct Vertex *adjacency_list)
+{
+    if(!adjacency_list) {
+        adjacency_list = malloc(sizeof (struct Vertex));
+        if(!adjacency_list) return;
+    }
+    
+}
+
+struct Vertex *vertex_construct(size_t data_type_size)
 {
     struct Vertex *vertex = malloc(sizeof (struct Vertex));
     if(!vertex) return NULL;
@@ -38,8 +47,6 @@ struct Vertex *vertex_construct(void *data, size_t data_type_size)
         return NULL;
     }
 
-    memcpy(vertex->data, data, data_type_size);
-
     vertex->weight = 0;
     vertex->edge = NULL;
 
@@ -48,7 +55,9 @@ struct Vertex *vertex_construct(void *data, size_t data_type_size)
 
 void vertex_insert(struct Graph *G, void *data)
 {
-    struct Vertex *vertex = vertex_construct(data, G->data_type_size);
+    struct Vertex *vertex = vertex_construct(G->data_type_size);
+    memcpy(vertex->data, data, G->data_type_size);
+
     G->vertices = G->vertices + 1;
     vertex->index = G->vertices;
     G->adjacency_list = realloc(G->adjacency_list, sizeof (struct Vertex) * G->vertices);
