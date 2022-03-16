@@ -78,8 +78,6 @@ void push_front(struct DynamicArray *DA, void *data)
         DA->array = realloc(DA->array, DA->element_size * DA->capacity);
     }
 
-    // array_construct(DA->array, DA->element_size, DA->size, &DA->capacity, DA->growth_factor);
-
     memmove((char *)DA->array + DA->element_size, DA->array, DA->element_size * DA->size);
 
     memcpy(DA->array, data, DA->element_size);
@@ -89,15 +87,17 @@ void push_front(struct DynamicArray *DA, void *data)
 
 void push_back(struct DynamicArray *DA, void *data)
 {
-    if(!DA->array) {
-        DA->array = malloc(DA->element_size * DA->capacity);
-        if(!DA->array) return;
-    }
+    // if(!DA->array) {
+    //     DA->array = malloc(DA->element_size * DA->capacity);
+    //     if(!DA->array) return;
+    // }
 
-    if(DA->size == DA->capacity) {
-        DA->capacity = DA->capacity * DA->growth_factor;
-        DA->array = realloc(DA->array, DA->element_size * DA->capacity);
-    }
+    // if(DA->size == DA->capacity) {
+    //     DA->capacity = DA->capacity * DA->growth_factor;
+    //     DA->array = realloc(DA->array, DA->element_size * DA->capacity);
+    // }
+
+    array_construct(DA->array, DA->element_size, DA->size, &DA->capacity, DA->growth_factor);
 
     memcpy((char *)DA->array + (DA->element_size * DA->size), data, DA->element_size);
 
