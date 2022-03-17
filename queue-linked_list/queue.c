@@ -1,7 +1,7 @@
 #include "queue.h"
 
-void enqueue(struct Queue *Q, void *data);
-void dequeue(struct Queue *Q);
+bool queue_enqueue(struct Queue *Q, void *data);
+bool queue_dequeue(struct Queue *Q);
 
 struct Queue queue_construct(size_t data_type_size)
 {
@@ -12,9 +12,6 @@ struct Queue queue_construct(size_t data_type_size)
     Q.data_type_size = data_type_size;
     Q.size = 0;
 
-    Q.enqueue = enqueue;
-    Q.dequeue = dequeue;
-
     return Q;
 }
 
@@ -23,11 +20,11 @@ void queue_destruct(struct Queue *Q)
     struct QueueNode *node = Q->front;
     while(node)
         if(node->next) {
-            Q->dequeue(Q);
+            queue_dequeue(Q);
             node = Q->front;   
         }
         else {
-            Q->dequeue(Q);
+            queue_dequeue(Q);
             break;
         }
 }
@@ -49,10 +46,10 @@ struct QueueNode *node_construct(size_t data_type_size)
     return node;
 }
 
-void enqueue(struct Queue *Q, void *data)
+bool queue_enqueue(struct Queue *Q, void *data)
 {
     struct QueueNode *node = node_construct(Q->data_type_size);
-    if(!node) return;
+    if(!node) return false;
 
     memcpy(node->data, data, Q->data_type_size);
 
@@ -63,6 +60,8 @@ void enqueue(struct Queue *Q, void *data)
     Q->back = node;
 
     Q->size = Q->size + 1;
+
+    return true;
 }
 
 void node_destruct(struct QueueNode *node)
@@ -74,9 +73,9 @@ void node_destruct(struct QueueNode *node)
     node = NULL;
 }
 
-void dequeue(struct Queue *Q)
+bool queue_dequeue(struct Queue *Q)
 {
-    if(!Q->size) return;
+    if(!Q->size) return false;
 
     struct QueueNode *node = Q->front;
 
@@ -87,4 +86,6 @@ void dequeue(struct Queue *Q)
     node_destruct(node);
 
     Q->size = Q->size - 1;
+
+    return true;
 }

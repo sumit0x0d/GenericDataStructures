@@ -1,6 +1,7 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -15,13 +16,13 @@ struct Graph {
     struct Vertex *adjacency_list;
     size_t data_type_size;
     unsigned long vertices;
-    void (*vertex_insert)(struct Graph *G, void *data);
-    // void (*vertex_remove)(struct Graph *G);
-    // void (*edge_insert)(struct Graph *G, struct Vertex vertex_source, struct Vertex vertex_destination);
-    // void (*edge_remove)(struct Graph *G, struct Vertex vertex_source, struct Vertex vertex_destination);
 };
 
 struct Graph graph_construct(size_t data_type_size);
 void graph_destruct();
+bool graph_vertex_insert(struct Graph *G, void *data);
+bool graph_vertex_remove(struct Graph *G);
+bool graph_edge_insert(struct Graph *G, struct Vertex vertex_source, struct Vertex vertex_destination);
+bool graph_edge_remove(struct Graph *G, struct Vertex vertex_source, struct Vertex vertex_destination);
 
 #endif

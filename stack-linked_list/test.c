@@ -9,7 +9,7 @@ int main()
     // int x = 1, y = 12, z =11;
     // for(int i = 1; i < 100; i++)
     int i = 132213;
-    stack.push(&stack, &i);
+    stack_push(&stack, &i);
     // char d = 'c';
     // stack.push(&stack, &c, sizeof c);
     // char e = 'd';

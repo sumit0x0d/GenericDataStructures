@@ -41,10 +41,10 @@ struct DoublyLinkedListNode *node_construct(size_t data_type_size)
     return node;
 }
 
-void push_front(struct DoublyLinkedList *DLL, void *data)
+bool push_front(struct DoublyLinkedList *DLL, void *data)
 {
     struct DoublyLinkedListNode *node = node_construct(DLL->data_type_size);
-    if(!node) return;
+    if(!node) return false;
 
     memcpy(node->data, data, DLL->data_type_size);
 
@@ -61,12 +61,14 @@ void push_front(struct DoublyLinkedList *DLL, void *data)
     DLL->head = node;
 
     DLL->size = DLL->size + 1;
+
+    return true;
 }
 
-void push_back(struct DoublyLinkedList *DLL, void *data)
+bool push_back(struct DoublyLinkedList *DLL, void *data)
 {
     struct DoublyLinkedListNode *node = node_construct(DLL->data_type_size);
-    if(!node) return;
+    if(!node) return false;
 
     memcpy(node->data, data, DLL->data_type_size);
 
@@ -83,15 +85,16 @@ void push_back(struct DoublyLinkedList *DLL, void *data)
     DLL->tail = node;
 
     DLL->size = DLL->size + 1;
+
+    return true;
 }
 
 void insert(struct DoublyLinkedList *DLL, size_t index, int data)
 {
-    if(index > DLL->size)
-        return;
+    if(index > DLL->size) return false;
     struct DoublyLinkedListNode *node = DLL->head;
     struct DoublyLinkedListNode *node_new = node_construct(DLL->data_type_size);
-    if(!node_new) return;
+    if(!node_new) return false;
 
     memcpy(node_new->data, data, DLL->data_type_size);
 
@@ -107,6 +110,10 @@ void insert(struct DoublyLinkedList *DLL, size_t index, int data)
         node->next->previous = node_new;
         node->next = node_new;
     }
+
+    DLL->size = DLL->size + 1;
+
+    return true;
 }
 
 void sorted_insert(struct DoublyLinkedList *DLL, int data)
@@ -123,7 +130,7 @@ void node_destruct(struct DoublyLinkedListNode *node, size_t data_type_size)
     node = NULL;
 }
 
-void pop_front(struct DoublyLinkedList *DLL)
+bool pop_front(struct DoublyLinkedList *DLL)
 {
     if(!DLL->size) return;
 
@@ -138,7 +145,7 @@ void pop_front(struct DoublyLinkedList *DLL)
     DLL->size = DLL->size - 1;
 }
 
-void pop_back(struct DoublyLinkedList *DLL)
+bool pop_back(struct DoublyLinkedList *DLL)
 {
     if(!DLL->size) return;
 
@@ -153,7 +160,7 @@ void pop_back(struct DoublyLinkedList *DLL)
     DLL->size = DLL->size - 1;
 }
 
-void erase(struct DoublyLinkedList *DLL, size_t index)
+bool erase(struct DoublyLinkedList *DLL, size_t index)
 {
     if(index == 0 || index > DLL->size)
         return;
@@ -168,7 +175,7 @@ void erase(struct DoublyLinkedList *DLL, size_t index)
     free(node);
 }
 
-void remove(struct DoublyLinkedList *DLL, int data)
+bool remove(struct DoublyLinkedList *DLL, int data)
 {
     struct DoublyLinkedListNode *node = DLL->head;
     size_t count = 0;

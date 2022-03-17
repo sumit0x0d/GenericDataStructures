@@ -1,8 +1,8 @@
 #include "avl_tree.h"
 
-struct AVLTreeNode *search(struct AVLTree *AVLT, void *data);
-void insert(struct AVLTree *AVLT, void *data);
-void remove(struct AVLTree *AVLT, void *data);
+struct AVLTreeNode *avl_tree_search(struct AVLTree *AVLT, void *data);
+bool avl_tree_insert(struct AVLTree *AVLT, void *data);
+bool avl_tree_remove(struct AVLTree *AVLT, void *data);
 
 struct AVLTreeNode *search(struct AVLTree *AVLT, void *data)
 {
@@ -143,17 +143,17 @@ struct AVLTreeNode *node_construct(void *data, size_t data_type_size)
     return node;
 }
 
-void insert(struct AVLTree *AVLT, void *data)
+bool avl_tree_insert(struct AVLTree *AVLT, void *data)
 {
     if(!AVLT->size) {
         AVLT->root = node_construct(data, AVLT->data_type_size);
-        if(!AVLT->root) return;
+        if(!AVLT->root) return false;
         
         AVLT->root->parent = NULL;
 
         AVLT->size = AVLT->size + 1;
 
-        return;
+        return true;
     }
     
     struct AVLTreeNode *node = AVLT->root;
@@ -170,6 +170,8 @@ void insert(struct AVLTree *AVLT, void *data)
     }
 
     node = node_construct(data, AVLT->data_type_size);
+    if(!node) return false;
+
     node->parent = node_parent;
 
     AVLT->size = AVLT->size + 1;
@@ -187,9 +189,11 @@ void insert(struct AVLTree *AVLT, void *data)
             AVLT->root = node_parent;
         node_parent = node_parent->parent;
     }
+
+    return true;
 }
 
-void remove(struct AVLTree *AVLT, void *data)
+bool avl_tree_remove(struct AVLTree *AVLT, void *data)
 {
     
 }
