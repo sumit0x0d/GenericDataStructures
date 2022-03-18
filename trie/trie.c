@@ -1,8 +1,8 @@
 #include "trie.h"
 
 struct TrieNode *search(struct Trie *tree, char *string);
-void insert(struct Trie *tree, char *string);
-void remove(struct Trie *tree, char *string);
+bool insert(struct Trie *tree, char *string);
+bool remove(struct Trie *tree, char *string);
 
 struct Trie trie_construct()
 {
@@ -10,10 +10,6 @@ struct Trie trie_construct()
 
     trie.root = NULL;
     trie.size = 0;
-
-    trie.search = search;
-    trie.insert = insert;
-    trie.remove = remove;
 
     return trie;
 }
@@ -38,7 +34,7 @@ struct TrieNode *node_construct()
     return node;
 }
 
-void insert(struct Trie *tree, char *string)
+bool insert(struct Trie *tree, char *string)
 {
     struct TrieNode *node = tree->root;
     if(!node) {
