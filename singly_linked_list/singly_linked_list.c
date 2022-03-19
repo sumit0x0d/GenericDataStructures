@@ -26,12 +26,16 @@ struct SinglyLinkedList singly_linked_list_construct(size_t data_type_size)
 struct SinglyLinkedListNode *search(struct SinglyLinkedList *SLL, int data)
 {
     if(!SLL->size) return NULL;
+
     struct SinglyLinkedListNode *node = malloc(sizeof (struct SinglyLinkedListNode));
+    if(!node) return NULL;
+    
     while(node) {
         if(data == node->data)
             return node;
         node = node->next;
     }
+
     return NULL;
 }
 

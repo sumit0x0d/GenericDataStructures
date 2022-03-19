@@ -1,33 +1,43 @@
 #include "queue.h"
 
-struct Queue *queue_construct(size_t data_type_size, size_t capacity)
+struct Queue queue_construct(size_t data_type_size, size_t capacity)
 {
-    assert(capacity);
+    struct Queue Q;
 
-    struct Queue *Q = malloc(sizeof (struct Queue));
-    if(!Q) return NULL;
+    Q.array = NULL;
 
-    Q->array = malloc(data_type_size * capacity);
-    if(!Q->array) return NULL;
+    Q.data_type_size = data_type_size;
+    Q.front = 0;
+    Q.back = 0;
+    Q.size = 0;
+    Q.capacity = capacity;
 
-    Q->data_type_size = data_type_size;
-    Q->size = 0;
-    Q->capacity = capacity;
     return Q;
 }
 
 void queue_distroy(struct Queue *Q)
 {
+    free(Q->array);
+    Q->array = NULL;
 
+    Q->size = 0;
 }
 
-void queue_enqueue(struct Queue *Q, void *data)
+bool queue_enqueue(struct Queue *Q, void *data)
 {
-    if(Q->size < Q->capacity) {
-        Q->back++;
-        memcpy(&Q->array[Q->back], data, Q->data_type_size);
-        ++Q->size;
+    if(!Q->array) {
+        Q->array = malloc(Q->data_type_size * Q->capacity);
+        if(!Q->array) return false;
     }
+
+    if(Q->size == Q->capacity) return false;
+
+    memcpy((char *)Q->array + Q->front + Q->back, data, Q->data_type_size);
+    Q->back = Q->back + 1;
+    
+    Q->size = Q->size + 1;
+
+    return true;
 }
 
 void queue_dequeue(struct Queue *Q)

@@ -39,7 +39,7 @@ bool insert(struct Trie *tree, char *string)
     struct TrieNode *node = tree->root;
     if(!node) {
         node = node_construct();
-
+        if(!node) return false;
     }
     // node->character = 'a';
     while(*string != '\0') {
