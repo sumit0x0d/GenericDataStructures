@@ -234,7 +234,7 @@ bool singly_linked_list_remove(struct SinglyLinkedList *SLL, void *data)
         if(node->data == data)
             singly_linked_list_erase(SLL, count);
     }
-    
+
     SLL->size = SLL->size - 1;
 
     return true;
