@@ -1,8 +1,8 @@
 #include "trie.h"
 
-struct TrieNode *search(struct Trie *tree, char *string);
-bool insert(struct Trie *tree, char *string);
-bool remove(struct Trie *tree, char *string);
+struct TrieNode *trie_search(struct Trie *T, char *string);
+bool trie_insert(struct Trie *T, char *string);
+bool trie_remove(struct Trie *T, char *string);
 
 struct Trie trie_construct()
 {
@@ -14,11 +14,11 @@ struct Trie trie_construct()
     return trie;
 }
 
-struct TrieNode *search(struct Trie *tree, char *string)
-{
-    struct TrieNode *node = tree->root;
-    return node;
-}
+// struct TrieNode *search(struct Trie *T, char *string)
+// {
+//     struct TrieNode *node = T->root;
+//     return node;
+// }
 
 struct TrieNode *node_construct()
 {
@@ -29,22 +29,25 @@ struct TrieNode *node_construct()
 
     for(int i = 0; i < 128; i++)
         node->children[i] = NULL;
-    // memset(node->children, 0, sizeof (node->children) * 128);
+    // memset(node->children, '\0', sizeof (struct TrieNode) * 128);
 
     return node;
 }
 
-bool insert(struct Trie *tree, char *string)
+bool trie_insert(struct Trie *T, char *string)
 {
-    struct TrieNode *node = tree->root;
-    if(!node) {
-        node = node_construct();
-        if(!node) return false;
+    if(!T->root) {
+        T->root = node_construct();
+        if(!T->root) return false;
     }
+
+    struct TrieNode *node = T->root; 
+
     // node->character = 'a';
     while(*string != '\0') {
         if(node->children[(size_t)*string] == NULL)
             node->children[(size_t)*string] = node_construct();
+        node = node->children[(size_t)*string];
         string++;
     }
     // size_t length = strlen(string);
@@ -53,15 +56,17 @@ bool insert(struct Trie *tree, char *string)
     //         node->children[(size_t)string[i]] = node_construct(string[i]);
     // }
     if(node->terminal)
-        return;
+        return false;
     else
         node->terminal = true;
 
-    // ++tree->size;
+    T->size = T->size + 1;
+
+    return true;
 }
 
-void node_destruct(struct Trie *tree, char character)
-{
-    struct TrieNode *node = tree->root;
-    free(node);
-}
+// void node_destruct(struct Trie *T, char character)
+// {
+//     struct TrieNode *node = T->root;
+//     free(node);
+// }

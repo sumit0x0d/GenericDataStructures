@@ -16,8 +16,8 @@ struct Trie {
 };
 
 struct Trie trie_construct();
-struct TrieNode *search(struct Trie *trie, char *string);
-bool insert(struct Trie *trie, char *string);
-bool remove(struct Trie *trie, char *string);
+struct TrieNode *trie_search(struct Trie *trie, char *string);
+bool trie_insert(struct Trie *trie, char *string);
+bool trie_remove(struct Trie *trie, char *string);
 
 #endif

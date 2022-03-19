@@ -1,10 +1,12 @@
 #include "trie.h"
-#include "trie_print.h"
+
+extern void trie_print(struct Trie *T);
 
 int main()
 {
     struct Trie tree = trie_construct();
-    char *s = "a";
-    tree.insert(&tree, s);
-    // trie_print(&tree);
+    // char *s = "aasda";
+    trie_insert(&tree, "ssdasd");
+    trie_insert(&tree, "ssdaassd");
+    trie_print(&tree);
 }
