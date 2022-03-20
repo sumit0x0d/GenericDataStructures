@@ -19,6 +19,7 @@ typedef struct SinglyLinkedList {
 
 SinglyLinkedList singly_linked_list_construct(size_t data_type_size);
 void singly_linked_list_distroy(SinglyLinkedList *SLL);
+
 SinglyLinkedListNode *singly_linked_list_search(SinglyLinkedList *SLL, void *data);
 bool singly_linked_list_push_front(SinglyLinkedList *SLL, void *data);
 bool singly_linked_list_push_back(SinglyLinkedList *SLL, void *data);
