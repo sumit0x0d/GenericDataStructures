@@ -6,17 +6,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct Queue {
+typedef struct Queue {
     void *array;
     size_t data_type_size;
     size_t front;
     size_t back;
     size_t size;
     size_t capacity;
-};
+} Queue;
 
-struct Queue queue_construct(size_t data_type_size, size_t capacity);
-void queue_distroy(struct Queue *queue);
-bool queue_enqueue(struct Queue *Q, void *data);
+Queue queue_construct(size_t data_type_size, size_t capacity);
+void queue_distroy(Queue *queue);
+bool queue_enqueue(Queue *Q, void *data);
 
 #endif

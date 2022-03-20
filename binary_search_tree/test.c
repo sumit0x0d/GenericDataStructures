@@ -1,10 +1,10 @@
 #include "binary_search_tree.h"
 
-extern void binary_search_tree_print(struct BinarySearchTree *tree);
+extern void binary_search_tree_print(BinarySearchTree *tree);
 
 int main()
 {
-    struct BinarySearchTree binary_search_tree = binary_search_tree_construct(sizeof (char));
+    BinarySearchTree binary_search_tree = binary_search_tree_construct(sizeof (char));
     char x = 23;
     char y = 211;
     char z = 1;

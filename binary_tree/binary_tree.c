@@ -1,10 +1,10 @@
 #include "binary_tree.h"
 
-struct BinaryTreeNode *binary_tree_insert(struct BinaryTree *BT, void *data);
+BinaryTreeNode *binary_tree_insert(BinaryTree *BT, void *data);
 
-struct BinaryTree binary_tree_construct(size_t data_type_size)
+BinaryTree binary_tree_construct(size_t data_type_size)
 {
-    struct BinaryTree BT;
+    BinaryTree BT;
 
     BT.root = NULL;
     BT.size = 0;
@@ -12,9 +12,9 @@ struct BinaryTree binary_tree_construct(size_t data_type_size)
     return BT;
 }
 
-struct BinaryTreeNode *node_construct(void *data, size_t data_type_size)
+BinaryTreeNode *node_construct(void *data, size_t data_type_size)
 {
-    struct BinaryTreeNode *node = malloc(sizeof (struct BinaryTreeNode));
+    BinaryTreeNode *node = malloc(sizeof (BinaryTreeNode));
     if(!node) return NULL;
 
     node->data = malloc(data_type_size);
@@ -32,9 +32,9 @@ struct BinaryTreeNode *node_construct(void *data, size_t data_type_size)
     return node;
 }
 
-struct BinaryTreeNode *binary_tree_insert(struct BinaryTree *BT, void *data)
+BinaryTreeNode *binary_tree_insert(BinaryTree *BT, void *data)
 {
-    struct BinaryTreeNode *node = node_construct(data, BT->data_type_size);
+    BinaryTreeNode *node = node_construct(data, BT->data_type_size);
     if(!node) return;
 
     BT->size = BT->size + 1;
@@ -42,11 +42,11 @@ struct BinaryTreeNode *binary_tree_insert(struct BinaryTree *BT, void *data)
     return node;
 }
 
-// size_t binary_tree_node_height(struct BinaryTreeNode *node)
+// size_t binary_tree_node_height(BinaryTreeNode *node)
 // {
 //     size_t height = 0;
 //     size_t queue_size;
-//     struct Queue queue = queue_construct();
+//     Queue queue = queue_construct();
 //     queue.enqueue(&queue, node);
 //     while(queue_size) {
 //         queue_size = queue.size;
@@ -64,7 +64,7 @@ struct BinaryTreeNode *binary_tree_insert(struct BinaryTree *BT, void *data)
 //     return height;
 // }
 
-struct BinaryTreeNode *tree_node_inorder_predecessor(struct BinaryTreeNode *node)
+BinaryTreeNode *tree_node_inorder_predecessor(BinaryTreeNode *node)
 {
     if(node->left) {
         node = node->left;
@@ -74,7 +74,7 @@ struct BinaryTreeNode *tree_node_inorder_predecessor(struct BinaryTreeNode *node
     return node;
 }
 
-struct BinaryTreeNode *tree_node_inorder_successor(struct BinaryTreeNode *node)
+BinaryTreeNode *tree_node_inorder_successor(BinaryTreeNode *node)
 {    
     if(node->right) {
         node = node->right;
@@ -84,11 +84,11 @@ struct BinaryTreeNode *tree_node_inorder_successor(struct BinaryTreeNode *node)
     return node;
 }
 
-// struct BinaryTree *tree_from_preorder(int preorder[], size_t preorder_size, int inorder[], size_t inorder_size)
+// BinaryTree *tree_from_preorder(int preorder[], size_t preorder_size, int inorder[], size_t inorder_size)
 // {
 //     if(preorder_size != inorder_size)
 //         return NULL;
-//     struct BinaryTreeNode *root, *node;
+//     BinaryTreeNode *root, *node;
 //     root->data = preorder[0];
 //     node = root;
 //     for(size_t i = 1; i < preorder_size; i++)
@@ -99,7 +99,7 @@ struct BinaryTreeNode *tree_node_inorder_successor(struct BinaryTreeNode *node)
 //     return root;
 // }
 
-// struct BinaryTree *tree_from_postorder(int *postorder, size_t postorder_size, int *inorder, size_t inorder_size)
+// BinaryTree *tree_from_postorder(int *postorder, size_t postorder_size, int *inorder, size_t inorder_size)
 // {
 //     if(postorder_size != inorder_size)
 //         return NULL;

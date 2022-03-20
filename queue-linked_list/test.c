@@ -1,12 +1,12 @@
 #include "queue.h"
 
-extern void queue_print(struct Queue *queue);
+extern void queue_print(Queue *queue);
 
 #include <stdint.h>
 
 int main()
 {
-    struct Queue queue = queue_construct();
+    Queue queue = queue_construct();
     for(uint8_t i = 0; i < 127; i++) {
         queue.enqueue(&queue, &i, sizeof i);
     }

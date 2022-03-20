@@ -1,10 +1,10 @@
 #include "stack.h"
 
-extern void stack_print(struct Stack *stack);
+extern void stack_print(Stack *stack);
 
 int main()
 {
-    struct Stack stack = stack_construct(sizeof (int));
+    Stack stack = stack_construct(sizeof (int));
     // stack_push(stack, INT, &x);
     // int x = 1, y = 12, z =11;
     // for(int i = 1; i < 100; i++)

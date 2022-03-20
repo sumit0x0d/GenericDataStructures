@@ -5,22 +5,22 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct BinarySearchTreeNode {
+typedef struct BinarySearchTreeNode {
     void *data;
-    struct BinarySearchTreeNode *left;
-    struct BinarySearchTreeNode *right;
-};
+    BinarySearchTreeNode *left;
+    BinarySearchTreeNode *right;
+} BinarySearchTreeNode;
 
-struct BinarySearchTree {
-    struct BinarySearchTreeNode *root;
+typedef struct BinarySearchTree {
+    BinarySearchTreeNode *root;
     size_t data_type_size;
     size_t size;
-};
+} BinarySearchTree;
 
-struct BinarySearchTree binary_search_tree_construct(size_t data_type_size);
-// void binary_search_tree_destruct(struct BinarySearchTree *BST);
-struct BinarySearchTreeNode *binary_search_tree_search(struct BinarySearchTree *BST, void *data);
-bool binary_search_tree_insert(struct BinarySearchTree *BST, void *data);
-bool binary_search_tree_remove(struct BinarySearchTree *BST, void *data);
+BinarySearchTree binary_search_tree_construct(size_t data_type_size);
+// void binary_search_tree_destruct(BinarySearchTree *BST);
+BinarySearchTreeNode *binary_search_tree_search(BinarySearchTree *BST, void *data);
+bool binary_search_tree_insert(BinarySearchTree *BST, void *data);
+bool binary_search_tree_remove(BinarySearchTree *BST, void *data);
 
 #endif

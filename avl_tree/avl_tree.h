@@ -5,24 +5,24 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct AVLTreeNode {
+typedef struct AVLTreeNode {
     void *data;
-    struct AVLTreeNode *left;
-    struct AVLTreeNode *right;
-    struct AVLTreeNode *parent;
+    AVLTreeNode *left;
+    AVLTreeNode *right;
+    AVLTreeNode *parent;
     int balance_factor;
-};
+} AVLTreeNode;
 
-struct AVLTree {
-    struct AVLTreeNode *root;
+typedef struct AVLTree {
+    AVLTreeNode *root;
     size_t data_type_size;
     size_t size;
-};
+} AVLTree;
 
-struct AVLTree avl_tree_construct(size_t data_type_size);
-void avl_tree_destruct(struct AVLTree *AVLT);
-struct AVLTreeNode *binary_search_tree_search(struct AVLTree *AVLT, void *data);
-bool avl_tree_insert(struct AVLTree *AVLT, void *data);
-bool avl_tree_remove(struct AVLTree *AVLT, void *data);
+AVLTree avl_tree_construct(size_t data_type_size);
+void avl_tree_destruct(AVLTree *AVLT);
+AVLTreeNode *binary_search_tree_search(AVLTree *AVLT, void *data);
+bool avl_tree_insert(AVLTree *AVLT, void *data);
+bool avl_tree_remove(AVLTree *AVLT, void *data);
 
 #endif

@@ -2,30 +2,30 @@
 
 #include <stdio.h>
 
-void binary_search_tree_print(struct BinarySearchTree *tree);
+void binary_search_tree_print(BinarySearchTree *tree);
 
-struct QueueNode {
-    struct BinarySearchTreeNode *data;
-    struct QueueNode *next;
+QueueNode {
+    BinarySearchTreeNode *data;
+    QueueNode *next;
 };
 
-struct StackNode {
-    struct BinarySearchTreeNode *data;
-    struct StackNode *next;
+StackNode {
+    BinarySearchTreeNode *data;
+    StackNode *next;
 };
 
-struct Queue {
-    struct QueueNode *front;
-    struct QueueNode *back;
+Queue {
+    QueueNode *front;
+    QueueNode *back;
 };
 
-struct Stack {
-    struct StackNode *top;
+Stack {
+    StackNode *top;
 };
 
-void queue_enqueue(struct Queue *Q, struct BinarySearchTreeNode *data)
+void queue_enqueue(Queue *Q, BinarySearchTreeNode *data)
 {
-    struct QueueNode *node = malloc(sizeof (struct QueueNode));
+    QueueNode *node = malloc(sizeof (QueueNode));
     if(!node) return;
 
     node->data = data;
@@ -38,11 +38,11 @@ void queue_enqueue(struct Queue *Q, struct BinarySearchTreeNode *data)
     Q->back = node;
 }
 
-void queue_dequeue(struct Queue *Q)
+void queue_dequeue(Queue *Q)
 {
     if(!Q->front) return;
     
-    struct QueueNode *node = Q->front;
+    QueueNode *node = Q->front;
     
     Q->front = node->next;
     if(!Q->front)
@@ -52,9 +52,9 @@ void queue_dequeue(struct Queue *Q)
     node = NULL;
 }
 
-struct Queue queue_construct()
+Queue queue_construct()
 {
-    struct Queue Q;
+    Queue Q;
 
     Q.front = NULL;
     Q.back = NULL;
@@ -62,9 +62,9 @@ struct Queue queue_construct()
     return Q;
 }
 
-void stack_push(struct Stack *S, struct BinarySearchTreeNode *data)
+void stack_push(Stack *S, BinarySearchTreeNode *data)
 {
-    struct StackNode *node = malloc(sizeof (struct StackNode));
+    StackNode *node = malloc(sizeof (StackNode));
     if(!node) return;
     
     node->data = data;
@@ -73,11 +73,11 @@ void stack_push(struct Stack *S, struct BinarySearchTreeNode *data)
     S->top = node;
 }
 
-void stack_pop(struct Stack *S)
+void stack_pop(Stack *S)
 {
     if(!S->top) return;
     
-    struct SinglyLinkedListNode *node = S->top;
+    SinglyLinkedListNode *node = S->top;
     
     S->top = S->top->next;
     
@@ -85,19 +85,19 @@ void stack_pop(struct Stack *S)
     node = NULL;
 }
 
-struct Stack stack_construct()
+Stack stack_construct()
 {
-    struct Stack S;
+    Stack S;
 
     S.top = NULL;
     
     return S;
 }
 
-void preorder_traverse(struct BinarySearchTree *tree)
+void preorder_traverse(BinarySearchTree *tree)
 {
-    struct BinarySearchTreeNode *node = tree->root;
-    struct Stack S = stack_construct();
+    BinarySearchTreeNode *node = tree->root;
+    Stack S = stack_construct();
 
     while(node || S.top)
         if(node) {
@@ -112,10 +112,10 @@ void preorder_traverse(struct BinarySearchTree *tree)
         }
 }
 
-void inorder_traverse(struct BinarySearchTree *tree)
+void inorder_traverse(BinarySearchTree *tree)
 {
-    struct BinarySearchTreeNode *node = tree->root;
-    struct Stack S = stack_construct();
+    BinarySearchTreeNode *node = tree->root;
+    Stack S = stack_construct();
 
     while(node || S.top)
         if(node) {
@@ -130,10 +130,10 @@ void inorder_traverse(struct BinarySearchTree *tree)
         }
 }
 
-void postorder_traverse(struct BinarySearchTree *tree)
+void postorder_traverse(BinarySearchTree *tree)
 {
-    struct BinarySearchTreeNode *node = tree->root;
-    struct Stack S = stack_construct();
+    BinarySearchTreeNode *node = tree->root;
+    Stack S = stack_construct();
     
     while(node || S.top)
         if(node) {
@@ -148,10 +148,10 @@ void postorder_traverse(struct BinarySearchTree *tree)
         }
 }
 
-void levelorder_traverse(struct BinarySearchTree *tree)
+void levelorder_traverse(BinarySearchTree *tree)
 {
-    struct BinarySearchTreeNode *node = tree->root;
-    struct Queue Q = queue_construct();
+    BinarySearchTreeNode *node = tree->root;
+    Queue Q = queue_construct();
 
     printf("%d ", *(int *)tree->root->data);
     queue_enqueue(&Q, tree->root);
@@ -170,7 +170,7 @@ void levelorder_traverse(struct BinarySearchTree *tree)
     }
 }
 
-void binary_search_tree_print(struct BinarySearchTree *tree)
+void binary_search_tree_print(BinarySearchTree *tree)
 {
     if(!tree->size) return;
 

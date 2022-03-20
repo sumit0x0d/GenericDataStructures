@@ -4,18 +4,18 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-struct Graph {
+typedef struct Graph {
     int *adjacency_matrix;
     unsigned long vertex;
-};
+} Graph;
 
-struct Graph graph_construct();
-void graph_destruct(struct Graph *G);
-bool graph_adjacent(struct Graph *G, unsigned long vertex);
-bool graph_neighbors(struct Graph *G, unsigned long vertex);
-bool graph_insert_vertex(struct Graph *G, unsigned long vertex);
-bool graph_remove_vertex(struct Graph *G, unsigned long vertex);
-bool graph_insert_edge(struct Graph *G, unsigned long vertex_source, unsigned long vertex_destination);
-bool graph_remove_edge(struct Graph *G, unsigned long vertex_source, unsigned long vertex_destination);
+Graph graph_construct();
+void graph_destruct(Graph *G);
+bool graph_adjacent(Graph *G, unsigned long vertex);
+bool graph_neighbors(Graph *G, unsigned long vertex);
+bool graph_insert_vertex(Graph *G, unsigned long vertex);
+bool graph_remove_vertex(Graph *G, unsigned long vertex);
+bool graph_insert_edge(Graph *G, unsigned long vertex_source, unsigned long vertex_destination);
+bool graph_remove_edge(Graph *G, unsigned long vertex_source, unsigned long vertex_destination);
 
 #endif

@@ -1,6 +1,6 @@
 #include "stack.h"
 
-void stack_print(struct Stack *S)
+void stack_print(Stack *S)
 {
     printf("Stack: ");
     size_t i = 0;

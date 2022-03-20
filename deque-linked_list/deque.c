@@ -1,13 +1,13 @@
 #include "deque.h"
 
-bool deque_push_front(struct Deque *D, void *data);
-bool deque_push_back(struct Deque *D, void *data);
-bool deque_pop_front(struct Deque *D);
-bool deque_pop_back(struct Deque *D);
+bool deque_push_front(Deque *D, void *data);
+bool deque_push_back(Deque *D, void *data);
+bool deque_pop_front(Deque *D);
+bool deque_pop_back(Deque *D);
 
-struct Deque deque_construct(size_t data_type_size)
+Deque deque_construct(size_t data_type_size)
 {
-    struct Deque D;
+    Deque D;
 
     D.front = NULL;
     D.back = NULL;
@@ -17,9 +17,9 @@ struct Deque deque_construct(size_t data_type_size)
     return D;
 }
 
-struct DequeNode *node_construct(size_t data_type_size)
+DequeNode *node_construct(size_t data_type_size)
 {
-    struct DequeNode *node = malloc(sizeof (struct DequeNode));
+    DequeNode *node = malloc(sizeof (DequeNode));
     if(!node) return NULL;
 
     node->data = malloc(data_type_size);
@@ -32,9 +32,9 @@ struct DequeNode *node_construct(size_t data_type_size)
     return node;
 }
 
-bool deque_push_front(struct Deque *D, void *data)
+bool deque_push_front(Deque *D, void *data)
 {
-    struct DequeNode *node = node_construct(D->data_type_size);
+    DequeNode *node = node_construct(D->data_type_size);
     if(!node) return false;
 
     memcpy(node->data, data, D->data_type_size);
@@ -55,9 +55,9 @@ bool deque_push_front(struct Deque *D, void *data)
     return true;
 }
 
-bool deque_push_back(struct Deque *D, void *data)
+bool deque_push_back(Deque *D, void *data)
 {
-    struct DequeNode *node = node_construct(D->data_type_size);
+    DequeNode *node = node_construct(D->data_type_size);
     if(!node) return false; 
 
     memcpy(node->data, data, D->data_type_size);
@@ -78,7 +78,7 @@ bool deque_push_back(struct Deque *D, void *data)
     return true;
 }
 
-void node_destruct(struct DequeNode *node)
+void node_destruct(DequeNode *node)
 {
     free(node->data);
     node->data = NULL;
@@ -87,11 +87,11 @@ void node_destruct(struct DequeNode *node)
     node = NULL;
 }
 
-bool deque_pop_front(struct Deque *D)
+bool deque_pop_front(Deque *D)
 {
     if(!D->size) return false;
 
-    struct DequeNode *node = D->front;
+    DequeNode *node = D->front;
 
     D->front = D->front->next;
     if(!D->front)
@@ -104,11 +104,11 @@ bool deque_pop_front(struct Deque *D)
     return true;
 }
 
-bool deque_pop_back(struct Deque *D)
+bool deque_pop_back(Deque *D)
 {
     if(!D->size) return false;
 
-    struct DequeNode *node = D->back;
+    DequeNode *node = D->back;
 
     D->back = D->back->previous;
     if(D->back)

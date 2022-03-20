@@ -1,12 +1,12 @@
 #include "avl_tree.h"
 
-struct AVLTreeNode *avl_tree_search(struct AVLTree *AVLT, void *data);
-bool avl_tree_insert(struct AVLTree *AVLT, void *data);
-bool avl_tree_remove(struct AVLTree *AVLT, void *data);
+AVLTreeNode *avl_tree_search(AVLTree *AVLT, void *data);
+bool avl_tree_insert(AVLTree *AVLT, void *data);
+bool avl_tree_remove(AVLTree *AVLT, void *data);
 
-struct AVLTreeNode *search(struct AVLTree *AVLT, void *data)
+AVLTreeNode *search(AVLTree *AVLT, void *data)
 {
-    struct AVLTreeNode *node = AVLT->root;
+    AVLTreeNode *node = AVLT->root;
     while(node) {
         int compare = memcmp(data, node->data, AVLT->data_type_size);
         if(compare == 0)
@@ -19,7 +19,7 @@ struct AVLTreeNode *search(struct AVLTree *AVLT, void *data)
     return NULL;
 }
 
-int node_balance_factor(struct AVLTreeNode *node)
+int node_balance_factor(AVLTreeNode *node)
 {
     size_t node_left_height = 0;
     size_t node_right_height = 0;
@@ -32,10 +32,10 @@ int node_balance_factor(struct AVLTreeNode *node)
     return (int)(node_right_height - node_left_height);
 }
 
-struct AVLTreeNode *node_rotate_left(struct AVLTreeNode *node)
+AVLTreeNode *node_rotate_left(AVLTreeNode *node)
 {
-    struct AVLTreeNode *node_right = node->right;
-    struct AVLTreeNode *node_right_left = node_right->left;
+    AVLTreeNode *node_right = node->right;
+    AVLTreeNode *node_right_left = node_right->left;
 
     node_right->left = node;
     node_right->parent = node->parent;
@@ -52,10 +52,10 @@ struct AVLTreeNode *node_rotate_left(struct AVLTreeNode *node)
     return node_right;
 }
 
-struct AVLTreeNode *node_rotate_right(struct AVLTreeNode *node)
+AVLTreeNode *node_rotate_right(AVLTreeNode *node)
 {
-    struct AVLTreeNode *node_left = node->left;
-    struct AVLTreeNode *node_left_right = node_left->right;
+    AVLTreeNode *node_left = node->left;
+    AVLTreeNode *node_left_right = node_left->right;
 
     node_left->right = node;
     node_left->parent = node->parent;
@@ -72,10 +72,10 @@ struct AVLTreeNode *node_rotate_right(struct AVLTreeNode *node)
     return node_left;
 }
 
-struct AVLTreeNode *_node_rotate_right_left(struct AVLTreeNode *node)
+AVLTreeNode *_node_rotate_right_left(AVLTreeNode *node)
 {
-    struct AVLTreeNode *node_right = node->right;
-    struct AVLTreeNode *node_right_left = node_right->left;
+    AVLTreeNode *node_right = node->right;
+    AVLTreeNode *node_right_left = node_right->left;
     
     node_right->left = node_right_left->right;
     node->right = node_right_left->left;
@@ -88,10 +88,10 @@ struct AVLTreeNode *_node_rotate_right_left(struct AVLTreeNode *node)
     return node_right_left;
 }
 
-struct AVLTreeNode *node_rotate_left_right(struct AVLTreeNode *node)
+AVLTreeNode *node_rotate_left_right(AVLTreeNode *node)
 {
-    struct AVLTreeNode *node_left = node->left;
-    struct AVLTreeNode *node_left_right = node_left->right;
+    AVLTreeNode *node_left = node->left;
+    AVLTreeNode *node_left_right = node_left->right;
 
     node_left->right = node_left_right->left;
     if(node_left_right->left)
@@ -110,7 +110,7 @@ struct AVLTreeNode *node_rotate_left_right(struct AVLTreeNode *node)
     return node_left_right;
 }
 
-void node_rebalance(struct AVLTreeNode *node)
+void node_rebalance(AVLTreeNode *node)
 {
     if(node->balance_factor == -2 && node->left->balance_factor == -1)
         node = node_rotate_right(node);
@@ -122,9 +122,9 @@ void node_rebalance(struct AVLTreeNode *node)
         node = node_rotate_left_right(node);
 }
 
-struct AVLTreeNode *node_construct(void *data, size_t data_type_size)
+AVLTreeNode *node_construct(void *data, size_t data_type_size)
 {
-    struct AVLTreeNode *node = malloc(sizeof (struct AVLTreeNode));
+    AVLTreeNode *node = malloc(sizeof (AVLTreeNode));
     if(!node) return NULL;
 
     node->data = malloc(data_type_size);
@@ -143,7 +143,7 @@ struct AVLTreeNode *node_construct(void *data, size_t data_type_size)
     return node;
 }
 
-bool avl_tree_insert(struct AVLTree *AVLT, void *data)
+bool avl_tree_insert(AVLTree *AVLT, void *data)
 {
     if(!AVLT->size) {
         AVLT->root = node_construct(data, AVLT->data_type_size);
@@ -156,8 +156,8 @@ bool avl_tree_insert(struct AVLTree *AVLT, void *data)
         return true;
     }
     
-    struct AVLTreeNode *node = AVLT->root;
-    struct AVLTreeNode *node_parent = NULL;
+    AVLTreeNode *node = AVLT->root;
+    AVLTreeNode *node_parent = NULL;
     
     while(node) {
         if(data == node->data)
@@ -193,7 +193,7 @@ bool avl_tree_insert(struct AVLTree *AVLT, void *data)
     return true;
 }
 
-bool avl_tree_remove(struct AVLTree *AVLT, void *data)
+bool avl_tree_remove(AVLTree *AVLT, void *data)
 {
     
 }

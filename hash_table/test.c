@@ -2,7 +2,7 @@
 
 int main()
 {
-    struct HashTable *hash_table = hash_table_construct(10);
+    HashTable *hash_table = hash_table_construct(10);
     hash_table_insert(hash_table, 125);
     hash_table_insert(hash_table, 122);
     hash_table_insert(hash_table, 88);

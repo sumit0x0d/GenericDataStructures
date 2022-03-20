@@ -1,8 +1,8 @@
 #include "queue.h"
 
-struct Queue queue_construct(size_t data_type_size, size_t capacity)
+Queue queue_construct(size_t data_type_size, size_t capacity)
 {
-    struct Queue Q;
+    Queue Q;
 
     Q.array = NULL;
 
@@ -15,7 +15,7 @@ struct Queue queue_construct(size_t data_type_size, size_t capacity)
     return Q;
 }
 
-void queue_distroy(struct Queue *Q)
+void queue_distroy(Queue *Q)
 {
     free(Q->array);
     Q->array = NULL;
@@ -23,7 +23,7 @@ void queue_distroy(struct Queue *Q)
     Q->size = 0;
 }
 
-bool queue_enqueue(struct Queue *Q, void *data)
+bool queue_enqueue(Queue *Q, void *data)
 {
     if(!Q->array) {
         Q->array = malloc(Q->data_type_size * Q->capacity);
@@ -40,7 +40,7 @@ bool queue_enqueue(struct Queue *Q, void *data)
     return true;
 }
 
-void queue_dequeue(struct Queue *Q)
+void queue_dequeue(Queue *Q)
 {
     if(Q->front != Q->back) {
         Q->front++;

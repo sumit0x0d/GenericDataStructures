@@ -2,32 +2,32 @@
 
 #include <stdio.h>
 
-struct QueueNode {
-    struct AVLTreeNode *data;
-    struct QueueNode *next;
+QueueNode {
+    AVLTreeNode *data;
+    QueueNode *next;
 };
 
-struct StackNode {
-    struct AVLTreeNode *data;
-    struct StackNode *next;
+StackNode {
+    AVLTreeNode *data;
+    StackNode *next;
 };
 
-struct Queue {
-    struct QueueNode *front;
-    struct QueueNode *back;
-    void (*enqueue)(struct Queue *Q, struct AVLTreeNode *data);
-    void (*dequeue)(struct Queue *Q);
+Queue {
+    QueueNode *front;
+    QueueNode *back;
+    void (*enqueue)(Queue *Q, AVLTreeNode *data);
+    void (*dequeue)(Queue *Q);
 };
 
-struct Stack {
-    struct StackNode *top;
-    void (*push)(struct Stack *S, struct AVLTreeNode *data);
-    void (*pop)(struct Stack *S);
+Stack {
+    StackNode *top;
+    void (*push)(Stack *S, AVLTreeNode *data);
+    void (*pop)(Stack *S);
 };
 
-void enqueue(struct Queue *Q, struct AVLTreeNode *data)
+void enqueue(Queue *Q, AVLTreeNode *data)
 {
-    struct QueueNode *node = malloc(sizeof (struct QueueNode));
+    QueueNode *node = malloc(sizeof (QueueNode));
     if(!node) return;
 
     node->data = data;
@@ -40,11 +40,11 @@ void enqueue(struct Queue *Q, struct AVLTreeNode *data)
     Q->back = node;
 }
 
-void dequeue(struct Queue *Q)
+void dequeue(Queue *Q)
 {
     if(!Q->front) return;
     
-    struct QueueNode *node = Q->front;
+    QueueNode *node = Q->front;
     
     Q->front = node->next;
     if(!Q->front)
@@ -54,9 +54,9 @@ void dequeue(struct Queue *Q)
     node = NULL;
 }
 
-struct Queue queue_construct()
+Queue queue_construct()
 {
-    struct Queue Q;
+    Queue Q;
 
     Q.front = NULL;
     Q.back = NULL;
@@ -67,9 +67,9 @@ struct Queue queue_construct()
     return Q;
 }
 
-void push(struct Stack *S, struct AVLTreeNode *data)
+void push(Stack *S, AVLTreeNode *data)
 {
-    struct StackNode *node = malloc(sizeof (struct StackNode));
+    StackNode *node = malloc(sizeof (StackNode));
     if(!node) return;
     
     node->data = data;
@@ -78,11 +78,11 @@ void push(struct Stack *S, struct AVLTreeNode *data)
     S->top = node;
 }
 
-void pop(struct Stack *S)
+void pop(Stack *S)
 {
     if(!S->top) return;
     
-    struct StackNode *node = S->top;
+    StackNode *node = S->top;
     
     S->top = S->top->next;
     
@@ -90,9 +90,9 @@ void pop(struct Stack *S)
     node = NULL;
 }
 
-struct Stack stack_construct()
+Stack stack_construct()
 {
-    struct Stack S;
+    Stack S;
 
     S.top = NULL;
 
@@ -102,10 +102,10 @@ struct Stack stack_construct()
     return S;
 }
 
-void preorder_traverse(struct AVLTree *AVLT)
+void preorder_traverse(AVLTree *AVLT)
 {
-    struct AVLTreeNode *node = AVLT->root;
-    struct Stack S = stack_construct();
+    AVLTreeNode *node = AVLT->root;
+    Stack S = stack_construct();
 
     while(node || S.top)
         if(node) {
@@ -120,10 +120,10 @@ void preorder_traverse(struct AVLTree *AVLT)
         }
 }
 
-void inorder_traverse(struct AVLTree *AVLT)
+void inorder_traverse(AVLTree *AVLT)
 {
-    struct AVLTreeNode *node = AVLT->root;
-    struct Stack S = stack_construct();
+    AVLTreeNode *node = AVLT->root;
+    Stack S = stack_construct();
 
     while(node || S.top)
         if(node) {
@@ -138,10 +138,10 @@ void inorder_traverse(struct AVLTree *AVLT)
         }
 }
 
-void postorder_traverse(struct AVLTree *AVLT)
+void postorder_traverse(AVLTree *AVLT)
 {
-    struct AVLTreeNode *node = AVLT->root;
-    struct Stack S = stack_construct();
+    AVLTreeNode *node = AVLT->root;
+    Stack S = stack_construct();
     
     while(node || S.top)
         if(node) {
@@ -156,10 +156,10 @@ void postorder_traverse(struct AVLTree *AVLT)
         }
 }
 
-void levelorder_traverse(struct AVLTree *AVLT)
+void levelorder_traverse(AVLTree *AVLT)
 {
-    struct AVLTreeNode *node = AVLT->root;
-    struct Queue Q = queue_construct();
+    AVLTreeNode *node = AVLT->root;
+    Queue Q = queue_construct();
 
     printf("%d ", *(int *)AVLT->root->data);
     Q.enqueue(&Q, AVLT->root);
@@ -178,7 +178,7 @@ void levelorder_traverse(struct AVLTree *AVLT)
     }
 }
 
-void avl_tree_print(struct AVLTree *AVLT)
+void avl_tree_print(AVLTree *AVLT)
 {
     if(!AVLT->size) return;
 

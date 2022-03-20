@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void queue_print(struct Queue *Q)
+void queue_print(Queue *Q)
 {
     // printf("Queue Array: ");
     size_t i = Q->front;

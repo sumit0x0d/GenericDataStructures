@@ -1,10 +1,10 @@
 #include "queue.h"
 
-void queue_print(struct Queue *queue)
+void queue_print(Queue *queue)
 {
    if(!queue->size)
         return;
-    struct QueueNode *node = queue->front;
+    QueueNode *node = queue->front;
     printf("Queue Linked List: ");
     while(node != queue->back) {
         printf("%c ", *(char *)node->data);

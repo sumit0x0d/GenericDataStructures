@@ -1,18 +1,19 @@
 #ifndef STACK_ARRAY_H
 #define STACK_ARRAY_H
 
+#include <stdbool.h>
 #include <stdlib.h>
 
-struct Stack {
+typedef struct Stack {
     int *array;
     size_t top;
     size_t size;
     size_t capacity;
-};
+} Stack;
 
-struct Stack *stack_construct(size_t capacity);
-void stack_distroy(struct Stack *S);
-bool stack_push(struct Stack *S, int data);
-bool stack_pop(struct Stack *S);
+Stack *stack_construct(size_t capacity);
+void stack_distroy(Stack *S);
+bool stack_push(Stack *S, int data);
+bool stack_pop(Stack *S);
 
 #endif

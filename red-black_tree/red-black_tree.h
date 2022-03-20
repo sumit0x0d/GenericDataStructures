@@ -4,23 +4,23 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct RedBlackTreeNode {
+typedef struct RedBlackTreeNode {
     void *data;
-    struct RedBlackTreeNode *left;
-    struct RedBlackTreeNode *right;
-    struct RedBlackTreeNode *parent;
+    RedBlackTreeNode *left;
+    RedBlackTreeNode *right;
+    RedBlackTreeNode *parent;
     enum {RED, BLACK} color;
-};
+} RedBlackTreeNode;
 
-struct RedBlackTree {
-    struct RedBlackTreeNode *root;
+typedef struct RedBlackTree {
+    RedBlackTreeNode *root;
     size_t data_type_size;
     size_t size;
-    struct RedBlackTreeNode *(*search)(struct RedBlackTree *RBT, void *data);
-    void (*insert)(struct RedBlackTree *RBT, void *data);
-    void (*remove)(struct RedBlackTree *RBT, void *data);
-};
+    RedBlackTreeNode *(*search)(RedBlackTree *RBT, void *data);
+    void (*insert)(RedBlackTree *RBT, void *data);
+    void (*remove)(RedBlackTree *RBT, void *data);
+} RedBlackTree;
 
-struct RedBlackTree red_black_tree_construct(size_t data_type_size);
+RedBlackTree red_black_tree_construct(size_t data_type_size);
 
 #endif

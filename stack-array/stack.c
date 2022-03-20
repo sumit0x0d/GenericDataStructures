@@ -1,9 +1,9 @@
 #include "stack.h"
 
 
-struct Stack *stack_construct(size_t capacity)
+Stack *stack_construct(size_t capacity)
 {
-    struct Stack *S = malloc(sizeof (struct Stack));
+    Stack *S = malloc(sizeof (Stack));
     assert(S);
     S->array = malloc(sizeof (sizeof (int) * capacity));
     assert(S->array);
@@ -13,13 +13,13 @@ struct Stack *stack_construct(size_t capacity)
     return S;
 }
 
-void stack_distroy(struct Stack *S)
+void stack_distroy(Stack *S)
 {
     free(S->array);
     free(S);
 }
 
-void stack_push(struct Stack *S, int data)
+void stack_push(Stack *S, int data)
 {
     if(S->size < S->capacity) {
         S->array[S->top] = data;
@@ -28,7 +28,7 @@ void stack_push(struct Stack *S, int data)
     }
 }
 
-void stack_pop(struct Stack *S)
+void stack_pop(Stack *S)
 {
     if(S->size) {
         S->top = S->top - 1;

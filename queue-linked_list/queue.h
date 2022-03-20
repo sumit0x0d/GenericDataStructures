@@ -6,21 +6,21 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct QueueNode {
+typedef struct QueueNode {
     void *data;
-    struct QueueNode *next;
-};
+    QueueNode *next;
+} QueueNode;
 
-struct Queue {
-    struct QueueNode *front;
-    struct QueueNode *back;
+typedef struct Queue {
+    QueueNode *front;
+    QueueNode *back;
     size_t data_type_size;
     size_t size;
-};
+} Queue;
 
-struct Queue queue_construct(size_t data_type_size);
-void queue_destruct(struct Queue *Q);
-bool queue_enqueue(struct Queue *Q, void *data);
-bool queue_dequeue(struct Queue *Q);
+Queue queue_construct(size_t data_type_size);
+void queue_destruct(Queue *Q);
+bool queue_enqueue(Queue *Q, void *data);
+bool queue_dequeue(Queue *Q);
 
 #endif

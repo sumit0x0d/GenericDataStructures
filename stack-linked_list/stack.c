@@ -1,12 +1,12 @@
 #include "stack.h"
 
-void stack_destruct(struct Stack *S);
-bool stack_push(struct Stack *S, void *data);
-bool stack_pop(struct Stack *S);
+void stack_destruct(Stack *S);
+bool stack_push(Stack *S, void *data);
+bool stack_pop(Stack *S);
 
-struct Stack stack_construct(size_t data_type_size)
+Stack stack_construct(size_t data_type_size)
 {
-    struct Stack S;
+    Stack S;
 
     S.top = NULL;
     S.data_type_size = data_type_size;
@@ -15,9 +15,9 @@ struct Stack stack_construct(size_t data_type_size)
     return S;
 }
 
-void stack_destruct(struct Stack *S)
+void stack_destruct(Stack *S)
 {
-    struct StackNode *node = S->top;
+    StackNode *node = S->top;
 
     while(node)
         if(node->next) {
@@ -32,9 +32,9 @@ void stack_destruct(struct Stack *S)
     return;
 }
 
-struct StackNode *node_construct(size_t data_type_size)
+StackNode *node_construct(size_t data_type_size)
 {
-    struct StackNode *node = malloc(sizeof (struct StackNode));
+    StackNode *node = malloc(sizeof (StackNode));
     if(!node) return NULL;
 
     node->data = malloc(data_type_size);
@@ -47,9 +47,9 @@ struct StackNode *node_construct(size_t data_type_size)
     return node;
 }
 
-bool stack_push(struct Stack *S, void *data)
+bool stack_push(Stack *S, void *data)
 {
-    struct StackNode *node = node_construct(S->data_type_size);
+    StackNode *node = node_construct(S->data_type_size);
     if(!node) return false;
 
     memcpy(node->data, data, S->data_type_size);
@@ -62,7 +62,7 @@ bool stack_push(struct Stack *S, void *data)
     return true;
 }
 
-void node_destruct(struct StackNode *node)
+void node_destruct(StackNode *node)
 {
     free(node->data);
     node->data = NULL;
@@ -71,11 +71,11 @@ void node_destruct(struct StackNode *node)
     node = NULL;
 }
 
-bool stack_pop(struct Stack *S)
+bool stack_pop(Stack *S)
 {
     if(!S->size) return false;
 
-    struct StackNode *node = S->top;
+    StackNode *node = S->top;
 
     S->top = S->top->next;
 

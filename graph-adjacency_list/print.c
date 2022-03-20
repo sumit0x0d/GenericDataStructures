@@ -1,7 +1,7 @@
 #include "graph.h"
 #include <stdio.h>
 
-void graph_print(struct Graph *G)
+void graph_print(Graph *G)
 {
     // while(vertex) {
         // printf("%ld ", G->adjacency_list->index);

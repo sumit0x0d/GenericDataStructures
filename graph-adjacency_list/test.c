@@ -1,10 +1,10 @@
 #include "graph.h"
 
-extern void graph_print(struct Graph *graph);
+extern void graph_print(Graph *graph);
 
 int main()
 {
-    struct Graph graph = graph_construct(sizeof (int));
+    Graph graph = graph_construct(sizeof (int));
     int x = 1110;
     int y = 551;
     graph_vertex_insert(&graph, &x);

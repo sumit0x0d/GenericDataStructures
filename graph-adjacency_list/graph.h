@@ -5,24 +5,24 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct Vertex {
+typedef struct Vertex {
     void *data;
     unsigned long weight;
     size_t index;
-    struct GraphNode *edge;
-};
+    Vertex *edge;
+} Vertex;
 
-struct Graph {
-    struct Vertex *adjacency_list;
+typedef struct Graph {
+    Vertex *adjacency_list;
     size_t data_type_size;
     unsigned long vertices;
-};
+} Graph;
 
-struct Graph graph_construct(size_t data_type_size);
+Graph graph_construct(size_t data_type_size);
 void graph_destruct();
-bool graph_vertex_insert(struct Graph *G, void *data);
-bool graph_vertex_remove(struct Graph *G);
-bool graph_edge_insert(struct Graph *G, struct Vertex vertex_source, struct Vertex vertex_destination);
-bool graph_edge_remove(struct Graph *G, struct Vertex vertex_source, struct Vertex vertex_destination);
+bool graph_vertex_insert(Graph *G, void *data);
+bool graph_vertex_remove(Graph *G);
+bool graph_edge_insert(Graph *G, Vertex vertex_source, Vertex vertex_destination);
+bool graph_edge_remove(Graph *G, Vertex vertex_source, Vertex vertex_destination);
 
 #endif

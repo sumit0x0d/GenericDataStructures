@@ -1,19 +1,19 @@
 #include "singly_linked_list.h"
 
-bool singly_linked_list_push_front(struct SinglyLinkedList *SLL, void *data);
-bool singly_linked_list_push_back(struct SinglyLinkedList *SLL, void *data);
-bool singly_linked_list_insert(struct SinglyLinkedList *SLL, size_t index, void *data);
-bool singly_linked_list_sorted_insert(struct SinglyLinkedList *SLL, void *data);
-bool singly_linked_list_pop_front(struct SinglyLinkedList *SLL);
-bool singly_linked_list_pop_back(struct SinglyLinkedList *SLL);
-bool singly_linked_list_remove(struct SinglyLinkedList *SLL, void *data);
-bool singly_linked_list_erase(struct SinglyLinkedList *SLL, size_t index);
-bool singly_linked_list_linear(struct SinglyLinkedList *SLL);
-bool singly_linked_list_circular(struct SinglyLinkedList *SLL);
+bool singly_linked_list_push_front(SinglyLinkedList *SLL, void *data);
+bool singly_linked_list_push_back(SinglyLinkedList *SLL, void *data);
+bool singly_linked_list_insert(SinglyLinkedList *SLL, size_t index, void *data);
+bool singly_linked_list_sorted_insert(SinglyLinkedList *SLL, void *data);
+bool singly_linked_list_pop_front(SinglyLinkedList *SLL);
+bool singly_linked_list_pop_back(SinglyLinkedList *SLL);
+bool singly_linked_list_remove(SinglyLinkedList *SLL, void *data);
+bool singly_linked_list_erase(SinglyLinkedList *SLL, size_t index);
+bool singly_linked_list_linear(SinglyLinkedList *SLL);
+bool singly_linked_list_circular(SinglyLinkedList *SLL);
 
-struct SinglyLinkedList singly_linked_list_construct(size_t data_type_size)
+SinglyLinkedList singly_linked_list_construct(size_t data_type_size)
 {
-    struct SinglyLinkedList SLL;
+    SinglyLinkedList SLL;
 
     SLL.head = NULL;
     SLL.tail = NULL;
@@ -23,11 +23,11 @@ struct SinglyLinkedList singly_linked_list_construct(size_t data_type_size)
     return SLL;
 }
 
-struct SinglyLinkedListNode *search(struct SinglyLinkedList *SLL, int data)
+SinglyLinkedListNode *search(SinglyLinkedList *SLL, int data)
 {
     if(!SLL->size) return NULL;
 
-    struct SinglyLinkedListNode *node = malloc(sizeof (struct SinglyLinkedListNode));
+    SinglyLinkedListNode *node = malloc(sizeof (SinglyLinkedListNode));
     if(!node) return NULL;
     
     while(node) {
@@ -39,9 +39,9 @@ struct SinglyLinkedListNode *search(struct SinglyLinkedList *SLL, int data)
     return NULL;
 }
 
-struct SinglyLinkedListNode *node_construct(size_t data_type_size)
+SinglyLinkedListNode *node_construct(size_t data_type_size)
 {
-    struct SinglyLinkedListNode *node = malloc(sizeof (struct SinglyLinkedListNode));
+    SinglyLinkedListNode *node = malloc(sizeof (SinglyLinkedListNode));
     if(!node) return NULL;
 
     node->data = malloc(data_type_size);
@@ -54,9 +54,9 @@ struct SinglyLinkedListNode *node_construct(size_t data_type_size)
     return node;
 }
 
-bool singly_linked_list_push_front(struct SinglyLinkedList *SLL, void *data)
+bool singly_linked_list_push_front(SinglyLinkedList *SLL, void *data)
 {
-    struct SinglyLinkedListNode *node = node_construct(SLL->data_type_size);
+    SinglyLinkedListNode *node = node_construct(SLL->data_type_size);
     if(!node) return false;
 
     memcpy(node->data, data, SLL->data_type_size);
@@ -74,9 +74,9 @@ bool singly_linked_list_push_front(struct SinglyLinkedList *SLL, void *data)
     return true;
 }
 
-bool singly_linked_list_push_back(struct SinglyLinkedList *SLL, void *data)
+bool singly_linked_list_push_back(SinglyLinkedList *SLL, void *data)
 {
-    struct SinglyLinkedListNode *node = node_construct(SLL->data_type_size);
+    SinglyLinkedListNode *node = node_construct(SLL->data_type_size);
     if(!node) return false;
     
     memcpy(node->data, data, SLL->data_type_size);
@@ -96,7 +96,7 @@ bool singly_linked_list_push_back(struct SinglyLinkedList *SLL, void *data)
     return true;
 }
 
-bool singly_linked_list_insert(struct SinglyLinkedList *SLL, size_t index, void *data)
+bool singly_linked_list_insert(SinglyLinkedList *SLL, size_t index, void *data)
 {
     if(!index) {
         singly_linked_list_push_front(SLL, data);
@@ -111,8 +111,8 @@ bool singly_linked_list_insert(struct SinglyLinkedList *SLL, size_t index, void 
     if(index > SLL->size)
         return false;
 
-    struct SinglyLinkedListNode *node = SLL->head;
-    struct SinglyLinkedListNode *node_new = node_construct(SLL->data_type_size);
+    SinglyLinkedListNode *node = SLL->head;
+    SinglyLinkedListNode *node_new = node_construct(SLL->data_type_size);
     if(!node_new) return false;
 
     memcpy(node_new->data, data, SLL->data_type_size);
@@ -127,7 +127,7 @@ bool singly_linked_list_insert(struct SinglyLinkedList *SLL, size_t index, void 
     return true;
 }
 
-bool singly_linked_list_sorted_insert(struct SinglyLinkedList *SLL, void *data)
+bool singly_linked_list_sorted_insert(SinglyLinkedList *SLL, void *data)
 {
     if(!SLL->size || memcmp(data, SLL->head->data, SLL->data_type_size) < 0) {
         singly_linked_list_push_front(SLL, data);
@@ -139,8 +139,8 @@ bool singly_linked_list_sorted_insert(struct SinglyLinkedList *SLL, void *data)
         return true;
     }
 
-    struct SinglyLinkedListNode *node = SLL->head;
-    struct SinglyLinkedListNode *node_new = node_construct(SLL->data_type_size);
+    SinglyLinkedListNode *node = SLL->head;
+    SinglyLinkedListNode *node_new = node_construct(SLL->data_type_size);
     if(!node_new) return false;
 
     memcpy(node_new->data, data, SLL->data_type_size);
@@ -156,7 +156,7 @@ bool singly_linked_list_sorted_insert(struct SinglyLinkedList *SLL, void *data)
     return true;
 }
 
-void node_destruct(struct SinglyLinkedListNode *node, size_t data_type_size)
+void node_destruct(SinglyLinkedListNode *node, size_t data_type_size)
 {
     free(node->data);
     node->data = NULL;
@@ -165,11 +165,11 @@ void node_destruct(struct SinglyLinkedListNode *node, size_t data_type_size)
     node = NULL;
 }
 
-bool pop_front(struct SinglyLinkedList *SLL)
+bool pop_front(SinglyLinkedList *SLL)
 {
     if(!SLL->size) return false;
 
-    struct SinglyLinkedListNode *node = SLL->head;
+    SinglyLinkedListNode *node = SLL->head;
 
     SLL->head = SLL->head->next;
     if(!SLL->size)
@@ -182,7 +182,7 @@ bool pop_front(struct SinglyLinkedList *SLL)
     return true;
 }
 
-bool singly_linked_list_pop_back(struct SinglyLinkedList *SLL)
+bool singly_linked_list_pop_back(SinglyLinkedList *SLL)
 {
     if(!SLL->size) return false;
 
@@ -191,7 +191,7 @@ bool singly_linked_list_pop_back(struct SinglyLinkedList *SLL)
         return;
     }
 
-    struct SinglyLinkedListNode *node = SLL->head;
+    SinglyLinkedListNode *node = SLL->head;
 
     while(node->next != SLL->tail)
         node = node->next;
@@ -204,7 +204,7 @@ bool singly_linked_list_pop_back(struct SinglyLinkedList *SLL)
     return true;
 }
 
-bool singly_linked_list_erase(struct SinglyLinkedList *SLL, size_t index)
+bool singly_linked_list_erase(SinglyLinkedList *SLL, size_t index)
 {
     if(!index) {
         singly_linked_list_pop_front(SLL);
@@ -213,8 +213,8 @@ bool singly_linked_list_erase(struct SinglyLinkedList *SLL, size_t index)
     if(index > SLL->size)
         return false;
 
-    struct SinglyLinkedListNode *node = SLL->head;
-    struct SinglyLinkedListNode *node_previous;
+    SinglyLinkedListNode *node = SLL->head;
+    SinglyLinkedListNode *node_previous;
 
     for(size_t i = 0; i < index-1; i++) {
         node_previous = node;
@@ -228,9 +228,9 @@ bool singly_linked_list_erase(struct SinglyLinkedList *SLL, size_t index)
     return true;
 }
 
-bool singly_linked_list_remove(struct SinglyLinkedList *SLL, void *data)
+bool singly_linked_list_remove(SinglyLinkedList *SLL, void *data)
 {
-    struct SinglyLinkedListNode *node = SLL->head;
+    SinglyLinkedListNode *node = SLL->head;
     size_t count = 0;
 
     while(node) {
@@ -244,13 +244,13 @@ bool singly_linked_list_remove(struct SinglyLinkedList *SLL, void *data)
     return true;
 }
 
-bool singly_linked_list_linear(struct SinglyLinkedList *SLL)
+bool singly_linked_list_linear(SinglyLinkedList *SLL)
 {
     if(SLL->tail->next)
         SLL->tail->next = NULL;
 }
 
-bool singly_linked_list_circular(struct SinglyLinkedList *SLL)
+bool singly_linked_list_circular(SinglyLinkedList *SLL)
 {
     if(!SLL->tail->next)
         SLL->tail->next = SLL->head;

@@ -1,6 +1,6 @@
 #include "deque.h"
 
-void deque_print(struct Deque *D)
+void deque_print(Deque *D)
 {
     printf("Deque: ");
     size_t i = D->front;

@@ -4,20 +4,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Deque {
+typedef struct Deque {
     int *array;
     size_t front;
     size_t back;
     size_t size;
     size_t capacity;
-};
+} Deque;
 
-struct Deque *deque_array_construct(size_t capacity);
-void deque_distroy(struct Deque *D);
-void deque_push_front(struct Deque *D, int data);
-void deque_push_back(struct Deque *D, int data);
-void deque_pop_front(struct Deque *D);
-void deque_pop_back(struct Deque *D);
+Deque *deque_array_construct(size_t capacity);
+void deque_distroy(Deque *D);
+void deque_push_front(Deque *D, int data);
+void deque_push_back(Deque *D, int data);
+void deque_pop_front(Deque *D);
+void deque_pop_back(Deque *D);
 
 
 #endif

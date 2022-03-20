@@ -1,12 +1,12 @@
 #include "avl_tree.h"
 
-extern void avl_tree_print(struct AVLTree *tree);
+extern void avl_tree_print(AVLTree *tree);
 
 int main()
 {
     // srand(time(0));
     // int random;
-    struct AVLTree avl_tree = avl_tree_construct();
+    AVLTree avl_tree = avl_tree_construct();
     char x = 'c';
     avl_tree.insert(&avl_tree, &x, 1);
     // tree->root->left = binary_tree_insert(binary_tree, &y, 4);

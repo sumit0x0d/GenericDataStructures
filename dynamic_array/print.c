@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void dynamic_array_print(struct DynamicArray *DA)
+void dynamic_array_print(DynamicArray *DA)
 {
     printf("Dynamic Array: ");
     // size_t i = 0;

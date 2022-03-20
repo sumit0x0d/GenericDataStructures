@@ -3,21 +3,22 @@
 
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 
-struct StackNode {
+typedef struct StackNode {
     void *data;
-    struct StackNode *next;
-};
+    StackNode *next;
+} StackNode;
 
-struct Stack {
-    struct StackNode *top;
+typedef struct Stack {
+    StackNode *top;
     size_t data_type_size;
     size_t size;
-};
+} Stack;
 
-struct Stack stack_construct(size_t data_type_size);
-void stack_destruct(struct Stack *S);
-bool stack_push(struct Stack *S, void *data);
-bool stack_pop(struct Stack *S);
+Stack stack_construct(size_t data_type_size);
+void stack_destruct(Stack *S);
+bool stack_push(Stack *S, void *data);
+bool stack_pop(Stack *S);
 
 #endif

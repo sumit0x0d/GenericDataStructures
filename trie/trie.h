@@ -5,19 +5,19 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct TrieNode {
+typedef struct TrieNode {
     bool terminal;
-    struct TrieNode *children[128];
-};
+    TrieNode *children[128];
+} TrieNode;
 
-struct Trie {
-    struct TrieNode *root;
+typedef struct Trie {
+    TrieNode *root;
     size_t size;
-};
+} Trie;
 
-struct Trie trie_construct();
-struct TrieNode *trie_search(struct Trie *trie, char *string);
-bool trie_insert(struct Trie *trie, char *string);
-bool trie_remove(struct Trie *trie, char *string);
+Trie trie_construct();
+TrieNode *trie_search(Trie *trie, char *string);
+bool trie_insert(Trie *trie, char *string);
+bool trie_remove(Trie *trie, char *string);
 
 #endif

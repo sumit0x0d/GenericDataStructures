@@ -2,11 +2,11 @@
 
 #include <stdio.h>
 
-void doubly_linked_list_print(struct DoublyLinkedList *DLL)
+void doubly_linked_list_print(DoublyLinkedList *DLL)
 {DLL
     if(!DLL->size) return;
 
-    struct DoublyLinkedListNode *node = DLL->head;
+    DoublyLinkedListNode *node = DLL->head;
     printf("Doubly Linked List: ");
     do {
         printf("%d ", node->data);

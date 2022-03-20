@@ -1,10 +1,10 @@
 #include "dynamic_array.h"
 
-extern void dynamic_array_print(struct DynamicArray *da);
+extern void dynamic_array_print(DynamicArray *da);
 
 int main()
 {
-    struct DynamicArray dynamic_array = dynamic_array_construct(sizeof (long), 10 , 1.5);
+    DynamicArray dynamic_array = dynamic_array_construct(sizeof (long), 10 , 1.5);
     // long i = 10;
     for(long i = 0; i < 99; i++)
         dynamic_array_push_back(&dynamic_array, &i);

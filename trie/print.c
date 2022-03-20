@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void print_t(struct TrieNode *node, unsigned char *pr, int length)
+void print_t(TrieNode *node, unsigned char *pr, int length)
 {
     unsigned char newpr[length+2];
     memcpy(newpr, pr, length);
@@ -19,10 +19,10 @@ void print_t(struct TrieNode *node, unsigned char *pr, int length)
     }
 }
 
-void trie_print(struct Trie *T)
+void trie_print(Trie *T)
 {
     if(!T->size) return;
-    // struct TrieNode *node = tree->root;
+    // TrieNode *node = tree->root;
     print_t(T->root, NULL, 0);
     // do {
     // } while(node);
