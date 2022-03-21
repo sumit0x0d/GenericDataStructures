@@ -1,8 +1,8 @@
-#include "deque.h"
+#include "deque-array.h"
 
-Deque *deque_construct(size_t capacity)
+DequeArray *deque_array_construct(size_t capacity)
 {
-    Deque *D = malloc(sizeof (Deque));
+    DequeArray *D = malloc(sizeof (DequeArray));
     if(!D) return;
 
     D->array = malloc(sizeof (sizeof (int) * capacity));
@@ -18,17 +18,17 @@ Deque *deque_construct(size_t capacity)
     return D;
 }
 
-void deque_distroy(Deque *D)
+void deque_array_distroy(DequeArray *D)
 {
 
 }
 
-void deque_push_front(Deque *D, int data)
+bool deque_array_push_front(DequeArray *D, int data)
 {
     
 }
 
-void deque_push_back(Deque *D, int data)
+bool deque_array_push_back(DequeArray *D, int data)
 {
     if(D->back != D->size-1) {
         D->back = D->back + 1;
@@ -36,14 +36,14 @@ void deque_push_back(Deque *D, int data)
     }
 }
 
-void deque_pop_front(Deque *D)
+bool deque_array_pop_front(DequeArray *D)
 {
     if(D->front != D->back) {
         D->front = D->front + 1;
     }
 }
 
-void deque_pop_back(Deque *D)
+bool deque_array_pop_back(DequeArray *D)
 {
     
 }

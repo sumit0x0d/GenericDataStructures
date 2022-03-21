@@ -1,16 +1,16 @@
 #include "queue.h"
 
-void queue_print(Queue *queue)
+void queue_print(QueueLinkedList *queue)
 {
    if(!queue->size)
         return;
-    QueueNode *node = queue->front;
-    printf("Queue Linked List: ");
+    QueueLinkedListNode *node = queue->front;
+    printf("QueueLinkedList Linked List: ");
     while(node != queue->back) {
         printf("%c ", *(char *)node->data);
         node = node->next;
     }
     printf("%c\n", *(char *)node->data);
-    printf("Queue Linked List Size: %zu\n", queue->size);
+    printf("QueueLinkedList Linked List Size: %zu\n", queue->size);
 }
 

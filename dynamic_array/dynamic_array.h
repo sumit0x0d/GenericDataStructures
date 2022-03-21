@@ -14,6 +14,8 @@ typedef struct DynamicArray {
 } DynamicArray;
 
 DynamicArray dynamic_array_construct(size_t element_size, size_t capacity, double growth_factor);
+void dynamic_array_destruct(DynamicArray *DA);
+
 size_t dynamic_array_search(DynamicArray *DA, void *data);
 bool dynamic_array_push_front(DynamicArray *DA, void *data);
 bool dynamic_array_push_back(DynamicArray *DA, void *data);

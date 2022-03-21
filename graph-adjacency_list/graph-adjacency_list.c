@@ -1,16 +1,18 @@
-#include "graph.h"
+#include "graph-adjacency_list.h"
 
-bool graph_vertex_insert(Graph *G, void *data);
-bool graph_vertex_remove(Graph *G);
-bool graph_edge_insert(Graph *G, Vertex vertex_source, Vertex vertex_destination);
-bool graph_edge_remove(Graph *G, Vertex vertex_source, Vertex vertex_destination);
+GraphAdjacencyList graph_adjacency_list_construct();
+void graph_destruct(GraphAdjacencyList *G);
 
-Graph graph_construct(size_t data_type_size)
+bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data, size_t data_type_size);
+bool graph_adjacency_list_vertex_remove(GraphAdjacencyList *G);
+bool graph_adjacency_list_edge_insert(GraphAdjacencyList *G, Vertex vertex_source, Vertex vertex_destination);
+bool graph_adjacency_list_edge_remove(GraphAdjacencyList *G, Vertex vertex_source, Vertex vertex_destination);
+
+GraphAdjacencyList graph_adjacency_list_construct()
 {
-    Graph G;
+    GraphAdjacencyList G;
 
     G.adjacency_list = NULL;
-    G.data_type_size = data_type_size;
     G.vertices = 0;
 
     return G;
@@ -52,7 +54,7 @@ void vertex_destruct(Vertex *vertex)
 
 }
 
-bool graph_vertex_insert(Graph *G, void *data)
+bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data, size_t data_type_size)
 {
     if(!G->adjacency_list) {
         G->adjacency_list = malloc(sizeof (Vertex));
@@ -65,10 +67,10 @@ bool graph_vertex_insert(Graph *G, void *data)
         G->adjacency_list = adjacency_list;
     }
     
-    Vertex *vertex = vertex_construct(G->data_type_size);
+    Vertex *vertex = vertex_construct(data_type_size);
     if(!vertex) return false;
 
-    memcpy(vertex->data, data, G->data_type_size);
+    memcpy(vertex->data, data, data_type_size);
 
     memcpy(G->adjacency_list + (sizeof (Vertex) * G->vertices), vertex, sizeof (Vertex));
 
@@ -83,12 +85,12 @@ bool graph_vertex_insert(Graph *G, void *data)
 
 // }
 
-// void graph_vertex_remove(Graph *G)
+// void graph_vertex_remove(GraphAdjacencyList *G)
 // {
 
 // }
 
-// void graph_edge_insert(Graph *G, Vertex vertex_source, Vertex vertex_destination)
+// void graph_edge_insert(GraphAdjacencyList *G, Vertex vertex_source, Vertex vertex_destination)
 // {
     
 // }

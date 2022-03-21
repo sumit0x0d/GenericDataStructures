@@ -1,5 +1,8 @@
 #include "dynamic_array.h"
 
+DynamicArray dynamic_array_construct(size_t element_size, size_t capacity, double growth_factor);
+void dynamic_array_destruct(DynamicArray *DA);
+
 bool dynamic_array_push_front(DynamicArray *DA, void *data);
 bool dynamic_array_push_back(DynamicArray *DA, void *data);
 bool dynamic_array_insert(DynamicArray *DA, size_t index, void *data);

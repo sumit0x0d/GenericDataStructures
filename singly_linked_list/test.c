@@ -8,6 +8,6 @@ int main()
     SinglyLinkedList linked_list = singly_linked_list_construct();
     for(size_t i = 0; i < 10; i++) {
         random = rand() % 1000;
-        linked_list.sorted_insert(&linked_list, &random, sizeof random);
+        linked_list_sorted_insert(&linked_list, &random, sizeof random);
     }
 }

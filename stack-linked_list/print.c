@@ -1,9 +1,8 @@
 #include "stack.h"
 
 #include <stdio.h>
-#include <threads.h>
 
-void node_print(StackNode *node)
+void node_print(StackLinkedListNode *node)
 {
     // switch(data_type_size) {
     // case sizeof (char):
@@ -24,17 +23,17 @@ void node_print(StackNode *node)
     // }
 }
 
-void stack_print(Stack *stack)
+void stack_linked_list_print(StackLinkedList *stack)
 {
     if(!stack->size) return;
 
-    StackNode *node = stack->top;
+    StackLinkedListNode *node = stack->top;
 
-    printf("Stack: ");
+    printf("StackLinkedList: ");
     do {
         node_print(node);
         node = node->next;
     } while(node);
 
-    printf("\b\nStack Size: %zu\n", stack->size);
+    printf("\b\nStackLinkedList Size: %zu\n", stack->size);
 }

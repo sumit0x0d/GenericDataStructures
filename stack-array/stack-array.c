@@ -1,4 +1,4 @@
-#include "stack.h"
+#include "stack-array.h"
 
 
 Stack *stack_construct(size_t capacity)
