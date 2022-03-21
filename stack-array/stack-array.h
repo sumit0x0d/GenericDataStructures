@@ -3,17 +3,19 @@
 
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 
-typedef struct Stack {
-    int *array;
+typedef struct StackArray {
+    void *array;
+    size_t element_size;
     size_t top;
     size_t size;
     size_t capacity;
-} Stack;
+} StackArray;
 
-Stack *stack_construct(size_t capacity);
-void stack_distroy(Stack *S);
-bool stack_push(Stack *S, int data);
-bool stack_pop(Stack *S);
+StackArray stack_array_construct(size_t element_size, size_t capacity);
+void stack_array_distroy(StackArray *S);
+bool stack_array_push(StackArray *S, void *data);
+bool stack_array_pop(StackArray *S);
 
 #endif

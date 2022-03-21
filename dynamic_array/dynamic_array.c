@@ -71,7 +71,7 @@ bool dynamic_array_push_front(DynamicArray *DA, void *data)
         DA->capacity = DA->capacity * DA->growth_factor;
         void *array = realloc(DA->array, DA->element_size * DA->capacity);
         if(!array) return false;
-        
+
         DA->array = array;
     }
 
