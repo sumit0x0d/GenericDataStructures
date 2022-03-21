@@ -1,6 +1,6 @@
-#include "stack.h"
+#include "stack-linked_list.h"
 
-void stack_print(Stack *S)
+void stack_print(StackLinkedList *S)
 {
     printf("Stack: ");
     size_t i = 0;
