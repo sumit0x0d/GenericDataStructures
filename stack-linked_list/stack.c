@@ -1,15 +1,22 @@
 #include "stack.h"
 
-void stack_destruct(Stack *S);
-bool stack_push(Stack *S, void *data);
-bool stack_pop(Stack *S);
+Stack stack_construct();
+void stack_destruct(Stack *);
 
-Stack stack_construct(size_t data_type_size)
+StackNode *stack_peek(Stack *);
+size_t stack_size(Stack *);
+
+StackNode *node_construct(size_t);
+void node_destruct(StackNode *);
+
+bool stack_push(Stack *, void *, size_t);
+bool stack_pop(Stack *);
+
+Stack stack_construct()
 {
     Stack S;
 
     S.top = NULL;
-    S.data_type_size = data_type_size;
     S.size = 0;
 
     return S;
@@ -32,6 +39,16 @@ void stack_destruct(Stack *S)
     return;
 }
 
+StackNode *stack_peek(Stack *S)
+{
+    return S->top;
+}
+
+size_t stack_size(Stack *S)
+{
+    return S->size;
+}
+
 StackNode *node_construct(size_t data_type_size)
 {
     StackNode *node = malloc(sizeof (StackNode));
@@ -47,21 +64,6 @@ StackNode *node_construct(size_t data_type_size)
     return node;
 }
 
-bool stack_push(Stack *S, void *data)
-{
-    StackNode *node = node_construct(S->data_type_size);
-    if(!node) return false;
-
-    memcpy(node->data, data, S->data_type_size);
-
-    node->next = S->top;
-    S->top = node;
-
-    S->size = S->size + 1;
-
-    return true;
-}
-
 void node_destruct(StackNode *node)
 {
     free(node->data);
@@ -69,6 +71,21 @@ void node_destruct(StackNode *node)
 
     free(node);
     node = NULL;
+}
+
+bool stack_push(Stack *S, void *data, size_t data_type_size)
+{
+    StackNode *node = node_construct(data_type_size);
+    if(!node) return false;
+
+    memcpy(node->data, data, data_type_size);
+
+    node->next = S->top;
+    S->top = node;
+
+    S->size = S->size + 1;
+
+    return true;
 }
 
 bool stack_pop(Stack *S)

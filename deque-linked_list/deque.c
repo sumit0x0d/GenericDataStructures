@@ -1,20 +1,30 @@
 #include "deque.h"
 
-bool deque_push_front(Deque *D, void *data);
-bool deque_push_back(Deque *D, void *data);
-bool deque_pop_front(Deque *D);
-bool deque_pop_back(Deque *D);
+Deque deque_construct();
+void deque_destruct(Deque *);
 
-Deque deque_construct(size_t data_type_size)
+DequeNode *node_construct(size_t);
+void node_destruct(DequeNode *);
+
+bool deque_push_front(Deque *, void *, size_t);
+bool deque_push_back(Deque *, void *, size_t);
+bool deque_pop_front(Deque *);
+bool deque_pop_back(Deque *);
+
+Deque deque_construct()
 {
     Deque D;
 
     D.front = NULL;
     D.back = NULL;
-    D.data_type_size = data_type_size;
     D.size = 0;
 
     return D;
+}
+
+void deque_destruct(Deque *D)
+{
+
 }
 
 DequeNode *node_construct(size_t data_type_size)
@@ -32,12 +42,21 @@ DequeNode *node_construct(size_t data_type_size)
     return node;
 }
 
-bool deque_push_front(Deque *D, void *data)
+void node_destruct(DequeNode *node)
 {
-    DequeNode *node = node_construct(D->data_type_size);
+    free(node->data);
+    node->data = NULL;
+
+    free(node);
+    node = NULL;
+}
+
+bool deque_push_front(Deque *D, void *data, size_t data_type_size)
+{
+    DequeNode *node = node_construct(data_type_size);
     if(!node) return false;
 
-    memcpy(node->data, data, D->data_type_size);
+    memcpy(node->data, data, data_type_size);
 
     node->previous = NULL;
     if(D->size) {
@@ -55,12 +74,12 @@ bool deque_push_front(Deque *D, void *data)
     return true;
 }
 
-bool deque_push_back(Deque *D, void *data)
+bool deque_push_back(Deque *D, void *data, size_t data_type_size)
 {
-    DequeNode *node = node_construct(D->data_type_size);
+    DequeNode *node = node_construct(data_type_size);
     if(!node) return false; 
 
-    memcpy(node->data, data, D->data_type_size);
+    memcpy(node->data, data, data_type_size);
 
     node->next = NULL;
     if(D->size) {
@@ -76,15 +95,6 @@ bool deque_push_back(Deque *D, void *data)
     D->size = D->size + 1;
 
     return true;
-}
-
-void node_destruct(DequeNode *node)
-{
-    free(node->data);
-    node->data = NULL;
-
-    free(node);
-    node = NULL;
 }
 
 bool deque_pop_front(Deque *D)

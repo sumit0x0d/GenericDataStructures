@@ -6,9 +6,9 @@
 
 typedef struct RedBlackTreeNode {
     void *data;
-    RedBlackTreeNode *left;
-    RedBlackTreeNode *right;
-    RedBlackTreeNode *parent;
+    struct RedBlackTreeNode *left;
+    struct RedBlackTreeNode *right;
+    struct RedBlackTreeNode *parent;
     enum {RED, BLACK} color;
 } RedBlackTreeNode;
 
@@ -16,11 +16,11 @@ typedef struct RedBlackTree {
     RedBlackTreeNode *root;
     size_t data_type_size;
     size_t size;
-    RedBlackTreeNode *(*search)(RedBlackTree *RBT, void *data);
-    void (*insert)(RedBlackTree *RBT, void *data);
-    void (*remove)(RedBlackTree *RBT, void *data);
 } RedBlackTree;
 
 RedBlackTree red_black_tree_construct(size_t data_type_size);
+RedBlackTreeNode *red_black_tree_search(RedBlackTree *RBT, void *data);
+void red_black_tree_insert(RedBlackTree *RBT, void *data);
+void red_black_tree_remove(RedBlackTree *RBT, void *data);
 
 #endif

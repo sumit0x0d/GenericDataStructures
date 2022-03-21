@@ -1,15 +1,24 @@
 #include "queue.h"
 
-bool queue_enqueue(Queue *Q, void *data);
-bool queue_dequeue(Queue *Q);
+Queue queue_construct();
+void queue_destruct(Queue *);
 
-Queue queue_construct(size_t data_type_size)
+QueueNode *queue_front(Queue *);
+QueueNode *queue_front(Queue *);
+size_t queue_size(Queue *);
+
+QueueNode *node_construct(size_t);
+void node_destruct(QueueNode *);
+
+bool queue_enqueue(Queue *, void *, size_t);
+bool queue_dequeue(Queue *);
+
+Queue queue_construct()
 {
     Queue Q;
 
     Q.front = NULL;
     Q.back = NULL;
-    Q.data_type_size = data_type_size;
     Q.size = 0;
 
     return Q;
@@ -29,6 +38,21 @@ void queue_destruct(Queue *Q)
         }
 }
 
+QueueNode *queue_front(Queue *Q)
+{
+    return Q->front;
+}
+
+QueueNode *queue_back(Queue *Q)
+{
+    return Q->back;
+}
+
+size_t queue_size(Queue *Q)
+{
+    return Q->size;
+}
+
 QueueNode *node_construct(size_t data_type_size)
 {
     QueueNode *node = malloc(sizeof (QueueNode));
@@ -40,18 +64,27 @@ QueueNode *node_construct(size_t data_type_size)
         node = NULL;
         return NULL;
     }
-    
+
     node->next = NULL;
 
     return node;
 }
 
-bool queue_enqueue(Queue *Q, void *data)
+void node_destruct(QueueNode *node)
 {
-    QueueNode *node = node_construct(Q->data_type_size);
+    free(node->data);
+    node->data = NULL;
+
+    free(node);
+    node = NULL;
+}
+
+bool queue_enqueue(Queue *Q, void *data, size_t data_type_size)
+{
+    QueueNode *node = node_construct(data_type_size);
     if(!node) return false;
 
-    memcpy(node->data, data, Q->data_type_size);
+    memcpy(node->data, data, data_type_size);
 
     if(Q->size)
         Q->back->next = node;
@@ -62,15 +95,6 @@ bool queue_enqueue(Queue *Q, void *data)
     Q->size = Q->size + 1;
 
     return true;
-}
-
-void node_destruct(QueueNode *node)
-{
-    free(node->data);
-    node->data = NULL;
-
-    free(node);
-    node = NULL;
 }
 
 bool queue_dequeue(Queue *Q)

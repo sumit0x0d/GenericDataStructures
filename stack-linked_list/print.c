@@ -1,8 +1,9 @@
 #include "stack.h"
 
 #include <stdio.h>
+#include <threads.h>
 
-void node_print(StackNode *node, size_t data_type_size)
+void node_print(StackNode *node)
 {
     // switch(data_type_size) {
     // case sizeof (char):
@@ -10,7 +11,7 @@ void node_print(StackNode *node, size_t data_type_size)
     //     break;
     // case sizeof (int):
         // if((int)*(float *)node->data == *(float *)node->data)
-            printf("%d ", *(int *)node->data);
+            printf("%ld ", *(long *)node->data);
     //     else
     //         printf("%f ", *(float *)node->data);
     //     break;
@@ -31,7 +32,7 @@ void stack_print(Stack *stack)
 
     printf("Stack: ");
     do {
-        node_print(node, stack->data_type_size);
+        node_print(node);
         node = node->next;
     } while(node);
 

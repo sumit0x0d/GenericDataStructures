@@ -6,7 +6,6 @@ DoublyLinkedList doubly_linked_list_construct(size_t data_type_size)
 
     DLL.head = NULL;
     DLL.tail = NULL;
-    DLL.data_type_size = data_type_size;
     DLL.size = 0;
 
     return DLL;

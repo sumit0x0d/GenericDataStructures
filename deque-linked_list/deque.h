@@ -7,6 +7,7 @@
 
 typedef struct DequeNode {
     void *data;
+    size_t data_type_size;
     DequeNode *previous;
     DequeNode *next;
 } DequeNode;
@@ -14,15 +15,15 @@ typedef struct DequeNode {
 typedef struct Deque {
     DequeNode *front;
     DequeNode *back;
-    size_t data_type_size;
     size_t size;
 } Deque;
 
-Deque deque_construct(size_t data_type_size);
-void deque_destruct(Deque *D);
-bool deque_push_front(Deque *D, void *data);
-bool deque_push_back(Deque *D, void *data);
-bool deque_pop_front(Deque *D);
-bool deque_pop_back(Deque *D);
+Deque deque_construct();
+void deque_destruct(Deque *);
+
+bool deque_push_front(Deque *, void *, size_t);
+bool deque_push_back(Deque *, void *, size_t);
+bool deque_pop_front(Deque *);
+bool deque_pop_back(Deque *);
 
 #endif
