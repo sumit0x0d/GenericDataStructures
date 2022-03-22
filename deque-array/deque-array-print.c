@@ -1,6 +1,6 @@
-#include "deque.h"
+#include "deque-array.h"
 
-void deque_print(Deque *D)
+void deque_print(DequeArray *D)
 {
     printf("Deque: ");
     size_t i = D->front;

@@ -8,6 +8,8 @@
 typedef struct DynamicArray {
     void *array;
     size_t element_size;
+    size_t front;
+    size_t back;
     size_t size;
     size_t capacity;
     double growth_factor;
@@ -16,9 +18,9 @@ typedef struct DynamicArray {
 DynamicArray dynamic_array_construct(size_t element_size, size_t capacity, double growth_factor);
 void dynamic_array_destruct(DynamicArray *DA);
 
-void *dynamic_array_front(DynamicArray *DS);
-void *dynamic_array_back(DynamicArray *DS);
-size_t dynamic_array_size(DynamicArray *DS);
+inline void *dynamic_array_front(DynamicArray *DS);
+inline void *dynamic_array_back(DynamicArray *DS);
+inline size_t dynamic_array_size(DynamicArray *DS);
 
 size_t dynamic_array_search(DynamicArray *DA, void *data);
 bool dynamic_array_push_front(DynamicArray *DA, void *data);

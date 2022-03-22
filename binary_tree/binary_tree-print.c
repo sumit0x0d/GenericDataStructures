@@ -2,30 +2,26 @@
 
 #include <stdio.h>
 
-QueueNode {
-    BinaryTreeNode *data;
-    QueueNode *next;
-};
+typedef struct QueueNode {
+    struct BinaryTreeNode *data;
+    struct QueueNode *next;
+} QueueNode;
 
-StackNode {
-    BinaryTreeNode *data;
-    StackNode *next;
-};
+typedef struct StackNode {
+    struct BinaryTreeNode *data;
+    struct StackNode *next;
+} StackNode;
 
-Queue {
+typedef struct Queue {
     QueueNode *front;
     QueueNode *back;
-    void (*enqueue)(Queue *Q, BinaryTreeNode *data);
-    void (*dequeue)(Queue *Q);
-};
+} Queue;
 
-Stack {
+typedef struct Stack {
     StackNode *top;
-    void (*push)(Stack *S, BinaryTreeNode *data);
-    void (*pop)(Stack *S);
-};
+} Stack;
 
-void enqueue(Queue *Q, BinaryTreeNode *data)
+void queue_enqueue(Queue *Q, BinaryTreeNode *data)
 {
     QueueNode *node = malloc(sizeof (QueueNode));
     if(!node) return;
@@ -40,7 +36,7 @@ void enqueue(Queue *Q, BinaryTreeNode *data)
     Q->back = node;
 }
 
-void dequeue(Queue *Q)
+void queue_dequeue(Queue *Q)
 {
     if(!Q->front) return;
     
@@ -60,14 +56,11 @@ Queue queue_construct()
 
     Q.front = NULL;
     Q.back = NULL;
-
-    Q.enqueue = enqueue;
-    Q.dequeue = dequeue;
     
     return Q;
 }
 
-void push(Stack *S, BinaryTreeNode *data)
+void stack_push(Stack *S, BinaryTreeNode *data)
 {
     StackNode *node = malloc(sizeof (StackNode));
     if(!node) return;
@@ -78,7 +71,7 @@ void push(Stack *S, BinaryTreeNode *data)
     S->top = node;
 }
 
-void pop(Stack *S)
+void stack_pop(Stack *S)
 {
     if(!S->top) return;
     
@@ -95,10 +88,7 @@ Stack stack_construct()
     Stack S;
 
     S.top = NULL;
-    
-    S.push = push;
-    S.pop = pop;
-    
+
     return S;
 }
 
@@ -110,12 +100,12 @@ void preorder_traverse(BinaryTree *bt)
     while(node || S.top)
         if(node) {
             printf("%d ", *(int *)node->data);
-            S.push(&S, node);
+            stack_push(&S, node);
             node = node->left;
         }
         else {
             node = S.top->data;
-            S.pop(&S);
+            stack_pop(&S);
             node = node->right;
         }
 }
@@ -127,12 +117,12 @@ void inorder_traverse(BinaryTree *bt)
 
     while(node || S.top)
         if(node) {
-            S.push(&S, node);
+            stack_push(&S, node);
             node = node->left;
         }
         else {
             node = S.top->data;
-            S.pop(&S);
+            stack_pop(&S);
             printf("%d ", *(int *)node->data);
             node = node->right;
         }
@@ -145,12 +135,12 @@ void postorder_traverse(BinaryTree *bt)
     
     while(node || S.top)
         if(node) {
-            S.push(&S, node);
+            stack_push(&S, node);
             node = node->left;
         }
         else {
             node = S.top->data;
-            S.pop(&S);
+            stack_pop(&S);
             printf("%d ", *(int *)node->data);
             node = node->right;
         }
@@ -162,18 +152,18 @@ void levelorder_traverse(BinaryTree *bt)
     Queue Q = queue_construct();
 
     printf("%d ", *(int *)bt->root->data);
-    Q.enqueue(&Q, bt->root);
+    queue_enqueue(&Q, bt->root);
 
     while(Q.front) {
         node = Q.front->data;
-        Q.dequeue(&Q);
+        queue_dequeue(&Q);
         if(node->left) {
             printf("%d ", *(int *)node->left->data);
-            Q.enqueue(&Q, node->left);
+            queue_enqueue(&Q, node->left);
         }
         if(node->right) {
             printf("%d ", *(int *)node->right->data);
-            Q.enqueue(&Q, node->right);
+            queue_enqueue(&Q, node->right);
         }
     }
 }

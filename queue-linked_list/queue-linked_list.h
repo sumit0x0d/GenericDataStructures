@@ -20,9 +20,9 @@ typedef struct QueueLinkedList {
 QueueLinkedList queue_linked_list_construct();
 void queue_linked_list_destruct(QueueLinkedList *Q);
 
-QueueLinkedListNode *queue_linked_list_front(QueueLinkedList *Q);
-QueueLinkedListNode *queue_linked_list_back(QueueLinkedList *Q);
-size_t queue_linked_list_size(QueueLinkedList *Q);
+inline QueueLinkedListNode *queue_linked_list_front(QueueLinkedList *Q);
+inline QueueLinkedListNode *queue_linked_list_back(QueueLinkedList *Q);
+inline size_t queue_linked_list_size(QueueLinkedList *Q);
 
 bool queue_linked_list_enqueue(QueueLinkedList *Q, void *data, size_t data_type_size);
 bool queue_linked_list_dequeue(QueueLinkedList *Q);

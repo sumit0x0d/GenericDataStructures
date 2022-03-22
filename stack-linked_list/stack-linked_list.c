@@ -3,8 +3,8 @@
 StackLinkedList stack_linked_list_construct();
 void stack_linked_list_destruct(StackLinkedList *S);
 
-StackLinkedListNode *stack_linked_list_peek(StackLinkedList *s);
-size_t stack_linked_list_size(StackLinkedList *S);
+inline StackLinkedListNode *stack_linked_list_peek(StackLinkedList *s);
+inline size_t stack_linked_list_size(StackLinkedList *S);
 
 StackLinkedListNode *node_construct(size_t data_type_size);
 void node_destruct(StackLinkedListNode *S);
@@ -39,12 +39,12 @@ void stack_linked_list_destruct(StackLinkedList *S)
     return;
 }
 
-StackLinkedListNode *stack_linked_list_peek(StackLinkedList *S)
+inline StackLinkedListNode *stack_linked_list_peek(StackLinkedList *S)
 {
     return S->top;
 }
 
-size_t stack_linked_list_size(StackLinkedList *S)
+inline size_t stack_linked_list_size(StackLinkedList *S)
 {
     return S->size;
 }

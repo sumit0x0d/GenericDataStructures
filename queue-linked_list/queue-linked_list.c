@@ -3,9 +3,9 @@
 QueueLinkedList queue_linked_list_construct();
 void queue_linked_list_destruct(QueueLinkedList *Q);
 
-QueueLinkedListNode *queue_linked_list_front(QueueLinkedList *Q);
-QueueLinkedListNode *queue_linked_list_front(QueueLinkedList *Q);
-size_t queue_linked_list_size(QueueLinkedList *Q);
+inline QueueLinkedListNode *queue_linked_list_front(QueueLinkedList *Q);
+inline QueueLinkedListNode *queue_linked_list_back(QueueLinkedList *Q);
+inline size_t queue_linked_list_size(QueueLinkedList *Q);
 
 QueueLinkedListNode *node_construct(size_t data_type_size);
 void node_destruct(QueueLinkedListNode *Q);
@@ -38,17 +38,17 @@ void queue_linked_list_destruct(QueueLinkedList *Q)
         }
 }
 
-QueueLinkedListNode *queue_linked_list_front(QueueLinkedList *Q)
+inline QueueLinkedListNode *queue_linked_list_front(QueueLinkedList *Q)
 {
     return Q->front;
 }
 
-QueueLinkedListNode *queue_linked_list_back(QueueLinkedList *Q)
+inline QueueLinkedListNode *queue_linked_list_back(QueueLinkedList *Q)
 {
     return Q->back;
 }
 
-size_t queue_linked_list_size(QueueLinkedList *Q)
+inline size_t queue_linked_list_size(QueueLinkedList *Q)
 {
     return Q->size;
 }

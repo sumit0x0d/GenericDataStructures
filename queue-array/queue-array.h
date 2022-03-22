@@ -8,15 +8,21 @@
 
 typedef struct Queue {
     void *array;
-    size_t data_type_size;
+    size_t element_size;
     size_t front;
     size_t back;
     size_t size;
     size_t capacity;
 } Queue;
 
-Queue queue_construct(size_t data_type_size, size_t capacity);
-void queue_distroy(Queue *queue);
+Queue queue_construct(size_t element_size, size_t capacity);
+void queue_distroy(Queue *Q);
+
+inline void *queue_array_front(Queue *Q);
+inline void *queue_array_back(Queue *Q);
+inline size_t queue_array_size(Queue *Q);
+
 bool queue_enqueue(Queue *Q, void *data);
+bool queue_array_dequeue(Queue *Q);
 
 #endif
