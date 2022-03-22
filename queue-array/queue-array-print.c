@@ -1,8 +1,8 @@
-#include "queue.h"
+#include "queue-array.h"
 
 #include <stdio.h>
 
-void queue_print(Queue *Q)
+void queue_array_print(Queue *Q)
 {
     // printf("Queue Array: ");
     size_t i = Q->front;

@@ -53,6 +53,7 @@ bool stack_array_push(StackArray *S, void *data)
     memcpy((char *)S->array + (S->element_size * S->top), data, S->element_size);
 
     S->top = S->top + 1;
+    
     S->size = S->size + 1;
 
     return true;
@@ -63,6 +64,7 @@ bool stack_array_pop(StackArray *S)
     if(!S->size) return false;
 
     S->top = S->top - 1;
+
     S->size = S->size - 1;
 
     return true;
