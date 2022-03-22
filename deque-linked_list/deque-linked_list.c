@@ -3,6 +3,10 @@
 DequeLinkedList deque_linked_list_construct();
 void deque_linked_list_destruct(DequeLinkedList *D);
 
+DequeLinkedListNode *deque_linked_list_front(DequeLinkedList *D);
+DequeLinkedListNode *deque_linked_list_back(DequeLinkedList *D);
+size_t deque_linked_list_size(DequeLinkedList *D);
+
 DequeLinkedListNode *node_construct(size_t data_type_size);
 void node_destruct(DequeLinkedListNode *D);
 
@@ -25,6 +29,21 @@ DequeLinkedList deque_linked_list_construct()
 void deque_linked_list_destruct(DequeLinkedList *D)
 {
 
+}
+
+DequeLinkedListNode *deque_linked_list_front(DequeLinkedList *D)
+{
+    return D->front;
+}
+
+DequeLinkedListNode *deque_linked_list_back(DequeLinkedList *D)
+{
+    return D->back;
+}
+
+size_t deque_linked_list_size(DequeLinkedList *D)
+{
+    return D->size;
 }
 
 DequeLinkedListNode *node_construct(size_t data_type_size)

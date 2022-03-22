@@ -33,6 +33,7 @@ bool queue_enqueue(Queue *Q, void *data)
     if(Q->size == Q->capacity) return false;
 
     memcpy((char *)Q->array + Q->front + Q->back, data, Q->data_type_size);
+    
     Q->back = Q->back + 1;
     
     Q->size = Q->size + 1;

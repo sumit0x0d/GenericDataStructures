@@ -1,12 +1,12 @@
-#include "deque.h"
+#include "deque-linked_list.h"
 
 #include <stdio.h>
 
-void deque_print(Deque *D)
+void deque_print(DequeLinkedList *D)
 {
     if(!D->size) return;
 
-    DequeNode *node = D->front;
+    DequeLinkedListNode *node = D->front;
 
     printf("Deque: ");
     do {

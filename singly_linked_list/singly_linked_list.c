@@ -5,7 +5,7 @@ void singly_linked_list_distroy(SinglyLinkedList *SLL);
 
 SinglyLinkedListNode *singly_linked_list_head(SinglyLinkedList *SLL);
 SinglyLinkedListNode *singly_linked_list_tail(SinglyLinkedList *SLL);
-SinglyLinkedListNode *singly_linked_list_size(SinglyLinkedList *SLL);
+size_t singly_linked_list_size(SinglyLinkedList *SLL);
 
 SinglyLinkedListNode *node_construct(size_t data_type_size);
 void node_destruct(SinglyLinkedListNode *node);
@@ -48,7 +48,7 @@ SinglyLinkedListNode *singly_linked_list_tail(SinglyLinkedList *SLL)
     return SLL->tail;
 }
 
-SinglyLinkedListNode *singly_linked_list_size(SinglyLinkedList *SLL)
+size_t singly_linked_list_size(SinglyLinkedList *SLL)
 {
     return SLL->size;
 }

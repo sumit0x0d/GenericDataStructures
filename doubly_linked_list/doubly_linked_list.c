@@ -3,6 +3,10 @@
 DoublyLinkedList doubly_linked_list_construct();
 void doubly_linked_list_destruct(DoublyLinkedList *);
 
+DoublyLinkedListNode *doubly_linked_list_front(DoublyLinkedList *DLL);
+DoublyLinkedListNode *doubly_linked_list_back(DoublyLinkedList *DLL);
+size_t doubly_linked_list_size(DoublyLinkedList *DLL);
+
 DoublyLinkedListNode *node_construct(size_t data_type_size);
 void node_destruct(DoublyLinkedListNode *node);
 
