@@ -18,9 +18,9 @@ typedef struct Queue {
 Queue queue_construct(size_t element_size, size_t capacity);
 void queue_distroy(Queue *Q);
 
-inline void *queue_array_front(Queue *Q);
-inline void *queue_array_back(Queue *Q);
-inline size_t queue_array_size(Queue *Q);
+void *queue_array_front(Queue *Q);
+void *queue_array_back(Queue *Q);
+size_t queue_array_size(Queue *Q);
 
 bool queue_enqueue(Queue *Q, void *data);
 bool queue_array_dequeue(Queue *Q);

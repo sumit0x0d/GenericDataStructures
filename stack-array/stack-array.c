@@ -3,8 +3,8 @@
 StackArray stack_array_construct(size_t element_size, size_t capacity);
 void stack_array_distroy(StackArray *S);
 
-inline void *stack_array_peek(StackArray *S);
-inline size_t stack_array_size(StackArray *S);
+void *stack_array_peek(StackArray *S);
+size_t stack_array_size(StackArray *S);
 
 bool stack_array_push(StackArray *S, void *data);
 bool stack_array_pop(StackArray *S);
@@ -31,12 +31,12 @@ void stack_array_distroy(StackArray *S)
     S->size = 0;
 }
 
-inline void *stack_array_peek(StackArray *S)
+void *stack_array_peek(StackArray *S)
 {
     return (char *)S->array + (S->element_size * S->top);
 }
 
-inline size_t stack_array_size(StackArray *S)
+size_t stack_array_size(StackArray *S)
 {
     return S->size;
 }

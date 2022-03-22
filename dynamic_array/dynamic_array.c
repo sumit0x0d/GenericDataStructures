@@ -3,9 +3,9 @@
 DynamicArray dynamic_array_construct(size_t element_size, size_t capacity, double growth_factor);
 void dynamic_array_destruct(DynamicArray *DA);
 
-inline void *dynamic_array_front(DynamicArray *DS);
-inline void *dynamic_array_back(DynamicArray *DS);
-inline size_t dynamic_array_size(DynamicArray *DS);
+void *dynamic_array_front(DynamicArray *DS);
+void *dynamic_array_back(DynamicArray *DS);
+size_t dynamic_array_size(DynamicArray *DS);
 
 bool dynamic_array_push_front(DynamicArray *DA, void *data);
 bool dynamic_array_push_back(DynamicArray *DA, void *data);
@@ -45,17 +45,17 @@ void dynamic_array_destruct(DynamicArray *DA)
     DA->capacity = 2;
 }
 
-inline void *dynamic_array_front(DynamicArray *DS)
+void *dynamic_array_front(DynamicArray *DS)
 {
     return (char *)DS->array;
 }
 
-inline void *dynamic_array_back(DynamicArray *DS)
+void *dynamic_array_back(DynamicArray *DS)
 {
     return (char *)DS->array + (DS->element_size * DS->size);
 }
 
-inline size_t dynamic_array_size(DynamicArray *DS)
+size_t dynamic_array_size(DynamicArray *DS)
 {
     return DS->size;
 }

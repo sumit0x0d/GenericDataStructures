@@ -21,9 +21,9 @@ typedef struct DoublyLinkedList {
 DoublyLinkedList doubly_linked_list_construct();
 void doubly_linked_list_destruct(DoublyLinkedList *DLL);
 
-inline DoublyLinkedListNode *doubly_linked_list_front(DoublyLinkedList *DLL);
-inline DoublyLinkedListNode *doubly_linked_list_back(DoublyLinkedList *DLL);
-inline size_t doubly_linked_list_size(DoublyLinkedList *DLL);
+DoublyLinkedListNode *doubly_linked_list_front(DoublyLinkedList *DLL);
+DoublyLinkedListNode *doubly_linked_list_back(DoublyLinkedList *DLL);
+size_t doubly_linked_list_size(DoublyLinkedList *DLL);
 
 DoublyLinkedListNode *doubly_linked_list_search(DoublyLinkedList *DLL, void *data, size_t data_type_size);
 bool doubly_linked_list_push_front(DoublyLinkedList *DLL, void *data, size_t data_type_size);

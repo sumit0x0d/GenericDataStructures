@@ -3,9 +3,9 @@
 DequeArray deque_array_construct(size_t element_size, size_t capacity);
 void deque_array_distroy(DequeArray *D);
 
-inline void *deque_array_front(DequeArray *D);
-inline void *deque_array_back(DequeArray *D);
-inline size_t deque_array_size(DequeArray *D);
+void *deque_array_front(DequeArray *D);
+void *deque_array_back(DequeArray *D);
+size_t deque_array_size(DequeArray *D);
 
 bool deque_array_push_front(DequeArray *D, void *data);
 bool deque_array_push_back(DequeArray *D, void *data);
@@ -32,17 +32,17 @@ void deque_array_distroy(DequeArray *D)
 
 }
 
-inline void *deque_array_front(DequeArray *D)
+void *deque_array_front(DequeArray *D)
 {
 
 }
 
-inline void *deque_array_back(DequeArray *D)
+void *deque_array_back(DequeArray *D)
 {
 
 }
 
-inline size_t deque_array_size(DequeArray *D)
+size_t deque_array_size(DequeArray *D)
 {
 
 }

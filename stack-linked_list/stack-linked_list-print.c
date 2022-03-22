@@ -9,10 +9,10 @@ void node_print(StackLinkedListNode *node)
     //     printf("%c ", *(char *)node->data);
     //     break;
     // case sizeof (int):
-        // if((int)*(float *)node->data == *(float *)node->data)
-            printf("%ld ", *(long *)node->data);
-    //     else
-    //         printf("%f ", *(float *)node->data);
+        if((int)*(float *)node->data == *(int *)node->data)
+            printf("%d ", *(int *)node->data);
+        else
+            printf("%f ", *(float *)node->data);
     //     break;
     // case sizeof (long):
     //     printf("%ld ", *(long *)node->data);
