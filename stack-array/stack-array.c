@@ -48,7 +48,7 @@ bool stack_array_push(StackArray *S, void *data)
         if(!S->array) return false;
     }
 
-    if(S->size == S->capacity) return false;
+    if(S->top == S->capacity) return false;
 
     memcpy((char *)S->array + (S->element_size * S->top), data, S->element_size);
 
