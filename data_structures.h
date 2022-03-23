@@ -16,23 +16,28 @@
 #include "stack-linked_list/stack-linked_list.h"
 #include "trie/trie.h"
 
-typedef union Array {
-    DequeArray deque;
-    DynamicArray dynamic_array;
-    QueueArray queue;
-    StackArray stack;
-} Array;
+enum {
+    SIZE_CHAR = sizeof (char),
+    SIZE_SHORT = sizeof (short),
+    SIZE_INT = sizeof (int),
+    SIZE_FLOAT = sizeof (float),
+    SIZE_LONG = sizeof (long),
+    SIZE_DOUBLE = sizeof (double)
+};
 
-typedef union BinaryTree {
-    BinarySearchTree binary_search;
-    AVLTree avl;
-    RedBlackTree red_black;
-} BinaryTree;
-
-typedef union LinkedList {
-    DequeLinkedList deque;
-    DoublyLinkedList doubly_linked_list;
-    QueueLinkedList queue;
-    SinglyLinkedList Singly_linked_list;
-    StackLinkedList stack;
-} LinkedList;
+enum {
+    AVL_TREE,
+    BINARY_SEARCH_TREE,
+    DEQUE_ARRAY,
+    DEQUE_LINKED_LIST,
+    DOUBLY_LINKED_LIST,
+    DYNAMIC_ARRAY,
+    GRAPH_ADJACENCY_LIST,
+    GRAPH_ADJACENCY_MATRIX,
+    QUEUE_ARRAY,
+    QUEUE_LINKED_LIST,
+    RED_BLACK_TREE,
+    SINGLY_LINKED_LIST,
+    STACK_ARRAY,
+    STACK_LINKED_LIST
+};

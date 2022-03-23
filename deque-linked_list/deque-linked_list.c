@@ -58,6 +58,8 @@ DequeLinkedListNode *node_construct(size_t data_type_size)
         return NULL;
     }
 
+    node->data_type_size = data_type_size;
+
     return node;
 }
 
