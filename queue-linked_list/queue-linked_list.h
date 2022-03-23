@@ -1,5 +1,5 @@
-#ifndef QUEUE_H
-#define QUEUE_H
+#ifndef QUEUE_LINKED_LIST_H
+#define QUEUE_LINKED_LIST_H
 
 #include <stdbool.h>
 #include <stdlib.h>

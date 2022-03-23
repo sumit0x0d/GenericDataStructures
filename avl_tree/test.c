@@ -8,7 +8,7 @@ int main()
     // int random;
     AVLTree avl_tree = avl_tree_construct();
     char x = 'c';
-    avl_tree.insert(&avl_tree, &x, 1);
+    avl_tree_insert(&avl_tree, &x, 1);
     // tree->root->left = binary_tree_insert(binary_tree, &y, 4);
     // for(int i = 0; i < 10; i++) {
         // random = rand()%10;

@@ -54,5 +54,8 @@ stack-linked_list:
 trie:
 	$(CC) $(CFLAGS) ./trie/trie.c ./trie/trie-print.c ./trie/test.c -o $(TARGET)
 
+all:
+	$(CC) $(CFLAGS) ./trie/trie.c ./trie/trie-print.c ./trie/test.c -o $(TARGET)
+
 clean:
 	rm $(TARGET)
