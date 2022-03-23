@@ -49,20 +49,20 @@ inline void data_print(void *data, size_t data_type_size)
             printf("%c ", *(char *)data);
             break;
         case SIZE_SHORT:
-            printf("%u ", *(int *)data);
+            printf("%hd ", *(short *)data);
             break;
         case SIZE_INT:
-            printf("%f ", *(float *)data);
+            printf("%f ", *(int *)data);
             break;
         // case SIZE_FLOAT:
-        //     printf("%ld ", *(long *)data);
+        //     printf("%f ", *(float *)data);
         //     break;
-        // case SIZE_LONG:
-        //     printf("%ld ", *(long *)data);
-        //     break;
-        case SIZE_DOUBLE:
+        case SIZE_LONG:
             printf("%ld ", *(long *)data);
             break;
+        // case SIZE_DOUBLE:
+        //     printf("%lf ", *(double *)data);
+        //     break;
         default:
             break;
     }
