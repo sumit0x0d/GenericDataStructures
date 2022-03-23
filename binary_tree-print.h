@@ -148,44 +148,77 @@ void postorder_traverse(BinarySearchTree *tree)
         }
 }
 
-void levelorder_traverse(BinarySearchTree *tree)
+void levelorder_traverse(void *node, size_t data_type_size)
 {
-    BinarySearchTreeNode *node = tree->root;
+    // BinarySearchTreeNode *node = tree->root;
     Queue Q = queue_construct();
 
-    printf("%d ", *(int *)tree->root->data);
+    data_print(node->left->data, data_type_size);
     queue_enqueue(&Q, tree->root);
 
     while(Q.front) {
         node = Q.front->data;
         queue_dequeue(&Q);
         if(node->left) {
-            data_print(node->left->data, tree->data_type_size);
+            data_print(node->left->data, data_type_size);
             queue_enqueue(&Q, node->left);
         }
         if(node->right) {
-            data_print(node->right->data, tree->data_type_size);
+            data_print(node->right->data, data_type_size);
             queue_enqueue(&Q, node->right);
         }
     }
 }
 
-void binary_search_tree_print(BinarySearchTree *tree)
+static void binary_tree_traverse(void *node, int binary_tree)
 {
-    if(!tree->size) return;
+    switch (binary_tree) {
+        case BINARY_SEARCH_TREE:
+            levelorder_traverse((BinarySearchTreeNode *)node, ((BinarySearchTreeNode *)node)->data_type_size);
+            break;
+        case AVL_TREE:
+            /* code */
+            break;
+        case RED_BLACK_TREE:
+            /* code */
+            break;
+        default:
+            break;
+    }
+}
 
-    printf("Pre-order Traverse: ");
-    preorder_traverse(tree);
+void avl_tree_print(AVLTree *AVLT)
+{
+    if(!AVLT->size) return;
+
+
+    // printf("Pre-order Traverse: ");
+    // preorder_traverse(AVLT);
     
-    printf("\nIn-order Traverse: ");
-    inorder_traverse(tree);
+    // printf("\nIn-order Traverse: ");
+    // inorder_traverse(AVLT);
     
-    printf("\nPost-order Traverse: ");
-    postorder_traverse(tree);
+    // printf("\nPost-order Traverse: ");
+    // postorder_traverse(AVLT);
     
-    printf("\nLevel-order Traverse: ");
-    levelorder_traverse(tree);
-    
-    printf("\n");
-    printf("\b\nBinary Search Tree Size: %zu\n", tree->size);
+    // printf("\nLevel-order Traverse: ");
+    // levelorder_traverse(AVLT);
+    binary_tree_traverse(AVLT->root, AVL_TREE);
+    printf("\b\nBinary Search Tree Size: %zu\n", AVLT->size);
+}
+
+void binary_search_tree_print(BinarySearchTree *BST)
+{
+    if(!BST->size) return;
+
+    binary_tree_traverse(BST->root, AVL_TREE);
+    printf("\b\nBinary Search Tree Size: %zu\n", BST->size);
+}
+
+void red_black_tree_print(RedBlackTree *RBT)
+{
+    if(!RBT->size) return;
+
+    binary_tree_traverse(RBT->root, AVL_TREE);
+    printf("\b\nBinary Search Tree Size: %zu\n", RBT->size);
 }
