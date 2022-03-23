@@ -1,28 +1,27 @@
-#ifndef QUEUE_H
-#define QUEUE_H
+#ifndef QUEUE_ARRAY_H
+#define QUEUE_ARRAY_H
 
 #include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct Queue {
+typedef struct QueueArray {
     void *array;
     size_t element_size;
     size_t front;
     size_t back;
     size_t size;
     size_t capacity;
-} Queue;
+} QueueArray;
 
-Queue queue_array_construct(size_t element_size, size_t capacity);
-void queue_array_distroy(Queue *Q);
+QueueArray queue_array_construct(size_t element_size, size_t capacity);
+void queue_array_distroy(QueueArray *Q);
 
-void *queue_array_front(Queue *Q);
-void *queue_array_back(Queue *Q);
-size_t queue_array_size(Queue *Q);
+void *queue_array_front(QueueArray *Q);
+void *queue_array_back(QueueArray *Q);
+size_t queue_array_size(QueueArray *Q);
 
-bool queue_array_enqueue(Queue *Q, void *data);
-bool queue_array_dequeue(Queue *Q);
+bool queue_array_enqueue(QueueArray *Q, void *data);
+bool queue_array_dequeue(QueueArray *Q);
 
 #endif

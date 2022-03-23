@@ -27,30 +27,30 @@ DequeArray deque_array_construct(size_t element_size, size_t capacity)
     return D;
 }
 
-void deque_array_distroy(DequeArray *D)
-{
+// void deque_array_distroy(DequeArray *D)
+// {
 
-}
+// }
 
-void *deque_array_front(DequeArray *D)
-{
+// void *deque_array_front(DequeArray *D)
+// {
 
-}
+// }
 
-void *deque_array_back(DequeArray *D)
-{
+// void *deque_array_back(DequeArray *D)
+// {
 
-}
+// }
 
-size_t deque_array_size(DequeArray *D)
-{
+// size_t deque_array_size(DequeArray *D)
+// {
 
-}
+// }
 
-bool deque_array_push_front(DequeArray *D, void *data)
-{
+// bool deque_array_push_front(DequeArray *D, void *data)
+// {
     
-}
+// }
 
 bool deque_array_push_back(DequeArray *D, void *data)
 {
@@ -69,14 +69,14 @@ bool deque_array_push_back(DequeArray *D, void *data)
     return true;
 }
 
-bool deque_array_pop_front(DequeArray *D)
-{
-    if(D->front != D->back) {
-        D->front = D->front + 1;
-    }
-}
+// bool deque_array_pop_front(DequeArray *D)
+// {
+//     if(D->front != D->back) {
+//         D->front = D->front + 1;
+//     }
+// }
 
-bool deque_array_pop_back(DequeArray *D)
-{
+// bool deque_array_pop_back(DequeArray *D)
+// {
     
-}
+// }

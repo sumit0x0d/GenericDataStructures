@@ -1,5 +1,5 @@
-#ifndef GRAPH_H
-#define GRAPH_H
+#ifndef GRAPH_ADJACENCY_LIST_H
+#define GRAPH_ADJACENCY_LIST_H
 
 #include <stdbool.h>
 #include <stdlib.h>
@@ -10,7 +10,7 @@ typedef struct Vertex {
     size_t data_type_size;
     unsigned long weight;
     size_t index;
-    Vertex *edge;
+    struct Vertex *edge;
 } Vertex;
 
 typedef struct GraphAdjacencyList {

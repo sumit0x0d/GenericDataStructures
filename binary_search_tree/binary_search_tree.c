@@ -15,12 +15,12 @@ BinarySearchTree binary_search_tree_construct(size_t data_type_size)
     return BST;
 }
 
-void binary_search_tree_destruct(BinarySearchTree *BST)
-{
+// void binary_search_tree_destruct(BinarySearchTree *BST)
+// {
 
-}
+// }
 
-BinarySearchTreeNode *search(BinarySearchTree *BST, void *data)
+BinarySearchTreeNode *binary_search_tree_search(BinarySearchTree *BST, void *data)
 {
     BinarySearchTreeNode *node = BST->root;
     
@@ -35,7 +35,7 @@ BinarySearchTreeNode *search(BinarySearchTree *BST, void *data)
     return NULL;
 }
 
-BinarySearchTreeNode *node_construct(void *data, size_t data_type_size)
+static BinarySearchTreeNode *node_construct(void *data, size_t data_type_size)
 {
     BinarySearchTreeNode *node = malloc(sizeof (BinarySearchTreeNode));
     if(!node) return NULL;
@@ -73,7 +73,7 @@ bool binary_search_tree_insert(BinarySearchTree *BST, void *data)
     while(node) {
         compare = memcmp(data, node->data, BST->data_type_size);
         if(compare == 0)
-            return;
+            return false;
         node_parent = node;
         if(compare < 0)
             node = node->left;

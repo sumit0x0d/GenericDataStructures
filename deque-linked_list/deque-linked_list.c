@@ -26,10 +26,10 @@ DequeLinkedList deque_linked_list_construct()
     return D;
 }
 
-void deque_linked_list_destruct(DequeLinkedList *D)
-{
+// void deque_linked_list_destruct(DequeLinkedList *D)
+// {
 
-}
+// }
 
 DequeLinkedListNode *deque_linked_list_front(DequeLinkedList *D)
 {

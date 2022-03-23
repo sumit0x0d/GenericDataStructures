@@ -7,8 +7,8 @@ SinglyLinkedListNode *singly_linked_list_head(SinglyLinkedList *SLL);
 SinglyLinkedListNode *singly_linked_list_tail(SinglyLinkedList *SLL);
 size_t singly_linked_list_size(SinglyLinkedList *SLL);
 
-SinglyLinkedListNode *node_construct(size_t data_type_size);
-void node_destruct(SinglyLinkedListNode *node);
+static SinglyLinkedListNode *node_construct(size_t data_type_size);
+static void node_destruct(SinglyLinkedListNode *node);
 
 SinglyLinkedListNode *singly_linked_list_search(SinglyLinkedList *SLL, void *data);
 bool singly_linked_list_push_front(SinglyLinkedList *SLL, void *data, size_t data_type_size);
@@ -22,7 +22,7 @@ bool singly_linked_list_erase(SinglyLinkedList *SLL, size_t index);
 bool singly_linked_list_linear(SinglyLinkedList *SLL);
 bool singly_linked_list_circular(SinglyLinkedList *SLL);
 
-SinglyLinkedList singly_linked_list_construct(size_t data_type_size)
+SinglyLinkedList singly_linked_list_construct()
 {
     SinglyLinkedList SLL;
 
@@ -33,10 +33,10 @@ SinglyLinkedList singly_linked_list_construct(size_t data_type_size)
     return SLL;
 }
 
-void singly_linked_list_distroy(SinglyLinkedList *SLL)
-{
+// void singly_linked_list_distroy(SinglyLinkedList *SLL)
+// {
 
-}
+// }
 
 SinglyLinkedListNode *singly_linked_list_head(SinglyLinkedList *SLL)
 {
@@ -53,7 +53,7 @@ size_t singly_linked_list_size(SinglyLinkedList *SLL)
     return SLL->size;
 }
 
-SinglyLinkedListNode *node_construct(size_t data_type_size)
+static SinglyLinkedListNode *node_construct(size_t data_type_size)
 {
     SinglyLinkedListNode *node = malloc(sizeof (SinglyLinkedListNode));
     if(!node) return NULL;
@@ -68,7 +68,7 @@ SinglyLinkedListNode *node_construct(size_t data_type_size)
     return node;
 }
 
-void node_destruct(SinglyLinkedListNode *node)
+static void node_destruct(SinglyLinkedListNode *node)
 {
     free(node->data);
     node->data = NULL;
@@ -77,21 +77,21 @@ void node_destruct(SinglyLinkedListNode *node)
     node = NULL;
 }
 
-SinglyLinkedListNode *search(SinglyLinkedList *SLL, int data)
-{
-    if(!SLL->size) return NULL;
+// SinglyLinkedListNode *search(SinglyLinkedList *SLL, int data)
+// {
+//     if(!SLL->size) return NULL;
 
-    SinglyLinkedListNode *node = malloc(sizeof (SinglyLinkedListNode));
-    if(!node) return NULL;
+//     SinglyLinkedListNode *node = malloc(sizeof (SinglyLinkedListNode));
+//     if(!node) return NULL;
     
-    while(node) {
-        if(data == node->data)
-            return node;
-        node = node->next;
-    }
+//     while(node) {
+//         if(data == node->data)
+//             return node;
+//         node = node->next;
+//     }
 
-    return NULL;
-}
+//     return NULL;
+// }
 
 bool singly_linked_list_push_front(SinglyLinkedList *SLL, void *data, size_t data_type_size)
 {
@@ -195,7 +195,7 @@ bool singly_linked_list_sorted_insert(SinglyLinkedList *SLL, void *data, size_t 
     return true;
 }
 
-bool pop_front(SinglyLinkedList *SLL)
+bool singly_linked_list_pop_front(SinglyLinkedList *SLL)
 {
     if(!SLL->size) return false;
 
@@ -218,7 +218,7 @@ bool singly_linked_list_pop_back(SinglyLinkedList *SLL)
 
     if(SLL->head == SLL->tail) {
         free(SLL->head);
-        return;
+        return false;
     }
 
     SinglyLinkedListNode *node = SLL->head;
@@ -258,30 +258,34 @@ bool singly_linked_list_erase(SinglyLinkedList *SLL, size_t index)
     return true;
 }
 
-bool singly_linked_list_remove(SinglyLinkedList *SLL, void *data, size_t data_type_size)
-{
-    SinglyLinkedListNode *node = SLL->head;
-    size_t count = 0;
+// bool singly_linked_list_remove(SinglyLinkedList *SLL, void *data, size_t data_type_size)
+// {
+//     SinglyLinkedListNode *node = SLL->head;
+//     size_t count = 0;
 
-    while(node) {
-        count++;
-        if(node->data == data)
-            singly_linked_list_erase(SLL, count);
-    }
+//     while(node) {
+//         count = count + 1;
+//         if(node->data == data)
+//             singly_linked_list_erase(SLL, count);
+//     }
 
-    SLL->size = SLL->size - 1;
+//     SLL->size = SLL->size - 1;
 
-    return true;
-}
+//     return true;
+// }
 
 bool singly_linked_list_linear(SinglyLinkedList *SLL)
 {
     if(SLL->tail->next)
         SLL->tail->next = NULL;
+    
+    return true;
 }
 
 bool singly_linked_list_circular(SinglyLinkedList *SLL)
 {
     if(!SLL->tail->next)
         SLL->tail->next = SLL->head;
+    
+    return true;
 }

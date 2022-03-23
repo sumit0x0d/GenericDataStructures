@@ -7,8 +7,8 @@ DoublyLinkedListNode *doubly_linked_list_front(DoublyLinkedList *DLL);
 DoublyLinkedListNode *doubly_linked_list_back(DoublyLinkedList *DLL);
 size_t doubly_linked_list_size(DoublyLinkedList *DLL);
 
-DoublyLinkedListNode *node_construct(size_t data_type_size);
-void node_destruct(DoublyLinkedListNode *node);
+static DoublyLinkedListNode *node_construct(size_t data_type_size);
+static void node_destruct(DoublyLinkedListNode *node);
 
 DoublyLinkedListNode *doubly_linked_list_search(DoublyLinkedList *DLL, void *data, size_t data_type_size);
 bool doubly_linked_list_push_front(DoublyLinkedList *DLL, void *data, size_t data_type_size);
@@ -22,7 +22,7 @@ bool doubly_linked_list_erase(DoublyLinkedList *DLL, size_t index);
 bool doubly_linked_list_linear(DoublyLinkedList *DLL);
 bool doubly_linked_list_circular(DoublyLinkedList *DLL);
 
-DoublyLinkedList doubly_linked_list_construct(size_t data_type_size)
+DoublyLinkedList doubly_linked_list_construct()
 {
     DoublyLinkedList DLL;
 
@@ -33,10 +33,10 @@ DoublyLinkedList doubly_linked_list_construct(size_t data_type_size)
     return DLL;
 }
 
-DoublyLinkedListNode *node_construct(size_t data_type_size)
+static DoublyLinkedListNode *node_construct(size_t data_type_size)
 {
     DoublyLinkedListNode *node = malloc(sizeof (DoublyLinkedListNode));
-    if(!node) return;
+    if(!node) return NULL;
 
     node->data = malloc(data_type_size);
     if(!node->data) {
@@ -48,7 +48,7 @@ DoublyLinkedListNode *node_construct(size_t data_type_size)
     return node;
 }
 
-void node_destruct(DoublyLinkedListNode *node)
+static void node_destruct(DoublyLinkedListNode *node)
 {
     free(node->data);
     node->data = NULL;
@@ -57,34 +57,34 @@ void node_destruct(DoublyLinkedListNode *node)
     node = NULL;
 }
 
-DoublyLinkedListNode *doubly_linked_list_front(DoublyLinkedList *DLL)
-{
+// DoublyLinkedListNode *doubly_linked_list_front(DoublyLinkedList *DLL)
+// {
 
-}
+// }
 
-DoublyLinkedListNode *doubly_linked_list_back(DoublyLinkedList *DLL)
-{
+// DoublyLinkedListNode *doubly_linked_list_back(DoublyLinkedList *DLL)
+// {
 
-}
+// }
 
-size_t doubly_linked_list_size(DoublyLinkedList *DLL)
-{
+// size_t doubly_linked_list_size(DoublyLinkedList *DLL)
+// {
 
-}
+// }
 
-DoublyLinkedListNode *doubly_linked_list_search(DoublyLinkedList *DLL, void *data, size_t data_type_size)
-{
-    if(!DLL->size) return NULL;
+// DoublyLinkedListNode *doubly_linked_list_search(DoublyLinkedList *DLL, void *data, size_t data_type_size)
+// {
+//     if(!DLL->size) return NULL;
 
-    DoublyLinkedListNode *node = malloc(sizeof (DoublyLinkedListNode));
-    while(node) {
-        if(data == node->data)
-            return node;
-        node = node->next;
-    }
+//     DoublyLinkedListNode *node = malloc(sizeof (DoublyLinkedListNode));
+//     while(node) {
+//         if(data == node->data)
+//             return node;
+//         node = node->next;
+//     }
 
-    return NULL;
-}
+//     return NULL;
+// }
 
 
 bool doubly_linked_list_push_front(DoublyLinkedList *DLL, void *data, size_t data_type_size)
@@ -145,9 +145,9 @@ bool doubly_linked_list_insert(DoublyLinkedList *DLL, size_t index, void *data, 
     memcpy(node_new->data, data, data_type_size);
 
     if(!index)
-        push_front(DLL, data);
+        doubly_linked_list_push_front(DLL, data, data_type_size);
     else if(index == DLL->size)
-        push_back(DLL, data);
+        doubly_linked_list_push_back(DLL, data, data_type_size);
     else {
         for(size_t i = 0; i < index-1; ++i)
             node = node->next;
@@ -162,14 +162,14 @@ bool doubly_linked_list_insert(DoublyLinkedList *DLL, size_t index, void *data, 
     return true;
 }
 
-bool doubly_linked_list_sorted_insert(DoublyLinkedList *DLL, void *data, size_t data_type_size)
-{
+// bool doubly_linked_list_sorted_insert(DoublyLinkedList *DLL, void *data, size_t data_type_size)
+// {
 
-}
+// }
 
 bool doubly_linked_list_pop_front(DoublyLinkedList *DLL)
 {
-    if(!DLL->size) return;
+    if(!DLL->size) return false;
 
     DoublyLinkedListNode *node = DLL->head;
 
@@ -180,11 +180,13 @@ bool doubly_linked_list_pop_front(DoublyLinkedList *DLL)
     node_destruct(node);
 
     DLL->size = DLL->size - 1;
+
+    return true;
 }
 
 bool doubly_linked_list_pop_back(DoublyLinkedList *DLL)
 {
-    if(!DLL->size) return;
+    if(!DLL->size) return false;
 
     DoublyLinkedListNode *node = DLL->tail;
 
@@ -195,14 +197,16 @@ bool doubly_linked_list_pop_back(DoublyLinkedList *DLL)
     node_destruct(node);
 
     DLL->size = DLL->size - 1;
+
+    return true;
 }
 
 bool doubly_linked_list_erase(DoublyLinkedList *DLL, size_t index)
 {
     if(index == 0 || index > DLL->size)
-        return;
+        return false;
     if(index == 1)
-        pop_front(DLL);
+        doubly_linked_list_pop_front(DLL);
     DoublyLinkedListNode *node = DLL->head;
     for(size_t i = 0; i < index-1; ++i) {
         node->previous = node;
@@ -210,16 +214,18 @@ bool doubly_linked_list_erase(DoublyLinkedList *DLL, size_t index)
     }
     node->previous->next = node->next;
     free(node);
+
+    return true;
 }
 
-bool doubly_linked_list_remove(DoublyLinkedList *DLL, void *data, size_t data_type_size)
-{
-    DoublyLinkedListNode *node = DLL->head;
-    size_t count = 0;
-    while(node) {
-        count++;
-        node = node->next;
-    }
-    if(node->data == data)
-        erase(DLL, count);
-}
+// bool doubly_linked_list_remove(DoublyLinkedList *DLL, void *data, size_t data_type_size)
+// {
+//     DoublyLinkedListNode *node = DLL->head;
+//     size_t count = 0;
+//     while(node) {
+//         count++;
+//         node = node->next;
+//     }
+//     if(node->data == data)
+//         erase(DLL, count);
+// }

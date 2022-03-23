@@ -7,12 +7,13 @@ BinaryTree binary_tree_construct(size_t data_type_size)
     BinaryTree BT;
 
     BT.root = NULL;
+    BT.data_type_size = data_type_size;
     BT.size = 0;
 
     return BT;
 }
 
-BinaryTreeNode *node_construct(void *data, size_t data_type_size)
+static BinaryTreeNode *node_construct(void *data, size_t data_type_size)
 {
     BinaryTreeNode *node = malloc(sizeof (BinaryTreeNode));
     if(!node) return NULL;
@@ -35,7 +36,7 @@ BinaryTreeNode *node_construct(void *data, size_t data_type_size)
 BinaryTreeNode *binary_tree_insert(BinaryTree *BT, void *data)
 {
     BinaryTreeNode *node = node_construct(data, BT->data_type_size);
-    if(!node) return;
+    if(!node) return NULL;
 
     BT->size = BT->size + 1;
 
@@ -64,25 +65,26 @@ BinaryTreeNode *binary_tree_insert(BinaryTree *BT, void *data)
 //     return height;
 // }
 
-BinaryTreeNode *tree_node_inorder_predecessor(BinaryTreeNode *node)
-{
-    if(node->left) {
-        node = node->left;
-        while(node->right)
-            node = node->right;
-    }
-    return node;
-}
+// static BinaryTreeNode *tree_node_inorder_predecessor(BinaryTreeNode *node)
+// {
+//     if(node->left) {
+//         node = node->left;
+//         while(node->right)
+//             node = node->right;
+//     }
 
-BinaryTreeNode *tree_node_inorder_successor(BinaryTreeNode *node)
-{    
-    if(node->right) {
-        node = node->right;
-        while(node->left)
-            node = node->left;
-    }
-    return node;
-}
+//     return node;
+// }
+
+// static BinaryTreeNode *tree_node_inorder_successor(BinaryTreeNode *node)
+// {    
+//     if(node->right) {
+//         node = node->right;
+//         while(node->left)
+//             node = node->left;
+//     }
+//     return node;
+// }
 
 // BinaryTree *tree_from_preorder(int preorder[], size_t preorder_size, int inorder[], size_t inorder_size)
 // {

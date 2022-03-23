@@ -7,8 +7,8 @@
 
 typedef struct BinarySearchTreeNode {
     void *data;
-    BinarySearchTreeNode *left;
-    BinarySearchTreeNode *right;
+    struct BinarySearchTreeNode *left;
+    struct BinarySearchTreeNode *right;
 } BinarySearchTreeNode;
 
 typedef struct BinarySearchTree {

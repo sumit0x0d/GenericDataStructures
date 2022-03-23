@@ -7,9 +7,9 @@
 
 typedef struct AVLTreeNode {
     void *data;
-    AVLTreeNode *left;
-    AVLTreeNode *right;
-    AVLTreeNode *parent;
+    struct AVLTreeNode *left;
+    struct AVLTreeNode *right;
+    struct AVLTreeNode *parent;
     int balance_factor;
 } AVLTreeNode;
 
@@ -21,7 +21,7 @@ typedef struct AVLTree {
 
 AVLTree avl_tree_construct(size_t data_type_size);
 void avl_tree_destruct(AVLTree *AVLT);
-AVLTreeNode *binary_search_tree_search(AVLTree *AVLT, void *data);
+AVLTreeNode *avl_tree_search(AVLTree *AVLT, void *data);
 bool avl_tree_insert(AVLTree *AVLT, void *data);
 bool avl_tree_remove(AVLTree *AVLT, void *data);
 

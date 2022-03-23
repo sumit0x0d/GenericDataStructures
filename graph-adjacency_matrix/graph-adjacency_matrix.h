@@ -1,5 +1,5 @@
-#ifndef GRAPH_H
-#define GRAPH_H
+#ifndef GRAPH_ADJACENCY_MATRIX_H
+#define GRAPH_ADJACENCY_MATRIX_H
 
 #include <stdbool.h>
 #include <stdlib.h>

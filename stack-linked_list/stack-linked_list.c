@@ -6,8 +6,8 @@ void stack_linked_list_destruct(StackLinkedList *S);
 StackLinkedListNode *stack_linked_list_peek(StackLinkedList *s);
 size_t stack_linked_list_size(StackLinkedList *S);
 
-StackLinkedListNode *node_construct(size_t data_type_size);
-void node_destruct(StackLinkedListNode *S);
+static StackLinkedListNode *node_construct(size_t data_type_size);
+static void node_destruct(StackLinkedListNode *S);
 
 bool stack_linked_list_push(StackLinkedList *S, void *data, size_t data_type_size);
 bool stack_linked_list_pop(StackLinkedList *S);
@@ -49,7 +49,7 @@ size_t stack_linked_list_size(StackLinkedList *S)
     return S->size;
 }
 
-StackLinkedListNode *node_construct(size_t data_type_size)
+static StackLinkedListNode *node_construct(size_t data_type_size)
 {
     StackLinkedListNode *node = malloc(sizeof (StackLinkedListNode));
     if(!node) return NULL;
@@ -64,7 +64,7 @@ StackLinkedListNode *node_construct(size_t data_type_size)
     return node;
 }
 
-void node_destruct(StackLinkedListNode *node)
+static void node_destruct(StackLinkedListNode *node)
 {
     free(node->data);
     node->data = NULL;

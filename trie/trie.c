@@ -20,7 +20,7 @@ Trie trie_construct()
 //     return node;
 // }
 
-TrieNode *node_construct()
+static TrieNode *node_construct()
 {
     TrieNode *node = malloc(sizeof (TrieNode));
     if(!node) return NULL;

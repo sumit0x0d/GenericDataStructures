@@ -1,6 +1,6 @@
 #include "avl_tree/avl_tree.h"
 #include "binary_search_tree/binary_search_tree.h"
-#include "binary_tree/binary_tree.h"
+// #include "binary_tree/binary_tree.h"
 #include "deque-array/deque-array.h"
 #include "deque-linked_list/deque-linked_list.h"
 #include "doubly_linked_list/doubly_linked_list.h"
@@ -15,3 +15,24 @@
 #include "stack-array/stack-array.h"
 #include "stack-linked_list/stack-linked_list.h"
 #include "trie/trie.h"
+
+typedef union Array {
+    DequeArray deque;
+    DynamicArray dynamic_array;
+    QueueArray queue;
+    StackArray stack;
+} Array;
+
+typedef union BinaryTree {
+    BinarySearchTree binary_search;
+    AVLTree avl;
+    RedBlackTree red_black;
+} BinaryTree;
+
+typedef union LinkedList {
+    DequeLinkedList deque;
+    DoublyLinkedList doubly_linked_list;
+    QueueLinkedList queue;
+    SinglyLinkedList Singly_linked_list;
+    StackLinkedList stack;
+} LinkedList;

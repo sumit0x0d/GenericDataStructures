@@ -8,8 +8,8 @@
 typedef struct DequeLinkedListNode {
     void *data;
     size_t data_type_size;
-    DequeLinkedListNode *previous;
-    DequeLinkedListNode *next;
+    struct DequeLinkedListNode *previous;
+    struct DequeLinkedListNode *next;
 } DequeLinkedListNode;
 
 typedef struct DequeLinkedList {

@@ -17,17 +17,17 @@ Graph graph_construct()
     return G;
 }
 
-void graph_destruct(Graph *G)
-{
+// void graph_destruct(Graph *G)
+// {
     
-}
+// }
 
-bool graph_insert_vertex(Graph *G, unsigned long vertex)
-{
+// bool graph_insert_vertex(Graph *G, unsigned long vertex)
+// {
 
-}
+// }
 
-bool graph_insert_edge(Graph *G, unsigned long vertex_source, unsigned long vertex_destination)
-{
+// bool graph_insert_edge(Graph *G, unsigned long vertex_source, unsigned long vertex_destination)
+// {
     
-}
+// }

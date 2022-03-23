@@ -7,7 +7,7 @@
 
 typedef struct TrieNode {
     bool terminal;
-    TrieNode *children[128];
+    struct TrieNode *children[128];
 } TrieNode;
 
 typedef struct Trie {

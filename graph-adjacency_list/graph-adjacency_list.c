@@ -53,10 +53,10 @@ Vertex *vertex_construct(size_t data_type_size)
     return vertex;
 }
 
-void vertex_destruct(Vertex *vertex)
-{
+// void vertex_destruct(Vertex *vertex)
+// {
 
-}
+// }
 
 bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data, size_t data_type_size)
 {

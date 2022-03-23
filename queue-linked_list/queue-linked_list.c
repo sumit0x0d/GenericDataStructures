@@ -7,8 +7,8 @@ QueueLinkedListNode *queue_linked_list_front(QueueLinkedList *Q);
 QueueLinkedListNode *queue_linked_list_back(QueueLinkedList *Q);
 size_t queue_linked_list_size(QueueLinkedList *Q);
 
-QueueLinkedListNode *node_construct(size_t data_type_size);
-void node_destruct(QueueLinkedListNode *Q);
+static QueueLinkedListNode *node_construct(size_t data_type_size);
+static void node_destruct(QueueLinkedListNode *Q);
 
 bool queue_linked_list_enqueue(QueueLinkedList *Q, void *data, size_t data_type_size);
 bool queue_linked_list_dequeue(QueueLinkedList *Q);
@@ -53,7 +53,7 @@ size_t queue_linked_list_size(QueueLinkedList *Q)
     return Q->size;
 }
 
-QueueLinkedListNode *node_construct(size_t data_type_size)
+static QueueLinkedListNode *node_construct(size_t data_type_size)
 {
     QueueLinkedListNode *node = malloc(sizeof (QueueLinkedListNode));
     if(!node) return NULL;
@@ -70,7 +70,7 @@ QueueLinkedListNode *node_construct(size_t data_type_size)
     return node;
 }
 
-void node_destruct(QueueLinkedListNode *node)
+static void node_destruct(QueueLinkedListNode *node)
 {
     free(node->data);
     node->data = NULL;
