@@ -41,3 +41,29 @@ enum {
     STACK_ARRAY,
     STACK_LINKED_LIST
 };
+
+inline void data_print(void *data, size_t data_type_size)
+{
+    switch (data_type_size) {
+        case SIZE_CHAR:
+            printf("%c ", *(char *)data);
+            break;
+        case SIZE_SHORT:
+            printf("%u ", *(int *)data);
+            break;
+        case SIZE_INT:
+            printf("%f ", *(float *)data);
+            break;
+        // case SIZE_FLOAT:
+        //     printf("%ld ", *(long *)data);
+        //     break;
+        // case SIZE_LONG:
+        //     printf("%ld ", *(long *)data);
+        //     break;
+        case SIZE_DOUBLE:
+            printf("%ld ", *(long *)data);
+            break;
+        default:
+            break;
+    }
+}
