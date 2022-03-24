@@ -1,19 +1,22 @@
 #include "binary_tree.h"
 
-BinaryTreeNode *binary_tree_insert(BinaryTree *BT, void *data);
+BinaryTree binary_tree_construct();
 
-BinaryTree binary_tree_construct(size_t data_type_size)
+static BinaryTreeNode *node_construct(size_t data_type_size);
+
+BinaryTreeNode *binary_tree_insert(BinaryTree *BT, void *data, size_t data_type_size);
+
+BinaryTree binary_tree_construct()
 {
     BinaryTree BT;
 
     BT.root = NULL;
-    BT.data_type_size = data_type_size;
     BT.size = 0;
 
     return BT;
 }
 
-static BinaryTreeNode *node_construct(void *data, size_t data_type_size)
+static BinaryTreeNode *node_construct(size_t data_type_size)
 {
     BinaryTreeNode *node = malloc(sizeof (BinaryTreeNode));
     if(!node) return NULL;
@@ -25,7 +28,7 @@ static BinaryTreeNode *node_construct(void *data, size_t data_type_size)
         return NULL;
     }
 
-    memcpy(node->data, data, data_type_size);
+    node->data_type_size = data_type_size;
 
     node->left = NULL;
     node->right = NULL;
@@ -33,10 +36,12 @@ static BinaryTreeNode *node_construct(void *data, size_t data_type_size)
     return node;
 }
 
-BinaryTreeNode *binary_tree_insert(BinaryTree *BT, void *data)
+BinaryTreeNode *binary_tree_insert(BinaryTree *BT, void *data, size_t data_type_size)
 {
-    BinaryTreeNode *node = node_construct(data, BT->data_type_size);
+    BinaryTreeNode *node = node_construct(data_type_size);
     if(!node) return NULL;
+
+    memcpy(node->data, data, data_type_size);
 
     BT->size = BT->size + 1;
 

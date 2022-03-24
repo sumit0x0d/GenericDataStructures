@@ -7,6 +7,7 @@
 
 typedef struct AVLTreeNode {
     void *data;
+    size_t data_type_size;
     struct AVLTreeNode *left;
     struct AVLTreeNode *right;
     struct AVLTreeNode *parent;
@@ -15,14 +16,14 @@ typedef struct AVLTreeNode {
 
 typedef struct AVLTree {
     AVLTreeNode *root;
-    size_t data_type_size;
     size_t size;
 } AVLTree;
 
-AVLTree avl_tree_construct(size_t data_type_size);
+AVLTree avl_tree_construct();
 void avl_tree_destruct(AVLTree *AVLT);
-AVLTreeNode *avl_tree_search(AVLTree *AVLT, void *data);
-bool avl_tree_insert(AVLTree *AVLT, void *data);
-bool avl_tree_remove(AVLTree *AVLT, void *data);
+
+AVLTreeNode *avl_tree_search(AVLTree *AVLT, void *data, size_t data_type_size);
+bool avl_tree_insert(AVLTree *AVLT, void *data, size_t data_type_size);
+bool avl_tree_remove(AVLTree *AVLT, void *data, size_t data_type_size);
 
 #endif

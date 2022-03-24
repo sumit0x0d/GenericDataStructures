@@ -1,7 +1,16 @@
-#include "data_structures.h"
+#include "deque-array/deque-array.h"
+#include "dynamic_array/dynamic_array.h"
+#include "queue-array/queue-array.h"
+#include "stack-array/stack-array.h"
 
-#include <stdio.h>
+#include "data-print.h"
 
+enum {
+    DEQUE_ARRAY,
+    DYNAMIC_ARRAY,
+    QUEUE_ARRAY,
+    STACK_ARRAY,
+};
 
 
 

@@ -1,40 +1,67 @@
-#include "data_structures.h"
+#include "deque-linked_list/deque-linked_list.h"
+#include "doubly_linked_list/doubly_linked_list.h"
+#include "queue-linked_list/queue-linked_list.h"
+#include "singly_linked_list/singly_linked_list.h"
+#include "stack-linked_list/stack-linked_list.h"
 
-#include <stdio.h>
+#include "data-print.h"
 
-static void linked_list_traverse(void *node, int linked_list)
-{   
-    switch (linked_list) {
+enum {
+    DEQUE_LINKED_LIST,
+    DOUBLY_LINKED_LIST,
+    QUEUE_LINKED_LIST,
+    SINGLY_LINKED_LIST,
+    STACK_LINKED_LIST
+};
+
+static void linked_list_traverse(void *head, int linked_list_type)
+{
+    switch (linked_list_type) {
         case DEQUE_LINKED_LIST:
-            do {
-                data_print(((DequeLinkedListNode *)node)->data, ((DequeLinkedListNode *)node)->data_type_size);
-                node = ((DequeLinkedListNode *)node)->next;
-            } while(node);
+            {
+                DequeLinkedListNode *node = head;
+                do {
+                    data_print(node->data, node->data_type_size);
+                    node = node->next;
+                } while(node);
+            }
             break;
         case DOUBLY_LINKED_LIST:
-            do {
-                data_print(((DoublyLinkedListNode *)node)->data, ((DoublyLinkedListNode *)node)->data_type_size);
-                node = ((DoublyLinkedListNode *)node)->next;
-            } while(node);
+            {
+                DoublyLinkedListNode *node = head;
+                do {
+                    data_print(node->data, node->data_type_size);
+                    node = node->next;
+                } while(node);
+            }
             break;
         case QUEUE_LINKED_LIST:
-            do {
-                data_print(((QueueLinkedListNode *)node)->data, ((QueueLinkedListNode *)node)->data_type_size);
-                node = ((QueueLinkedListNode *)node)->next;
-            } while(node);
+            {
+                QueueLinkedListNode *node = head;
+                do {
+                    data_print(node->data, node->data_type_size);
+                    node = node->next;
+                } while(node);
+            }
             break;
         case SINGLY_LINKED_LIST:
-            do {
-                data_print(((SinglyLinkedListNode *)node)->data, ((SinglyLinkedListNode *)node)->data_type_size);
-                node = ((SinglyLinkedListNode *)node)->next;
-            } while(node);
+            {
+                SinglyLinkedListNode *node = head;
+                do {
+                    data_print(node->data, node->data_type_size);
+                    node = node->next;
+                } while(node);
+            }
             break;
         case STACK_LINKED_LIST:
-            do {
-                data_print(((StackLinkedListNode *)node)->data, ((StackLinkedListNode *)node)->data_type_size);
-                node = ((StackLinkedListNode *)node)->next;
-            } while(node);
-            break;
+            {
+                StackLinkedListNode *node = head;
+                do {
+                    data_print(node->data, node->data_type_size);
+                    node = node->next;
+                } while(node);
+                break;
+            }
         default:
             break;
     }
@@ -44,18 +71,18 @@ void deque_linked_list_print(DequeLinkedList *D)
 {
     if(!D->size) return;
 
-    printf("Linked List: ");
+    printf("Deque: ");
     linked_list_traverse(D->front, DEQUE_LINKED_LIST);
-    printf("\b\nLinked List Size: %zu\n", D->size);
+    printf("\b\nDeque Size: %zu\n", D->size);
 }
 
 void doubly_linked_list_print(DoublyLinkedList *DLL)
 {
     if(!DLL->size) return;
 
-    printf("Linked List: ");
+    printf("Doubly Linked List: ");
     linked_list_traverse(DLL->head, DOUBLY_LINKED_LIST);
-    printf("\b\nLinked List Size: %zu\n", DLL->size);
+    printf("\b\nDoubly Linked List Size: %zu\n", DLL->size);
 }
 
 void queue_linked_list_print(QueueLinkedList *Q)

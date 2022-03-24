@@ -2,7 +2,7 @@ CC = gcc
 
 TARGET = main
 
-CFLAGS = -std=c99 -O0 -g -Wall -Wpedantic -Wextra
+CFLAGS = -std=c17 -O0 -g -Wall -Wpedantic -Wextra
 # -Werror 
 
 main1:

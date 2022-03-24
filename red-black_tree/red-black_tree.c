@@ -1,19 +1,19 @@
 #include "red-black_tree.h"
 
-RedBlackTreeNode *red_black_tree_search(RedBlackTree *RBT, void *data)
-{
-    RedBlackTreeNode *node = RBT->root;
-    while(node)
-        if(data == node->data)
-            return node;
-        else if(data < node->data)
-            node = node->left;
-        else
-            node = node->right;
-    return NULL;
-}
+// RedBlackTreeNode *red_black_tree_search(RedBlackTree *RBT, void *data, size_t data_type_size)
+// {
+//     RedBlackTreeNode *node = RBT->root;
+//     while(node)
+//         if(data == node->data)
+//             return node;
+//         else if(data < node->data)
+//             node = node->left;
+//         else
+//             node = node->right;
+//     return NULL;
+// }
 
-static RedBlackTreeNode *node_construct(void *data, size_t data_type_size)
+static RedBlackTreeNode *node_construct(size_t data_type_size)
 {
     RedBlackTreeNode *node = malloc(sizeof (RedBlackTreeNode));
     if(!node) return NULL;
@@ -25,7 +25,7 @@ static RedBlackTreeNode *node_construct(void *data, size_t data_type_size)
         return NULL;
     }
 
-    memcpy(node->data, data, data_type_size);
+    node->data_type_size = data_type_size;
 
     node->left = NULL;
     node->right = NULL;
@@ -33,11 +33,13 @@ static RedBlackTreeNode *node_construct(void *data, size_t data_type_size)
     return node;
 }
 
-void red_black_tree_insert(RedBlackTree *RBT, void *data)
+void red_black_tree_insert(RedBlackTree *RBT, void *data, size_t data_type_size)
 {
     if(!RBT->size) {
-        RBT->root = node_construct(data, RBT->data_type_size);
+        RBT->root = node_construct(data_type_size);
         if(!RBT->root) return;
+
+        memcpy(RBT->root->data, data, data_type_size);
 
         RBT->root->parent = NULL;
         RBT->root->color = BLACK;
@@ -58,8 +60,10 @@ void red_black_tree_insert(RedBlackTree *RBT, void *data)
             node = node->right;
     }
 
-    node = node_construct(data, RBT->data_type_size);
+    node = node_construct(data_type_size);
     if(!node) return;
+
+    memcpy(node->data, data, data_type_size);
 
     node->parent = node_parent;
     node->color = RED;
