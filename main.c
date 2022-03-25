@@ -27,7 +27,7 @@ int main()
 
     // queue_linked_list_enqueue(&Q, &c, sizeof c);
     // queue_linked_list_enqueue(&Q, &i, STRING, strlen(i));
-    // queue_linked_list_enqueue(&Q, &l, sizeof l);
+    // queue_linked_list_enqueue(&Q, &l, sizeof l);s
     // queue_linked_list_enqueue(&Q, &s, strlen(s));
 
     // singly_linked_list_push_back(&SLL, &c, sizeof c);
