@@ -20,7 +20,6 @@ int main()
 
     // deque_linked_list_push(&D, &a, sizeof a);
     // deque_linked_list_push(&D, &a, sizeof a);
-    // deque_linked_list_push(&D, &a, sizeof a);
     
     // doubly_linked_list_push(&DLL, &a, sizeof a);
     // doubly_linked_list_push(&DLL, &a, sizeof a);
