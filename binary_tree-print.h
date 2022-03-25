@@ -33,7 +33,7 @@ void preorder_traverse(void *root, int binary_tree_type, int data_type)
                 while(node || stack_linked_list_size(&S))
                     if(node) {
                         data_print(node->data, data_type);
-                        stack_linked_list_push(&S, node, sizeof (AVLTreeNode));
+                        stack_linked_list_push(&S, node, STRUCT, sizeof (AVLTreeNode));
                         node = node->left;
                     }
                     else {
@@ -49,7 +49,7 @@ void preorder_traverse(void *root, int binary_tree_type, int data_type)
                 while(node || stack_linked_list_size(&S))
                     if(node) {
                         data_print(node->data, data_type);
-                        stack_linked_list_push(&S, node, sizeof (BinarySearchTreeNode));
+                        stack_linked_list_push(&S, node, STRUCT, sizeof (BinarySearchTreeNode));
                         node = node->left;
                     }
                     else {
@@ -65,7 +65,7 @@ void preorder_traverse(void *root, int binary_tree_type, int data_type)
                 while(node || stack_linked_list_size(&S))
                     if(node) {
                         data_print(node->data, data_type);
-                        stack_linked_list_push(&S, node, sizeof (RedBlackTreeNode));
+                        stack_linked_list_push(&S, node, STRUCT, sizeof (RedBlackTreeNode));
                         node = node->left;
                     }
                     else {
@@ -90,7 +90,7 @@ void inorder_traverse(void *root, int binary_tree_type, int data_type)
                 AVLTreeNode *node = root;
                 while(node || stack_linked_list_size(&S))
                     if(node) {
-                        stack_linked_list_push(&S, node, sizeof (AVLTreeNode));
+                        stack_linked_list_push(&S, node, STRUCT, sizeof (AVLTreeNode));
                         node = node->left;
                     }
                     else {
@@ -106,7 +106,7 @@ void inorder_traverse(void *root, int binary_tree_type, int data_type)
                 BinarySearchTreeNode *node = root;
                 while(node || stack_linked_list_size(&S))
                     if(node) {
-                        stack_linked_list_push(&S, node, sizeof (BinarySearchTreeNode));
+                        stack_linked_list_push(&S, node, STRUCT, sizeof (BinarySearchTreeNode));
                         node = node->left;
                     }
                     else {
@@ -122,7 +122,7 @@ void inorder_traverse(void *root, int binary_tree_type, int data_type)
                 RedBlackTreeNode *node = root;
                 while(node || stack_linked_list_size(&S))
                     if(node) {
-                        stack_linked_list_push(&S, node, sizeof (RedBlackTreeNode));
+                        stack_linked_list_push(&S, node, STRUCT, sizeof (RedBlackTreeNode));
                         node = node->left;
                     }
                     else {
@@ -165,17 +165,17 @@ void levelorder_traverse(void *root, int binary_tree_type, int data_type)
             {
                 AVLTreeNode *node = root;
                 data_print(node->data, data_type);
-                queue_linked_list_enqueue(&Q, node, sizeof (AVLTreeNode));
+                queue_linked_list_enqueue(&Q, node, STRUCT, sizeof (AVLTreeNode));
                 while(queue_linked_list_size(&Q)) {
                     node = queue_linked_list_front(&Q)->data;
                     queue_linked_list_dequeue(&Q);
                     if(node->left) {
                         data_print(node->left->data, data_type);
-                        queue_linked_list_enqueue(&Q, node->left, sizeof (AVLTreeNode));
+                        queue_linked_list_enqueue(&Q, node->left, STRUCT, sizeof (AVLTreeNode));
                     }
                     if(node->right) {
                         data_print(node->right->data, data_type);
-                        queue_linked_list_enqueue(&Q, node->right, sizeof (AVLTreeNode));
+                        queue_linked_list_enqueue(&Q, node->right, STRUCT, sizeof (AVLTreeNode));
                     }
                 }
             }
@@ -184,17 +184,17 @@ void levelorder_traverse(void *root, int binary_tree_type, int data_type)
             {
                 BinarySearchTreeNode *node = root;
                 data_print(node->data, data_type);
-                queue_linked_list_enqueue(&Q, node, sizeof (BinarySearchTreeNode));
+                queue_linked_list_enqueue(&Q, node, STRUCT, sizeof (BinarySearchTreeNode));
                 while(queue_linked_list_size(&Q)) {
                     node = queue_linked_list_front(&Q)->data;
                     queue_linked_list_dequeue(&Q);
                     if(node->left) {
                         data_print(node->left->data, data_type);
-                        queue_linked_list_enqueue(&Q, node->left, sizeof (BinarySearchTreeNode));
+                        queue_linked_list_enqueue(&Q, node->left, STRUCT, sizeof (BinarySearchTreeNode));
                     }
                     if(node->right) {
                         data_print(node->right->data, data_type);
-                        queue_linked_list_enqueue(&Q, node->right, sizeof (BinarySearchTreeNode));
+                        queue_linked_list_enqueue(&Q, node->right, STRUCT, sizeof (BinarySearchTreeNode));
                     }
                 }
             }
@@ -203,17 +203,17 @@ void levelorder_traverse(void *root, int binary_tree_type, int data_type)
             {
                 RedBlackTreeNode *node = root;
                 data_print(node->data, data_type);
-                queue_linked_list_enqueue(&Q, node, sizeof (RedBlackTreeNode));
+                queue_linked_list_enqueue(&Q, node, STRUCT, sizeof (RedBlackTreeNode));
                 while(queue_linked_list_size(&Q)) {
                     node = queue_linked_list_front(&Q)->data;
                     queue_linked_list_dequeue(&Q);
                     if(node->left) {
                         data_print(node->left->data, data_type);
-                        queue_linked_list_enqueue(&Q, node->left, sizeof (RedBlackTreeNode));
+                        queue_linked_list_enqueue(&Q, node->left, STRUCT, sizeof (RedBlackTreeNode));
                     }
                     if(node->right) {
                         data_print(node->right->data, data_type);
-                        queue_linked_list_enqueue(&Q, node->right, sizeof (RedBlackTreeNode));
+                        queue_linked_list_enqueue(&Q, node->right, STRUCT, sizeof (RedBlackTreeNode));
                     }
                 }
             }
@@ -228,15 +228,15 @@ void avl_tree_print(AVLTree *AVLT)
     // if(!avl_tree_size(AVLT)) return;
 
     printf("AVL Tree Pre-Order: ");
-    preorder_traverse(AVLT->root, AVL_TREE);
+    preorder_traverse(AVLT->root, AVL_TREE, AVLT->data_type);
 
     printf("\nAVL Tree In-Order: ");
-    preorder_traverse(AVLT->root, AVL_TREE);
+    preorder_traverse(AVLT->root, AVL_TREE, AVLT->data_type);
 
     printf("\nAVL Tree Lever-Order: ");
-    levelorder_traverse(AVLT->root, AVL_TREE);
+    levelorder_traverse(AVLT->root, AVL_TREE, AVLT->data_type);
     
-    printf("\b\nAVL Tree Size: %zu\n", AVLT->size);
+    printf("\b\nAVL Tree Size: %zu\n", AVLT->size, AVLT->data_type);
 }
 
 void binary_search_tree_print(BinarySearchTree *BST)
@@ -260,13 +260,13 @@ void red_black_tree_print(RedBlackTree *RBT)
     // if(!red_black_tree_size(RBT)) return;
 
     printf("Red-Black Tree Pre-Order: ");
-    preorder_traverse(RBT->root, RED_BLACK_TREE);
+    preorder_traverse(RBT->root, RED_BLACK_TREE, RBT->data_type);
 
     printf("\nRed-Black Tree In-Order: ");
-    preorder_traverse(RBT->root, RED_BLACK_TREE);
+    preorder_traverse(RBT->root, RED_BLACK_TREE, RBT->data_type);
 
     printf("\nRed-Black Tree Lever Order: ");
-    levelorder_traverse(RBT->root, RED_BLACK_TREE);
+    levelorder_traverse(RBT->root, RED_BLACK_TREE, RBT->data_type);
     
     printf("\b\nRed-Black Tree Size: %zu\n", RBT->size);
 }

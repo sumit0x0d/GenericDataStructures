@@ -1,6 +1,30 @@
 #ifndef RED_BLACK_TREE_H
 #define RED_BLACK_TREE_H
 
+#ifndef DATA_TYPE
+#define DATA_TYPE
+
+enum {
+    BOOL,
+    CHAR,
+    UNSIGNED_CHAR,
+    SHORT,
+    UNSIGNED_SHORT,
+    INT,
+    UNSIGNED_INT,
+    FLOAT,
+    LONG,
+    UNSIGNED_LONG,
+    DOUBLE,
+    LONG_LONG,
+    UNSIGNED_LONG_LONG,
+    LONG_DOUBLE,
+    STRING,
+    STRUCT
+};
+
+#endif
+
 #include <stdlib.h>
 #include <string.h>
 

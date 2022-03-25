@@ -19,8 +19,8 @@ enum {
     LONG_LONG,
     UNSIGNED_LONG_LONG,
     LONG_DOUBLE,
-    STRUCT,
-    UNION
+    STRING,
+    STRUCT
 };
 
 #endif
@@ -49,7 +49,7 @@ DequeLinkedListNode *deque_linked_list_front(DequeLinkedList *D);
 DequeLinkedListNode *deque_linked_list_back(DequeLinkedList *D);
 size_t deque_linked_list_size(DequeLinkedList *D);
 
-bool deque_linked_list_push_front(DequeLinkedList *D, void *data, size_t data_type_size);
+bool deque_linked_list_push_front(DequeLinkedList *D, void *data, int data_type, size_t data_type_size);
 bool deque_linked_list_push_back(DequeLinkedList *D, void *data, int data_type, size_t data_type_size);
 bool deque_linked_list_pop_front(DequeLinkedList *D);
 bool deque_linked_list_pop_back(DequeLinkedList *D);

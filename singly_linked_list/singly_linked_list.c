@@ -10,14 +10,14 @@ size_t singly_linked_list_size(SinglyLinkedList *SLL);
 static SinglyLinkedListNode *node_construct(size_t data_type_size);
 static void node_destruct(SinglyLinkedListNode *node);
 
-SinglyLinkedListNode *singly_linked_list_search(SinglyLinkedList *SLL, void *data);
-bool singly_linked_list_push_front(SinglyLinkedList *SLL, void *data, size_t data_type_size);
-bool singly_linked_list_push_back(SinglyLinkedList *SLL, void *data, size_t data_type_size);
-bool singly_linked_list_insert(SinglyLinkedList *SLL, size_t index, void *data, size_t data_type_size);
-bool singly_linked_list_sorted_insert(SinglyLinkedList *SLL, void *data, size_t data_type_size);
+SinglyLinkedListNode *singly_linked_list_search(SinglyLinkedList *SLL, void *data, int data_type, size_t data_type_size);
+bool singly_linked_list_push_front(SinglyLinkedList *SLL, void *data, int data_type, size_t data_type_size);
+bool singly_linked_list_push_back(SinglyLinkedList *SLL, void *data, int data_type, size_t data_type_size);
+bool singly_linked_list_insert(SinglyLinkedList *SLL, size_t index, void *data, int data_type, size_t data_type_size);
+bool singly_linked_list_sorted_insert(SinglyLinkedList *SLL, void *data, int data_type, size_t data_type_size);
 bool singly_linked_list_pop_front(SinglyLinkedList *SLL);
 bool singly_linked_list_pop_back(SinglyLinkedList *SLL);
-bool singly_linked_list_remove(SinglyLinkedList *SLL, void *data, size_t data_type_size);
+// bool singly_linked_list_remove(SinglyLinkedList *SLL, void *data, int data_type, size_t data_type_size);
 bool singly_linked_list_erase(SinglyLinkedList *SLL, size_t index);
 bool singly_linked_list_linear(SinglyLinkedList *SLL);
 bool singly_linked_list_circular(SinglyLinkedList *SLL);
@@ -65,8 +65,6 @@ static SinglyLinkedListNode *node_construct(size_t data_type_size)
         return NULL;
     }
 
-    node->data_type_size = data_type_size;
-
     return node;
 }
 
@@ -95,12 +93,14 @@ static void node_destruct(SinglyLinkedListNode *node)
 //     return NULL;
 // }
 
-bool singly_linked_list_push_front(SinglyLinkedList *SLL, void *data, size_t data_type_size)
+bool singly_linked_list_push_front(SinglyLinkedList *SLL, void *data, int data_type, size_t data_type_size)
 {
     SinglyLinkedListNode *node = node_construct(data_type_size);
     if(!node) return false;
 
     memcpy(node->data, data, data_type_size);
+
+    node->data_type = data_type;
 
     if(SLL->size)
         node->next = SLL->head;
@@ -115,12 +115,14 @@ bool singly_linked_list_push_front(SinglyLinkedList *SLL, void *data, size_t dat
     return true;
 }
 
-bool singly_linked_list_push_back(SinglyLinkedList *SLL, void *data, size_t data_type_size)
+bool singly_linked_list_push_back(SinglyLinkedList *SLL, void *data, int data_type, size_t data_type_size)
 {
     SinglyLinkedListNode *node = node_construct(data_type_size);
     if(!node) return false;
     
     memcpy(node->data, data, data_type_size);
+
+    node->data_type = data_type;
 
     node->next = NULL;
     if(SLL->size) {
@@ -137,15 +139,15 @@ bool singly_linked_list_push_back(SinglyLinkedList *SLL, void *data, size_t data
     return true;
 }
 
-bool singly_linked_list_insert(SinglyLinkedList *SLL, size_t index, void *data, size_t data_type_size)
+bool singly_linked_list_insert(SinglyLinkedList *SLL, size_t index, void *data, int data_type, size_t data_type_size)
 {
     if(!index) {
-        singly_linked_list_push_front(SLL, data, data_type_size);
+        singly_linked_list_push_front(SLL, data, data_type, data_type_size);
         return true;
     }
 
     if(index == SLL->size) {
-        singly_linked_list_push_back(SLL, data, data_type_size);
+        singly_linked_list_push_back(SLL, data, data_type, data_type_size);
         return true;
     }
 
@@ -158,6 +160,8 @@ bool singly_linked_list_insert(SinglyLinkedList *SLL, size_t index, void *data, 
 
     memcpy(node_new->data, data, data_type_size);
 
+    node->data_type = data_type;
+
     for(size_t i = 0; i < index-1; i++)
         node = node->next;
     node_new->next = node->next;
@@ -168,15 +172,15 @@ bool singly_linked_list_insert(SinglyLinkedList *SLL, size_t index, void *data, 
     return true;
 }
 
-bool singly_linked_list_sorted_insert(SinglyLinkedList *SLL, void *data, size_t data_type_size)
+bool singly_linked_list_sorted_insert(SinglyLinkedList *SLL, void *data, int data_type, size_t data_type_size)
 {
     if(!SLL->size || memcmp(data, SLL->head->data, data_type_size) < 0) {
-        singly_linked_list_push_front(SLL, data, data_type_size);
+        singly_linked_list_push_front(SLL, data, data_type, data_type_size);
         return true;
     }
 
     if(memcmp(data, SLL->tail->data, data_type_size) > 0) {
-        singly_linked_list_push_back(SLL, data, data_type_size);
+        singly_linked_list_push_back(SLL, data, data_type, data_type_size);
         return true;
     }
 
@@ -185,6 +189,8 @@ bool singly_linked_list_sorted_insert(SinglyLinkedList *SLL, void *data, size_t 
     if(!node_new) return false;
 
     memcpy(node_new->data, data, data_type_size);
+
+    node->data_type = data_type;
 
     while(node && data > node->next->data) {
         node = node->next;

@@ -19,8 +19,8 @@ enum {
     LONG_LONG,
     UNSIGNED_LONG_LONG,
     LONG_DOUBLE,
-    STRUCT,
-    UNION
+    STRING,
+    STRUCT
 };
 
 #endif
@@ -31,7 +31,6 @@ enum {
 
 typedef struct AVLTreeNode {
     void *data;
-    size_t data_type_size;
     struct AVLTreeNode *left;
     struct AVLTreeNode *right;
     struct AVLTreeNode *parent;
@@ -40,6 +39,8 @@ typedef struct AVLTreeNode {
 
 typedef struct AVLTree {
     AVLTreeNode *root;
+    size_t data_type;
+    size_t data_type_size;
     size_t size;
 } AVLTree;
 

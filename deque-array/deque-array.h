@@ -1,11 +1,11 @@
 #ifndef DEQUE_H
 #define DEQUE_H
 
-#include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
+#ifndef DATA_TYPE
+#define DATA_TYPE
 
 enum {
+    BOOL,
     CHAR,
     UNSIGNED_CHAR,
     SHORT,
@@ -15,11 +15,19 @@ enum {
     FLOAT,
     LONG,
     UNSIGNED_LONG,
+    DOUBLE,
     LONG_LONG,
     UNSIGNED_LONG_LONG,
-    DOUBLE,
-    LONG_DOUBLE
+    LONG_DOUBLE,
+    STRING,
+    STRUCT
 };
+
+#endif
+
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct DequeArray {
     void *array;

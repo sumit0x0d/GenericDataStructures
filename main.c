@@ -2,7 +2,7 @@
 // #include "binary_tree-print.h"
 #include "linked_list-print.h"
 
-int compare_data(void *data, void *node_data) {
+int compare_data(void *data, void *node_data, int data_type) {
     return 1;
 }
 
@@ -14,7 +14,7 @@ int main()
     // SinglyLinkedList SLL = singly_linked_list_construct();
     StackLinkedList S = stack_linked_list_construct();
     // int c = 1;
-    int i = 2;
+    char i[3] = "aaa";
     // long l = 30;
     // char *s = "test";
 
@@ -27,7 +27,7 @@ int main()
     // doubly_linked_list_push(&DLL, &a, sizeof a);
 
     // queue_linked_list_enqueue(&Q, &c, sizeof c);
-    // queue_linked_list_enqueue(&Q, &i, sizeof i);
+    // queue_linked_list_enqueue(&Q, &i, STRING, strlen(i));
     // queue_linked_list_enqueue(&Q, &l, sizeof l);
     // queue_linked_list_enqueue(&Q, &s, strlen(s));
 
@@ -43,11 +43,11 @@ int main()
     // binary_search_tree_insert(&BST, &i);
     // binary_search_tree_insert(&BST, &c, sizeof );
     // binary_search_tree_print(&BST);
-    stack_linked_list_push(&S, &i, INT, sizeof i);
+    stack_linked_list_push(&S, &i, STRING, strlen(i));
     // stack_linked_list_push(&S, &i, INT, sizeof i);
     // stack_linked_list_push(&S, &s, strlen(s));
     // queue_linked_list_print(&Q);
     // singly_linked_list_print(&SLL);
-    // stack_linked_list_print(&S);
+    stack_linked_list_print(&S);
 
 }

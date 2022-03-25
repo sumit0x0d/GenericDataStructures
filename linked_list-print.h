@@ -26,15 +26,15 @@ static void linked_list_traverse(void *head, int linked_list_type)
                 } while(node);
             }
             break;
-        case DOUBLY_LINKED_LIST:
-            {
-                DoublyLinkedListNode *node = head;
-                do {
-                    data_print(node->data, node->data_type);
-                    node = node->next;
-                } while(node);
-            }
-            break;
+        // case DOUBLY_LINKED_LIST:
+        //     {
+        //         DoublyLinkedListNode *node = head;
+        //         do {
+        //             data_print(node->data, node->data_type);
+        //             node = node->next;
+        //         } while(node);
+        //     }
+        //     break;
         case QUEUE_LINKED_LIST:
             {
                 QueueLinkedListNode *node = head;

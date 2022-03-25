@@ -7,22 +7,6 @@
 // #include "trie/trie.h"
 #include <stdio.h>
 
-// enum {
-//     CHAR,
-//     UNSIGNED_CHAR,
-//     SHORT,
-//     UNSIGNED_SHORT,
-//     INT,
-//     UNSIGNED_INT,
-//     FLOAT,
-//     LONG,
-//     UNSIGNED_LONG,
-//     LONG_LONG,
-//     UNSIGNED_LONG_LONG,
-//     DOUBLE,
-//     LONG_DOUBLE
-// };
-
 void data_print(void *data, int data_type)
 {
     switch (data_type) {
@@ -57,13 +41,16 @@ void data_print(void *data, int data_type)
             printf("%lf ", *(double *)data);
             break;
         case LONG_LONG:
-            printf("%lld ", *(long *)data);
+            printf("%lld ", *(long long *)data);
             break;
         case UNSIGNED_LONG_LONG:
-            printf("%llu ", *(unsigned long *)data);
+            printf("%llu ", *(unsigned long long *)data);
             break;
         case LONG_DOUBLE:
-            printf("%Lf ", *(double *)data);
+            printf("%Lf ", *(long double *)data);
+            break;
+        case STRING:
+            printf("%s ", (char *)data);
             break;
         default:
             break;

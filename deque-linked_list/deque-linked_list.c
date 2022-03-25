@@ -7,11 +7,11 @@ DequeLinkedListNode *deque_linked_list_front(DequeLinkedList *D);
 DequeLinkedListNode *deque_linked_list_back(DequeLinkedList *D);
 size_t deque_linked_list_size(DequeLinkedList *D);
 
-DequeLinkedListNode *node_construct(size_t data_type_size);
-void node_destruct(DequeLinkedListNode *D);
+static DequeLinkedListNode *node_construct(size_t data_type_size);
+static void node_destruct(DequeLinkedListNode *D);
 
-bool deque_linked_list_push_front(DequeLinkedList *D, void *data, size_t data_type_size);
-bool deque_linked_list_push_back(DequeLinkedList *D, void *data, size_t data_type_size);
+bool deque_linked_list_push_front(DequeLinkedList *D, void *data, int data_type, size_t data_type_size);
+bool deque_linked_list_push_back(DequeLinkedList *D, void *data, int data_type, size_t data_type_size);
 bool deque_linked_list_pop_front(DequeLinkedList *D);
 bool deque_linked_list_pop_back(DequeLinkedList *D);
 
@@ -58,8 +58,6 @@ DequeLinkedListNode *node_construct(size_t data_type_size)
         return NULL;
     }
 
-    node->data_type_size = data_type_size;
-
     return node;
 }
 
@@ -72,12 +70,14 @@ void node_destruct(DequeLinkedListNode *node)
     node = NULL;
 }
 
-bool deque_linked_list_push_front(DequeLinkedList *D, void *data, size_t data_type_size)
+bool deque_linked_list_push_front(DequeLinkedList *D, void *data, int data_type, size_t data_type_size)
 {
     DequeLinkedListNode *node = node_construct(data_type_size);
     if(!node) return false;
 
     memcpy(node->data, data, data_type_size);
+
+    node->data_type = data_type;
 
     node->previous = NULL;
     if(D->size) {
@@ -95,12 +95,14 @@ bool deque_linked_list_push_front(DequeLinkedList *D, void *data, size_t data_ty
     return true;
 }
 
-bool deque_linked_list_push_back(DequeLinkedList *D, void *data, size_t data_type_size)
+bool deque_linked_list_push_back(DequeLinkedList *D, void *data, int data_type, size_t data_type_size)
 {
     DequeLinkedListNode *node = node_construct(data_type_size);
     if(!node) return false; 
 
     memcpy(node->data, data, data_type_size);
+
+    node->data_type = data_type;
 
     node->next = NULL;
     if(D->size) {

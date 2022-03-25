@@ -166,8 +166,6 @@ static AVLTreeNode *node_construct(size_t data_type_size)
         return NULL;
     }
 
-    node->data_type_size = data_type_size;
-
     node->left = NULL;
     node->right = NULL;
     node->balance_factor = 0;
