@@ -9,7 +9,7 @@ size_t stack_linked_list_size(StackLinkedList *S);
 static StackLinkedListNode *node_construct(size_t data_type_size);
 static void node_destruct(StackLinkedListNode *S);
 
-bool stack_linked_list_push(StackLinkedList *S, void *data, size_t data_type_size);
+bool stack_linked_list_push(StackLinkedList *S, void *data, int data_type, size_t data_type_size);
 bool stack_linked_list_pop(StackLinkedList *S);
 
 StackLinkedList stack_linked_list_construct()
@@ -61,8 +61,6 @@ static StackLinkedListNode *node_construct(size_t data_type_size)
         return NULL;
     }
 
-    node->data_type_size = data_type_size;
-
     return node;
 }
 
@@ -75,12 +73,14 @@ static void node_destruct(StackLinkedListNode *node)
     node = NULL;
 }
 
-bool stack_linked_list_push(StackLinkedList *S, void *data, size_t data_type_size)
+bool stack_linked_list_push(StackLinkedList *S, void *data, int data_type, size_t data_type_size)
 {
     StackLinkedListNode *node = node_construct(data_type_size);
     if(!node) return false;
 
     memcpy(node->data, data, data_type_size);
+
+    node->data_type = data_type;
 
     node->next = S->top;
     S->top = node;

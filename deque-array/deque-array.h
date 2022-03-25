@@ -5,6 +5,22 @@
 #include <stdlib.h>
 #include <string.h>
 
+enum {
+    CHAR,
+    UNSIGNED_CHAR,
+    SHORT,
+    UNSIGNED_SHORT,
+    INT,
+    UNSIGNED_INT,
+    FLOAT,
+    LONG,
+    UNSIGNED_LONG,
+    LONG_LONG,
+    UNSIGNED_LONG_LONG,
+    DOUBLE,
+    LONG_DOUBLE
+};
+
 typedef struct DequeArray {
     void *array;
     size_t element_size;

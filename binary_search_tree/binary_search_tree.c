@@ -1,18 +1,22 @@
 #include "binary_search_tree.h"
 
-BinarySearchTree binary_search_tree_construct();
+BinarySearchTree binary_search_tree_construct(int data_type, size_t data_type_size, int (*compare_data)(void *data, void *node_data));
 void binary_search_tree_destruct(BinarySearchTree *BST);
 
-BinarySearchTreeNode *binary_search_tree_search(BinarySearchTree *BST, void *data, size_t data_type_size);
-bool binary_search_tree_insert(BinarySearchTree *BST, void *data, size_t data_type_size);
-bool binary_search_tree_remove(BinarySearchTree *BST, void *data, size_t data_type_size);
+BinarySearchTreeNode *binary_search_tree_search(BinarySearchTree *BST, void *data);
+bool binary_search_tree_insert(BinarySearchTree *BST, void *data);
+bool binary_search_tree_remove(BinarySearchTree *BST, void *data);
 
-BinarySearchTree binary_search_tree_construct()
+BinarySearchTree binary_search_tree_construct(int data_type, size_t data_type_size, int (*compare_data)(void *data, void *node_data))
 {
     BinarySearchTree BST;
 
     BST.root = NULL;
     BST.size = 0;
+    BST.data_type = data_type;
+    BST.data_type_size = data_type_size;
+
+    BST.compare_data = compare_data;
 
     return BST;
 }
@@ -49,22 +53,20 @@ static BinarySearchTreeNode *node_construct(size_t data_type_size)
         return NULL;
     }
 
-    node->data_type_size = data_type_size;
-
     node->left = NULL;
     node->right = NULL;
 
     return node;
 }
 
-bool binary_search_tree_insert(BinarySearchTree *BST, void *data, size_t data_type_size)
+bool binary_search_tree_insert(BinarySearchTree *BST, void *data)
 {
     if(!BST->size) {
-        BST->root = node_construct(data_type_size);
+        BST->root = node_construct(BST->data_type_size);
         if(!BST->root) return false;
-        
-        memcpy(BST->root->data, data, data_type_size);
-        
+
+        memcpy(BST->root->data, data, BST->data_type_size);
+
         BST->size = BST->size + 1;
 
         return true;
@@ -75,7 +77,8 @@ bool binary_search_tree_insert(BinarySearchTree *BST, void *data, size_t data_ty
     int compare;
 
     while(node) {
-        compare = memcmp(data, node->data, data_type_size);
+        // BST->compare_data(data, node->data);
+        compare = memcmp(data, node->data, BST->data_type_size);
         if(compare == 0)
             return false;
         node_parent = node;
@@ -85,10 +88,10 @@ bool binary_search_tree_insert(BinarySearchTree *BST, void *data, size_t data_ty
             node = node->right;
     }
 
-    node = node_construct(data_type_size);
+    node = node_construct(BST->data_type_size);
     if(!node) return false;
 
-    memcpy(node->data, data, data_type_size);
+    memcpy(node->data, data, BST->data_type_size);
 
     if(compare < 0)
         node_parent->left = node;

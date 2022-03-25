@@ -21,7 +21,7 @@ static void linked_list_traverse(void *head, int linked_list_type)
             {
                 DequeLinkedListNode *node = head;
                 do {
-                    data_print(node->data, node->data_type_size);
+                    data_print(node->data, node->data_type);
                     node = node->next;
                 } while(node);
             }
@@ -30,7 +30,7 @@ static void linked_list_traverse(void *head, int linked_list_type)
             {
                 DoublyLinkedListNode *node = head;
                 do {
-                    data_print(node->data, node->data_type_size);
+                    data_print(node->data, node->data_type);
                     node = node->next;
                 } while(node);
             }
@@ -39,7 +39,7 @@ static void linked_list_traverse(void *head, int linked_list_type)
             {
                 QueueLinkedListNode *node = head;
                 do {
-                    data_print(node->data, node->data_type_size);
+                    data_print(node->data, node->data_type);
                     node = node->next;
                 } while(node);
             }
@@ -48,7 +48,7 @@ static void linked_list_traverse(void *head, int linked_list_type)
             {
                 SinglyLinkedListNode *node = head;
                 do {
-                    data_print(node->data, node->data_type_size);
+                    data_print(node->data, node->data_type);
                     node = node->next;
                 } while(node);
             }
@@ -57,7 +57,7 @@ static void linked_list_traverse(void *head, int linked_list_type)
             {
                 StackLinkedListNode *node = head;
                 do {
-                    data_print(node->data, node->data_type_size);
+                    data_print(node->data, node->data_type);
                     node = node->next;
                 } while(node);
                 break;

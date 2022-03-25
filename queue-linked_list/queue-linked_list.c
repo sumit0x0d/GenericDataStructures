@@ -10,7 +10,7 @@ size_t queue_linked_list_size(QueueLinkedList *Q);
 static QueueLinkedListNode *node_construct(size_t data_type_size);
 static void node_destruct(QueueLinkedListNode *Q);
 
-bool queue_linked_list_enqueue(QueueLinkedList *Q, void *data, size_t data_type_size);
+bool queue_linked_list_enqueue(QueueLinkedList *Q, void *data, int data_type, size_t data_type_size);
 bool queue_linked_list_dequeue(QueueLinkedList *Q);
 
 QueueLinkedList queue_linked_list_construct()
@@ -65,8 +65,6 @@ static QueueLinkedListNode *node_construct(size_t data_type_size)
         return NULL;
     }
 
-    node->data_type_size = data_type_size;
-
     node->next = NULL;
 
     return node;
@@ -81,12 +79,14 @@ static void node_destruct(QueueLinkedListNode *node)
     node = NULL;
 }
 
-bool queue_linked_list_enqueue(QueueLinkedList *Q, void *data, size_t data_type_size)
+bool queue_linked_list_enqueue(QueueLinkedList *Q, void *data, int data_type, size_t data_type_size)
 {
     QueueLinkedListNode *node = node_construct(data_type_size);
     if(!node) return false;
 
     memcpy(node->data, data, data_type_size);
+
+    node->data_type = data_type;
 
     if(Q->size)
         Q->back->next = node;
