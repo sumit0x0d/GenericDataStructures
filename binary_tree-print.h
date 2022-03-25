@@ -13,6 +13,7 @@ enum {
     RED_BLACK_TREE,
 };
 
+
 void preorder_traverse(void *root, int binary_tree_type, int data_type);
 void inorder_traverse(void *root, int binary_tree_type, int data_type);
 void postorder_traverse(void *root, int binary_tree_type, int data_type);
