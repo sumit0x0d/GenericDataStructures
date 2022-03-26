@@ -18,11 +18,6 @@ bool dynamic_array_erase(DynamicArray *DA, size_t index);
 
 DynamicArray dynamic_array_construct(int element_type, size_t element_size, size_t capacity, double growth_factor)
 {
-    if((size_t)(capacity * growth_factor) <= capacity) {
-        capacity = 2;
-        growth_factor = 1.5;
-    }
-
     DynamicArray DA;
 
     DA.array = NULL;
@@ -72,6 +67,7 @@ size_t dynamic_array_size(DynamicArray *DS)
 void array_construct(void *array, size_t element_size, size_t size, size_t *capacity, double growth_factor)
 {
     if(!array) {
+        
         array = malloc(element_size * (*capacity));
         if(!array) return;
     }
@@ -85,6 +81,10 @@ void array_construct(void *array, size_t element_size, size_t size, size_t *capa
 bool dynamic_array_push_front(DynamicArray *DA, void *data)
 {
     if(!DA->array) {
+        if(!DA->element_size || !DA->capacity) return false;
+
+        if((size_t)(DA->capacity * DA->growth_factor) <= DA->capacity) return false;
+
         DA->array = malloc(DA->element_size * DA->capacity);
         if(!DA->array) return false;
     }
@@ -109,6 +109,10 @@ bool dynamic_array_push_front(DynamicArray *DA, void *data)
 bool dynamic_array_push_back(DynamicArray *DA, void *data)
 {
     if(!DA->array) {
+        if(!DA->element_size || !DA->capacity) return false;
+
+        if((size_t)(DA->capacity * DA->growth_factor) <= DA->capacity) return false;
+
         DA->array = malloc(DA->element_size * DA->capacity);
         if(!DA->array) return false;
     }
@@ -135,6 +139,10 @@ bool dynamic_array_insert(DynamicArray *DA, size_t index, void *data)
     if(index > DA->size) return false;
 
     if(!DA->array) {
+        if(!DA->element_size || !DA->capacity) return false;
+
+        if((size_t)(DA->capacity * DA->growth_factor) <= DA->capacity) return false;
+
         DA->array = malloc(DA->element_size * DA->capacity);
         if(!DA->array) return false;
     }

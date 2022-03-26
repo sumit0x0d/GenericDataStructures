@@ -6,7 +6,7 @@ void graph_destruct(GraphAdjacencyList *G);
 void *graph_adjacency_list_vertices(GraphAdjacencyList *G);
 size_t graph_adjacency_list_size(GraphAdjacencyList *G);
 
-bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data, size_t data_type_size);
+bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data, int data_type, size_t data_type_size);
 bool graph_adjacency_list_vertex_remove(GraphAdjacencyList *G);
 bool graph_adjacency_list_edge_insert(GraphAdjacencyList *G, Vertex vertex_source, Vertex vertex_destination);
 bool graph_adjacency_list_edge_remove(GraphAdjacencyList *G, Vertex vertex_source, Vertex vertex_destination);
@@ -58,7 +58,7 @@ Vertex *vertex_construct(size_t data_type_size)
 
 // }
 
-bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data, size_t data_type_size)
+bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data, int data_type, size_t data_type_size)
 {
     if(!G->adjacency_list) {
         G->adjacency_list = malloc(sizeof (Vertex));
@@ -70,16 +70,20 @@ bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data, size_
 
         G->adjacency_list = adjacency_list;
     }
-    
+
     Vertex *vertex = vertex_construct(data_type_size);
     if(!vertex) return false;
 
     memcpy(vertex->data, data, data_type_size);
 
+    vertex->data_type = data_type;
+
     memcpy(G->adjacency_list + (sizeof (Vertex) * G->vertices), vertex, sizeof (Vertex));
 
     G->vertices = G->vertices + 1;
     vertex->index = G->vertices;
+
+    G->size = G->size + 1;
 
     return true;
 }

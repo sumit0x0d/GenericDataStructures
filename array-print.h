@@ -19,11 +19,8 @@ void queue_array_print(QueueArray *Q)
     printf("[Queue (Array)]");
 
     printf("\n[Data]\t: ");
-    size_t i = Q->front;
-    while(i < Q->back) {
+    for(size_t i = Q->front; i < Q->back; i++)
         data_print(((char *)Q->array + (i * Q->element_size)), Q->element_type);
-        i++;
-    }
 
     printf("\n[Size]\t: %zu\n", Q->size);
 }
@@ -36,11 +33,8 @@ void stack_array_print(StackArray *S)
     printf("[Stack (Array)]");
 
     printf("\n[Data]\t: ");
-    size_t i = 0;
-    while(i < S->top) {
+    for(size_t i = 0; i < S->top; i++)
         data_print(((char *)S->array + (i * S->element_size)), S->element_type);
-        i++;
-    }
 
     printf("\n[Size]\t: %zu\n", S->size);
 }

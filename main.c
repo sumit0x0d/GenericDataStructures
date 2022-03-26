@@ -4,7 +4,16 @@
 // #include "linked_list-print.h"
 
 int compare_data(void *data, void *node_data, int data_type) {
-    return 1;
+    switch (data_type) {
+    case CHAR:
+        break;
+    default:
+        if(*(int *)data < *(int *)node_data)
+            return -1;
+        else if(*(int *)data > *(int *)node_data)
+            return 1;
+    }
+    return 0;
 }
 
 int main()
@@ -15,19 +24,19 @@ int main()
     // SinglyLinkedList SLL = singly_linked_list_construct();
     // StackLinkedList S = stack_linked_list_construct();
 
-    StackArray S = stack_array_construct(CHAR, sizeof (int), 2);
-    QueueArray Q = queue_array_construct(INT, sizeof (int), 2);
+    StackArray S = stack_array_construct(CHAR, 0, 20);
+    QueueArray Q = queue_array_construct(INT, 0, 20);
     char c = 'a';
     int i = 1;
     int i2 = 2;
-    long l = 200;
-    long double ld = 210.55552235555;
-    char *s = "test";
+    // long l = 200;
+    // long double ld = 210.55552235555;
+    // char *s = "test";
     stack_array_push(&S, &c);
     stack_array_push(&S, &c);
     // for(int iter = 0; iter < 100; iter++)
     queue_array_enqueue(&Q, &i);
-    // queue_array_enqueue(&Q, &i2);
+    queue_array_enqueue(&Q, &i2);
     // queue_array_enqueue(&Q, &i2);
     // queue_array_enqueue(&Q, &i2);
     // queue_array_enqueue(&Q, &i2);
