@@ -45,6 +45,8 @@ size_t stack_array_size(StackArray *S)
 bool stack_array_push(StackArray *S, void *data)
 {
     if(!S->array) {
+        if(!S->element_size || !S->capacity) return false;
+
         S->array = malloc(S->element_size * S->capacity);
         if(!S->array) return false;
     }

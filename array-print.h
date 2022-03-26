@@ -20,10 +20,10 @@ void queue_array_print(QueueArray *Q)
 
     printf("\n[Data]\t: ");
     size_t i = Q->front;
-    do {
+    while(i < Q->back) {
         data_print(((char *)Q->array + (i * Q->element_size)), Q->element_type);
         i++;
-    } while(i < Q->back);
+    }
 
     printf("\n[Size]\t: %zu\n", Q->size);
 }

@@ -16,7 +16,7 @@ int main()
     // StackLinkedList S = stack_linked_list_construct();
 
     StackArray S = stack_array_construct(CHAR, sizeof (int), 2);
-    QueueArray Q = queue_array_construct(INT, sizeof (int), 0);
+    QueueArray Q = queue_array_construct(INT, sizeof (int), 2);
     char c = 'a';
     int i = 1;
     int i2 = 2;
@@ -27,7 +27,7 @@ int main()
     stack_array_push(&S, &c);
     // for(int iter = 0; iter < 100; iter++)
     queue_array_enqueue(&Q, &i);
-    queue_array_enqueue(&Q, &i2);
+    // queue_array_enqueue(&Q, &i2);
     // queue_array_enqueue(&Q, &i2);
     // queue_array_enqueue(&Q, &i2);
     // queue_array_enqueue(&Q, &i2);
