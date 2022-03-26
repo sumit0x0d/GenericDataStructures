@@ -15,9 +15,6 @@ int main()
     StackLinkedList S = stack_linked_list_construct();
     // int c = 1;
     char *i = "aaasadsadasda";
-        char *j = "adasdasdsadasdasdsadaa";
-            char *l = "aasdasddsdddddddddddddddddddddddaa";
-                char *k = "aaaaaaaaaaa";
     // long l = 30;
     // char *s = "test";
 
@@ -45,10 +42,7 @@ int main()
     // binary_search_tree_insert(&BST, &i);
     // binary_search_tree_insert(&BST, &c, sizeof );
     // binary_search_tree_print(&BST);
-    stack_linked_list_push(&S, &i, STRING, strlen(i));
-    stack_linked_list_push(&S, &j, STRING, strlen(j));
-    stack_linked_list_push(&S, &k, STRING, strlen(k));
-    stack_linked_list_push(&S, &l, STRING, strlen(l));
+    stack_linked_list_push(&S, i, STRING, strlen(i));
     // stack_linked_list_push(&S, &i, INT, sizeof i);
     // stack_linked_list_push(&S, &s, strlen(s));
     // queue_linked_list_print(&Q);
