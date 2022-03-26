@@ -1,18 +1,13 @@
 #include "array-print.h"
 // #include "binary_tree-print.h"
+#include "graph-print.h"
+#include "linked_list-print.h"
 
-// #include "linked_list-print.h"
-
-int compare_data(void *data, void *node_data, int data_type) {
-    switch (data_type) {
-    case CHAR:
-        break;
-    default:
-        if(*(int *)data < *(int *)node_data)
-            return -1;
-        else if(*(int *)data > *(int *)node_data)
-            return 1;
-    }
+int compare_data(void *data, void *node_data) {
+    if(*(int *)data < *(int *)node_data)
+        return -1;
+    else if(*(int *)data > *(int *)node_data)
+        return 1;
     return 0;
 }
 
@@ -22,21 +17,26 @@ int main()
     // DoublyLinkedList DLL = doubly_linked_list_construct();
     // QueueLinkedList Q = queue_linked_list_construct();
     // SinglyLinkedList SLL = singly_linked_list_construct();
-    // StackLinkedList S = stack_linked_list_construct();
+    StackLinkedList S = stack_linked_list_construct();
 
-    StackArray S = stack_array_construct(CHAR, 0, 20);
-    QueueArray Q = queue_array_construct(INT, 0, 20);
-    char c = 'a';
-    int i = 1;
-    int i2 = 2;
+    StackArray S = stack_array_construct(CHAR, sizeof (char), 20);
+    // QueueArray Q = queue_array_construct(INT, 0, 20);
+    // char c = 'a';
+    // int i = 1;
+    // int i2 = 2;
     // long l = 200;
     // long double ld = 210.55552235555;
     // char *s = "test";
-    stack_array_push(&S, &c);
-    stack_array_push(&S, &c);
-    // for(int iter = 0; iter < 100; iter++)
-    queue_array_enqueue(&Q, &i);
-    queue_array_enqueue(&Q, &i2);
+    // stack_array_push(&S, &c);
+    // stack_array_push(&S, &c);
+    // queue_array_enqueue(&Q, &i);
+    // queue_array_enqueue(&Q, &i2);
+    GraphAdjacencyList G = graph_adjacency_list_construct();
+    int x = 10;
+    int l = 10000;
+    graph_adjacency_list_vertex_insert(&G, &x, INT, sizeof x);
+    graph_adjacency_list_vertex_insert(&G, &l, INT, sizeof l);
+    graph_print(&G);
     // queue_array_enqueue(&Q, &i2);
     // queue_array_enqueue(&Q, &i2);
     // queue_array_enqueue(&Q, &i2);
@@ -65,9 +65,9 @@ int main()
     // stack_linked_list_push(&S, &c, sizeof c);
     // BinarySearchTree BST = binary_search_tree_construct(INT, sizeof (int), compare_data);
 
-    // binary_search_tree_insert(&BST, &c);
-    // binary_search_tree_insert(&BST, &i);
-    // binary_search_tree_insert(&BST, &c, sizeof );
+    // binary_search_tree_insert(&BST, &c, sizeof c);
+    // binary_search_tree_insert(&BST, &i, sizeof i);
+    // binary_search_tree_insert(&BST, &c, sizeof c);
     // binary_search_tree_print(&BST);
     // stack_linked_list_push(&S, &i, INT, sizeof i);
     // stack_linked_list_push(&S, &c, CHAR, sizeof c);
@@ -79,7 +79,7 @@ int main()
     // queue_linked_list_print(&Q);
     // singly_linked_list_print(&SLL);
     // stack_linked_list_print(&S);
-    stack_array_print(&S);
-    queue_array_print(&Q);
+    // stack_array_print(&S);
+    // queue_array_print(&Q);
 
 }

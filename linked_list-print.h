@@ -69,7 +69,7 @@ static void linked_list_traverse(void *head, int data_structure)
 
 void deque_linked_list_print(DequeLinkedList *D)
 {
-    if(!D->size) return;
+    if(!deque_linked_list_size(&D)) return;
 
     printf("[Deque (Linked List)]");
 
@@ -91,7 +91,7 @@ void deque_linked_list_print(DequeLinkedList *D)
 
 void queue_linked_list_print(QueueLinkedList *Q)
 {
-    if(!Q->size) return;
+    if(!queue_linked_list_size(&Q)) return;
 
     printf("[Queue (Linked List)]");
 
@@ -103,7 +103,7 @@ void queue_linked_list_print(QueueLinkedList *Q)
 
 void singly_linked_list_print(SinglyLinkedList *SLL)
 {
-    if(!SLL->size) return;
+    if(!singly_linked_list_size(&SLL)) return;
 
     printf("[Singly Linked List]");
 

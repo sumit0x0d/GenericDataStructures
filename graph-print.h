@@ -9,8 +9,10 @@ void graph_print(GraphAdjacencyList *G)
     printf("[Graph (Adjacency List)]");
 
     printf("\n[Data]\t: ");
-    for(size_t i = 0; i < G->vertices; i++)
+    for(size_t i = 0; i < G->vertices; i++) {
         data_print((G->adjacency_list + (i * sizeof(Vertex)))->data, INT);
+        // printf("%lu", (G->adjacency_list + (i * sizeof(Vertex)))->weight);
+    }
 
     printf("\n[Size]\t: %zu\n", G->size);
 }

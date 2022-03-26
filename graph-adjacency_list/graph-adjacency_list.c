@@ -6,10 +6,13 @@ void graph_destruct(GraphAdjacencyList *G);
 void *graph_adjacency_list_vertices(GraphAdjacencyList *G);
 size_t graph_adjacency_list_size(GraphAdjacencyList *G);
 
+static Vertex *vertex_construct(size_t data_type_size);
+static void vertex_destruct(Vertex *vertex);
+
 bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data, int data_type, size_t data_type_size);
-bool graph_adjacency_list_vertex_remove(GraphAdjacencyList *G);
-bool graph_adjacency_list_edge_insert(GraphAdjacencyList *G, Vertex vertex_source, Vertex vertex_destination);
-bool graph_adjacency_list_edge_remove(GraphAdjacencyList *G, Vertex vertex_source, Vertex vertex_destination);
+bool graph_adjacency_list_vertex_remove(GraphAdjacencyList *G, void *data, int data_type, size_t data_type_size);
+bool graph_adjacency_list_edge_insert(GraphAdjacencyList *G, Vertex *vertex_source, Vertex *vertex_destination, unsigned long weight);
+bool graph_adjacency_list_edge_remove(GraphAdjacencyList *G, Vertex *vertex_source, Vertex *vertex_destination);
 
 GraphAdjacencyList graph_adjacency_list_construct()
 {
@@ -27,11 +30,21 @@ GraphAdjacencyList graph_adjacency_list_construct()
 
 // }
 
-void adjacency_list_construct(Vertex *adjacency_list)
+// void adjacency_list_construct(Vertex *adjacency_list)
+// {
+//     if(!adjacency_list) {
+//         adjacency_list = malloc(sizeof (Vertex));
+//         if(!adjacency_list) return;
+//     }
+// }
+
+Vertex *graph_adjacency_list_vertex_search(GraphAdjacencyList *G, void *data, int data_type)
 {
-    if(!adjacency_list) {
-        adjacency_list = malloc(sizeof (Vertex));
-        if(!adjacency_list) return;
+    Vertex *vertex = G->adjacency_list;
+
+    for(unsigned long i = 0; i < G->vertices; i++) {
+        if(vertex->data == )
+
     }
 }
 
@@ -93,12 +106,12 @@ bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data, int d
 
 // }
 
-// void graph_vertex_remove(GraphAdjacencyList *G)
+// void graph_adjacency_list_vertex_remove(GraphAdjacencyList *G)
 // {
 
 // }
 
-// void graph_edge_insert(GraphAdjacencyList *G, Vertex vertex_source, Vertex vertex_destination)
-// {
+bool graph_adjacency_list_edge_insert(GraphAdjacencyList *G, Vertex *vertex_source, Vertex *vertex_destination, unsigned long weight)
+{
     
-// }
+}
