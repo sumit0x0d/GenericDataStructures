@@ -227,45 +227,51 @@ void avl_tree_print(AVLTree *AVLT)
 {
     // if(!avl_tree_size(AVLT)) return;
 
-    printf("AVL Tree Pre-Order: ");
+    printf("[AVL Tree]");
+
+    printf("\n[Pre-Order]\t: ");
     preorder_traverse(AVLT->root, AVL_TREE, AVLT->data_type);
 
-    printf("\nAVL Tree In-Order: ");
+    printf("\n[In-Order]\t: ");
     preorder_traverse(AVLT->root, AVL_TREE, AVLT->data_type);
 
-    printf("\nAVL Tree Lever-Order: ");
+    printf("\n[Lever-Order]\t: ");
     levelorder_traverse(AVLT->root, AVL_TREE, AVLT->data_type);
     
-    printf("\b\nAVL Tree Size: %zu\n", AVLT->size, AVLT->data_type);
+    printf("\b\n[Size]\t: %zu\n", AVLT->size, AVLT->data_type);
 }
 
 void binary_search_tree_print(BinarySearchTree *BST)
 {
     // if(!binary_search_tree_size(BST)) return;
 
-    printf("Binary Search Tree Pre-Order: ");
+    printf("[Binary Search Tree]");
+
+    printf("\n[Pre-Order]\t: ");
     preorder_traverse(BST->root, BINARY_SEARCH_TREE, BST->data_type);
 
-    printf("\nBinary Search Tree In-Order: ");
+    printf("\n[In-Order]\t: ");
     preorder_traverse(BST->root, BINARY_SEARCH_TREE, BST->data_type);
     
-    printf("\nBinary Search Tree Lever-Order: ");
+    printf("\n[Lever-Order]\t: ");
     levelorder_traverse(BST->root, BINARY_SEARCH_TREE, BST->data_type);
 
-    printf("\b\nBinary Search Tree Size: %zu\n", BST->size);
+    printf("\b\n[Size]\t: %zu\n", BST->size);
 }
 
 void red_black_tree_print(RedBlackTree *RBT)
 {
     // if(!red_black_tree_size(RBT)) return;
 
-    printf("Red-Black Tree Pre-Order: ");
+    printf("[Red-Black Tree]");
+
+    printf("\n[Pre-Order]\t: ");
     preorder_traverse(RBT->root, RED_BLACK_TREE, RBT->data_type);
 
-    printf("\nRed-Black Tree In-Order: ");
+    printf("\n[In-Order]\t: ");
     preorder_traverse(RBT->root, RED_BLACK_TREE, RBT->data_type);
 
-    printf("\nRed-Black Tree Lever Order: ");
+    printf("\n[Lever-Order]\t: ");
     levelorder_traverse(RBT->root, RED_BLACK_TREE, RBT->data_type);
     
     printf("\b\nRed-Black Tree Size: %zu\n", RBT->size);

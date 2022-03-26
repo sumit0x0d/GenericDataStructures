@@ -1,6 +1,6 @@
 #include "queue-array.h"
 
-QueueArray queue_array_construct(size_t element_size, size_t capacity);
+QueueArray queue_array_construct(int element_type, size_t element_size, size_t capacity);
 void queue_array_distroy(QueueArray *Q);
 
 void *queue_array_front(QueueArray *Q);
@@ -10,11 +10,12 @@ size_t queue_array_size(QueueArray *Q);
 bool queue_array_enqueue(QueueArray *Q, void *data);
 bool queue_array_dequeue(QueueArray *Q);
 
-QueueArray queue_array_construct(size_t element_size, size_t capacity)
+QueueArray queue_array_construct(int element_type, size_t element_size, size_t capacity)
 {
     QueueArray Q;
 
     Q.array = NULL;
+    Q.element_type = element_type;
     Q.element_size = element_size;
     Q.front = 0;
     Q.back = 0;
@@ -56,12 +57,12 @@ bool queue_array_enqueue(QueueArray *Q, void *data)
         if(!Q->array) return false;
     }
 
-    if(Q->back == Q->capacity)
-        if(Q->front) {
-            memmove(Q->array, (char *)Q->array + (Q->element_size * Q->front), Q->size);
-            Q->front = 0;
-            Q->back = Q->size;
-        }
+    if(Q->back == Q->capacity) return false;
+        // if(Q->front) {
+        //     memmove(Q->array, (char *)Q->array + (Q->element_size * Q->front), Q->size);
+        //     Q->front = 0;
+        //     Q->back = Q->size;
+        // }
 
     memcpy((char *)Q->array + (Q->element_size * Q->back), data, Q->element_size);
 

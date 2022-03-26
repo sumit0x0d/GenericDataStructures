@@ -31,13 +31,14 @@ enum {
 
 typedef struct StackArray {
     void *array;
+    int element_type;
     size_t element_size;
     size_t top;
     size_t size;
     size_t capacity;
 } StackArray;
 
-StackArray stack_array_construct(size_t element_size, size_t capacity);
+StackArray stack_array_construct(int element_type, size_t element_size, size_t capacity);
 void stack_array_distroy(StackArray *S);
 
 void *stack_array_peek(StackArray *S);

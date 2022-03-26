@@ -4,6 +4,7 @@ TARGET = main
 
 CFLAGS = -std=c17 -O0 -g -Wall -Wpedantic -Wextra
 # -Werror 
+# ./doubly_linked_list/doubly_linked_list.c \
 
 main1:
 	$(CC) $(CFLAGS) \
@@ -12,7 +13,6 @@ main1:
 	./binary_tree/binary_tree.c \
 	./deque-array/deque-array.c \
 	./deque-linked_list/deque-linked_list.c \
-	./doubly_linked_list/doubly_linked_list.c \
 	./dynamic_array/dynamic_array.c \
 	./graph-adjacency_list/graph-adjacency_list.c \
 	./graph-adjacency_matrix/graph-adjacency_matrix.c \
