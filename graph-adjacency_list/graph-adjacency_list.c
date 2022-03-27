@@ -7,7 +7,7 @@ void *graph_adjacency_list_vertices(GraphAdjacencyList *G);
 size_t graph_adjacency_list_size(GraphAdjacencyList *G);
 
 static Vertex *vertex_create(size_t data_type_size);
-static void vertex_distroy(Vertex *vertex);
+// static void vertex_distroy(Vertex *vertex);
 
 bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data);
 bool graph_adjacency_list_vertex_remove(GraphAdjacencyList *G, void *data);
@@ -111,7 +111,7 @@ bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data)
 
 // }
 
-bool graph_adjacency_list_edge_insert(GraphAdjacencyList *G, Vertex *vertex_source, Vertex *vertex_destination, unsigned long weight)
-{
+// bool graph_adjacency_list_edge_insert(GraphAdjacencyList *G, Vertex *vertex_source, Vertex *vertex_destination, unsigned long weight)
+// {
     
-}
+// }

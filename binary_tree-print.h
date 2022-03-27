@@ -140,23 +140,31 @@ void inorder_traverse(void *root, int binary_tree_type, int data_type)
     }
 }
 
-// void postorder_traverse(BinarySearchTree *tree)
-// {
-//     BinarySearchTreeNode *node = tree->root;
-//     Stack S = stack_create();
-    
-//     while(node || S.top)
-//         if(node) {
-//             stack_push(&S, node);
-//             node = node->left;
-//         }
-//         else {
-//             node = S.top->data;
-//             stack_pop(&S);
-//             data_print(node->data, tree->data_type_size);
-//             node = node->right;
-//         }
-// }
+void postorder_traverse(void *root, int binary_tree_type, int data_type)
+{
+    switch (binary_tree_type) {
+        case AVL_TREE:
+            {
+                StackLinkedList S = stack_linked_list_create(STRUCT, sizeof (AVLTreeNode));
+                AVLTreeNode *node = root;
+                while(node) {
+                    if(node->right) {
+                        stack_linked_list_push(&S, node);
+                        data_print(node->right->data, data_type);
+                    }
+                }
+            }
+            break;
+        case BINARY_SEARCH_TREE:
+
+            break;
+        case RED_BLACK_TREE:
+
+            break;
+        default:
+            break;
+    }
+}
 
 void levelorder_traverse(void *root, int binary_tree_type, int data_type)
 {
@@ -241,7 +249,7 @@ void avl_tree_print(AVLTree *AVLT)
     printf("\n[Lever-Order]\t: ");
     levelorder_traverse(AVLT->root, AVL_TREE, AVLT->data_type);
     
-    printf("\b\n[Size]\t: %zu\n", AVLT->size, AVLT->data_type);
+    printf("\b\n[Size]\t: %zu\n", AVLT->size);
 }
 
 void binary_search_tree_print(BinarySearchTree *BST)
