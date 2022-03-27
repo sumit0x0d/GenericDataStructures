@@ -49,7 +49,7 @@ void data_print(void *data, int data_type)
         case LONG_DOUBLE:
             printf("%Lf, ", *(long double *)data);
             break;
-        case STRING:
+        case POINTER:
             printf("%s, ", (char *)data);
             break;
         default:

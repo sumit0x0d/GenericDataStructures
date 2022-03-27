@@ -19,8 +19,10 @@ enum {
     LONG_LONG,
     UNSIGNED_LONG_LONG,
     LONG_DOUBLE,
-    STRING,
-    STRUCT
+    STRUCT,
+    UNION,
+    ARRAY,
+    POINTER
 };
 
 #endif

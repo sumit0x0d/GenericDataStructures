@@ -19,8 +19,11 @@ int main()
     SinglyLinkedList SLL = singly_linked_list_create(INT, sizeof (int));
     StackLinkedList S = stack_linked_list_create(INT, sizeof (int));
     
+    DequeArray D = deque_array_create(INT, sizeof (int), 20);
     StackArray S = stack_array_create(CHAR, sizeof (char), 20);
     QueueArray Q = queue_array_create(INT, sizeof (int), 20);
+
+    DynamicArray DA = dynamic_array_create(INT, sizeof (int), 20, 1.5);
     
     GraphAdjacencyList G = graph_adjacency_list_create(INT, sizeof (int));
     // char c = 'a';

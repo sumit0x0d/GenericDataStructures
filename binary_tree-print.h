@@ -23,9 +23,7 @@ void binary_search_tree_print(BinarySearchTree *BST);
 void red_black_tree_print(RedBlackTree *RBT);
 
 void preorder_traverse(void *root, int binary_tree_type, int data_type)
-{
-    StackLinkedList S = stack_linked_list_create();
-    
+{    
     switch (binary_tree_type) {
         case AVL_TREE:
             {
@@ -85,8 +83,6 @@ void preorder_traverse(void *root, int binary_tree_type, int data_type)
 
 void inorder_traverse(void *root, int binary_tree_type, int data_type)
 {
-    
-
     switch (binary_tree_type) {
         case AVL_TREE:
             {

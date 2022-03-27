@@ -1,6 +1,6 @@
 #include "deque-array.h"
 
-DequeArray deque_array_create(size_t element_size, size_t capacity);
+DequeArray deque_array_create(int element_type, size_t element_size, size_t capacity);
 void deque_array_distroy(DequeArray *D);
 
 void *deque_array_front(DequeArray *D);
@@ -13,11 +13,12 @@ bool deque_array_pop_front(DequeArray *D);
 bool deque_array_pop_back(DequeArray *D);
 
 
-DequeArray deque_array_create(size_t element_size, size_t capacity)
+DequeArray deque_array_create(int element_type, size_t element_size, size_t capacity)
 {
     DequeArray D;
 
     D.array = NULL;
+    D.element_type = element_type;
     D.element_size = element_size;
     D.front = 0;
     D.back = 0;

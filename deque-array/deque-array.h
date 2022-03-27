@@ -19,8 +19,10 @@ enum {
     LONG_LONG,
     UNSIGNED_LONG_LONG,
     LONG_DOUBLE,
-    STRING,
-    STRUCT
+    STRUCT,
+    UNION,
+    ARRAY,
+    POINTER
 };
 
 #endif
@@ -31,6 +33,7 @@ enum {
 
 typedef struct DequeArray {
     void *array;
+    int element_type;
     size_t element_size;
     size_t front;
     size_t back;
@@ -38,7 +41,7 @@ typedef struct DequeArray {
     size_t capacity;
 } DequeArray;
 
-DequeArray deque_array_create(size_t element_size, size_t capacity);
+DequeArray deque_array_create(int element_type, size_t element_size, size_t capacity);
 void deque_array_distroy(DequeArray *D);
 
 void *deque_array_front(DequeArray *D);
