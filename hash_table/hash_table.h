@@ -9,7 +9,7 @@ typedef struct HashTable {
 } HashTable;
 
 void hash_table_print(HashTable *HT);
-HashTable *ht_construct();
+HashTable *ht_create();
 void hash_table_insert(HashTable *HT, void *data, size_t data_type_size);
 void hash_table_remove(HashTable *HT);
 
@@ -26,7 +26,7 @@ void hash_table_remove(HashTable *HT);
 //     printf("Hash-Table Capacity: %zu\n", HT->capacity);
 // }
 
-// HashTable *ht_construct(size_t capacity)
+// HashTable *ht_create(size_t capacity)
 // {
 //     HashTable *HT = malloc(sizeof (HashTable));
 //     assert(HT);

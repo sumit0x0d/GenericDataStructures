@@ -1,28 +1,30 @@
 #include "stack-linked_list.h"
 
-StackLinkedList stack_linked_list_construct();
-void stack_linked_list_destruct(StackLinkedList *S);
+StackLinkedList stack_linked_list_create(int data_type, size_t data_type_size);
+void stack_linked_list_distroy(StackLinkedList *S);
 
 StackLinkedListNode *stack_linked_list_peek(StackLinkedList *s);
 size_t stack_linked_list_size(StackLinkedList *S);
 
-static StackLinkedListNode *node_construct(size_t data_type_size);
-static void node_destruct(StackLinkedListNode *S);
+static StackLinkedListNode *node_create(size_t data_type_size);
+static void node_distroy(StackLinkedListNode *S);
 
-bool stack_linked_list_push(StackLinkedList *S, void *data, int data_type, size_t data_type_size);
+bool stack_linked_list_push(StackLinkedList *S, void *data);
 bool stack_linked_list_pop(StackLinkedList *S);
 
-StackLinkedList stack_linked_list_construct()
+StackLinkedList stack_linked_list_create(int data_type, size_t data_type_size)
 {
     StackLinkedList S;
 
     S.top = NULL;
+    S.data_type = data_type;
+    S.data_type_size = data_type_size;
     S.size = 0;
 
     return S;
 }
 
-void stack_linked_list_destruct(StackLinkedList *S)
+void stack_linked_list_distroy(StackLinkedList *S)
 {
     StackLinkedListNode *node = S->top;
 
@@ -49,7 +51,7 @@ size_t stack_linked_list_size(StackLinkedList *S)
     return S->size;
 }
 
-static StackLinkedListNode *node_construct(size_t data_type_size)
+static StackLinkedListNode *node_create(size_t data_type_size)
 {
     StackLinkedListNode *node = malloc(sizeof (StackLinkedListNode));
     if(!node) return NULL;
@@ -64,7 +66,7 @@ static StackLinkedListNode *node_construct(size_t data_type_size)
     return node;
 }
 
-static void node_destruct(StackLinkedListNode *node)
+static void node_distroy(StackLinkedListNode *node)
 {
     free(node->data);
     node->data = NULL;
@@ -73,14 +75,12 @@ static void node_destruct(StackLinkedListNode *node)
     node = NULL;
 }
 
-bool stack_linked_list_push(StackLinkedList *S, void *data, int data_type, size_t data_type_size)
+bool stack_linked_list_push(StackLinkedList *S, void *data)
 {
-    StackLinkedListNode *node = node_construct(data_type_size);
+    StackLinkedListNode *node = node_create(S->data_type_size);
     if(!node) return false;
 
-    memcpy(node->data, data, data_type_size);
-
-    node->data_type = data_type;
+    memcpy(node->data, data, S->data_type_size);
 
     node->next = S->top;
     S->top = node;
@@ -98,7 +98,7 @@ bool stack_linked_list_pop(StackLinkedList *S)
 
     S->top = S->top->next;
 
-    node_destruct(node);
+    node_distroy(node);
 
     S->size = S->size - 1;
 

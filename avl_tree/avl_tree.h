@@ -44,8 +44,8 @@ typedef struct AVLTree {
     size_t size;
 } AVLTree;
 
-AVLTree avl_tree_construct();
-void avl_tree_destruct(AVLTree *AVLT);
+AVLTree avl_tree_create();
+void avl_tree_distroy(AVLTree *AVLT);
 
 AVLTreeNode *avl_tree_search(AVLTree *AVLT, void *data, size_t data_type_size);
 bool avl_tree_insert(AVLTree *AVLT, void *data, size_t data_type_size);

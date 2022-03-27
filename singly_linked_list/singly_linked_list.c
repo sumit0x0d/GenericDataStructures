@@ -1,33 +1,35 @@
 #include "singly_linked_list.h"
 
-SinglyLinkedList singly_linked_list_construct();
+SinglyLinkedList singly_linked_list_create(int data_type, size_t data_type_size);
 void singly_linked_list_distroy(SinglyLinkedList *SLL);
 
 SinglyLinkedListNode *singly_linked_list_head(SinglyLinkedList *SLL);
 SinglyLinkedListNode *singly_linked_list_tail(SinglyLinkedList *SLL);
 size_t singly_linked_list_size(SinglyLinkedList *SLL);
 
-static SinglyLinkedListNode *node_construct(size_t data_type_size);
-static void node_destruct(SinglyLinkedListNode *node);
+static SinglyLinkedListNode *node_create(size_t data_type_size);
+static void node_distroy(SinglyLinkedListNode *node);
 
-SinglyLinkedListNode *singly_linked_list_search(SinglyLinkedList *SLL, void *data, int data_type, size_t data_type_size);
-bool singly_linked_list_push_front(SinglyLinkedList *SLL, void *data, int data_type, size_t data_type_size);
-bool singly_linked_list_push_back(SinglyLinkedList *SLL, void *data, int data_type, size_t data_type_size);
-bool singly_linked_list_insert(SinglyLinkedList *SLL, size_t index, void *data, int data_type, size_t data_type_size);
-bool singly_linked_list_sorted_insert(SinglyLinkedList *SLL, void *data, int data_type, size_t data_type_size);
+SinglyLinkedListNode *singly_linked_list_search(SinglyLinkedList *SLL, void *data);
+bool singly_linked_list_push_front(SinglyLinkedList *SLL, void *data);
+bool singly_linked_list_push_back(SinglyLinkedList *SLL, void *data);
+bool singly_linked_list_insert(SinglyLinkedList *SLL, size_t index, void *data);
+bool singly_linked_list_sorted_insert(SinglyLinkedList *SLL, void *data);
 bool singly_linked_list_pop_front(SinglyLinkedList *SLL);
 bool singly_linked_list_pop_back(SinglyLinkedList *SLL);
-// bool singly_linked_list_remove(SinglyLinkedList *SLL, void *data, int data_type, size_t data_type_size);
+// bool singly_linked_list_remove(SinglyLinkedList *SLL, void *data);
 bool singly_linked_list_erase(SinglyLinkedList *SLL, size_t index);
 bool singly_linked_list_linear(SinglyLinkedList *SLL);
 bool singly_linked_list_circular(SinglyLinkedList *SLL);
 
-SinglyLinkedList singly_linked_list_construct()
+SinglyLinkedList singly_linked_list_create(int data_type, size_t data_type_size)
 {
     SinglyLinkedList SLL;
 
     SLL.head = NULL;
     SLL.tail = NULL;
+    SLL.data_type = data_type;
+    SLL.data_type_size= data_type_size;
     SLL.size = 0;
 
     return SLL;
@@ -53,7 +55,7 @@ size_t singly_linked_list_size(SinglyLinkedList *SLL)
     return SLL->size;
 }
 
-static SinglyLinkedListNode *node_construct(size_t data_type_size)
+static SinglyLinkedListNode *node_create(size_t data_type_size)
 {
     SinglyLinkedListNode *node = malloc(sizeof (SinglyLinkedListNode));
     if(!node) return NULL;
@@ -68,7 +70,7 @@ static SinglyLinkedListNode *node_construct(size_t data_type_size)
     return node;
 }
 
-static void node_destruct(SinglyLinkedListNode *node)
+static void node_distroy(SinglyLinkedListNode *node)
 {
     free(node->data);
     node->data = NULL;
@@ -93,14 +95,12 @@ static void node_destruct(SinglyLinkedListNode *node)
 //     return NULL;
 // }
 
-bool singly_linked_list_push_front(SinglyLinkedList *SLL, void *data, int data_type, size_t data_type_size)
+bool singly_linked_list_push_front(SinglyLinkedList *SLL, void *data)
 {
-    SinglyLinkedListNode *node = node_construct(data_type_size);
+    SinglyLinkedListNode *node = node_create(SLL->data_type_size);
     if(!node) return false;
 
-    memcpy(node->data, data, data_type_size);
-
-    node->data_type = data_type;
+    memcpy(node->data, data, SLL->data_type_size);
 
     if(SLL->size)
         node->next = SLL->head;
@@ -115,14 +115,12 @@ bool singly_linked_list_push_front(SinglyLinkedList *SLL, void *data, int data_t
     return true;
 }
 
-bool singly_linked_list_push_back(SinglyLinkedList *SLL, void *data, int data_type, size_t data_type_size)
+bool singly_linked_list_push_back(SinglyLinkedList *SLL, void *data)
 {
-    SinglyLinkedListNode *node = node_construct(data_type_size);
+    SinglyLinkedListNode *node = node_create(SLL->data_type_size);
     if(!node) return false;
     
-    memcpy(node->data, data, data_type_size);
-
-    node->data_type = data_type;
+    memcpy(node->data, data, SLL->data_type_size);
 
     node->next = NULL;
     if(SLL->size) {
@@ -139,15 +137,15 @@ bool singly_linked_list_push_back(SinglyLinkedList *SLL, void *data, int data_ty
     return true;
 }
 
-bool singly_linked_list_insert(SinglyLinkedList *SLL, size_t index, void *data, int data_type, size_t data_type_size)
+bool singly_linked_list_insert(SinglyLinkedList *SLL, size_t index, void *data)
 {
     if(!index) {
-        singly_linked_list_push_front(SLL, data, data_type, data_type_size);
+        singly_linked_list_push_front(SLL, data);
         return true;
     }
 
     if(index == SLL->size) {
-        singly_linked_list_push_back(SLL, data, data_type, data_type_size);
+        singly_linked_list_push_back(SLL, data);
         return true;
     }
 
@@ -155,12 +153,10 @@ bool singly_linked_list_insert(SinglyLinkedList *SLL, size_t index, void *data, 
         return false;
 
     SinglyLinkedListNode *node = SLL->head;
-    SinglyLinkedListNode *node_new = node_construct(data_type_size);
+    SinglyLinkedListNode *node_new = node_create(SLL->data_type_size);
     if(!node_new) return false;
 
-    memcpy(node_new->data, data, data_type_size);
-
-    node->data_type = data_type;
+    memcpy(node_new->data, data, SLL->data_type_size);
 
     for(size_t i = 0; i < index-1; i++)
         node = node->next;
@@ -172,25 +168,23 @@ bool singly_linked_list_insert(SinglyLinkedList *SLL, size_t index, void *data, 
     return true;
 }
 
-bool singly_linked_list_sorted_insert(SinglyLinkedList *SLL, void *data, int data_type, size_t data_type_size)
+bool singly_linked_list_sorted_insert(SinglyLinkedList *SLL, void *data)
 {
-    if(!SLL->size || memcmp(data, SLL->head->data, data_type_size) < 0) {
-        singly_linked_list_push_front(SLL, data, data_type, data_type_size);
+    if(!SLL->size || memcmp(data, SLL->head->data, SLL->data_type_size) < 0) {
+        singly_linked_list_push_front(SLL, data);
         return true;
     }
 
-    if(memcmp(data, SLL->tail->data, data_type_size) > 0) {
-        singly_linked_list_push_back(SLL, data, data_type, data_type_size);
+    if(memcmp(data, SLL->tail->data, SLL->data_type_size) > 0) {
+        singly_linked_list_push_back(SLL, data);
         return true;
     }
 
     SinglyLinkedListNode *node = SLL->head;
-    SinglyLinkedListNode *node_new = node_construct(data_type_size);
+    SinglyLinkedListNode *node_new = node_create(SLL->data_type_size);
     if(!node_new) return false;
 
-    memcpy(node_new->data, data, data_type_size);
-
-    node->data_type = data_type;
+    memcpy(node_new->data, data, SLL->data_type_size);
 
     while(node && data > node->next->data) {
         node = node->next;
@@ -213,7 +207,7 @@ bool singly_linked_list_pop_front(SinglyLinkedList *SLL)
     if(!SLL->size)
         SLL->tail = NULL;
 
-    node_destruct(node);
+    node_distroy(node);
 
     SLL->size = SLL->size - 1;
 

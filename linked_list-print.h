@@ -1,5 +1,5 @@
 #include "deque-linked_list/deque-linked_list.h"
-// #include "doubly_linked_list/doubly_linked_list.h"
+#include "doubly_linked_list/doubly_linked_list.h"
 #include "queue-linked_list/queue-linked_list.h"
 #include "singly_linked_list/singly_linked_list.h"
 #include "stack-linked_list/stack-linked_list.h"
@@ -14,14 +14,14 @@ enum {
     STACK_LINKED_LIST
 };
 
-static void linked_list_traverse(void *head, int data_structure)
+static void linked_list_traverse(void *head, int data_structure, int data_type)
 {
     switch (data_structure) {
         case DEQUE_LINKED_LIST:
             {
                 DequeLinkedListNode *node = head;
                 do {
-                    data_print(node->data, node->data_type);
+                    data_print(node->data, data_type);
                     node = node->next;
                 } while(node);
             }
@@ -39,7 +39,7 @@ static void linked_list_traverse(void *head, int data_structure)
             {
                 QueueLinkedListNode *node = head;
                 do {
-                    data_print(node->data, node->data_type);
+                    data_print(node->data, data_type);
                     node = node->next;
                 } while(node);
             }
@@ -48,7 +48,7 @@ static void linked_list_traverse(void *head, int data_structure)
             {
                 SinglyLinkedListNode *node = head;
                 do {
-                    data_print(node->data, node->data_type);
+                    data_print(node->data, data_type);
                     node = node->next;
                 } while(node);
             }
@@ -57,7 +57,7 @@ static void linked_list_traverse(void *head, int data_structure)
             {
                 StackLinkedListNode *node = head;
                 do {
-                    data_print(node->data, node->data_type);
+                    data_print(node->data, data_type);
                     node = node->next;
                 } while(node);
                 break;
@@ -74,7 +74,7 @@ void deque_linked_list_print(DequeLinkedList *D)
     printf("[Deque (Linked List)]");
 
     printf("\n[Data]: ");
-    linked_list_traverse(D->front, DEQUE_LINKED_LIST);
+    linked_list_traverse(D->front, DEQUE_LINKED_LIST, D->data_type);
 
     printf("\b\n[Deque][Size]\t: %zu\n", D->size);
 }
@@ -96,7 +96,7 @@ void queue_linked_list_print(QueueLinkedList *Q)
     printf("[Queue (Linked List)]");
 
     printf("\n[Data]: ");   
-    linked_list_traverse(Q->front, QUEUE_LINKED_LIST);
+    linked_list_traverse(Q->front, QUEUE_LINKED_LIST, Q->data_type);
 
     printf("\b\n[Queue]\n[Size]\t: %zu\n", Q->size);
 }
@@ -108,7 +108,7 @@ void singly_linked_list_print(SinglyLinkedList *SLL)
     printf("[Singly Linked List]");
 
     printf("\n[Data]: ");
-    linked_list_traverse(SLL->head, SINGLY_LINKED_LIST);
+    linked_list_traverse(SLL->head, SINGLY_LINKED_LIST, SLL->data_type);
 
     printf("\b\n[Singly Linked List]\n[Size]\t: %zu\n", SLL->size);
 }
@@ -120,7 +120,7 @@ void stack_linked_list_print(StackLinkedList *S)
     printf("[Stack (Linked List)]");
 
     printf("\n[Data]\t: ");
-    linked_list_traverse(S->top, STACK_LINKED_LIST);
+    linked_list_traverse(S->top, STACK_LINKED_LIST, S->data_type);
 
     printf("\b");
     printf("\n[Size]\t: %zu\n", S->size);

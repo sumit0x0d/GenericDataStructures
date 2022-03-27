@@ -40,8 +40,8 @@ typedef struct BinaryTree {
     size_t size;
 } BinaryTree;
 
-BinaryTree binary_tree_construct();
-void binary_tree_destruct(BinaryTree *bt);
+BinaryTree binary_tree_create();
+void binary_tree_distroy(BinaryTree *bt);
 
 BinaryTreeNode *binary_tree_insert(BinaryTree *bt, void *data, size_t data_type_size);
 

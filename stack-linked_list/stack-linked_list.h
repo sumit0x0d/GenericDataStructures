@@ -31,22 +31,23 @@ enum {
 
 typedef struct StackLinkedListNode {
     void *data;
-    int data_type;
     struct StackLinkedListNode *next;
 } StackLinkedListNode;
 
 typedef struct StackLinkedList {
     StackLinkedListNode *top;
+    int data_type;
+    size_t data_type_size;
     size_t size;
 } StackLinkedList;
 
-StackLinkedList stack_linked_list_construct();
-void stack_linked_list_destruct(StackLinkedList *S);
+StackLinkedList stack_linked_list_create(int data_type, size_t data_type_size);
+void stack_linked_list_distroy(StackLinkedList *S);
 
 StackLinkedListNode *stack_linked_list_peek(StackLinkedList *S);
 size_t stack_linked_list_size(StackLinkedList *S);
 
-bool stack_linked_list_push(StackLinkedList *S, void *data, int data_type, size_t data_type_size);
+bool stack_linked_list_push(StackLinkedList *S, void *data);
 bool stack_linked_list_pop(StackLinkedList *S);
 
 #endif

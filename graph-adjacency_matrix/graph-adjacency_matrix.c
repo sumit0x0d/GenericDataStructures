@@ -7,7 +7,7 @@ bool graph_adjacency_matrix_remove_vertex(Graph *G, unsigned long vertex);
 bool graph_adjacency_matrix_insert_edge(Graph *G, unsigned long vertex_source, unsigned long vertex_destination);
 bool graph_adjacency_matrix_remove_edge(Graph *G, unsigned long vertex_source, unsigned long vertex_destination);
 
-Graph graph_construct()
+Graph graph_create()
 {
     Graph G;
 
@@ -17,7 +17,7 @@ Graph graph_construct()
     return G;
 }
 
-// void graph_destruct(Graph *G)
+// void graph_distroy(Graph *G)
 // {
     
 // }

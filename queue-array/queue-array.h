@@ -39,7 +39,7 @@ typedef struct QueueArray {
     size_t capacity;
 } QueueArray;
 
-QueueArray queue_array_construct(int element_type, size_t element_size, size_t capacity);
+QueueArray queue_array_create(int element_type, size_t element_size, size_t capacity);
 void queue_array_distroy(QueueArray *Q);
 
 void *queue_array_front(QueueArray *Q);

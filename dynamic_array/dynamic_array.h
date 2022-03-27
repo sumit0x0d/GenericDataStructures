@@ -40,8 +40,8 @@ typedef struct DynamicArray {
     double growth_factor;
 } DynamicArray;
 
-DynamicArray dynamic_array_construct(int element_type, size_t element_size, size_t capacity, double growth_factor);
-void dynamic_array_destruct(DynamicArray *DA);
+DynamicArray dynamic_array_create(int element_type, size_t element_size, size_t capacity, double growth_factor);
+void dynamic_array_distroy(DynamicArray *DA);
 
 void *dynamic_array_front(DynamicArray *DS);
 void *dynamic_array_back(DynamicArray *DS);

@@ -31,24 +31,25 @@ enum {
 
 typedef struct QueueLinkedListNode {
     void *data;
-    int data_type;
     struct QueueLinkedListNode *next;
 } QueueLinkedListNode;
 
 typedef struct QueueLinkedList {
     QueueLinkedListNode *front;
     QueueLinkedListNode *back;
+    int data_type;
+    size_t data_type_size;
     size_t size;
 } QueueLinkedList;
 
-QueueLinkedList queue_linked_list_construct();
-void queue_linked_list_destruct(QueueLinkedList *Q);
+QueueLinkedList queue_linked_list_create(int data_type, size_t data_type_size);
+void queue_linked_list_distroy(QueueLinkedList *Q);
 
 QueueLinkedListNode *queue_linked_list_front(QueueLinkedList *Q);
 QueueLinkedListNode *queue_linked_list_back(QueueLinkedList *Q);
 size_t queue_linked_list_size(QueueLinkedList *Q);
 
-bool queue_linked_list_enqueue(QueueLinkedList *Q, void *data, int data_type, size_t data_type_size);
+bool queue_linked_list_enqueue(QueueLinkedList *Q, void *data);
 bool queue_linked_list_dequeue(QueueLinkedList *Q);
 
 #endif

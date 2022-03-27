@@ -13,7 +13,7 @@
 //     return NULL;
 // }
 
-static RedBlackTreeNode *node_construct(size_t data_type_size)
+static RedBlackTreeNode *node_create(size_t data_type_size)
 {
     RedBlackTreeNode *node = malloc(sizeof (RedBlackTreeNode));
     if(!node) return NULL;
@@ -36,7 +36,7 @@ static RedBlackTreeNode *node_construct(size_t data_type_size)
 void red_black_tree_insert(RedBlackTree *RBT, void *data, size_t data_type_size)
 {
     if(!RBT->size) {
-        RBT->root = node_construct(data_type_size);
+        RBT->root = node_create(data_type_size);
         if(!RBT->root) return;
 
         memcpy(RBT->root->data, data, data_type_size);
@@ -60,7 +60,7 @@ void red_black_tree_insert(RedBlackTree *RBT, void *data, size_t data_type_size)
             node = node->right;
     }
 
-    node = node_construct(data_type_size);
+    node = node_create(data_type_size);
     if(!node) return;
 
     memcpy(node->data, data, data_type_size);

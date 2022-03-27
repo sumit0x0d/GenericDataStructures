@@ -1,7 +1,7 @@
 #include "avl_tree.h"
 
-AVLTree avl_tree_construct();
-void avl_tree_destruct(AVLTree *AVLT);
+AVLTree avl_tree_create();
+void avl_tree_distroy(AVLTree *AVLT);
 
 size_t avl_tree_size(AVLTree *AVLT);
 
@@ -9,7 +9,7 @@ AVLTreeNode *avl_tree_search(AVLTree *AVLT, void *data, size_t data_type_size);
 bool avl_tree_insert(AVLTree *AVLT, void *data, size_t data_type_size);
 bool avl_tree_remove(AVLTree *AVLT, void *data, size_t data_type_size);
 
-AVLTree avl_tree_construct()
+AVLTree avl_tree_create()
 {
     AVLTree AVLT;
 
@@ -19,7 +19,7 @@ AVLTree avl_tree_construct()
     return AVLT;
 }
 
-// void avl_tree_destruct(AVLTree *AVLT)
+// void avl_tree_distroy(AVLTree *AVLT)
 // {
 
 // }
@@ -154,7 +154,7 @@ static void node_rebalance(AVLTreeNode *node)
         node = node_rotate_left_right(node);
 }
 
-static AVLTreeNode *node_construct(size_t data_type_size)
+static AVLTreeNode *node_create(size_t data_type_size)
 {
     AVLTreeNode *node = malloc(sizeof (AVLTreeNode));
     if(!node) return NULL;
@@ -176,7 +176,7 @@ static AVLTreeNode *node_construct(size_t data_type_size)
 bool avl_tree_insert(AVLTree *AVLT, void *data, size_t data_type_size)
 {
     if(!avl_tree_size(AVLT)) {
-        AVLT->root = node_construct(data_type_size);
+        AVLT->root = node_create(data_type_size);
         if(!AVLT->root) return false;
 
         memcpy(AVLT->root->data, data, data_type_size);
@@ -201,7 +201,7 @@ bool avl_tree_insert(AVLTree *AVLT, void *data, size_t data_type_size)
             node = node->right;
     }
 
-    node = node_construct(data_type_size);
+    node = node_create(data_type_size);
     if(!node) return false;
 
     memcpy(node->data, data, data_type_size);

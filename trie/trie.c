@@ -4,7 +4,7 @@ TrieNode *trie_search(Trie *T, char *string);
 bool trie_insert(Trie *T, char *string);
 bool trie_remove(Trie *T, char *string);
 
-Trie trie_construct()
+Trie trie_create()
 {
     Trie trie;
 
@@ -20,7 +20,7 @@ Trie trie_construct()
 //     return node;
 // }
 
-static TrieNode *node_construct()
+static TrieNode *node_create()
 {
     TrieNode *node = malloc(sizeof (TrieNode));
     if(!node) return NULL;
@@ -37,7 +37,7 @@ static TrieNode *node_construct()
 bool trie_insert(Trie *T, char *string)
 {
     if(!T->root) {
-        T->root = node_construct();
+        T->root = node_create();
         if(!T->root) return false;
     }
 
@@ -45,14 +45,14 @@ bool trie_insert(Trie *T, char *string)
 
     while(*string != '\0') {
         if(node->children[(size_t)*string] == NULL)
-            node->children[(size_t)*string] = node_construct();
+            node->children[(size_t)*string] = node_create();
         node = node->children[(size_t)*string];
         string++;
     }
     // size_t length = strlen(string);
     // for(size_t i = 0; i < length; i++) {
     //     if(node->children[(int)string[i]] == 0)
-    //         node->children[(size_t)string[i]] = node_construct(string[i]);
+    //         node->children[(size_t)string[i]] = node_create(string[i]);
     // }
     if(node->terminal)
         return false;
@@ -64,7 +64,7 @@ bool trie_insert(Trie *T, char *string)
     return true;
 }
 
-// void node_destruct(Trie *T, char character)
+// void node_distroy(Trie *T, char character)
 // {
 //     TrieNode *node = T->root;
 //     free(node);

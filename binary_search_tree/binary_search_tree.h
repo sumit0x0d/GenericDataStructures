@@ -43,8 +43,8 @@ typedef struct BinarySearchTree {
     int (*compare_data)(void *data, void *node_data);
 } BinarySearchTree;
 
-BinarySearchTree binary_search_tree_construct(int data_type, int (*compare_data)(void *data, void *node_data));
-void binary_search_tree_destruct(BinarySearchTree *BST);
+BinarySearchTree binary_search_tree_create(int data_type, int (*compare_data)(void *data, void *node_data));
+void binary_search_tree_distroy(BinarySearchTree *BST);
 
 BinarySearchTreeNode *binary_search_tree_search(BinarySearchTree *BST, void *data, size_t data_type_size);
 bool binary_search_tree_insert(BinarySearchTree *BST, void *data, size_t data_type_size);

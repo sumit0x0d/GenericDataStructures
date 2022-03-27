@@ -13,14 +13,16 @@ int compare_data(void *data, void *node_data) {
 
 int main()
 {
-    // DequeLinkedList D = deque_linked_list_construct();
-    // DoublyLinkedList DLL = doubly_linked_list_construct();
-    // QueueLinkedList Q = queue_linked_list_construct();
-    // SinglyLinkedList SLL = singly_linked_list_construct();
-    StackLinkedList S = stack_linked_list_construct();
-
-    StackArray S = stack_array_construct(CHAR, sizeof (char), 20);
-    // QueueArray Q = queue_array_construct(INT, 0, 20);
+    DequeLinkedList D = deque_linked_list_create(INT, sizeof (int));
+    DoublyLinkedList DLL = doubly_linked_list_create(INT, sizeof (int));
+    QueueLinkedList Q = queue_linked_list_create(INT, sizeof (int));
+    SinglyLinkedList SLL = singly_linked_list_create(INT, sizeof (int));
+    StackLinkedList S = stack_linked_list_create(INT, sizeof (int));
+    
+    StackArray S = stack_array_create(CHAR, sizeof (char), 20);
+    QueueArray Q = queue_array_create(INT, sizeof (int), 20);
+    
+    GraphAdjacencyList G = graph_adjacency_list_create(INT, sizeof (int));
     // char c = 'a';
     // int i = 1;
     // int i2 = 2;
@@ -31,11 +33,10 @@ int main()
     // stack_array_push(&S, &c);
     // queue_array_enqueue(&Q, &i);
     // queue_array_enqueue(&Q, &i2);
-    GraphAdjacencyList G = graph_adjacency_list_construct();
     int x = 10;
     int l = 10000;
-    graph_adjacency_list_vertex_insert(&G, &x, INT, sizeof x);
-    graph_adjacency_list_vertex_insert(&G, &l, INT, sizeof l);
+    graph_adjacency_list_vertex_insert(&G, &x);
+    graph_adjacency_list_vertex_insert(&G, &l);
     graph_print(&G);
     // queue_array_enqueue(&Q, &i2);
     // queue_array_enqueue(&Q, &i2);
@@ -62,8 +63,8 @@ int main()
     // singly_linked_list_push_back(&SLL, &l, sizeof l);
     // singly_linked_list_push_back(&SLL, &s, strlen(s));
 
-    // stack_linked_list_push(&S, &c, sizeof c);
-    // BinarySearchTree BST = binary_search_tree_construct(INT, sizeof (int), compare_data);
+    // stack_linked_list_push(&S, &c);
+    // BinarySearchTree BST = binary_search_tree_create(INT, sizeof (int), compare_data);
 
     // binary_search_tree_insert(&BST, &c, sizeof c);
     // binary_search_tree_insert(&BST, &i, sizeof i);
@@ -81,5 +82,4 @@ int main()
     // stack_linked_list_print(&S);
     // stack_array_print(&S);
     // queue_array_print(&Q);
-
 }

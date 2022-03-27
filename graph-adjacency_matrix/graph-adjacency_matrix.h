@@ -9,8 +9,8 @@ typedef struct Graph {
     unsigned long vertex;
 } Graph;
 
-Graph graph_construct();
-void graph_destruct(Graph *G);
+Graph graph_create();
+void graph_distroy(Graph *G);
 bool graph_adjacent(Graph *G, unsigned long vertex);
 bool graph_neighbors(Graph *G, unsigned long vertex);
 bool graph_insert_vertex(Graph *G, unsigned long vertex);

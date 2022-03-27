@@ -42,7 +42,7 @@ typedef struct RedBlackTree {
     size_t size;
 } RedBlackTree;
 
-RedBlackTree red_black_tree_construct(size_t data_type_size);
+RedBlackTree red_black_tree_create(size_t data_type_size);
 RedBlackTreeNode *red_black_tree_search(RedBlackTree *RBT, void *data, size_t data_type_size);
 
 void red_black_tree_insert(RedBlackTree *RBT, void *data, size_t data_type_size);

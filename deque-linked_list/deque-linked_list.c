@@ -1,32 +1,34 @@
 #include "deque-linked_list.h"
 
-DequeLinkedList deque_linked_list_construct();
-void deque_linked_list_destruct(DequeLinkedList *D);
+DequeLinkedList deque_linked_list_create(int data_type, size_t data_type_size);
+void deque_linked_list_distroy(DequeLinkedList *D);
 
 DequeLinkedListNode *deque_linked_list_front(DequeLinkedList *D);
 DequeLinkedListNode *deque_linked_list_back(DequeLinkedList *D);
 size_t deque_linked_list_size(DequeLinkedList *D);
 
-static DequeLinkedListNode *node_construct(size_t data_type_size);
-static void node_destruct(DequeLinkedListNode *D);
+static DequeLinkedListNode *node_create(size_t data_type_size);
+static void node_distroy(DequeLinkedListNode *D);
 
-bool deque_linked_list_push_front(DequeLinkedList *D, void *data, int data_type, size_t data_type_size);
-bool deque_linked_list_push_back(DequeLinkedList *D, void *data, int data_type, size_t data_type_size);
+bool deque_linked_list_push_front(DequeLinkedList *D, void *data);
+bool deque_linked_list_push_back(DequeLinkedList *D, void *data);
 bool deque_linked_list_pop_front(DequeLinkedList *D);
 bool deque_linked_list_pop_back(DequeLinkedList *D);
 
-DequeLinkedList deque_linked_list_construct()
+DequeLinkedList deque_linked_list_create(int data_type, size_t data_type_size)
 {
     DequeLinkedList D;
 
     D.front = NULL;
     D.back = NULL;
+    D.data_type = data_type;
+    D.data_type_size = data_type_size;
     D.size = 0;
 
     return D;
 }
 
-// void deque_linked_list_destruct(DequeLinkedList *D)
+// void deque_linked_list_distroy(DequeLinkedList *D)
 // {
 
 // }
@@ -46,7 +48,7 @@ size_t deque_linked_list_size(DequeLinkedList *D)
     return D->size;
 }
 
-DequeLinkedListNode *node_construct(size_t data_type_size)
+DequeLinkedListNode *node_create(size_t data_type_size)
 {
     DequeLinkedListNode *node = malloc(sizeof (DequeLinkedListNode));
     if(!node) return NULL;
@@ -61,7 +63,7 @@ DequeLinkedListNode *node_construct(size_t data_type_size)
     return node;
 }
 
-void node_destruct(DequeLinkedListNode *node)
+void node_distroy(DequeLinkedListNode *node)
 {
     free(node->data);
     node->data = NULL;
@@ -70,14 +72,12 @@ void node_destruct(DequeLinkedListNode *node)
     node = NULL;
 }
 
-bool deque_linked_list_push_front(DequeLinkedList *D, void *data, int data_type, size_t data_type_size)
+bool deque_linked_list_push_front(DequeLinkedList *D, void *data)
 {
-    DequeLinkedListNode *node = node_construct(data_type_size);
+    DequeLinkedListNode *node = node_create(D->data_type_size);
     if(!node) return false;
 
-    memcpy(node->data, data, data_type_size);
-
-    node->data_type = data_type;
+    memcpy(node->data, data, D->data_type_size);
 
     node->previous = NULL;
     if(D->size) {
@@ -95,14 +95,12 @@ bool deque_linked_list_push_front(DequeLinkedList *D, void *data, int data_type,
     return true;
 }
 
-bool deque_linked_list_push_back(DequeLinkedList *D, void *data, int data_type, size_t data_type_size)
+bool deque_linked_list_push_back(DequeLinkedList *D, void *data)
 {
-    DequeLinkedListNode *node = node_construct(data_type_size);
+    DequeLinkedListNode *node = node_create(D->data_type_size);
     if(!node) return false; 
 
-    memcpy(node->data, data, data_type_size);
-
-    node->data_type = data_type;
+    memcpy(node->data, data, D->data_type_size);
 
     node->next = NULL;
     if(D->size) {
@@ -130,7 +128,7 @@ bool deque_linked_list_pop_front(DequeLinkedList *D)
     if(!D->front)
         D->back = NULL;
 
-    node_destruct(node);
+    node_distroy(node);
 
     D->size = D->size - 1;
 
@@ -147,7 +145,7 @@ bool deque_linked_list_pop_back(DequeLinkedList *D)
     if(D->back)
         D->back->next = NULL;
 
-    node_destruct(node);
+    node_distroy(node);
 
     D->size = D->size - 1;
 
