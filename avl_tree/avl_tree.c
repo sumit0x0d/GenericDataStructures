@@ -195,12 +195,13 @@ bool avl_tree_insert(AVLTree *AVLT, void *data)
     
     AVLTreeNode *node = AVLT->root;
     AVLTreeNode *node_parent = NULL;
-    
+    int compare;
+
     while(node) {
-        if(data == node->data)
-            return false;
-        node_parent = node;
-        if(data < node->data)
+        compare = AVLT->compare_data(data, node->data);
+        if(compare == 0)
+            return node;
+        else if(compare < 0)
             node = node->left;
         else
             node = node->right;
