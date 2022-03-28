@@ -1,7 +1,7 @@
 #include "graph-adjacency_list.h"
 
 GraphAdjacencyList graph_adjacency_list_create(int data_type, size_t data_type_size);
-void graph_distroy(GraphAdjacencyList *G);
+void graph_adjacency_list_distroy(GraphAdjacencyList *G);
 
 void *graph_adjacency_list_vertices(GraphAdjacencyList *G);
 size_t graph_adjacency_list_size(GraphAdjacencyList *G);
@@ -27,10 +27,11 @@ GraphAdjacencyList graph_adjacency_list_create(int data_type, size_t data_type_s
     return G;
 }
 
-// void graph_distroy()
-// {
-
-// }
+void graph_adjacency_list_distroy(GraphAdjacencyList *G)
+{
+    free(G->adjacency_list);
+    G->adjacency_list = NULL;
+}
 
 // void adjacency_list_create(Vertex *adjacency_list)
 // {
