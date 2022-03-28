@@ -31,12 +31,13 @@ int main()
 
     // GraphAdjacencyList G = graph_adjacency_list_create(INT, sizeof (int));
     // GraphAdjacencyMatrix G = graph_adjacency_list_create(INT, sizeof (int));
+
     // char c = 'a';
     // int i = 1;
-    // int i2 = 2;
-    // long l = 200;
-    // long double ld = 210.55552235555;
-    // char *s = "test";
+    // long l = 99999999;
+    // long double ld = 3.14;
+    // char *s = "string";
+
     // stack_array_push(&S, &c);
     // stack_array_push(&S, &c);
     // queue_array_enqueue(&Q, &i);

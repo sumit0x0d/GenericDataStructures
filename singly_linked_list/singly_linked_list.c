@@ -119,7 +119,7 @@ bool singly_linked_list_push_back(SinglyLinkedList *SLL, void *data)
 {
     SinglyLinkedListNode *node = node_create(SLL->data_type_size);
     if(!node) return false;
-    
+
     memcpy(node->data, data, SLL->data_type_size);
 
     node->next = NULL;
@@ -131,7 +131,7 @@ bool singly_linked_list_push_back(SinglyLinkedList *SLL, void *data)
         SLL->head = node;
         SLL->tail = node;
     }
-    
+
     SLL->size = SLL->size + 1;
 
     return true;
@@ -191,7 +191,7 @@ bool singly_linked_list_sorted_insert(SinglyLinkedList *SLL, void *data)
     }
     node_new->next = node->next;
     node->next = node_new;
-    
+
     SLL->size = SLL->size + 1;
 
     return true;
