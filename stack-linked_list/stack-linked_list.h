@@ -17,7 +17,7 @@ typedef struct StackLinkedList {
 } StackLinkedList;
 
 StackLinkedList stack_linked_list_create(size_t data_type_size);
-void stack_linked_list_distroy(StackLinkedList *S);
+void stack_linked_list_destroy(StackLinkedList *S);
 
 StackLinkedListNode *stack_linked_list_peek(StackLinkedList *S);
 size_t stack_linked_list_size(StackLinkedList *S);

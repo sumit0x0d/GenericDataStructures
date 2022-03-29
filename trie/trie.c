@@ -64,7 +64,7 @@ bool trie_insert(Trie *T, char *string)
     return true;
 }
 
-// void node_distroy(Trie *T, char character)
+// void node_destroy(Trie *T, char character)
 // {
 //     TrieNode *node = T->root;
 //     free(node);

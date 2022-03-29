@@ -18,7 +18,7 @@ typedef struct QueueLinkedList {
 } QueueLinkedList;
 
 QueueLinkedList queue_linked_list_create(size_t data_type_size);
-void queue_linked_list_distroy(QueueLinkedList *Q);
+void queue_linked_list_destroy(QueueLinkedList *Q);
 
 QueueLinkedListNode *queue_linked_list_front(QueueLinkedList *Q);
 QueueLinkedListNode *queue_linked_list_back(QueueLinkedList *Q);

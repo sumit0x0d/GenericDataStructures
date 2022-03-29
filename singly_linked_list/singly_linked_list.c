@@ -1,14 +1,14 @@
 #include "singly_linked_list.h"
 
 SinglyLinkedList singly_linked_list_create(size_t data_type_size);
-void singly_linked_list_distroy(SinglyLinkedList *SLL);
+void singly_linked_list_destroy(SinglyLinkedList *SLL);
 
 SinglyLinkedListNode *singly_linked_list_head(SinglyLinkedList *SLL);
 SinglyLinkedListNode *singly_linked_list_tail(SinglyLinkedList *SLL);
 size_t singly_linked_list_size(SinglyLinkedList *SLL);
 
 static SinglyLinkedListNode *node_create(size_t data_type_size);
-static void node_distroy(SinglyLinkedListNode *node);
+static void node_destroy(SinglyLinkedListNode *node);
 
 SinglyLinkedListNode *singly_linked_list_search(SinglyLinkedList *SLL, void *data);
 bool singly_linked_list_push_front(SinglyLinkedList *SLL, void *data);
@@ -34,7 +34,7 @@ SinglyLinkedList singly_linked_list_create(size_t data_type_size)
     return SLL;
 }
 
-// void singly_linked_list_distroy(SinglyLinkedList *SLL)
+// void singly_linked_list_destroy(SinglyLinkedList *SLL)
 // {
 
 // }
@@ -69,7 +69,7 @@ static SinglyLinkedListNode *node_create(size_t data_type_size)
     return node;
 }
 
-static void node_distroy(SinglyLinkedListNode *node)
+static void node_destroy(SinglyLinkedListNode *node)
 {
     free(node->data);
     node->data = NULL;
@@ -203,7 +203,7 @@ bool singly_linked_list_pop_front(SinglyLinkedList *SLL)
     if(!SLL->size)
         SLL->tail = NULL;
 
-    node_distroy(node);
+    node_destroy(node);
 
     SLL->size = SLL->size - 1;
 

@@ -1,7 +1,7 @@
 #include "dynamic_array.h"
 
 DynamicArray dynamic_array_create(size_t element_size, size_t capacity, double growth_factor);
-void dynamic_array_distroy(DynamicArray *DA);
+void dynamic_array_destroy(DynamicArray *DA);
 
 void *dynamic_array_front(DynamicArray *DS);
 void *dynamic_array_back(DynamicArray *DS);
@@ -31,7 +31,7 @@ DynamicArray dynamic_array_create(size_t element_size, size_t capacity, double g
     return DA;
 }
 
-void dynamic_array_distroy(DynamicArray *DA)
+void dynamic_array_destroy(DynamicArray *DA)
 {
     free(DA->array);
     DA->array = NULL;

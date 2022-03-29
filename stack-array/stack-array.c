@@ -1,7 +1,7 @@
 #include "stack-array.h"
 
 StackArray stack_array_create(size_t element_size, size_t capacity);
-void stack_array_distroy(StackArray *S);
+void stack_array_destroy(StackArray *S);
 
 void *stack_array_peek(StackArray *S);
 size_t stack_array_size(StackArray *S);
@@ -22,7 +22,7 @@ StackArray stack_array_create(size_t element_size, size_t capacity)
     return S;
 }
 
-void stack_array_distroy(StackArray *S)
+void stack_array_destroy(StackArray *S)
 {
     free(S->array);
     S->array = NULL;

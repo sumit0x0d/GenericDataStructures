@@ -19,7 +19,7 @@ typedef struct BinarySearchTree {
 } BinarySearchTree;
 
 BinarySearchTree binary_search_tree_create(size_t data_type_size, int (*compare_data)(void *data, void *node_data));
-void binary_search_tree_distroy(BinarySearchTree *BST);
+void binary_search_tree_destroy(BinarySearchTree *BST);
 
 BinarySearchTreeNode *binary_search_tree_search(BinarySearchTree *BST, void *data);
 bool binary_search_tree_insert(BinarySearchTree *BST, void *data);

@@ -15,7 +15,7 @@ typedef struct QueueArray {
 } QueueArray;
 
 QueueArray queue_array_create(size_t element_size, size_t capacity);
-void queue_array_distroy(QueueArray *Q);
+void queue_array_destroy(QueueArray *Q);
 
 void *queue_array_front(QueueArray *Q);
 void *queue_array_back(QueueArray *Q);

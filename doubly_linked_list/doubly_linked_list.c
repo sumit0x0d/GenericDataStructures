@@ -1,14 +1,14 @@
 #include "doubly_linked_list.h"
 
 DoublyLinkedList doubly_linked_list_create(size_t data_type_size);
-void doubly_linked_list_distroy(DoublyLinkedList *);
+void doubly_linked_list_destroy(DoublyLinkedList *);
 
 DoublyLinkedListNode *doubly_linked_list_front(DoublyLinkedList *DLL);
 DoublyLinkedListNode *doubly_linked_list_back(DoublyLinkedList *DLL);
 size_t doubly_linked_list_size(DoublyLinkedList *DLL);
 
 static DoublyLinkedListNode *node_create(size_t data_type_size);
-static void node_distroy(DoublyLinkedListNode *node);
+static void node_destroy(DoublyLinkedListNode *node);
 
 DoublyLinkedListNode *doubly_linked_list_search(DoublyLinkedList *DLL, void *data);
 bool doubly_linked_list_push_front(DoublyLinkedList *DLL, void *data);
@@ -49,7 +49,7 @@ static DoublyLinkedListNode *node_create(size_t data_type_size)
     return node;
 }
 
-static void node_distroy(DoublyLinkedListNode *node)
+static void node_destroy(DoublyLinkedListNode *node)
 {
     free(node->data);
     node->data = NULL;
@@ -178,7 +178,7 @@ bool doubly_linked_list_pop_front(DoublyLinkedList *DLL)
     if(!DLL->head)
         DLL->tail = NULL;
 
-    node_distroy(node);
+    node_destroy(node);
 
     DLL->size = DLL->size - 1;
 
@@ -195,7 +195,7 @@ bool doubly_linked_list_pop_back(DoublyLinkedList *DLL)
     if(DLL->tail)
         DLL->tail->next = NULL;
 
-    node_distroy(node);
+    node_destroy(node);
 
     DLL->size = DLL->size - 1;
 

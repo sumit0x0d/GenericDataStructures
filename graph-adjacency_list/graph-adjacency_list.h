@@ -21,7 +21,7 @@ typedef struct GraphAdjacencyList {
 } GraphAdjacencyList;
 
 GraphAdjacencyList graph_adjacency_list_create(int data_type, size_t data_type_size);
-void graph_adjacency_list_distroy(GraphAdjacencyList *G);
+void graph_adjacency_list_destroy(GraphAdjacencyList *G);
 
 void *graph_adjacency_list_vertices(GraphAdjacencyList *G);
 size_t graph_adjacency_list_size(GraphAdjacencyList *G);

@@ -1,13 +1,13 @@
 #include "graph-adjacency_list.h"
 
 GraphAdjacencyList graph_adjacency_list_create(int data_type, size_t data_type_size);
-void graph_adjacency_list_distroy(GraphAdjacencyList *G);
+void graph_adjacency_list_destroy(GraphAdjacencyList *G);
 
 void *graph_adjacency_list_vertices(GraphAdjacencyList *G);
 size_t graph_adjacency_list_size(GraphAdjacencyList *G);
 
 static Vertex *vertex_create(size_t data_type_size);
-// static void vertex_distroy(Vertex *vertex);
+// static void vertex_destroy(Vertex *vertex);
 
 bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data);
 bool graph_adjacency_list_vertex_remove(GraphAdjacencyList *G, void *data);
@@ -27,7 +27,7 @@ GraphAdjacencyList graph_adjacency_list_create(int data_type, size_t data_type_s
     return G;
 }
 
-void graph_adjacency_list_distroy(GraphAdjacencyList *G)
+void graph_adjacency_list_destroy(GraphAdjacencyList *G)
 {
     free(G->adjacency_list);
     G->adjacency_list = NULL;
@@ -69,7 +69,7 @@ Vertex *vertex_create(size_t data_type_size)
     return vertex;
 }
 
-// void vertex_distroy(Vertex *vertex)
+// void vertex_destroy(Vertex *vertex)
 // {
 
 // }
@@ -102,7 +102,7 @@ bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data)
     return true;
 }
 
-// void graph_vertex_distroy(Vertex *vertex)
+// void graph_vertex_destroy(Vertex *vertex)
 // {
 
 // }

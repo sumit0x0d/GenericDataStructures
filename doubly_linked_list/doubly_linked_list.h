@@ -19,7 +19,7 @@ typedef struct DoublyLinkedList {
 } DoublyLinkedList;
 
 DoublyLinkedList doubly_linked_list_create(size_t data_type_size);
-void doubly_linked_list_distroy(DoublyLinkedList *DLL);
+void doubly_linked_list_destroy(DoublyLinkedList *DLL);
 
 DoublyLinkedListNode *doubly_linked_list_front(DoublyLinkedList *DLL);
 DoublyLinkedListNode *doubly_linked_list_back(DoublyLinkedList *DLL);

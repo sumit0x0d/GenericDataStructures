@@ -18,7 +18,7 @@ typedef struct SinglyLinkedList {
 } SinglyLinkedList;
 
 SinglyLinkedList singly_linked_list_create(size_t data_type_size);
-void singly_linked_list_distroy(SinglyLinkedList *SLL);
+void singly_linked_list_destroy(SinglyLinkedList *SLL);
 
 SinglyLinkedListNode *singly_linked_list_head(SinglyLinkedList *SLL);
 SinglyLinkedListNode *singly_linked_list_tail(SinglyLinkedList *SLL);

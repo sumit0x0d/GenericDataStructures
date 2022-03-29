@@ -1,7 +1,7 @@
 #include "deque-array.h"
 
 DequeArray deque_array_create(size_t element_size, size_t capacity);
-void deque_array_distroy(DequeArray *D);
+void deque_array_destroy(DequeArray *D);
 
 void *deque_array_front(DequeArray *D);
 void *deque_array_back(DequeArray *D);
@@ -27,7 +27,7 @@ DequeArray deque_array_create(size_t element_size, size_t capacity)
     return D;
 }
 
-// void deque_array_distroy(DequeArray *D)
+// void deque_array_destroy(DequeArray *D)
 // {
 
 // }

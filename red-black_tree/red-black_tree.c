@@ -1,7 +1,7 @@
 #include "red-black_tree.h"
 
 RedBlackTree red_black_tree_create(size_t data_type_size, int (*compare_data)(void *data, void *node_data));
-void red_black_tree_distroy(RedBlackTree *RBT);
+void red_black_tree_destroy(RedBlackTree *RBT);
 
 size_t red_black_tree_size(RedBlackTree *RBT);
 

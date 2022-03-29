@@ -17,7 +17,7 @@ Graph graph_create()
     return G;
 }
 
-// void graph_distroy(Graph *G)
+// void graph_destroy(Graph *G)
 // {
     
 // }

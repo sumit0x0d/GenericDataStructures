@@ -1,14 +1,14 @@
 #include "queue-linked_list.h"
 
 QueueLinkedList queue_linked_list_create(size_t data_type_size);
-void queue_linked_list_distroy(QueueLinkedList *Q);
+void queue_linked_list_destroy(QueueLinkedList *Q);
 
 QueueLinkedListNode *queue_linked_list_front(QueueLinkedList *Q);
 QueueLinkedListNode *queue_linked_list_back(QueueLinkedList *Q);
 size_t queue_linked_list_size(QueueLinkedList *Q);
 
 static QueueLinkedListNode *node_create(size_t data_type_size);
-static void node_distroy(QueueLinkedListNode *Q);
+static void node_destroy(QueueLinkedListNode *Q);
 
 bool queue_linked_list_enqueue(QueueLinkedList *Q, void *data);
 bool queue_linked_list_dequeue(QueueLinkedList *Q);
@@ -25,7 +25,7 @@ QueueLinkedList queue_linked_list_create(size_t data_type_size)
     return Q;
 }
 
-void queue_linked_list_distroy(QueueLinkedList *Q)
+void queue_linked_list_destroy(QueueLinkedList *Q)
 {
     QueueLinkedListNode *node = Q->front;
     while(node)
@@ -71,7 +71,7 @@ static QueueLinkedListNode *node_create(size_t data_type_size)
     return node;
 }
 
-static void node_distroy(QueueLinkedListNode *node)
+static void node_destroy(QueueLinkedListNode *node)
 {
     free(node->data);
     node->data = NULL;
@@ -108,7 +108,7 @@ bool queue_linked_list_dequeue(QueueLinkedList *Q)
     if(!Q->front)
         Q->back = NULL;
 
-    node_distroy(node);
+    node_destroy(node);
 
     Q->size = Q->size - 1;
 
