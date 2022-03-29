@@ -22,10 +22,10 @@ AVLTree avl_tree_create(size_t data_type_size, int (*compare_data)(void *data, v
     return AVLT;
 }
 
-void avl_tree_destroy(AVLTree *AVLT)
-{
+// void avl_tree_destroy(AVLTree *AVLT)
+// {
 
-}
+// }
 
 size_t avl_tree_size(AVLTree *AVLT)
 {

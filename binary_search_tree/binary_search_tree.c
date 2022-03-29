@@ -5,8 +5,8 @@ void binary_search_tree_destroy(BinarySearchTree *BST);
 
 static BinarySearchTreeNode *node_create(size_t data_type_size);
 static void node_destroy(BinarySearchTreeNode *node);
-static BinarySearchTreeNode *node_inorder_predecessor(BinarySearchTreeNode *node);
-static BinarySearchTreeNode *node_inorder_successor(BinarySearchTreeNode *node);
+// static BinarySearchTreeNode *node_inorder_predecessor(BinarySearchTreeNode *node);
+// static BinarySearchTreeNode *node_inorder_successor(BinarySearchTreeNode *node);
 
 BinarySearchTreeNode *binary_search_tree_search(BinarySearchTree *BST, void *data);
 bool binary_search_tree_insert(BinarySearchTree *BST, void *data);
@@ -77,29 +77,29 @@ static void node_destroy(BinarySearchTreeNode *node)
     node = NULL;
 }
 
-static BinarySearchTreeNode *node_inorder_predecessor(BinarySearchTreeNode *node)
-{
-    if(node->left) {
-        node = node->left;
-        while(node) {
-            node = node->right;
-        }
-    }
+// static BinarySearchTreeNode *node_inorder_predecessor(BinarySearchTreeNode *node)
+// {
+//     if(node->left) {
+//         node = node->left;
+//         while(node) {
+//             node = node->right;
+//         }
+//     }
 
-    return node;
-}
+//     return node;
+// }
 
-static BinarySearchTreeNode *node_inorder_successor(BinarySearchTreeNode *node)
-{
-    if(node->right) {
-        node = node->right;
-        while(node) {
-            node = node->left;
-        }
-    }
+// static BinarySearchTreeNode *node_inorder_successor(BinarySearchTreeNode *node)
+// {
+//     if(node->right) {
+//         node = node->right;
+//         while(node) {
+//             node = node->left;
+//         }
+//     }
 
-    return node;
-}
+//     return node;
+// }
 
 bool binary_search_tree_insert(BinarySearchTree *BST, void *data)
 {
@@ -191,18 +191,43 @@ bool binary_search_tree_remove(BinarySearchTree *BST, void *data)
     if(!node) return false;
 
     if(!node->left && !node->right) {
+        if(node_parent->left == node)
+            node_parent->left = NULL;
+        else
+            node_parent->left = NULL;
         node_destroy(node);
     }
-    else if(!node->left) {
-        memcpy(node, node->right, sizeof (BinarySearchTreeNode));
-        node_destroy(node->right);
+    else if(!node->left && node->right) {
+        if(node_parent->right == node)
+            node_parent->right = node->right;
+        else
+            node_parent->left = node->right;
+        node_destroy(node);
     }
-    else if(!node->right) {
-        memcpy(node, node->left, sizeof (BinarySearchTreeNode));
-        node_destroy(node->right);
+    else if(node->left && !node->right) {
+        if(node_parent->left == node)
+            node_parent->left = node->left;
+        else
+            node_parent->right = node->left;
+        node_destroy(node);
     }
     else {
-        
+        BinarySearchTreeNode *node_inorder_successor = node;
+        BinarySearchTreeNode *node_inorder_successor_parent = NULL;
+
+        if(node_inorder_successor->right) {
+            node_inorder_successor = node_inorder_successor->right;
+            while(node_inorder_successor) {
+                node_inorder_successor_parent = node_inorder_successor;
+                node_inorder_successor = node_inorder_successor->left;
+            }
+            memcpy(node->data, node_inorder_successor->data, BST->data_type_size);
+            if(node_inorder_successor->right)
+                node_inorder_successor_parent->left = node_inorder_successor->right;
+            else
+                node_inorder_successor_parent->left = NULL;
+            node_destroy(node_inorder_successor);
+        }
     }
 
     BST->size = BST->size + 1;
