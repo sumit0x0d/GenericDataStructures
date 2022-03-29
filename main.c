@@ -1,7 +1,7 @@
-#include "array-print.h"
-// #include "binary_tree-print.h"
+// #include "array-print.h"
+#include "binary_tree-print.h"
 // #include "graph-print.h"
-#include "linked_list-print.h"
+// #include "linked_list-print.h"
 
 int compare_data(void *data, void *node_data) {
     if(*(int *)data < *(int *)node_data)
@@ -17,29 +17,35 @@ int main()
     // DoublyLinkedList DLL = doubly_linked_list_create(INT, sizeof (int));
     // QueueLinkedList Q = queue_linked_list_create(INT, sizeof (int));
     // SinglyLinkedList SLL = singly_linked_list_create(INT, sizeof (int));
-    StackLinkedList S = stack_linked_list_create(sizeof (char));
+    // StackLinkedList S = stack_linked_list_create(sizeof (char));
     
     // DequeArray D = deque_array_create(INT, sizeof (int), 20);
-    StackArray S2 = stack_array_create(sizeof (char), 20);
+    // StackArray S2 = stack_array_create(sizeof (char), 20);
     // QueueArray Q = queue_array_create(INT, sizeof (int), 20);
 
     // DynamicArray DA = dynamic_array_create(INT, sizeof (int), 20, 1.5);
 
-    // BinarySearchTree BST = binary_search_tree_create(INT, sizeof (int), compare_data);
+    BinarySearchTree BST = binary_search_tree_create(sizeof (int), compare_data);
     // AVLTree AVLT = avl_tree_create(INT, sizeof (int), compare_data);
     // RedBlackTree RBT = red_black_tree_create(INT, sizeof (int), compare_data);
 
     // GraphAdjacencyList G = graph_adjacency_list_create(INT, sizeof (int));
     // GraphAdjacencyMatrix G = graph_adjacency_list_create(INT, sizeof (int));
 
-    char c = 'a';
+    int c = 10;
+    int d = 3;
+    int e = 1;
+    int f = 19;
+    int g = 30;
+    int h = 100;
+    int j = 14;
     // int i = 1;
     // long l = 99999999;
     // long double ld = 3.14;
     // char *s = "string";
 
     // stack_array_push(&S, &c);
-    stack_array_push(&S2, &c);
+    // stack_array_push(&S2, &c);
     // queue_array_enqueue(&Q, &i);
     // queue_array_enqueue(&Q, &i2);
     // int x = 10;
@@ -72,10 +78,18 @@ int main()
     // singly_linked_list_push_back(&SLL, &l);
     // singly_linked_list_push_back(&SLL, &s);
 
-    stack_linked_list_push(&S, &c);
+    // stack_linked_list_push(&S, &c);
     // BinarySearchTree BST = binary_search_tree_create(INT, sizeof (int), compare_data);
 
-    // binary_search_tree_insert(&BST, &c);
+    binary_search_tree_insert(&BST, &c);
+    binary_search_tree_insert(&BST, &d);
+    binary_search_tree_insert(&BST, &e);
+    binary_search_tree_insert(&BST, &f);
+    binary_search_tree_insert(&BST, &g);
+    binary_search_tree_insert(&BST, &h);
+    binary_search_tree_insert(&BST, &j);
+
+    binary_search_tree_remove(&BST, &h);
     // binary_search_tree_insert(&BST, &i);
     // binary_search_tree_insert(&BST, &c);
     // binary_search_tree_print(&BST);
@@ -88,7 +102,8 @@ int main()
     // stack_linked_list_push(&S, &s, strlen(s));
     // queue_linked_list_print(&Q);
     // singly_linked_list_print(&SLL);
-    stack_linked_list_print(&S, CHAR);
-    stack_array_print(&S2, CHAR);
+    // stack_linked_list_print(&S, CHAR);
+    // stack_array_print(&S2, CHAR);
     // queue_array_print(&Q);
+    binary_search_tree_print(&BST, INT);
 }
