@@ -1,6 +1,6 @@
 #include "doubly_linked_list.h"
 
-DoublyLinkedList doubly_linked_list_create(int Data_type, size_t data_type_size);
+DoublyLinkedList doubly_linked_list_create(size_t data_type_size);
 void doubly_linked_list_distroy(DoublyLinkedList *);
 
 DoublyLinkedListNode *doubly_linked_list_front(DoublyLinkedList *DLL);
@@ -22,13 +22,12 @@ bool doubly_linked_list_erase(DoublyLinkedList *DLL, size_t index);
 bool doubly_linked_list_linear(DoublyLinkedList *DLL);
 bool doubly_linked_list_circular(DoublyLinkedList *DLL);
 
-DoublyLinkedList doubly_linked_list_create(int data_type, size_t data_type_size)
+DoublyLinkedList doubly_linked_list_create(size_t data_type_size)
 {
     DoublyLinkedList DLL;
 
     DLL.head = NULL;
     DLL.tail = NULL;
-    DLL.data_type = data_type;
     DLL.data_type_size = data_type_size;
     DLL.size = 0;
 

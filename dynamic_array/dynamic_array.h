@@ -1,39 +1,12 @@
 #ifndef DYNAMIC_ARRAY_H
 #define DYNAMIC_ARRAY_H
 
-#ifndef DATA_TYPE
-#define DATA_TYPE
-
-enum {
-    BOOL,
-    CHAR,
-    UNSIGNED_CHAR,
-    SHORT,
-    UNSIGNED_SHORT,
-    INT,
-    UNSIGNED_INT,
-    FLOAT,
-    LONG,
-    UNSIGNED_LONG,
-    DOUBLE,
-    LONG_LONG,
-    UNSIGNED_LONG_LONG,
-    LONG_DOUBLE,
-    STRUCT,
-    UNION,
-    ARRAY,
-    POINTER
-};
-
-#endif
-
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
 typedef struct DynamicArray {
     void *array;
-    int element_type;
     size_t element_size;
     size_t front;
     size_t back;
@@ -42,7 +15,7 @@ typedef struct DynamicArray {
     double growth_factor;
 } DynamicArray;
 
-DynamicArray dynamic_array_create(int element_type, size_t element_size, size_t capacity, double growth_factor);
+DynamicArray dynamic_array_create(size_t element_size, size_t capacity, double growth_factor);
 void dynamic_array_distroy(DynamicArray *DA);
 
 void *dynamic_array_front(DynamicArray *DS);

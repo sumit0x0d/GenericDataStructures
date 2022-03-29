@@ -1,31 +1,5 @@
-#ifndef DEQUE_H
-#define DEQUE_H
-
-#ifndef DATA_TYPE
-#define DATA_TYPE
-
-enum {
-    BOOL,
-    CHAR,
-    UNSIGNED_CHAR,
-    SHORT,
-    UNSIGNED_SHORT,
-    INT,
-    UNSIGNED_INT,
-    FLOAT,
-    LONG,
-    UNSIGNED_LONG,
-    DOUBLE,
-    LONG_LONG,
-    UNSIGNED_LONG_LONG,
-    LONG_DOUBLE,
-    STRUCT,
-    UNION,
-    ARRAY,
-    POINTER
-};
-
-#endif
+#ifndef DEQUE_ARRAY_H
+#define DEQUE_ARRAY_H
 
 #include <stdbool.h>
 #include <stdlib.h>
@@ -33,7 +7,6 @@ enum {
 
 typedef struct DequeArray {
     void *array;
-    int element_type;
     size_t element_size;
     size_t front;
     size_t back;
@@ -41,7 +14,7 @@ typedef struct DequeArray {
     size_t capacity;
 } DequeArray;
 
-DequeArray deque_array_create(int element_type, size_t element_size, size_t capacity);
+DequeArray deque_array_create(size_t element_size, size_t capacity);
 void deque_array_distroy(DequeArray *D);
 
 void *deque_array_front(DequeArray *D);

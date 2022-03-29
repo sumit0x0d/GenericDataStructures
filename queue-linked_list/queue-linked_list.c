@@ -1,6 +1,6 @@
 #include "queue-linked_list.h"
 
-QueueLinkedList queue_linked_list_create(int data_type, size_t data_type_size);
+QueueLinkedList queue_linked_list_create(size_t data_type_size);
 void queue_linked_list_distroy(QueueLinkedList *Q);
 
 QueueLinkedListNode *queue_linked_list_front(QueueLinkedList *Q);
@@ -13,13 +13,12 @@ static void node_distroy(QueueLinkedListNode *Q);
 bool queue_linked_list_enqueue(QueueLinkedList *Q, void *data);
 bool queue_linked_list_dequeue(QueueLinkedList *Q);
 
-QueueLinkedList queue_linked_list_create(int data_type, size_t data_type_size)
+QueueLinkedList queue_linked_list_create(size_t data_type_size)
 {
     QueueLinkedList Q;
 
     Q.front = NULL;
     Q.back = NULL;
-    Q.data_type = data_type;
     Q.data_type_size = data_type_size;
     Q.size = 0;
 

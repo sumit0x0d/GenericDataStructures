@@ -1,39 +1,12 @@
 #ifndef QUEUE_ARRAY_H
 #define QUEUE_ARRAY_H
 
-#ifndef DATA_TYPE
-#define DATA_TYPE
-
-enum {
-    BOOL,
-    CHAR,
-    UNSIGNED_CHAR,
-    SHORT,
-    UNSIGNED_SHORT,
-    INT,
-    UNSIGNED_INT,
-    FLOAT,
-    LONG,
-    UNSIGNED_LONG,
-    DOUBLE,
-    LONG_LONG,
-    UNSIGNED_LONG_LONG,
-    LONG_DOUBLE,
-    STRUCT,
-    UNION,
-    ARRAY,
-    POINTER
-};
-
-#endif
-
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
 typedef struct QueueArray {
     void *array;
-    int element_type;
     size_t element_size;
     size_t front;
     size_t back;
@@ -41,7 +14,7 @@ typedef struct QueueArray {
     size_t capacity;
 } QueueArray;
 
-QueueArray queue_array_create(int element_type, size_t element_size, size_t capacity);
+QueueArray queue_array_create(size_t element_size, size_t capacity);
 void queue_array_distroy(QueueArray *Q);
 
 void *queue_array_front(QueueArray *Q);

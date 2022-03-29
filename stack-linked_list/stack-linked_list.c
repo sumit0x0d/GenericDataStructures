@@ -1,6 +1,6 @@
 #include "stack-linked_list.h"
 
-StackLinkedList stack_linked_list_create(int data_type, size_t data_type_size);
+StackLinkedList stack_linked_list_create(size_t data_type_size);
 void stack_linked_list_distroy(StackLinkedList *S);
 
 StackLinkedListNode *stack_linked_list_peek(StackLinkedList *s);
@@ -12,12 +12,11 @@ static void node_distroy(StackLinkedListNode *S);
 bool stack_linked_list_push(StackLinkedList *S, void *data);
 bool stack_linked_list_pop(StackLinkedList *S);
 
-StackLinkedList stack_linked_list_create(int data_type, size_t data_type_size)
+StackLinkedList stack_linked_list_create(size_t data_type_size)
 {
     StackLinkedList S;
 
     S.top = NULL;
-    S.data_type = data_type;
     S.data_type_size = data_type_size;
     S.size = 0;
 

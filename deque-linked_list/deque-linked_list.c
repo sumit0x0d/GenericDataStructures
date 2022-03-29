@@ -1,6 +1,6 @@
 #include "deque-linked_list.h"
 
-DequeLinkedList deque_linked_list_create(int data_type, size_t data_type_size);
+DequeLinkedList deque_linked_list_create(size_t data_type_size);
 void deque_linked_list_distroy(DequeLinkedList *D);
 
 DequeLinkedListNode *deque_linked_list_front(DequeLinkedList *D);
@@ -15,13 +15,12 @@ bool deque_linked_list_push_back(DequeLinkedList *D, void *data);
 bool deque_linked_list_pop_front(DequeLinkedList *D);
 bool deque_linked_list_pop_back(DequeLinkedList *D);
 
-DequeLinkedList deque_linked_list_create(int data_type, size_t data_type_size)
+DequeLinkedList deque_linked_list_create(size_t data_type_size)
 {
     DequeLinkedList D;
 
     D.front = NULL;
     D.back = NULL;
-    D.data_type = data_type;
     D.data_type_size = data_type_size;
     D.size = 0;
 

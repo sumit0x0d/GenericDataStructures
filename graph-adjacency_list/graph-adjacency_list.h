@@ -1,32 +1,6 @@
 #ifndef GRAPH_ADJACENCY_LIST_H
 #define GRAPH_ADJACENCY_LIST_H
 
-#ifndef DATA_TYPE
-#define DATA_TYPE
-
-enum {
-    BOOL,
-    CHAR,
-    UNSIGNED_CHAR,
-    SHORT,
-    UNSIGNED_SHORT,
-    INT,
-    UNSIGNED_INT,
-    FLOAT,
-    LONG,
-    UNSIGNED_LONG,
-    DOUBLE,
-    LONG_LONG,
-    UNSIGNED_LONG_LONG,
-    LONG_DOUBLE,
-    STRUCT,
-    UNION,
-    ARRAY,
-    POINTER
-};
-
-#endif
-
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>

@@ -1,6 +1,6 @@
 #include "dynamic_array.h"
 
-DynamicArray dynamic_array_create(int element_type, size_t element_size, size_t capacity, double growth_factor);
+DynamicArray dynamic_array_create(size_t element_size, size_t capacity, double growth_factor);
 void dynamic_array_distroy(DynamicArray *DA);
 
 void *dynamic_array_front(DynamicArray *DS);
@@ -16,12 +16,11 @@ bool dynamic_array_pop_back(DynamicArray *DA);
 bool dynamic_array_remove(DynamicArray *DA, void *data);
 bool dynamic_array_erase(DynamicArray *DA, size_t index);
 
-DynamicArray dynamic_array_create(int element_type, size_t element_size, size_t capacity, double growth_factor)
+DynamicArray dynamic_array_create(size_t element_size, size_t capacity, double growth_factor)
 {
     DynamicArray DA;
 
     DA.array = NULL;
-    DA.element_type = element_type;
     DA.element_size = element_size;
     DA.front = 0;
     DA.back = 0;

@@ -1,6 +1,6 @@
 #include "singly_linked_list.h"
 
-SinglyLinkedList singly_linked_list_create(int data_type, size_t data_type_size);
+SinglyLinkedList singly_linked_list_create(size_t data_type_size);
 void singly_linked_list_distroy(SinglyLinkedList *SLL);
 
 SinglyLinkedListNode *singly_linked_list_head(SinglyLinkedList *SLL);
@@ -22,13 +22,12 @@ bool singly_linked_list_erase(SinglyLinkedList *SLL, size_t index);
 bool singly_linked_list_linear(SinglyLinkedList *SLL);
 bool singly_linked_list_circular(SinglyLinkedList *SLL);
 
-SinglyLinkedList singly_linked_list_create(int data_type, size_t data_type_size)
+SinglyLinkedList singly_linked_list_create(size_t data_type_size)
 {
     SinglyLinkedList SLL;
 
     SLL.head = NULL;
     SLL.tail = NULL;
-    SLL.data_type = data_type;
     SLL.data_type_size= data_type_size;
     SLL.size = 0;
 
