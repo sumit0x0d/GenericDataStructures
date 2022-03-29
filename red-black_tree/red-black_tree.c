@@ -1,6 +1,6 @@
 #include "red-black_tree.h"
 
-RedBlackTree red_black_tree_create(int data_type, size_t data_type_size, int (*compare_data)(void *data, void *node_data));
+RedBlackTree red_black_tree_create(size_t data_type_size, int (*compare_data)(void *data, void *node_data));
 void red_black_tree_distroy(RedBlackTree *RBT);
 
 size_t red_black_tree_size(RedBlackTree *RBT);
@@ -10,13 +10,12 @@ bool red_black_tree_insert(RedBlackTree *RBT, void *data);
 bool red_black_tree_remove(RedBlackTree *RBT, void *data);
 
 
-RedBlackTree red_black_tree_create(int data_type, size_t data_type_size, int (*compare_data)(void *data, void *node_data))
+RedBlackTree red_black_tree_create(size_t data_type_size, int (*compare_data)(void *data, void *node_data))
 {
     RedBlackTree RBT;
 
     RBT.root = NULL;
     RBT.size = 0;
-    RBT.data_type = data_type;
     RBT.data_type_size = data_type_size;
 
     RBT.compare_data = compare_data;

@@ -1,6 +1,6 @@
 #include "avl_tree.h"
 
-AVLTree avl_tree_create(int data_type, size_t data_type_size, int (*compare_data)(void *data, void *node_data));
+AVLTree avl_tree_create(size_t data_type_size, int (*compare_data)(void *data, void *node_data));
 void avl_tree_distroy(AVLTree *AVLT);
 
 size_t avl_tree_size(AVLTree *AVLT);
@@ -9,12 +9,11 @@ AVLTreeNode *avl_tree_search(AVLTree *AVLT, void *data);
 bool avl_tree_insert(AVLTree *AVLT, void *data);
 bool avl_tree_remove(AVLTree *AVLT, void *data);
 
-AVLTree avl_tree_create(int data_type, size_t data_type_size, int (*compare_data)(void *data, void *node_data))
+AVLTree avl_tree_create(size_t data_type_size, int (*compare_data)(void *data, void *node_data))
 {
     AVLTree AVLT;
 
     AVLT.root = NULL;
-    AVLT.data_type = data_type;
     AVLT.data_type_size = data_type_size;
     AVLT.size = 0;
 
