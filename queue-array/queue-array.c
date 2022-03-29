@@ -83,5 +83,4 @@ bool queue_array_dequeue(QueueArray *Q)
     Q->size = Q->size - 1;
 
     return true;
-
 }
