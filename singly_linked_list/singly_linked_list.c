@@ -122,15 +122,12 @@ bool singly_linked_list_push_back(SinglyLinkedList *SLL, void *data)
     memcpy(node->data, data, SLL->data_type_size);
 
     node->next = NULL;
-    if(SLL->size) {
+    if(SLL->size)
         SLL->tail->next = node;
-        SLL->tail = node;
-    }
-    else {
+    else
         SLL->head = node;
-        SLL->tail = node;
-    }
-
+    SLL->tail = node;
+    
     SLL->size = SLL->size + 1;
 
     return true;
