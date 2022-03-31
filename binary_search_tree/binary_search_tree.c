@@ -214,18 +214,24 @@ bool binary_search_tree_remove(BinarySearchTree *BST, void *data)
             node_inorder_successor = node_inorder_successor->left;
         }
 
+        if(node_inorder_successor_parent == node) {
+            node_inorder_successor_parent->right = node_inorder_successor->right;
+        }
+        else
+            node_inorder_successor_parent->left = node_inorder_successor->right;
+
         memcpy(node->data, node_inorder_successor->data, BST->data_type_size);
 
-        if(node_inorder_successor->right)
-            if(node_inorder_successor_parent == node)
-                node_inorder_successor_parent->right = node_inorder_successor->right;
-            else
-                node_inorder_successor_parent->left = node_inorder_successor->right;
-        else
-            if(node_inorder_successor_parent == node)
-                node_inorder_successor_parent->right = NULL;
-            else
-                node_inorder_successor_parent->left = NULL;
+        // if(node_inorder_successor->right)
+        //     if(node_inorder_successor_parent == node)
+        //         node_inorder_successor_parent->right = node_inorder_successor->right;
+        //     else
+        //         node_inorder_successor_parent->left = node_inorder_successor->right;
+        // else
+        //     if(node_inorder_successor_parent == node)
+        //         node_inorder_successor_parent->right = NULL;
+        //     else
+        //         node_inorder_successor_parent->left = NULL;
 
         node_destroy(node_inorder_successor);
     }
