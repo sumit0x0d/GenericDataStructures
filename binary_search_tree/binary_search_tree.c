@@ -5,8 +5,6 @@ void binary_search_tree_destroy(BinarySearchTree *BST);
 
 static BinarySearchTreeNode *node_create(size_t data_type_size);
 static void node_destroy(BinarySearchTreeNode *node);
-// static BinarySearchTreeNode *node_inorder_predecessor(BinarySearchTreeNode *node);
-// static BinarySearchTreeNode *node_inorder_successor(BinarySearchTreeNode *node);
 
 BinarySearchTreeNode *binary_search_tree_search(BinarySearchTree *BST, void *data);
 bool binary_search_tree_insert(BinarySearchTree *BST, void *data);
@@ -35,20 +33,22 @@ size_t binary_search_tree_size(BinarySearchTree *BST)
     return BST->size;
 }
 
-// BinarySearchTreeNode *binary_search_tree_search(BinarySearchTree *BST, void *data, size_t data_type_size)
-// {
-//     BinarySearchTreeNode *node = BST->root;
-    
-//     while(node)
-//         if(data == node->data)
-//             return node;
-//         else if(data < node->data)
-//             node = node->left;
-//         else
-//             node = node->right;
+BinarySearchTreeNode *binary_search_tree_search(BinarySearchTree *BST, void *data)
+{
+    BinarySearchTreeNode *node = BST->root;
 
-//     return NULL;
-// }
+    while(node) {
+        int compare = BST->compare_data(data, node->data);
+        if(compare == 0)
+            return node;
+        if(compare < 0)
+            node = node->left;
+        else
+            node = node->right;
+    }
+
+    return NULL;
+}
 
 static BinarySearchTreeNode *node_create(size_t data_type_size)
 {
@@ -76,46 +76,6 @@ static void node_destroy(BinarySearchTreeNode *node)
     free(node);
     node = NULL;
 }
-
-// static BinarySearchTreeNode *node_inorder_predecessor(BinarySearchTreeNode *node, size_t data_type_size)
-// {
-//     BinarySearchTreeNode *node_inorder_predecessor = node;
-//     BinarySearchTreeNode *node_inorder_predecessor_parent = NULL;
-
-//     if(node_inorder_predecessor->left)
-//         node_inorder_predecessor = node_inorder_predecessor->left;
-
-//     while(node_inorder_predecessor) {
-//         node_inorder_predecessor_parent = node_inorder_predecessor;
-//         node_inorder_predecessor = node_inorder_predecessor->left;
-//     }
-//     memcpy(node->data, node_inorder_predecessor->data, data_type_size);
-//     if(node_inorder_predecessor->right)
-//         node_inorder_predecessor_parent->left = node_inorder_predecessor->right;
-//     else
-//         node_inorder_predecessor_parent->left = NULL;
-//     node_destroy(node_inorder_predecessor);
-// }
-
-// static BinarySearchTreeNode *node_inorder_successor(BinarySearchTreeNode *node, size_t data_type_size)
-// {
-//     BinarySearchTreeNode *node_inorder_successor = node;
-//     BinarySearchTreeNode *node_inorder_successor_parent = NULL;
-
-//     if(node_inorder_successor->right) {
-//         node_inorder_successor = node_inorder_successor->right;
-//         while(node_inorder_successor) {
-//             node_inorder_successor_parent = node_inorder_successor;
-//             node_inorder_successor = node_inorder_successor->left;
-//         }
-//         memcpy(node->data, node_inorder_successor->data, data_type_size);
-//         if(node_inorder_successor->right)
-//             node_inorder_successor_parent->left = node_inorder_successor->right;
-//         else
-//             node_inorder_successor_parent->left = NULL;
-//         node_destroy(node_inorder_successor);
-//     }
-// }
 
 bool binary_search_tree_insert(BinarySearchTree *BST, void *data)
 {
@@ -221,17 +181,6 @@ bool binary_search_tree_remove(BinarySearchTree *BST, void *data)
             node_inorder_successor_parent->left = node_inorder_successor->right;
 
         memcpy(node->data, node_inorder_successor->data, BST->data_type_size);
-
-        // if(node_inorder_successor->right)
-        //     if(node_inorder_successor_parent == node)
-        //         node_inorder_successor_parent->right = node_inorder_successor->right;
-        //     else
-        //         node_inorder_successor_parent->left = node_inorder_successor->right;
-        // else
-        //     if(node_inorder_successor_parent == node)
-        //         node_inorder_successor_parent->right = NULL;
-        //     else
-        //         node_inorder_successor_parent->left = NULL;
 
         node_destroy(node_inorder_successor);
     }

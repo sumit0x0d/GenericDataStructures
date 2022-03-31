@@ -52,7 +52,7 @@ int main()
     binary_search_tree_insert(&BST, &f);
     binary_search_tree_insert(&BST, &g);
 
-    binary_search_tree_remove(&BST, &a);
+    binary_search_tree_remove(&BST, &d);
     // stack_array_push(&S, &c);
     // stack_array_push(&S2, &c);
     // queue_array_enqueue(&Q, &i);
