@@ -32,18 +32,27 @@ int main()
     // GraphAdjacencyList G = graph_adjacency_list_create(INT, sizeof (int));
     // GraphAdjacencyMatrix G = graph_adjacency_list_create(INT, sizeof (int));
 
-    int c = 10;
-    int d = 3;
-    int e = 1;
-    int f = 19;
-    int g = 30;
-    int h = 100;
-    int j = 14;
+    int a = 10;
+    int b = 3;
+    int c = 1;
+    int d = 19;
+    int e = 30;
+    int f = 100;
+    int g = 14;
     // int i = 1;
     // long l = 99999999;
     // long double ld = 3.14;
     // char *s = "string";
 
+    binary_search_tree_insert(&BST, &a);
+    binary_search_tree_insert(&BST, &b);
+    binary_search_tree_insert(&BST, &c);
+    binary_search_tree_insert(&BST, &d);
+    binary_search_tree_insert(&BST, &e);
+    binary_search_tree_insert(&BST, &f);
+    binary_search_tree_insert(&BST, &g);
+
+    binary_search_tree_remove(&BST, &a);
     // stack_array_push(&S, &c);
     // stack_array_push(&S2, &c);
     // queue_array_enqueue(&Q, &i);
@@ -81,15 +90,6 @@ int main()
     // stack_linked_list_push(&S, &c);
     // BinarySearchTree BST = binary_search_tree_create(INT, sizeof (int), compare_data);
 
-    binary_search_tree_insert(&BST, &c);
-    binary_search_tree_insert(&BST, &d);
-    binary_search_tree_insert(&BST, &e);
-    binary_search_tree_insert(&BST, &f);
-    binary_search_tree_insert(&BST, &g);
-    binary_search_tree_insert(&BST, &h);
-    binary_search_tree_insert(&BST, &j);
-
-    binary_search_tree_remove(&BST, &h);
     // binary_search_tree_insert(&BST, &i);
     // binary_search_tree_insert(&BST, &c);
     // binary_search_tree_print(&BST);

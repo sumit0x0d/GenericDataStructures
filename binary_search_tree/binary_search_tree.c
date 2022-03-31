@@ -77,28 +77,44 @@ static void node_destroy(BinarySearchTreeNode *node)
     node = NULL;
 }
 
-// static BinarySearchTreeNode *node_inorder_predecessor(BinarySearchTreeNode *node)
+// static BinarySearchTreeNode *node_inorder_predecessor(BinarySearchTreeNode *node, size_t data_type_size)
 // {
-//     if(node->left) {
-//         node = node->left;
-//         while(node) {
-//             node = node->right;
-//         }
-//     }
+//     BinarySearchTreeNode *node_inorder_predecessor = node;
+//     BinarySearchTreeNode *node_inorder_predecessor_parent = NULL;
 
-//     return node;
+//     if(node_inorder_predecessor->left)
+//         node_inorder_predecessor = node_inorder_predecessor->left;
+
+//     while(node_inorder_predecessor) {
+//         node_inorder_predecessor_parent = node_inorder_predecessor;
+//         node_inorder_predecessor = node_inorder_predecessor->left;
+//     }
+//     memcpy(node->data, node_inorder_predecessor->data, data_type_size);
+//     if(node_inorder_predecessor->right)
+//         node_inorder_predecessor_parent->left = node_inorder_predecessor->right;
+//     else
+//         node_inorder_predecessor_parent->left = NULL;
+//     node_destroy(node_inorder_predecessor);
 // }
 
-// static BinarySearchTreeNode *node_inorder_successor(BinarySearchTreeNode *node)
+// static BinarySearchTreeNode *node_inorder_successor(BinarySearchTreeNode *node, size_t data_type_size)
 // {
-//     if(node->right) {
-//         node = node->right;
-//         while(node) {
-//             node = node->left;
-//         }
-//     }
+//     BinarySearchTreeNode *node_inorder_successor = node;
+//     BinarySearchTreeNode *node_inorder_successor_parent = NULL;
 
-//     return node;
+//     if(node_inorder_successor->right) {
+//         node_inorder_successor = node_inorder_successor->right;
+//         while(node_inorder_successor) {
+//             node_inorder_successor_parent = node_inorder_successor;
+//             node_inorder_successor = node_inorder_successor->left;
+//         }
+//         memcpy(node->data, node_inorder_successor->data, data_type_size);
+//         if(node_inorder_successor->right)
+//             node_inorder_successor_parent->left = node_inorder_successor->right;
+//         else
+//             node_inorder_successor_parent->left = NULL;
+//         node_destroy(node_inorder_successor);
+//     }
 // }
 
 bool binary_search_tree_insert(BinarySearchTree *BST, void *data)
@@ -144,31 +160,6 @@ bool binary_search_tree_insert(BinarySearchTree *BST, void *data)
     return true;
 }
 
-// void binary_search_tree_node_remove(BinarySearchTreeNode *node)
-// {
-//     if(!node->left && !node->right) {
-//         node = NULL;
-//         free(node);
-//         return;
-//     }
-//     BinarySearchTreeNode *node_inorder_predecessor = NULL;
-//     BinarySearchTreeNode *node_inorder_successor = NULL;
-//     size_t node_left_height = 0;
-//     size_t node_right_height = 0;
-//     if(node->left)
-//         node_left_height = binary_search_tree_node_height(node->left);
-//     if(node->right)
-//         node_right_height = binary_search_tree_node_height(node->right);
-//     if(node_left_height < node_right_height) {
-//         node_inorder_predecessor = binary_search_tree_node_inorder_predecessor(node);
-//         node->data = node_inorder_predecessor->data;
-//     }
-//     else {
-//         node_inorder_successor = binary_search_tree_node_inorder_successor(node);
-//         node->data = node_inorder_successor->data;
-//     }
-// }
-
 bool binary_search_tree_remove(BinarySearchTree *BST, void *data)
 {
     if(!binary_search_tree_size(BST)) return false;
@@ -194,43 +185,52 @@ bool binary_search_tree_remove(BinarySearchTree *BST, void *data)
         if(node_parent->left == node)
             node_parent->left = NULL;
         else
-            node_parent->left = NULL;
+            node_parent->right = NULL;
+
         node_destroy(node);
     }
-    else if(!node->left && node->right) {
+    else if(!node->left) {
         if(node_parent->right == node)
             node_parent->right = node->right;
         else
             node_parent->left = node->right;
+
         node_destroy(node);
     }
-    else if(node->left && !node->right) {
+    else if(!node->right) {
         if(node_parent->left == node)
             node_parent->left = node->left;
         else
             node_parent->right = node->left;
+
         node_destroy(node);
     }
     else {
-        BinarySearchTreeNode *node_inorder_successor = node;
-        BinarySearchTreeNode *node_inorder_successor_parent = NULL;
+        BinarySearchTreeNode *node_inorder_successor = node->right;
+        BinarySearchTreeNode *node_inorder_successor_parent = node;
 
-        if(node_inorder_successor->right) {
-            node_inorder_successor = node_inorder_successor->right;
-            while(node_inorder_successor) {
-                node_inorder_successor_parent = node_inorder_successor;
-                node_inorder_successor = node_inorder_successor->left;
-            }
-            memcpy(node->data, node_inorder_successor->data, BST->data_type_size);
-            if(node_inorder_successor->right)
+        while(node_inorder_successor->left) {
+            node_inorder_successor_parent = node_inorder_successor;
+            node_inorder_successor = node_inorder_successor->left;
+        }
+
+        memcpy(node->data, node_inorder_successor->data, BST->data_type_size);
+
+        if(node_inorder_successor->right)
+            if(node_inorder_successor_parent == node)
+                node_inorder_successor_parent->right = node_inorder_successor->right;
+            else
                 node_inorder_successor_parent->left = node_inorder_successor->right;
+        else
+            if(node_inorder_successor_parent == node)
+                node_inorder_successor_parent->right = NULL;
             else
                 node_inorder_successor_parent->left = NULL;
-            node_destroy(node_inorder_successor);
-        }
+
+        node_destroy(node_inorder_successor);
     }
 
-    BST->size = BST->size + 1;
+    BST->size = BST->size - 1;
 
     return true;
 }
