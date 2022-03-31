@@ -2,8 +2,7 @@ CC = gcc
 
 TARGET = main
 
-CFLAGS = -std=c17 -O0 -g -Wall -Wpedantic -Wextra
-# -Werror 
+CFLAGS = -std=c17 -O0 -g -Wall -Wpedantic -Wextra -Werror 
 # ./doubly_linked_list/doubly_linked_list.c \
 
 main1:
