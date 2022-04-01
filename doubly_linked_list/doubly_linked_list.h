@@ -14,11 +14,11 @@ typedef struct DoublyLinkedListNode {
 typedef struct DoublyLinkedList {
     DoublyLinkedListNode *head;
     DoublyLinkedListNode *tail;
-    size_t data_type_size;
+    size_t data_size;
     size_t size;
 } DoublyLinkedList;
 
-DoublyLinkedList doubly_linked_list_create(size_t data_type_size);
+DoublyLinkedList doubly_linked_list_create(size_t data_size);
 void doubly_linked_list_destroy(DoublyLinkedList *DLL);
 
 DoublyLinkedListNode *doubly_linked_list_front(DoublyLinkedList *DLL);

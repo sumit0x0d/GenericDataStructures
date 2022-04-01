@@ -24,9 +24,9 @@ DynamicArray dynamic_array_create(size_t element_size, size_t capacity, double g
     DA.element_size = element_size;
     DA.front = 0;
     DA.back = 0;
-    DA.size = 0;
     DA.capacity = capacity;
     DA.growth_factor = growth_factor;
+    DA.size = 0;
 
     return DA;
 }

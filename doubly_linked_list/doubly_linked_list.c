@@ -1,13 +1,13 @@
 #include "doubly_linked_list.h"
 
-DoublyLinkedList doubly_linked_list_create(size_t data_type_size);
+DoublyLinkedList doubly_linked_list_create(size_t data_size);
 void doubly_linked_list_destroy(DoublyLinkedList *);
 
 DoublyLinkedListNode *doubly_linked_list_front(DoublyLinkedList *DLL);
 DoublyLinkedListNode *doubly_linked_list_back(DoublyLinkedList *DLL);
 size_t doubly_linked_list_size(DoublyLinkedList *DLL);
 
-static DoublyLinkedListNode *node_create(size_t data_type_size);
+static DoublyLinkedListNode *node_create(size_t data_size);
 static void node_destroy(DoublyLinkedListNode *node);
 
 DoublyLinkedListNode *doubly_linked_list_search(DoublyLinkedList *DLL, void *data);
@@ -22,24 +22,24 @@ bool doubly_linked_list_erase(DoublyLinkedList *DLL, size_t index);
 bool doubly_linked_list_linear(DoublyLinkedList *DLL);
 bool doubly_linked_list_circular(DoublyLinkedList *DLL);
 
-DoublyLinkedList doubly_linked_list_create(size_t data_type_size)
+DoublyLinkedList doubly_linked_list_create(size_t data_size)
 {
     DoublyLinkedList DLL;
 
     DLL.head = NULL;
     DLL.tail = NULL;
-    DLL.data_type_size = data_type_size;
+    DLL.data_size = data_size;
     DLL.size = 0;
 
     return DLL;
 }
 
-static DoublyLinkedListNode *node_create(size_t data_type_size)
+static DoublyLinkedListNode *node_create(size_t data_size)
 {
     DoublyLinkedListNode *node = malloc(sizeof (DoublyLinkedListNode));
     if(!node) return NULL;
 
-    node->data = malloc(data_type_size);
+    node->data = malloc(data_size);
     if(!node->data) {
         free(node);
         node = NULL;
@@ -73,7 +73,7 @@ static void node_destroy(DoublyLinkedListNode *node)
 
 // }
 
-// DoublyLinkedListNode *doubly_linked_list_search(DoublyLinkedList *DLL, void *data, size_t data_type_size)
+// DoublyLinkedListNode *doubly_linked_list_search(DoublyLinkedList *DLL, void *data, size_t data_size)
 // {
 //     if(!DLL->size) return NULL;
 
@@ -90,10 +90,10 @@ static void node_destroy(DoublyLinkedListNode *node)
 
 bool doubly_linked_list_push_front(DoublyLinkedList *DLL, void *data)
 {
-    DoublyLinkedListNode *node = node_create(DLL->data_type_size);
+    DoublyLinkedListNode *node = node_create(DLL->data_size);
     if(!node) return false;
 
-    memcpy(node->data, data, DLL->data_type_size);
+    memcpy(node->data, data, DLL->data_size);
 
     node->previous = NULL;
     if(DLL->size) {
@@ -114,10 +114,10 @@ bool doubly_linked_list_push_front(DoublyLinkedList *DLL, void *data)
 
 bool doubly_linked_list_push_back(DoublyLinkedList *DLL, void *data)
 {
-    DoublyLinkedListNode *node = node_create(DLL->data_type_size);
+    DoublyLinkedListNode *node = node_create(DLL->data_size);
     if(!node) return false;
 
-    memcpy(node->data, data, DLL->data_type_size);
+    memcpy(node->data, data, DLL->data_size);
 
     node->next = NULL;
     if(DLL->size) {
@@ -140,10 +140,10 @@ bool doubly_linked_list_insert(DoublyLinkedList *DLL, size_t index, void *data)
 {
     if(index > DLL->size) return false;
     DoublyLinkedListNode *node = DLL->head;
-    DoublyLinkedListNode *node_new = node_create(DLL->data_type_size);
+    DoublyLinkedListNode *node_new = node_create(DLL->data_size);
     if(!node_new) return false;
 
-    memcpy(node_new->data, data, DLL->data_type_size);
+    memcpy(node_new->data, data, DLL->data_size);
 
     if(!index)
         doubly_linked_list_push_front(DLL, data);
@@ -163,7 +163,7 @@ bool doubly_linked_list_insert(DoublyLinkedList *DLL, size_t index, void *data)
     return true;
 }
 
-// bool doubly_linked_list_sorted_insert(DoublyLinkedList *DLL, void *data, size_t data_type_size)
+// bool doubly_linked_list_sorted_insert(DoublyLinkedList *DLL, void *data, size_t data_size)
 // {
 
 // }
@@ -219,7 +219,7 @@ bool doubly_linked_list_erase(DoublyLinkedList *DLL, size_t index)
     return true;
 }
 
-// bool doubly_linked_list_remove(DoublyLinkedList *DLL, void *data, size_t data_type_size)
+// bool doubly_linked_list_remove(DoublyLinkedList *DLL, void *data, size_t data_size)
 // {
 //     DoublyLinkedListNode *node = DLL->head;
 //     size_t count = 0;

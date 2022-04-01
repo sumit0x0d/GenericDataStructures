@@ -9,8 +9,8 @@ typedef struct StackArray {
     void *array;
     size_t element_size;
     size_t top;
-    size_t size;
     size_t capacity;
+    size_t size;
 } StackArray;
 
 StackArray stack_array_create(size_t element_size, size_t capacity);

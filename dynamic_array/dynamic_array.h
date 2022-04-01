@@ -10,9 +10,9 @@ typedef struct DynamicArray {
     size_t element_size;
     size_t front;
     size_t back;
-    size_t size;
     size_t capacity;
     double growth_factor;
+    size_t size;
 } DynamicArray;
 
 DynamicArray dynamic_array_create(size_t element_size, size_t capacity, double growth_factor);

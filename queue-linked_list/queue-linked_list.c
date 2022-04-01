@@ -1,25 +1,25 @@
 #include "queue-linked_list.h"
 
-QueueLinkedList queue_linked_list_create(size_t data_type_size);
+QueueLinkedList queue_linked_list_create(size_t data_size);
 void queue_linked_list_destroy(QueueLinkedList *Q);
 
 QueueLinkedListNode *queue_linked_list_front(QueueLinkedList *Q);
 QueueLinkedListNode *queue_linked_list_back(QueueLinkedList *Q);
 size_t queue_linked_list_size(QueueLinkedList *Q);
 
-static QueueLinkedListNode *node_create(size_t data_type_size);
+static QueueLinkedListNode *node_create(size_t data_size);
 static void node_destroy(QueueLinkedListNode *Q);
 
 bool queue_linked_list_enqueue(QueueLinkedList *Q, void *data);
 bool queue_linked_list_dequeue(QueueLinkedList *Q);
 
-QueueLinkedList queue_linked_list_create(size_t data_type_size)
+QueueLinkedList queue_linked_list_create(size_t data_size)
 {
     QueueLinkedList Q;
 
     Q.front = NULL;
     Q.back = NULL;
-    Q.data_type_size = data_type_size;
+    Q.data_size = data_size;
     Q.size = 0;
 
     return Q;
@@ -54,12 +54,12 @@ size_t queue_linked_list_size(QueueLinkedList *Q)
     return Q->size;
 }
 
-static QueueLinkedListNode *node_create(size_t data_type_size)
+static QueueLinkedListNode *node_create(size_t data_size)
 {
     QueueLinkedListNode *node = malloc(sizeof (QueueLinkedListNode));
     if(!node) return NULL;
 
-    node->data = malloc(data_type_size);
+    node->data = malloc(data_size);
     if(!node->data) {
         free(node);
         node = NULL;
@@ -82,10 +82,10 @@ static void node_destroy(QueueLinkedListNode *node)
 
 bool queue_linked_list_enqueue(QueueLinkedList *Q, void *data)
 {
-    QueueLinkedListNode *node = node_create(Q->data_type_size);
+    QueueLinkedListNode *node = node_create(Q->data_size);
     if(!node) return false;
 
-    memcpy(node->data, data, Q->data_type_size);
+    memcpy(node->data, data, Q->data_size);
 
     if(Q->size)
         Q->back->next = node;

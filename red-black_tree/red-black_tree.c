@@ -1,6 +1,6 @@
 #include "red-black_tree.h"
 
-RedBlackTree red_black_tree_create(size_t data_type_size, int (*compare_data)(void *data, void *node_data));
+RedBlackTree red_black_tree_create(size_t data_size, int (*compare_data)(void *data, void *node_data));
 void red_black_tree_destroy(RedBlackTree *RBT);
 
 size_t red_black_tree_size(RedBlackTree *RBT);
@@ -10,20 +10,20 @@ bool red_black_tree_insert(RedBlackTree *RBT, void *data);
 bool red_black_tree_remove(RedBlackTree *RBT, void *data);
 
 
-RedBlackTree red_black_tree_create(size_t data_type_size, int (*compare_data)(void *data, void *node_data))
+RedBlackTree red_black_tree_create(size_t data_size, int (*compare_data)(void *data, void *node_data))
 {
     RedBlackTree RBT;
 
     RBT.root = NULL;
     RBT.size = 0;
-    RBT.data_type_size = data_type_size;
+    RBT.data_size = data_size;
 
     RBT.compare_data = compare_data;
 
     return RBT;
 }
 
-// RedBlackTreeNode *red_black_tree_search(RedBlackTree *RBT, void *data, size_t data_type_size)
+// RedBlackTreeNode *red_black_tree_search(RedBlackTree *RBT, void *data, size_t data_size)
 // {
 //     RedBlackTreeNode *node = RBT->root;
 //     while(node)
@@ -36,12 +36,12 @@ RedBlackTree red_black_tree_create(size_t data_type_size, int (*compare_data)(vo
 //     return NULL;
 // }
 
-static RedBlackTreeNode *node_create(size_t data_type_size)
+static RedBlackTreeNode *node_create(size_t data_size)
 {
     RedBlackTreeNode *node = malloc(sizeof (RedBlackTreeNode));
     if(!node) return NULL;
 
-    node->data = malloc(data_type_size);
+    node->data = malloc(data_size);
     if(!node->data) {
         free(node);
         node = NULL;
@@ -57,10 +57,10 @@ static RedBlackTreeNode *node_create(size_t data_type_size)
 bool red_black_tree_insert(RedBlackTree *RBT, void *data)
 {
     if(!RBT->size) {
-        RBT->root = node_create(RBT->data_type_size);
+        RBT->root = node_create(RBT->data_size);
         if(!RBT->root) return false;
 
-        memcpy(RBT->root->data, data, RBT->data_type_size);
+        memcpy(RBT->root->data, data, RBT->data_size);
 
         RBT->root->parent = NULL;
         RBT->root->color = BLACK;
@@ -82,10 +82,10 @@ bool red_black_tree_insert(RedBlackTree *RBT, void *data)
             node = node->right;
     }
 
-    node = node_create(RBT->data_type_size);
+    node = node_create(RBT->data_size);
     if(!node) return false;
 
-    memcpy(node->data, data, RBT->data_type_size);
+    memcpy(node->data, data, RBT->data_size);
 
     node->parent = node_parent;
     node->color = RED;

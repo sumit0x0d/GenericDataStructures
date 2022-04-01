@@ -6,7 +6,7 @@
 
 typedef struct BinaryTreeNode {
     void *data;
-    size_t data_type_size;
+    size_t data_size;
     struct BinaryTreeNode *left;
     struct BinaryTreeNode *right;
 } BinaryTreeNode;
@@ -19,6 +19,6 @@ typedef struct BinaryTree {
 BinaryTree binary_tree_create();
 void binary_tree_destroy(BinaryTree *bt);
 
-BinaryTreeNode *binary_tree_insert(BinaryTree *bt, void *data, size_t data_type_size);
+BinaryTreeNode *binary_tree_insert(BinaryTree *bt, void *data, size_t data_size);
 
 #endif

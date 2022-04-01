@@ -1,12 +1,12 @@
 #include "graph-adjacency_list.h"
 
-GraphAdjacencyList graph_adjacency_list_create(size_t data_type_size);
+GraphAdjacencyList graph_adjacency_list_create(size_t data_size);
 void graph_adjacency_list_destroy(GraphAdjacencyList *G);
 
 void *graph_adjacency_list_vertices(GraphAdjacencyList *G);
 size_t graph_adjacency_list_size(GraphAdjacencyList *G);
 
-static Vertex *vertex_create(size_t data_type_size);
+static Vertex *vertex_create(size_t data_size);
 // static void vertex_destroy(Vertex *vertex);
 
 bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data);
@@ -14,12 +14,12 @@ bool graph_adjacency_list_vertex_remove(GraphAdjacencyList *G, void *data);
 bool graph_adjacency_list_edge_insert(GraphAdjacencyList *G, Vertex *vertex_source, Vertex *vertex_destination, unsigned long weight);
 bool graph_adjacency_list_edge_remove(GraphAdjacencyList *G, Vertex *vertex_source, Vertex *vertex_destination);
 
-GraphAdjacencyList graph_adjacency_list_create(size_t data_type_size)
+GraphAdjacencyList graph_adjacency_list_create(size_t data_size)
 {
     GraphAdjacencyList G;
 
     G.adjacency_list = NULL;
-    G.data_type_size = data_type_size;
+    G.data_size = data_size;
     G.vertices = 0;
     G.size = 0;
 
@@ -53,12 +53,12 @@ void graph_adjacency_list_destroy(GraphAdjacencyList *G)
 //     }
 // }
 
-Vertex *vertex_create(size_t data_type_size)
+Vertex *vertex_create(size_t data_size)
 {
     Vertex *vertex = malloc(sizeof (Vertex));
     if(!vertex) return NULL;
 
-    vertex->data = malloc(data_type_size);
+    vertex->data = malloc(data_size);
     if(!vertex->data) {
         free(vertex);
         vertex = NULL;
@@ -89,10 +89,10 @@ bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data)
         G->adjacency_list = adjacency_list;
     }
 
-    Vertex *vertex = vertex_create(G->data_type_size);
+    Vertex *vertex = vertex_create(G->data_size);
     if(!vertex) return false;
 
-    memcpy(vertex->data, data, G->data_type_size);
+    memcpy(vertex->data, data, G->data_size);
 
     memcpy(G->adjacency_list + (sizeof (Vertex) * G->vertices), vertex, sizeof (Vertex));
 

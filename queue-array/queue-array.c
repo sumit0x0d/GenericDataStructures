@@ -18,8 +18,8 @@ QueueArray queue_array_create(size_t element_size, size_t capacity)
     Q.element_size = element_size;
     Q.front = 0;
     Q.back = 0;
-    Q.size = 0;
     Q.capacity = capacity;
+    Q.size = 0;
 
     return Q;
 }

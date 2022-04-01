@@ -16,8 +16,8 @@ StackArray stack_array_create(size_t element_size, size_t capacity)
     S.array = NULL;
     S.element_size = element_size;
     S.top = 0;
-    S.size = 0;
     S.capacity = capacity;
+    S.size = 0;
 
     return S;
 }

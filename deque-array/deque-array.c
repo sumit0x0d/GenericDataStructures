@@ -21,8 +21,8 @@ DequeArray deque_array_create(size_t element_size, size_t capacity)
     D.element_size = element_size;
     D.front = 0;
     D.back = 0;
-    D.size = 0;
     D.capacity = capacity;
+    D.size = 0;
 
     return D;
 }

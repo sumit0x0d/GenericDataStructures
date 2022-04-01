@@ -13,11 +13,11 @@ typedef struct SinglyLinkedListNode {
 typedef struct SinglyLinkedList {
     SinglyLinkedListNode *head;
     SinglyLinkedListNode *tail;
-    size_t data_type_size;
+    size_t data_size;
     size_t size;
 } SinglyLinkedList;
 
-SinglyLinkedList singly_linked_list_create(size_t data_type_size);
+SinglyLinkedList singly_linked_list_create(size_t data_size);
 void singly_linked_list_destroy(SinglyLinkedList *SLL);
 
 SinglyLinkedListNode *singly_linked_list_head(SinglyLinkedList *SLL);

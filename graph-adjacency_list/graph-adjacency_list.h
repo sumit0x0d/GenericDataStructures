@@ -14,12 +14,12 @@ typedef struct Vertex {
 
 typedef struct GraphAdjacencyList {
     Vertex *adjacency_list;
-    size_t data_type_size;
+    size_t data_size;
     unsigned long vertices;
     size_t size;
 } GraphAdjacencyList;
 
-GraphAdjacencyList graph_adjacency_list_create(size_t data_type_size);
+GraphAdjacencyList graph_adjacency_list_create(size_t data_size);
 void graph_adjacency_list_destroy(GraphAdjacencyList *G);
 
 void *graph_adjacency_list_vertices(GraphAdjacencyList *G);
