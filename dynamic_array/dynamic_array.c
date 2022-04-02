@@ -62,19 +62,19 @@ size_t dynamic_array_size(DynamicArray *DA)
 //     return NULL;
 // }
 
-void array_create(void *array, size_t element_size, size_t size, size_t *capacity, double growth_factor)
-{
-    if(!array) {
+// void array_create(void *array, size_t element_size, size_t size, size_t *capacity, double growth_factor)
+// {
+//     if(!array) {
         
-        array = malloc(element_size * (*capacity));
-        if(!array) return;
-    }
+//         array = malloc(element_size * (*capacity));
+//         if(!array) return;
+//     }
 
-    if(size == (*capacity)) {
-        (*capacity) = (*capacity) * growth_factor;
-        array = realloc(array, element_size * (*capacity));
-    }
-}
+//     if(size == (*capacity)) {
+//         (*capacity) = (*capacity) * growth_factor;
+//         array = realloc(array, element_size * (*capacity));
+//     }
+// }
 
 bool dynamic_array_push_front(DynamicArray *DA, void *data, size_t data_size)
 {

@@ -14,9 +14,10 @@ typedef struct SinglyLinkedList {
     SinglyLinkedListNode *head;
     SinglyLinkedListNode *tail;
     size_t size;
+    int (*compare_data)(void *data, void *node_data);
 } SinglyLinkedList;
 
-SinglyLinkedList singly_linked_list_create();
+SinglyLinkedList singly_linked_list_create(int (*compare_data)(void *data, void *node_data));
 void singly_linked_list_destroy(SinglyLinkedList *SLL);
 
 SinglyLinkedListNode *singly_linked_list_head(SinglyLinkedList *SLL);

@@ -15,16 +15,15 @@ typedef struct AVLTreeNode {
 
 typedef struct AVLTree {
     AVLTreeNode *root;
-    size_t data_size;
     size_t size;
     int (*compare_data)(void *data, void *node_data);
 } AVLTree;
 
-AVLTree avl_tree_create(size_t data_size, int (*compare_data)(void *data, void *node_data));
+AVLTree avl_tree_create(int (*compare_data)(void *data, void *node_data));
 void avl_tree_destroy(AVLTree *AVLT);
 
 AVLTreeNode *avl_tree_search(AVLTree *AVLT, void *data);
-bool avl_tree_insert(AVLTree *AVLT, void *data);
-bool avl_tree_remove(AVLTree *AVLT, void *data);
+bool avl_tree_insert(AVLTree *AVLT, void *data, size_t data_size);
+bool avl_tree_remove(AVLTree *AVLT, void *data, size_t data_size);
 
 #endif
