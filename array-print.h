@@ -12,7 +12,7 @@ enum {
     STACK_ARRAY,
 };
 
-void queue_array_print(QueueArray *Q, int data_type)
+void queue_array_print(QueueArray *Q, int data_type, size_t data_size)
 {
     if(!Q->array) return;
 
@@ -20,13 +20,12 @@ void queue_array_print(QueueArray *Q, int data_type)
 
     printf("\n[Data]\t: ");
     for(size_t i = Q->front; i < Q->back; i++)
-        data_print(((char *)Q->array + (i * Q->element_size)), data_type);
+        data_print(((char *)Q->array + (i * data_size)), data_type);
 
     printf("\n[Size]\t: %zu\n", Q->size);
 }
 
-
-void stack_array_print(StackArray *S, int data_type)
+void stack_array_print(StackArray *S, int data_type, size_t data_size)
 {
     if(!S->array) return;
 
@@ -34,7 +33,7 @@ void stack_array_print(StackArray *S, int data_type)
 
     printf("\n[Data]\t: ");
     for(size_t i = 0; i < S->top; i++)
-        data_print(((char *)S->array + (i * S->element_size)), data_type);
+        data_print(((char *)S->array + (i * data_size)), data_type);
 
     printf("\n[Size]\t: %zu\n", S->size);
 }

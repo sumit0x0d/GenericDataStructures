@@ -1,6 +1,6 @@
 #include "hash_table.h"
 
-HashTable hash_table_create(size_t capacity);
+HashTable hash_table_create(size_t buckets);
 void hash_table_destroy(HashTable *HT);
 
 bool hash_table_insert(HashTable *HT, void *key, size_t key_size, void *value, size_t value_size);
@@ -37,9 +37,10 @@ size_t hash_function(size_t buckets, void *key, size_t key_size)
 
 bool hash_table_insert(HashTable *HT, void *key, size_t key_size, void *value, size_t value_size)
 {
+    KeyValuePair pair = {key, key_size, value, value_size};
     size_t index = hash_function(HT->buckets, key, key_size);
 
-    HT->array[index],;
+    memcpy((char *)HT->array + index, &pair, sizeof (KeyValuePair));
 }
 
 bool hash_table_remove(HashTable *HT, void *key, size_t key_size, void *value, size_t value_size)

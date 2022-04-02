@@ -7,19 +7,18 @@
 
 typedef struct StackArray {
     void *array;
-    size_t element_size;
     size_t top;
     size_t capacity;
     size_t size;
 } StackArray;
 
-StackArray stack_array_create(size_t element_size, size_t capacity);
+StackArray stack_array_create(size_t capacity);
 void stack_array_destroy(StackArray *S);
 
-void *stack_array_peek(StackArray *S);
+void *stack_array_peek(StackArray *S, size_t data_size);
 size_t stack_array_size(StackArray *S);
 
-bool stack_array_push(StackArray *S, void *data);
+bool stack_array_push(StackArray *S, void *data, size_t data_size);
 bool stack_array_pop(StackArray *S);
 
 #endif

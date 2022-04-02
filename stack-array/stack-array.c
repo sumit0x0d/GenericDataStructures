@@ -1,20 +1,19 @@
 #include "stack-array.h"
 
-StackArray stack_array_create(size_t element_size, size_t capacity);
+StackArray stack_array_create(size_t capacity);
 void stack_array_destroy(StackArray *S);
 
-void *stack_array_peek(StackArray *S);
+void *stack_array_peek(StackArray *S, size_t data_size);
 size_t stack_array_size(StackArray *S);
 
-bool stack_array_push(StackArray *S, void *data);
+bool stack_array_push(StackArray *S, void *data, size_t data_size);
 bool stack_array_pop(StackArray *S);
 
-StackArray stack_array_create(size_t element_size, size_t capacity)
+StackArray stack_array_create(size_t capacity)
 {
     StackArray S;
 
     S.array = NULL;
-    S.element_size = element_size;
     S.top = 0;
     S.capacity = capacity;
     S.size = 0;
@@ -31,9 +30,9 @@ void stack_array_destroy(StackArray *S)
     S->size = 0;
 }
 
-void *stack_array_peek(StackArray *S)
+void *stack_array_peek(StackArray *S, size_t data_size)
 {
-    return (char *)S->array + (S->element_size * S->top);
+    return (char *)S->array + (data_size * S->top);
 }
 
 size_t stack_array_size(StackArray *S)
@@ -41,18 +40,18 @@ size_t stack_array_size(StackArray *S)
     return S->size;
 }
 
-bool stack_array_push(StackArray *S, void *data)
+bool stack_array_push(StackArray *S, void *data, size_t data_size)
 {
     if(!S->array) {
-        if(!S->element_size || !S->capacity) return false;
+        if(!S->capacity) return false;
 
-        S->array = malloc(S->element_size * S->capacity);
+        S->array = malloc(data_size * S->capacity);
         if(!S->array) return false;
     }
 
     if(S->top == S->capacity) return false;
 
-    memcpy((char *)S->array + (S->element_size * S->top), data, S->element_size);
+    memcpy((char *)S->array + (data_size * S->top), data, data_size);
 
     S->top = S->top + 1;
 

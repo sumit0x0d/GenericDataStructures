@@ -6,7 +6,6 @@
 
 typedef struct BinaryTreeNode {
     void *data;
-    size_t data_size;
     struct BinaryTreeNode *left;
     struct BinaryTreeNode *right;
 } BinaryTreeNode;

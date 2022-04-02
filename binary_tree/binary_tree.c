@@ -28,8 +28,6 @@ static BinaryTreeNode *node_create(size_t data_size)
         return NULL;
     }
 
-    node->data_size = data_size;
-
     node->left = NULL;
     node->right = NULL;
 

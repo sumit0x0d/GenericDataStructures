@@ -1,6 +1,6 @@
 #include "queue-linked_list.h"
 
-QueueLinkedList queue_linked_list_create(size_t data_size);
+QueueLinkedList queue_linked_list_create();
 void queue_linked_list_destroy(QueueLinkedList *Q);
 
 QueueLinkedListNode *queue_linked_list_front(QueueLinkedList *Q);
@@ -10,16 +10,15 @@ size_t queue_linked_list_size(QueueLinkedList *Q);
 static QueueLinkedListNode *node_create(size_t data_size);
 static void node_destroy(QueueLinkedListNode *Q);
 
-bool queue_linked_list_enqueue(QueueLinkedList *Q, void *data);
+bool queue_linked_list_enqueue(QueueLinkedList *Q, void *data, size_t data_size);
 bool queue_linked_list_dequeue(QueueLinkedList *Q);
 
-QueueLinkedList queue_linked_list_create(size_t data_size)
+QueueLinkedList queue_linked_list_create()
 {
     QueueLinkedList Q;
 
     Q.front = NULL;
     Q.back = NULL;
-    Q.data_size = data_size;
     Q.size = 0;
 
     return Q;
@@ -80,12 +79,12 @@ static void node_destroy(QueueLinkedListNode *node)
     node = NULL;
 }
 
-bool queue_linked_list_enqueue(QueueLinkedList *Q, void *data)
+bool queue_linked_list_enqueue(QueueLinkedList *Q, void *data, size_t data_size)
 {
-    QueueLinkedListNode *node = node_create(Q->data_size);
+    QueueLinkedListNode *node = node_create(data_size);
     if(!node) return false;
 
-    memcpy(node->data, data, Q->data_size);
+    memcpy(node->data, data, data_size);
 
     if(Q->size)
         Q->back->next = node;

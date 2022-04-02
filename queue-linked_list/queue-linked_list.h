@@ -13,18 +13,17 @@ typedef struct QueueLinkedListNode {
 typedef struct QueueLinkedList {
     QueueLinkedListNode *front;
     QueueLinkedListNode *back;
-    size_t data_size;
     size_t size;
 } QueueLinkedList;
 
-QueueLinkedList queue_linked_list_create(size_t data_size);
+QueueLinkedList queue_linked_list_create();
 void queue_linked_list_destroy(QueueLinkedList *Q);
 
 QueueLinkedListNode *queue_linked_list_front(QueueLinkedList *Q);
 QueueLinkedListNode *queue_linked_list_back(QueueLinkedList *Q);
 size_t queue_linked_list_size(QueueLinkedList *Q);
 
-bool queue_linked_list_enqueue(QueueLinkedList *Q, void *data);
+bool queue_linked_list_enqueue(QueueLinkedList *Q, void *data, size_t data_size);
 bool queue_linked_list_dequeue(QueueLinkedList *Q);
 
 #endif
