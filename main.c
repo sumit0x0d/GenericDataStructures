@@ -44,15 +44,15 @@ int main()
     // long double ld = 3.14;
     // char *s = "string";
 
-    binary_search_tree_insert(&BST, &a);
-    binary_search_tree_insert(&BST, &b);
-    binary_search_tree_insert(&BST, &c);
-    binary_search_tree_insert(&BST, &d);
-    binary_search_tree_insert(&BST, &e);
-    binary_search_tree_insert(&BST, &f);
-    binary_search_tree_insert(&BST, &g);
+    binary_search_tree_insert(&BST, &a, sizeof a);
+    binary_search_tree_insert(&BST, &b, sizeof b);
+    binary_search_tree_insert(&BST, &c, sizeof c);
+    binary_search_tree_insert(&BST, &d, sizeof d);
+    binary_search_tree_insert(&BST, &e, sizeof e);
+    binary_search_tree_insert(&BST, &f, sizeof f);
+    binary_search_tree_insert(&BST, &g, sizeof g);
 
-    binary_search_tree_remove(&BST, &d);
+    binary_search_tree_remove(&BST, &d, sizeof d);
     // stack_array_push(&S, &c);
     // stack_array_push(&S2, &c);
     // queue_array_enqueue(&Q, &i);
