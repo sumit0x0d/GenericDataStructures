@@ -24,7 +24,7 @@ AVLTree avl_tree_create(size_t data_size, int (*compare_data)(void *data, void *
 void avl_tree_destroy(AVLTree *AVLT);
 
 AVLTreeNode *avl_tree_search(AVLTree *AVLT, void *data);
-bool avl_tree_insert(AVLTree *AVLT, void *data, size_t data_size);
-bool avl_tree_remove(AVLTree *AVLT, void *data, size_t data_size);
+bool avl_tree_insert(AVLTree *AVLT, void *data);
+bool avl_tree_remove(AVLTree *AVLT, void *data);
 
 #endif

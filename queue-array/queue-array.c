@@ -52,7 +52,7 @@ size_t queue_array_size(QueueArray *Q)
 bool queue_array_enqueue(QueueArray *Q, void *data)
 {
     if(!Q->array) {
-        if(!Q->capacity) return false;
+        if(!Q->data_size || !Q->capacity) return false;
 
         Q->array = malloc(Q->data_size * Q->capacity);
         if(!Q->array) return false;

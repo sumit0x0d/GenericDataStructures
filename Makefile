@@ -15,6 +15,7 @@ main1:
 	./dynamic_array/dynamic_array.c \
 	./graph-adjacency_list/graph-adjacency_list.c \
 	./graph-adjacency_matrix/graph-adjacency_matrix.c \
+	./hash_table-separate_chaining/hash_table-separate_chaining.c \
 	./queue-array/queue-array.c \
 	./queue-linked_list/queue-linked_list.c \
 	./red-black_tree/red-black_tree.c \

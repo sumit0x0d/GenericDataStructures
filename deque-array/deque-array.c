@@ -55,6 +55,8 @@ DequeArray deque_array_create(size_t data_size, size_t capacity)
 bool deque_array_push_back(DequeArray *D, void *data)
 {
     if(!D->array) {
+        if(!D->data_size || !D->capacity) return false;
+
         D->array = malloc(D->data_size * D->capacity);
         if(!D->array) return false;
     }
