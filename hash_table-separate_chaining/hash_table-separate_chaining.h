@@ -17,7 +17,7 @@ typedef struct HashTable {
     size_t value_size;
     size_t buckets;
     size_t size;
-    size_t (*hash)(void *key);
+    size_t (*hash)(void *key, size_t buckets);
 } HashTable;
 
 HashTable hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets, size_t (*hash)(void *key, size_t buckets));

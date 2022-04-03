@@ -12,8 +12,7 @@ int compare_data(void *data, void *node_data) {
     return 0;
 }
 
-
-size_t hash_function(void *key, size_t buckets)
+size_t hash(void *key, size_t buckets)
 {
     return (*(size_t *)key % buckets);
 }
@@ -39,7 +38,7 @@ int main()
     // GraphAdjacencyList G = graph_adjacency_list_create(INT, sizeof (int));
     // GraphAdjacencyMatrix G = graph_adjacency_list_create(INT, sizeof (int));
 
-    HashTable HT = hash_table_separate_chaining_create(sizeof (int), sizeof (int), 10, hash_function);
+    HashTable HT = hash_table_separate_chaining_create(sizeof (int), sizeof (int), 10, hash);
 
     int a = 1;
     int b = 3;

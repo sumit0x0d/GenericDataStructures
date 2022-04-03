@@ -39,7 +39,7 @@ bool hash_table_separate_chaining_insert(HashTable *HT, void *key, void *value)
     }
 
     KeyValuePair pair = {key, value, NULL};
-    size_t index = hash_function(key, HT->buckets);
+    size_t index = HT->hash(key, HT->buckets);
 
     memcpy(HT->array + index, &pair, sizeof (KeyValuePair));
 
