@@ -19,6 +19,7 @@ bool singly_linked_list_pop_front(SinglyLinkedList *SLL);
 bool singly_linked_list_pop_back(SinglyLinkedList *SLL);
 // bool singly_linked_list_remove(SinglyLinkedList *SLL, void *data);
 bool singly_linked_list_erase(SinglyLinkedList *SLL, size_t index);
+bool singly_linked_list_erase(SinglyLinkedList *SLL, size_t index, void *data);
 bool singly_linked_list_linear(SinglyLinkedList *SLL);
 bool singly_linked_list_circular(SinglyLinkedList *SLL);
 
