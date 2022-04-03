@@ -17,7 +17,7 @@ int main()
     // DoublyLinkedList DLL = doubly_linked_list_create(INT, sizeof (int));
     // QueueLinkedList Q = queue_linked_list_create();
     // SinglyLinkedList SLL = singly_linked_list_create();
-    // StackLinkedList S = stack_linked_list_create();
+    StackLinkedList S = stack_linked_list_create(sizeof (int));
     
     // DequeArray D = deque_array_create(INT, sizeof (int), 20);
     // StackArray S2 = stack_array_create(sizeof (char), 20);
@@ -25,7 +25,7 @@ int main()
 
     // DynamicArray DA = dynamic_array_create(INT, sizeof (int), 20, 1.5);
 
-    BinarySearchTree BST = binary_search_tree_create(sizeof (int), compare_data);
+    BinarySearchTree bst_int = binary_search_tree_create(compare_data);
     // AVLTree AVLT = avl_tree_create(INT, sizeof (int), compare_data);
     // RedBlackTree RBT = red_black_tree_create(INT, sizeof (int), compare_data);
 
@@ -40,14 +40,14 @@ int main()
     int f = 100;
     int g = 14;
 
-    binary_search_tree_insert(&BST, &a, sizeof a);
-    binary_search_tree_insert(&BST, &b, sizeof b);
-    binary_search_tree_insert(&BST, &c, sizeof c);
-    binary_search_tree_insert(&BST, &d, sizeof d);
-    binary_search_tree_insert(&BST, &e, sizeof e);
-    binary_search_tree_insert(&BST, &f, sizeof f);
-    binary_search_tree_insert(&BST, &g, sizeof g);
+    binary_search_tree_insert(&bst_int, &a, sizeof a);
+    binary_search_tree_insert(&bst_int, &b, sizeof b);
+    binary_search_tree_insert(&bst_int, &c, sizeof c);
+    binary_search_tree_insert(&bst_int, &d, sizeof d);
+    binary_search_tree_insert(&bst_int, &e, sizeof e);
+    binary_search_tree_insert(&bst_int, &f, sizeof f);
+    binary_search_tree_insert(&bst_int, &g, sizeof g);
 
-    binary_search_tree_remove(&BST, &d, sizeof d);
-    binary_search_tree_print(&BST, INT);
+    binary_search_tree_remove(&bst_int, &d, sizeof d);
+    binary_search_tree_print(&bst_int, INT);
 }

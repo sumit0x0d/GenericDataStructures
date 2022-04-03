@@ -12,16 +12,17 @@ typedef struct StackLinkedListNode {
 
 typedef struct StackLinkedList {
     StackLinkedListNode *top;
+    size_t data_size;
     size_t size;
 } StackLinkedList;
 
-StackLinkedList stack_linked_list_create();
+StackLinkedList stack_linked_list_create(size_t data_size);
 void stack_linked_list_destroy(StackLinkedList *S);
 
 StackLinkedListNode *stack_linked_list_peek(StackLinkedList *S);
 size_t stack_linked_list_size(StackLinkedList *S);
 
-bool stack_linked_list_push(StackLinkedList *S, void *data, size_t data_size);
+bool stack_linked_list_push(StackLinkedList *S, void *data);
 bool stack_linked_list_pop(StackLinkedList *S);
 
 #endif

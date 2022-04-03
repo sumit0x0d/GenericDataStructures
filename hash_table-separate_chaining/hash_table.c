@@ -28,11 +28,11 @@ void hash_table_destroy(HashTable *HT)
 
 size_t hash_function(size_t buckets, void *key, size_t key_size)
 {
-    size_t *index;
+    size_t index;
 
-    memcpy(index, key, key_size);
+    memcpy(&index, key, key_size);
 
-    return (*index % buckets);
+    return (index % buckets);
 }
 
 bool hash_table_insert(HashTable *HT, void *key, size_t key_size, void *value, size_t value_size)

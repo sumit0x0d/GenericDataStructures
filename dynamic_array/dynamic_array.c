@@ -1,26 +1,27 @@
 #include "dynamic_array.h"
 
-DynamicArray dynamic_array_create(size_t capacity, double growth_factor);
+DynamicArray dynamic_array_create(size_t data_size, size_t capacity, double growth_factor);
 void dynamic_array_destroy(DynamicArray *DA);
 
-void *dynamic_array_front(DynamicArray *DA, size_t data_size);
-void *dynamic_array_back(DynamicArray *DA, size_t data_size);
+void *dynamic_array_front(DynamicArray *DA);
+void *dynamic_array_back(DynamicArray *DA);
 size_t dynamic_array_size(DynamicArray *DA);
 
-bool dynamic_array_push_front(DynamicArray *DA, void *data, size_t data_size);
-bool dynamic_array_push_back(DynamicArray *DA, void *data, size_t data_size);
-bool dynamic_array_insert(DynamicArray *DA, size_t index, void *data, size_t data_size);
-bool dynamic_array_sorted_insert(DynamicArray *DA, void *data, size_t data_size);
+bool dynamic_array_push_front(DynamicArray *DA, void *data);
+bool dynamic_array_push_back(DynamicArray *DA, void *data);
+bool dynamic_array_insert(DynamicArray *DA, size_t index, void *data);
+bool dynamic_array_sorted_insert(DynamicArray *DA, void *data);
 bool dynamic_array_pop_front(DynamicArray *DA);
 bool dynamic_array_pop_back(DynamicArray *DA);
-bool dynamic_array_remove(DynamicArray *DA, void *data, size_t data_size);
+bool dynamic_array_remove(DynamicArray *DA, void *data);
 bool dynamic_array_erase(DynamicArray *DA, size_t index);
 
-DynamicArray dynamic_array_create(size_t capacity, double growth_factor)
+DynamicArray dynamic_array_create(size_t data_size, size_t capacity, double growth_factor)
 {
     DynamicArray DA;
 
     DA.array = NULL;
+    DA.data_size = data_size;
     DA.front = 0;
     DA.back = 0;
     DA.capacity = capacity;
@@ -39,14 +40,14 @@ void dynamic_array_destroy(DynamicArray *DA)
     DA->capacity = 2;
 }
 
-void *dynamic_array_front(DynamicArray *DA, size_t data_size)
+void *dynamic_array_front(DynamicArray *DA)
 {
-    return (char *)DA->array + (data_size * DA->front);
+    return (char *)DA->array + (DA->data_size * DA->front);
 }
 
-void *dynamic_array_back(DynamicArray *DA, size_t data_size)
+void *dynamic_array_back(DynamicArray *DA)
 {
-    return (char *)DA->array + (data_size * DA->back);
+    return (char *)DA->array + (DA->data_size * DA->back);
 }
 
 size_t dynamic_array_size(DynamicArray *DA)
@@ -76,48 +77,48 @@ size_t dynamic_array_size(DynamicArray *DA)
 //     }
 // }
 
-bool dynamic_array_push_front(DynamicArray *DA, void *data, size_t data_size)
+bool dynamic_array_push_front(DynamicArray *DA, void *data)
 {
     if(!DA->array) {
-        if(!data_size || !DA->capacity) return false;
+        if(!DA->data_size || !DA->capacity) return false;
 
         if((size_t)(DA->capacity * DA->growth_factor) <= DA->capacity) return false;
 
-        DA->array = malloc(data_size * DA->capacity);
+        DA->array = malloc(DA->data_size * DA->capacity);
         if(!DA->array) return false;
     }
 
     if(DA->size == DA->capacity) {
         DA->capacity = DA->capacity * DA->growth_factor;
-        void *array = realloc(DA->array, data_size * DA->capacity);
+        void *array = realloc(DA->array, DA->data_size * DA->capacity);
         if(!array) return false;
 
         DA->array = array;
     }
 
-    memmove((char *)DA->array + data_size, DA->array, data_size * DA->size);
+    memmove((char *)DA->array + DA->data_size, DA->array, DA->data_size * DA->size);
 
-    memcpy(DA->array, data, data_size);
+    memcpy(DA->array, data, DA->data_size);
 
     DA->size = DA->size + 1;
 
     return true;
 }
 
-bool dynamic_array_push_back(DynamicArray *DA, void *data, size_t data_size)
+bool dynamic_array_push_back(DynamicArray *DA, void *data)
 {
     if(!DA->array) {
-        if(!data_size || !DA->capacity) return false;
+        if(!DA->data_size || !DA->capacity) return false;
 
         if((size_t)(DA->capacity * DA->growth_factor) <= DA->capacity) return false;
 
-        DA->array = malloc(data_size * DA->capacity);
+        DA->array = malloc(DA->data_size * DA->capacity);
         if(!DA->array) return false;
     }
 
     if(DA->size == DA->capacity) {
         DA->capacity = DA->capacity * DA->growth_factor;
-        void *array = realloc(DA->array, data_size * DA->capacity);
+        void *array = realloc(DA->array, DA->data_size * DA->capacity);
         if(!array) return false;
         
         DA->array = array;
@@ -125,37 +126,37 @@ bool dynamic_array_push_back(DynamicArray *DA, void *data, size_t data_size)
 
     // array_create(DA->array, data_size, DA->size, &DA->capacity, DA->growth_factor);
 
-    memcpy((char *)DA->array + (data_size * DA->size), data, data_size);
+    memcpy((char *)DA->array + (DA->data_size * DA->size), data, DA->data_size);
 
     DA->size = DA->size + 1;
 
     return true;
 }
 
-bool dynamic_array_insert(DynamicArray *DA, size_t index, void *data, size_t data_size)
+bool dynamic_array_insert(DynamicArray *DA, size_t index, void *data)
 {
     if(index > DA->size) return false;
 
     if(!DA->array) {
-        if(!data_size || !DA->capacity) return false;
+        if(!DA->data_size || !DA->capacity) return false;
 
         if((size_t)(DA->capacity * DA->growth_factor) <= DA->capacity) return false;
 
-        DA->array = malloc(data_size * DA->capacity);
+        DA->array = malloc(DA->data_size * DA->capacity);
         if(!DA->array) return false;
     }
 
     if(DA->size == DA->capacity) {
         DA->capacity = DA->capacity * DA->growth_factor;
-        void *array = realloc(DA->array, data_size * DA->capacity);
+        void *array = realloc(DA->array, DA->data_size * DA->capacity);
         if(!array) return false;
 
         DA->array = array;
     }
 
-    memmove((char *)DA->array + (data_size * index) + data_size, (char *)DA->array + (data_size * index), data_size * DA->size);
+    memmove((char *)DA->array + (DA->data_size * index) + DA->data_size, (char *)DA->array + (DA->data_size * index), DA->data_size * DA->size);
 
-    memcpy((char *)DA->array + (data_size * index), data, data_size);
+    memcpy((char *)DA->array + (DA->data_size * index), data, DA->data_size);
 
     DA->size = DA->size + 1;
 

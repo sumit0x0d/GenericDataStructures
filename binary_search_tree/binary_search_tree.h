@@ -13,15 +13,16 @@ typedef struct BinarySearchTreeNode {
 
 typedef struct BinarySearchTree {
     BinarySearchTreeNode *root;
+    size_t data_size;
     size_t size;
     int (*compare_data)(void *data, void *node_data);
 } BinarySearchTree;
 
-BinarySearchTree binary_search_tree_create(int (*compare_data)(void *data, void *node_data));
+BinarySearchTree binary_search_tree_create(size_t data_size, int (*compare_data)(void *data, void *node_data));
 void binary_search_tree_destroy(BinarySearchTree *BST);
 
 BinarySearchTreeNode *binary_search_tree_search(BinarySearchTree *BST, void *data);
-bool binary_search_tree_insert(BinarySearchTree *BST, void *data, size_t data_size);
-bool binary_search_tree_remove(BinarySearchTree *BST, void *data, size_t data_size);
+bool binary_search_tree_insert(BinarySearchTree *BST, void *data);
+bool binary_search_tree_remove(BinarySearchTree *BST, void *data);
 
 #endif
