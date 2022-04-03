@@ -25,7 +25,7 @@ int main()
 
     // DynamicArray DA = dynamic_array_create(INT, sizeof (int), 20, 1.5);
 
-    BinarySearchTree bst_int = binary_search_tree_create(compare_data);
+    BinarySearchTree bst_int = binary_search_tree_create(sizeof (int), compare_data);
     // AVLTree AVLT = avl_tree_create(INT, sizeof (int), compare_data);
     // RedBlackTree RBT = red_black_tree_create(INT, sizeof (int), compare_data);
 
@@ -40,14 +40,14 @@ int main()
     int f = 100;
     int g = 14;
 
-    binary_search_tree_insert(&bst_int, &a, sizeof a);
-    binary_search_tree_insert(&bst_int, &b, sizeof b);
-    binary_search_tree_insert(&bst_int, &c, sizeof c);
-    binary_search_tree_insert(&bst_int, &d, sizeof d);
-    binary_search_tree_insert(&bst_int, &e, sizeof e);
-    binary_search_tree_insert(&bst_int, &f, sizeof f);
-    binary_search_tree_insert(&bst_int, &g, sizeof g);
+    binary_search_tree_insert(&bst_int, &a);
+    binary_search_tree_insert(&bst_int, &b);
+    binary_search_tree_insert(&bst_int, &c);
+    binary_search_tree_insert(&bst_int, &d);
+    binary_search_tree_insert(&bst_int, &e);
+    binary_search_tree_insert(&bst_int, &f);
+    binary_search_tree_insert(&bst_int, &g);
 
-    binary_search_tree_remove(&bst_int, &d, sizeof d);
+    binary_search_tree_remove(&bst_int, &d);
     binary_search_tree_print(&bst_int, INT);
 }
