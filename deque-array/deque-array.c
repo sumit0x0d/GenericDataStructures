@@ -27,10 +27,15 @@ DequeArray deque_array_create(size_t data_size, size_t capacity)
     return D;
 }
 
-// void deque_array_destroy(DequeArray *D)
-// {
-
-// }
+void deque_array_destroy(DequeArray *D)
+{
+    free(D->array);
+    D->array = NULL;
+    
+    D->front = 0;
+    D->back = 0;
+    D->size = 0;
+}
 
 // void *deque_array_front(DequeArray *D)
 // {

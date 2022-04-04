@@ -3,7 +3,7 @@
 StackLinkedList stack_linked_list_create(size_t data_size);
 void stack_linked_list_destroy(StackLinkedList *S);
 
-StackLinkedListNode *stack_linked_list_peek(StackLinkedList *s);
+void *stack_linked_list_peek(StackLinkedList *s);
 size_t stack_linked_list_size(StackLinkedList *S);
 
 static StackLinkedListNode *node_create(size_t data_size);
@@ -40,9 +40,11 @@ void stack_linked_list_destroy(StackLinkedList *S)
     return;
 }
 
-StackLinkedListNode *stack_linked_list_peek(StackLinkedList *S)
+void *stack_linked_list_peek(StackLinkedList *S)
 {
-    return S->top;
+    if(!S->top) return NULL;
+
+    return S->top->data;
 }
 
 size_t stack_linked_list_size(StackLinkedList *S)
@@ -91,7 +93,7 @@ bool stack_linked_list_push(StackLinkedList *S, void *data)
 
 bool stack_linked_list_pop(StackLinkedList *S)
 {
-    if(!S->size) return false;
+    if(!S->top) return false;
 
     StackLinkedListNode *node = S->top;
 

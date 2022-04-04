@@ -3,8 +3,8 @@
 DequeLinkedList deque_linked_list_create(size_t data_size);
 void deque_linked_list_destroy(DequeLinkedList *D);
 
-DequeLinkedListNode *deque_linked_list_front(DequeLinkedList *D);
-DequeLinkedListNode *deque_linked_list_back(DequeLinkedList *D);
+void *deque_linked_list_front(DequeLinkedList *D);
+void *deque_linked_list_back(DequeLinkedList *D);
 size_t deque_linked_list_size(DequeLinkedList *D);
 
 static DequeLinkedListNode *node_create(size_t data_size);
@@ -32,14 +32,18 @@ DequeLinkedList deque_linked_list_create(size_t data_size)
 
 // }
 
-DequeLinkedListNode *deque_linked_list_front(DequeLinkedList *D)
+void *deque_linked_list_front(DequeLinkedList *D)
 {
-    return D->front;
+    if(!D->front) return NULL;
+    
+    return D->front->data;
 }
 
-DequeLinkedListNode *deque_linked_list_back(DequeLinkedList *D)
+void *deque_linked_list_back(DequeLinkedList *D)
 {
-    return D->back;
+    if(!D->back) return NULL;
+    
+    return D->back->data;
 }
 
 size_t deque_linked_list_size(DequeLinkedList *D)
@@ -119,7 +123,7 @@ bool deque_linked_list_push_back(DequeLinkedList *D, void *data)
 
 bool deque_linked_list_pop_front(DequeLinkedList *D)
 {
-    if(!D->size) return false;
+    if(!D->front) return false;
 
     DequeLinkedListNode *node = D->front;
 
@@ -136,7 +140,7 @@ bool deque_linked_list_pop_front(DequeLinkedList *D)
 
 bool deque_linked_list_pop_back(DequeLinkedList *D)
 {
-    if(!D->size) return false;
+    if(!D->front) return false;
 
     DequeLinkedListNode *node = D->back;
 

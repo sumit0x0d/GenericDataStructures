@@ -33,6 +33,8 @@ void stack_array_destroy(StackArray *S)
 
 void *stack_array_peek(StackArray *S)
 {
+    if(!S->array) return NULL;
+
     return (char *)S->array + (S->data_size * S->top);
 }
 
@@ -63,7 +65,7 @@ bool stack_array_push(StackArray *S, void *data)
 
 bool stack_array_pop(StackArray *S)
 {
-    if(!S->size) return false;
+    if(!S->top) return false;
 
     S->top = S->top - 1;
 

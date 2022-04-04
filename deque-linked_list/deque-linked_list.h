@@ -21,8 +21,8 @@ typedef struct DequeLinkedList {
 DequeLinkedList deque_linked_list_create(size_t data_size);
 void deque_linked_list_destroy(DequeLinkedList *D);
 
-DequeLinkedListNode *deque_linked_list_front(DequeLinkedList *D);
-DequeLinkedListNode *deque_linked_list_back(DequeLinkedList *D);
+void *deque_linked_list_front(DequeLinkedList *D);
+void *deque_linked_list_back(DequeLinkedList *D);
 size_t deque_linked_list_size(DequeLinkedList *D);
 
 bool deque_linked_list_push_front(DequeLinkedList *D, void *data);

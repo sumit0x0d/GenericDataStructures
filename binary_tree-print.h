@@ -36,7 +36,7 @@ void preorder_traverse(void *root, int binary_tree_type, int data_type)
                         node = node->left;
                     }
                     else {
-                        node = stack_linked_list_peek(&S)->data;
+                        node = stack_linked_list_peek(&S);
                         stack_linked_list_pop(&S);
                         node = node->right;
                     }
@@ -53,7 +53,7 @@ void preorder_traverse(void *root, int binary_tree_type, int data_type)
                         node = node->left;
                     }
                     else {
-                        node = stack_linked_list_peek(&S)->data;
+                        node = stack_linked_list_peek(&S);
                         stack_linked_list_pop(&S);
                         node = node->right;
                     }
@@ -70,7 +70,7 @@ void preorder_traverse(void *root, int binary_tree_type, int data_type)
                         node = node->left;
                     }
                     else {
-                        node = stack_linked_list_peek(&S)->data;
+                        node = stack_linked_list_peek(&S);
                         stack_linked_list_pop(&S);
                         node = node->right;
                 }
@@ -94,7 +94,7 @@ void inorder_traverse(void *root, int binary_tree_type, int data_type)
                         node = node->left;
                     }
                     else {
-                        node = stack_linked_list_peek(&S)->data;
+                        node = stack_linked_list_peek(&S);
                         data_print(node->data, data_type);
                         stack_linked_list_pop(&S);
                         node = node->right;
@@ -111,7 +111,7 @@ void inorder_traverse(void *root, int binary_tree_type, int data_type)
                         node = node->left;
                     }
                     else {
-                        node = stack_linked_list_peek(&S)->data;
+                        node = stack_linked_list_peek(&S);
                         data_print(node->data, data_type);
                         stack_linked_list_pop(&S);
                         node = node->right;
@@ -128,7 +128,7 @@ void inorder_traverse(void *root, int binary_tree_type, int data_type)
                         node = node->left;
                     }
                     else {
-                        node = stack_linked_list_peek(&S)->data;
+                        node = stack_linked_list_peek(&S);
                         data_print(node->data, data_type);
                         stack_linked_list_pop(&S);
                         node = node->right;
@@ -176,7 +176,7 @@ void levelorder_traverse(void *root, int binary_tree_type, int data_type)
                 data_print(node->data, data_type);
                 queue_linked_list_enqueue(&Q, node);
                 while(queue_linked_list_size(&Q)) {
-                    node = queue_linked_list_front(&Q)->data;
+                    node = queue_linked_list_front(&Q);
                     queue_linked_list_dequeue(&Q);
                     if(node->left) {
                         data_print(node->left->data, data_type);
@@ -196,7 +196,7 @@ void levelorder_traverse(void *root, int binary_tree_type, int data_type)
                 data_print(node->data, data_type);
                 queue_linked_list_enqueue(&Q, node);
                 while(queue_linked_list_size(&Q)) {
-                    node = queue_linked_list_front(&Q)->data;
+                    node = queue_linked_list_front(&Q);
                     queue_linked_list_dequeue(&Q);
                     if(node->left) {
                         data_print(node->left->data, data_type);
@@ -216,7 +216,7 @@ void levelorder_traverse(void *root, int binary_tree_type, int data_type)
                 data_print(node->data, data_type);
                 queue_linked_list_enqueue(&Q, node);
                 while(queue_linked_list_size(&Q)) {
-                    node = queue_linked_list_front(&Q)->data;
+                    node = queue_linked_list_front(&Q);
                     queue_linked_list_dequeue(&Q);
                     if(node->left) {
                         data_print(node->left->data, data_type);

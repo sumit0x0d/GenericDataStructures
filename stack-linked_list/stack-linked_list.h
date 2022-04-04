@@ -19,7 +19,7 @@ typedef struct StackLinkedList {
 StackLinkedList stack_linked_list_create(size_t data_size);
 void stack_linked_list_destroy(StackLinkedList *S);
 
-StackLinkedListNode *stack_linked_list_peek(StackLinkedList *S);
+void *stack_linked_list_peek(StackLinkedList *S);
 size_t stack_linked_list_size(StackLinkedList *S);
 
 bool stack_linked_list_push(StackLinkedList *S, void *data);

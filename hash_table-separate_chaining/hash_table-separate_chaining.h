@@ -23,7 +23,7 @@ typedef struct HashTable {
 HashTable hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets, size_t (*hash)(void *key, size_t buckets));
 void hash_table_separate_chaining_destroy(HashTable *HT);
 
-size_t hash_table_separate_chaining_size();
+size_t hash_table_separate_chaining_size(HashTable *HT);
 
 bool hash_table_separate_chaining_insert(HashTable *HT, void *key, void *value);
 bool hash_table_separate_chaining_remove(HashTable *HT, void *key, void *value);
