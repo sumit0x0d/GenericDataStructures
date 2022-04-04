@@ -37,7 +37,6 @@ void dynamic_array_destroy(DynamicArray *DA)
     DA->array = NULL;
 
     DA->size = 0;
-    DA->capacity = 2;
 }
 
 void *dynamic_array_front(DynamicArray *DA)
