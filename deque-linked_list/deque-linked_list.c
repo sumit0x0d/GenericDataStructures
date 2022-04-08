@@ -27,10 +27,22 @@ DequeLinkedList deque_linked_list_create(size_t data_size)
     return D;
 }
 
-// void deque_linked_list_destroy(DequeLinkedList *D)
-// {
+void deque_linked_list_destroy(DequeLinkedList *S)
+{
+    DequeLinkedListNode *node = S->front;
 
-// }
+    while(node)
+        if(node->next) {
+            deque_linked_list_pop_front(S);
+            node = S->front;   
+        }
+        else {
+            deque_linked_list_pop_front(S);
+            break;
+        }
+
+    return;
+}
 
 void *deque_linked_list_front(DequeLinkedList *D)
 {

@@ -35,17 +35,23 @@ void dynamic_array_destroy(DynamicArray *DA)
 {
     free(DA->array);
     DA->array = NULL;
-
+    
+    DA->front = 0;
+    DA->back = 0;
     DA->size = 0;
 }
 
 void *dynamic_array_front(DynamicArray *DA)
 {
+    if(!DA->array) return false;
+
     return (char *)DA->array + (DA->data_size * DA->front);
 }
 
 void *dynamic_array_back(DynamicArray *DA)
 {
+    if(!DA->array) return false;
+
     return (char *)DA->array + (DA->data_size * DA->back);
 }
 

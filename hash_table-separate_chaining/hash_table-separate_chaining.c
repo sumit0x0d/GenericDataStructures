@@ -1,22 +1,19 @@
 #include "hash_table-separate_chaining.h"
 
-HashTable hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets, size_t (*hash)(void *key, size_t buckets));
+HashTable hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets);
 void hash_table_separate_chaining_destroy(HashTable *HT);
 
 bool hash_table_separate_chaining_insert(HashTable *HT, void *key, void *value);
 bool hash_table_separate_chaining_remove(HashTable *HT, void *key, void *value);
 
-HashTable hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets, size_t (*hash)(void *key, size_t buckets))
+HashTable hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets)
 {
     HashTable HT;
-
     HT.array = NULL;
     HT.key_size = key_size;
     HT.value_size = value_size;
     HT.buckets = buckets;
     HT.size = 0;
-
-    HT.hash = hash;
 
     return HT;
 }
@@ -29,6 +26,11 @@ void hash_table_separate_chaining_destroy(HashTable *HT)
     HT->size = 0;
 }
 
+size_t hash(void *key, size_t buckets)
+{
+    return *(size_t *)key % buckets;
+}
+
 bool hash_table_separate_chaining_insert(HashTable *HT, void *key, void *value)
 {
     if(!HT->array) {
@@ -39,7 +41,7 @@ bool hash_table_separate_chaining_insert(HashTable *HT, void *key, void *value)
     }
 
     KeyValuePair pair = {key, value, NULL};
-    size_t index = HT->hash(key, HT->buckets);
+    size_t index = hash(key, HT->buckets);
 
     memcpy(HT->array + index, &pair, sizeof (KeyValuePair));
 
