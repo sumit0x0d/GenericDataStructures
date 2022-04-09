@@ -1,7 +1,7 @@
-#include "array-print.h"
+// #include "array-print.h"
 // #include "binary_tree-print.h"
 // #include "graph-print.h"
-// #include "linked_list-print.h"
+#include "linked_list-print.h"
 // #include "hash_table-separate_chaining/hash_table-separate_chaining.h"
 
 int compare(void *data, void *node_data) {
@@ -23,7 +23,7 @@ int main()
     // DoublyLinkedList DLL = doubly_linked_list_create(INT, sizeof (int));
     // QueueLinkedList Q = queue_linked_list_create();
     // SinglyLinkedList SLL = singly_linked_list_create();
-    // StackLinkedList S = stack_linked_list_create(sizeof (int));
+    StackLinkedList S = stack_linked_list_create(sizeof (int));
     
     // DequeArray D = deque_array_create(INT, sizeof (int), 20);
     // StackArray S2 = stack_array_create(sizeof (char), 20);
@@ -38,9 +38,9 @@ int main()
     // GraphAdjacencyList G = graph_adjacency_list_create(INT, sizeof (int));
     // GraphAdjacencyMatrix G = graph_adjacency_list_create(INT, sizeof (int));
 
-    HashTable HT = hash_table_separate_chaining_create(sizeof (int), sizeof (int), 10, hash, compare);
+    // HashTable HT = hash_table_separate_chaining_create(sizeof (int), sizeof (int), 10, hash, compare);
 
-    int a = 1;
+    // int a = 1;
     int b = 3;
     // int c = 1;
     // int d = 19;
@@ -48,7 +48,8 @@ int main()
     // int f = 100;
     // int g = 14;
 
-    hash_table_separate_chaining_insert(&HT, &a, &b);
-    hash_table_separate_chaining_insert(&HT, &b, &a);
-    hash_table_separate_chaining_print(&HT, INT, INT);
+    stack_linked_list_push(&S, &b);
+    // hash_table_separate_chaining_insert(&HT, &a, &b);
+    // hash_table_separate_chaining_insert(&HT, &b, &a);
+    // hash_table_separate_chaining_print(&HT, INT, INT);
 }

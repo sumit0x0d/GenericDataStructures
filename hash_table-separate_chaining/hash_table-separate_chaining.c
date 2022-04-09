@@ -1,7 +1,7 @@
 #include "hash_table-separate_chaining.h"
 
 HashTable hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets,
-    size_t hash(void *key, size_t buckets), int (*compare)(void *key, void *node_key));
+    size_t hash(void *key, size_t buckets), int (*compare)(void *key, void *pair_key));
 void hash_table_separate_chaining_destroy(HashTable *HT);
 
 void *hash_table_separate_chaining_search(HashTable *HT, void *key);
@@ -10,7 +10,7 @@ bool hash_table_separate_chaining_insert(HashTable *HT, void *key, void *value);
 bool hash_table_separate_chaining_remove(HashTable *HT, void *key);
 
 HashTable hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets,
-    size_t hash(void *key, size_t buckets), int (*compare)(void *key, void *node_key))
+    size_t hash(void *key, size_t buckets), int (*compare)(void *key, void *pair_key))
 {
     HashTable HT;
 
@@ -51,7 +51,7 @@ bool hash_table_separate_chaining_insert(HashTable *HT, void *key, void *value)
         if(!HT->array) return false;
     }
 
-    KeyValuePair pair = {key, value, NULL};
+    KeyValuePair pair = {key, value, NULL, NULL, NULL, RED};
     size_t index = HT->hash(key, HT->buckets);
 
     memcpy(HT->array + index, &pair, sizeof (KeyValuePair));

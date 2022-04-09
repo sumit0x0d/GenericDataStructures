@@ -8,7 +8,10 @@
 typedef struct KeyValuePair {
     void *key;
     void *value;
-    struct KeyValuePair *next;
+    struct KeyValuePair *left;
+    struct KeyValuePair *right;
+    struct KeyValuePair *parent;
+    enum {RED, BLACK} color;
 } KeyValuePair;
 
 typedef struct HashTable {
@@ -22,7 +25,7 @@ typedef struct HashTable {
 } HashTable;
 
 HashTable hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets,
-    size_t hash(void *key, size_t buckets), int (*compare)(void *key, void *node_key));
+    size_t hash(void *key, size_t buckets), int (*compare)(void *key, void *pair_key));
 void hash_table_separate_chaining_destroy(HashTable *HT);
 
 size_t hash_table_separate_chaining_size(HashTable *HT);
