@@ -175,12 +175,12 @@ bool singly_linked_list_insert(SinglyLinkedList *SLL, size_t index, void *data)
 
 bool singly_linked_list_sorted_insert(SinglyLinkedList *SLL, void *data)
 {
-    if(!SLL->size || memcmp(data, SLL->head->data, SLL->data_size) < 0) {
+    if(!SLL->size || SLL->compare_data(data, SLL->head->data) < 0) {
         singly_linked_list_push_head(SLL, data);
         return true;
     }
 
-    if(memcmp(data, SLL->tail->data, SLL->data_size) > 0) {
+    if(SLL->compare_data(data, SLL->tail->data) > 0) {
         singly_linked_list_push_tail(SLL, data);
         return true;
     }

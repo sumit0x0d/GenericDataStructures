@@ -29,9 +29,8 @@ DequeArray deque_array_create(size_t data_size, size_t capacity)
 
 bool deque_array_change_capacity(DequeArray *D, size_t capacity)
 {
-    if(D->front)
-        memmove(D->array, (char *)D->array + (D->data_size * D->front), D->size);
-    
+    if(!capacity) return;
+
     void *array = realloc(D->array, D->data_size * capacity);
     if(!array) return false;
 
@@ -54,11 +53,15 @@ void deque_array_destroy(DequeArray *D)
 
 void *deque_array_front(DequeArray *D)
 {
+    if(!D->array) return NULL;
+
     return (char *)D->array + (D->data_size * D->front);
 }
 
 void *deque_array_back(DequeArray *D)
 {
+    if(!D->array) return NULL;
+
     return (char *)D->array + (D->data_size * D->back);
 }
 

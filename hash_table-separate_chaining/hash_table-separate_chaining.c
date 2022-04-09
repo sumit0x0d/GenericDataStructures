@@ -26,7 +26,7 @@ void hash_table_separate_chaining_destroy(HashTable *HT)
     HT->size = 0;
 }
 
-size_t hash(void *key, size_t buckets)
+static size_t hash(void *key, size_t buckets)
 {
     return *(size_t *)key % buckets;
 }

@@ -27,7 +27,7 @@ int main()
     
     // DequeArray D = deque_array_create(INT, sizeof (int), 20);
     // StackArray S2 = stack_array_create(sizeof (char), 20);
-    // QueueArray Q = queue_array_create(INT, sizeof (int), 20);
+    QueueArray Q = queue_array_create(sizeof (int), 2);
 
     // DynamicArray DA = dynamic_array_create(INT, sizeof (int), 20, 1.5);
 
@@ -38,7 +38,7 @@ int main()
     // GraphAdjacencyList G = graph_adjacency_list_create(INT, sizeof (int));
     // GraphAdjacencyMatrix G = graph_adjacency_list_create(INT, sizeof (int));
 
-    HashTable HT = hash_table_separate_chaining_create(sizeof (int), sizeof (int), 10, hash);
+    // HashTable HT = hash_table_separate_chaining_create(sizeof (int), sizeof (int), 10, hash);
 
     int a = 1;
     int b = 3;
@@ -48,7 +48,11 @@ int main()
     // int f = 100;
     // int g = 14;
 
-    hash_table_separate_chaining_insert(&HT, &a, &b);
-    hash_table_separate_chaining_insert(&HT, &b, &a);
-    hash_table_separate_chaining_print(&HT, INT, INT);
+    // hash_table_separate_chaining_insert(&HT, &a, &b);
+    // hash_table_separate_chaining_insert(&HT, &b, &a);
+    // hash_table_separate_chaining_print(&HT, INT, INT);
+    printf("%d", queue_array_enqueue(&Q, &a));
+    printf("%d", queue_array_enqueue(&Q, &b));
+    if(!queue_array_enqueue(&Q, &a)) queue_array_change_capacity(&Q, 3);
+    printf("%d", queue_array_enqueue(&Q, &a));
 }
