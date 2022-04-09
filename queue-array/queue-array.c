@@ -1,6 +1,7 @@
 #include "queue-array.h"
 
 QueueArray queue_array_create(size_t data_size, size_t capacity);
+bool queue_array_change_capacity(QueueArray *Q, size_t capacity);
 void queue_array_destroy(QueueArray *Q);
 
 void *queue_array_front(QueueArray *Q);
@@ -22,6 +23,23 @@ QueueArray queue_array_create(size_t data_size, size_t capacity)
     Q.size = 0;
 
     return Q;
+}
+
+bool queue_array_change_capacity(QueueArray *Q, size_t capacity)
+{
+    if(!capacity) return false;
+
+    if(Q->front)
+        memmove(Q->array, (char *)Q->array + (Q->data_size * Q->front), Q->size);
+
+    void *array = realloc(Q->array, Q->data_size * capacity);
+    if(!array) return false;
+
+    Q->array = array;
+
+    Q->capacity = capacity;
+
+    return true;
 }
 
 void queue_array_destroy(QueueArray *Q)
@@ -58,12 +76,12 @@ bool queue_array_enqueue(QueueArray *Q, void *data)
         if(!Q->array) return false;
     }
 
-    if(Q->back == Q->capacity) return false;
-        // if(Q->front) {
-        //     memmove(Q->array, (char *)Q->array + (Q->element_size * Q->front), Q->size);
-        //     Q->front = 0;
-        //     Q->back = Q->size;
-        // }
+    if(Q->back == Q->capacity) 
+        if(Q->front) {
+            memmove(Q->array, (char *)Q->array + (Q->data_size * Q->front), Q->size);
+            Q->front = 0;
+            Q->back = Q->size;
+        }
 
     memcpy((char *)Q->array + (Q->data_size * Q->back), data, Q->data_size);
 

@@ -14,6 +14,7 @@ typedef struct StackArray {
 } StackArray;
 
 StackArray stack_array_create(size_t data_size, size_t capacity);
+bool stack_array_change_capacity(StackArray *S, size_t capacity);
 void stack_array_destroy(StackArray *S);
 
 void *stack_array_peek(StackArray *S);

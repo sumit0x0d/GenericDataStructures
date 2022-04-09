@@ -1,6 +1,7 @@
 #include "stack-array.h"
 
 StackArray stack_array_create(size_t data_size, size_t capacity);
+bool stack_array_change_capacity(StackArray *S, size_t capacity);
 void stack_array_destroy(StackArray *S);
 
 void *stack_array_peek(StackArray *S);
@@ -20,6 +21,20 @@ StackArray stack_array_create(size_t data_size, size_t capacity)
     S.size = 0;
 
     return S;
+}
+
+bool stack_array_change_capacity(StackArray *S, size_t capacity)
+{
+    if(!capacity) return false;
+
+    void *array = realloc(S->array, S->data_size * capacity);
+    if(!array) return false;
+
+    S->array = array;
+
+    S->capacity = capacity;
+
+    return true;
 }
 
 void stack_array_destroy(StackArray *S)

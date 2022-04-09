@@ -1,6 +1,7 @@
 #include "deque-array.h"
 
 DequeArray deque_array_create(size_t data_size, size_t capacity);
+bool deque_array_change_capacity(DequeArray *D, size_t capacity);
 void deque_array_destroy(DequeArray *D);
 
 void *deque_array_front(DequeArray *D);
@@ -11,7 +12,6 @@ bool deque_array_push_front(DequeArray *D, void *data);
 bool deque_array_push_back(DequeArray *D, void *data);
 bool deque_array_pop_front(DequeArray *D);
 bool deque_array_pop_back(DequeArray *D);
-
 
 DequeArray deque_array_create(size_t data_size, size_t capacity)
 {
@@ -27,6 +27,21 @@ DequeArray deque_array_create(size_t data_size, size_t capacity)
     return D;
 }
 
+bool deque_array_change_capacity(DequeArray *D, size_t capacity)
+{
+    if(D->front)
+        memmove(D->array, (char *)D->array + (D->data_size * D->front), D->size);
+    
+    void *array = realloc(D->array, D->data_size * capacity);
+    if(!array) return false;
+
+    D->array = array;
+
+    D->capacity = capacity;
+
+    return true;
+}
+
 void deque_array_destroy(DequeArray *D)
 {
     free(D->array);
@@ -37,20 +52,20 @@ void deque_array_destroy(DequeArray *D)
     D->size = 0;
 }
 
-// void *deque_array_front(DequeArray *D)
-// {
+void *deque_array_front(DequeArray *D)
+{
+    return (char *)D->array + (D->data_size * D->front);
+}
 
-// }
+void *deque_array_back(DequeArray *D)
+{
+    return (char *)D->array + (D->data_size * D->back);
+}
 
-// void *deque_array_back(DequeArray *D)
-// {
-
-// }
-
-// size_t deque_array_size(DequeArray *D)
-// {
-
-// }
+size_t deque_array_size(DequeArray *D)
+{
+    return D->size;
+}
 
 // bool deque_array_push_front(DequeArray *D, void *data)
 // {
@@ -71,6 +86,7 @@ bool deque_array_push_back(DequeArray *D, void *data)
     memcpy((char *)D->array + (D->data_size * D->back), data, D->data_size);
 
     D->back = D->back + 1;
+
     D->size = D->size + 1;
 
     return true;
