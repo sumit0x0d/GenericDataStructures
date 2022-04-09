@@ -1,6 +1,7 @@
 #include "binary_search_tree.h"
 
-BinarySearchTree binary_search_tree_create(size_t data_size, int (*compare_data)(void *data, void *node_data));
+BinarySearchTree binary_search_tree_create(size_t data_size,
+    int (*compare)(void *data, void *node_data));
 void binary_search_tree_destroy(BinarySearchTree *BST);
 
 static BinarySearchTreeNode *node_create(size_t data_size);
@@ -10,7 +11,8 @@ BinarySearchTreeNode *binary_search_tree_search(BinarySearchTree *BST, void *dat
 bool binary_search_tree_insert(BinarySearchTree *BST, void *data);
 bool binary_search_tree_remove(BinarySearchTree *BST, void *data);
 
-BinarySearchTree binary_search_tree_create(size_t data_size, int (*compare_data)(void *data, void *node_data))
+BinarySearchTree binary_search_tree_create(size_t data_size,
+    int (*compare)(void *data, void *node_data))
 {
     BinarySearchTree BST;
 
@@ -18,7 +20,7 @@ BinarySearchTree binary_search_tree_create(size_t data_size, int (*compare_data)
     BST.data_size = data_size;
     BST.size = 0;
 
-    BST.compare_data = compare_data;
+    BST.compare = compare;
 
     return BST;
 }
@@ -38,7 +40,7 @@ BinarySearchTreeNode *binary_search_tree_search(BinarySearchTree *BST, void *dat
     BinarySearchTreeNode *node = BST->root;
 
     while(node) {
-        int compare = BST->compare_data(data, node->data);
+        int compare = BST->compare(data, node->data);
         if(compare == 0)
             return node;
         if(compare < 0)
@@ -95,7 +97,7 @@ bool binary_search_tree_insert(BinarySearchTree *BST, void *data)
     int compare;
 
     while(node) {
-        compare = BST->compare_data(data, node->data);
+        compare = BST->compare(data, node->data);
         if(compare == 0)
             return false;
         node_parent = node;
@@ -129,7 +131,7 @@ bool binary_search_tree_remove(BinarySearchTree *BST, void *data)
     int compare;
 
     while(node) {
-        compare = BST->compare_data(data, node->data);
+        compare = BST->compare(data, node->data);
         if(compare == 0)
             break;
         node_parent = node;

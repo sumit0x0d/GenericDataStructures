@@ -1,19 +1,27 @@
 #include "hash_table-separate_chaining.h"
 
-HashTable hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets);
+HashTable hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets,
+    size_t hash(void *key, size_t buckets), int (*compare)(void *key, void *node_key));
 void hash_table_separate_chaining_destroy(HashTable *HT);
 
-bool hash_table_separate_chaining_insert(HashTable *HT, void *key, void *value);
-bool hash_table_separate_chaining_remove(HashTable *HT, void *key, void *value);
+void *hash_table_separate_chaining_search(HashTable *HT, void *key);
 
-HashTable hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets)
+bool hash_table_separate_chaining_insert(HashTable *HT, void *key, void *value);
+bool hash_table_separate_chaining_remove(HashTable *HT, void *key);
+
+HashTable hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets,
+    size_t hash(void *key, size_t buckets), int (*compare)(void *key, void *node_key))
 {
     HashTable HT;
+
     HT.array = NULL;
     HT.key_size = key_size;
     HT.value_size = value_size;
     HT.buckets = buckets;
     HT.size = 0;
+
+    HT.hash = hash;
+    HT.compare = compare;
 
     return HT;
 }
@@ -26,9 +34,12 @@ void hash_table_separate_chaining_destroy(HashTable *HT)
     HT->size = 0;
 }
 
-static size_t hash(void *key, size_t buckets)
+void *hash_table_separate_chaining_search(HashTable *HT, void *key)
 {
-    return *(size_t *)key % buckets;
+    size_t index = HT->hash(key, HT->buckets);
+    if(!HT->array[index].key) return NULL;
+
+    return HT->array[index].value;
 }
 
 bool hash_table_separate_chaining_insert(HashTable *HT, void *key, void *value)
@@ -41,7 +52,7 @@ bool hash_table_separate_chaining_insert(HashTable *HT, void *key, void *value)
     }
 
     KeyValuePair pair = {key, value, NULL};
-    size_t index = hash(key, HT->buckets);
+    size_t index = HT->hash(key, HT->buckets);
 
     memcpy(HT->array + index, &pair, sizeof (KeyValuePair));
 

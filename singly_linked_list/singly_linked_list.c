@@ -1,6 +1,6 @@
 #include "singly_linked_list.h"
 
-SinglyLinkedList singly_linked_list_create(size_t data_size, int (*compare_data)(void *data, void *node_data));
+SinglyLinkedList singly_linked_list_create(size_t data_size, int (*compare)(void *data, void *node_data));
 void singly_linked_list_destroy(SinglyLinkedList *SLL);
 
 void *singly_linked_list_head(SinglyLinkedList *SLL);
@@ -25,7 +25,7 @@ bool singly_linked_list_update(SinglyLinkedList *SLL, size_t index, void *data);
 bool singly_linked_list_linear(SinglyLinkedList *SLL);
 bool singly_linked_list_circular(SinglyLinkedList *SLL);
 
-SinglyLinkedList singly_linked_list_create(size_t data_size, int (*compare_data)(void *data, void *node_data))
+SinglyLinkedList singly_linked_list_create(size_t data_size, int (*compare)(void *data, void *node_data))
 {
     SinglyLinkedList SLL;
 
@@ -34,7 +34,7 @@ SinglyLinkedList singly_linked_list_create(size_t data_size, int (*compare_data)
     SLL.data_size = data_size;
     SLL.size = 0;
 
-    SLL.compare_data = compare_data;
+    SLL.compare = compare;
 
     return SLL;
 }
@@ -95,7 +95,7 @@ SinglyLinkedListNode *search(SinglyLinkedList *SLL, void *data)
     if(!node) return NULL;
     
     while(node) {
-        if(SLL->compare_data(data, node->data))
+        if(SLL->compare(data, node->data))
             return node;
         node = node->next;
     }
@@ -175,12 +175,12 @@ bool singly_linked_list_insert(SinglyLinkedList *SLL, size_t index, void *data)
 
 bool singly_linked_list_sorted_insert(SinglyLinkedList *SLL, void *data)
 {
-    if(!SLL->size || SLL->compare_data(data, SLL->head->data) < 0) {
+    if(!SLL->size || SLL->compare(data, SLL->head->data) < 0) {
         singly_linked_list_push_head(SLL, data);
         return true;
     }
 
-    if(SLL->compare_data(data, SLL->tail->data) > 0) {
+    if(SLL->compare(data, SLL->tail->data) > 0) {
         singly_linked_list_push_tail(SLL, data);
         return true;
     }

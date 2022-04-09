@@ -1,6 +1,6 @@
 #include "avl_tree.h"
 
-AVLTree avl_tree_create(size_t data_size, int (*compare_data)(void *data, void *node_data));
+AVLTree avl_tree_create(size_t data_size, int (*compare)(void *data, void *node_data));
 void avl_tree_destroy(AVLTree *AVLT);
 
 size_t avl_tree_size(AVLTree *AVLT);
@@ -9,7 +9,7 @@ AVLTreeNode *avl_tree_search(AVLTree *AVLT, void *data);
 bool avl_tree_insert(AVLTree *AVLT, void *data);
 bool avl_tree_remove(AVLTree *AVLT, void *data);
 
-AVLTree avl_tree_create(size_t data_size, int (*compare_data)(void *data, void *node_data))
+AVLTree avl_tree_create(size_t data_size, int (*compare)(void *data, void *node_data))
 {
     AVLTree AVLT;
 
@@ -17,7 +17,7 @@ AVLTree avl_tree_create(size_t data_size, int (*compare_data)(void *data, void *
     AVLT.data_size = data_size;
     AVLT.size = 0;
 
-    AVLT.compare_data = compare_data;
+    AVLT.compare = compare;
 
     return AVLT;
 }
@@ -38,7 +38,7 @@ AVLTreeNode *avl_tree_search(AVLTree *AVLT, void *data)
     int compare;
 
     while(node) {
-        compare = AVLT->compare_data(data, node->data);
+        compare = AVLT->compare(data, node->data);
         if(compare == 0)
             return node;
         else if(compare < 0)
@@ -197,7 +197,7 @@ bool avl_tree_insert(AVLTree *AVLT, void *data)
     int compare;
 
     while(node) {
-        compare = AVLT->compare_data(data, node->data);
+        compare = AVLT->compare(data, node->data);
         if(compare == 0)
             return node;
         else if(compare < 0)
