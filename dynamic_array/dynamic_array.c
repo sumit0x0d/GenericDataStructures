@@ -48,10 +48,13 @@ void dynamic_array_destroy(DynamicArray *DA)
 {
     free(DA->array);
     DA->array = NULL;
-    
+
     DA->front = 0;
     DA->back = 0;
     DA->size = 0;
+
+    free(DA);
+    DA = NULL;
 }
 
 void *dynamic_array_front(DynamicArray *DA)
