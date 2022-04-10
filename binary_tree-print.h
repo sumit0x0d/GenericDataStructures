@@ -44,16 +44,16 @@ void preorder_traverse(void *root, int binary_tree_type, int data_type)
             break;
         case BINARY_SEARCH_TREE:
             {
-                StackLinkedList S = stack_linked_list_create(sizeof (BinarySearchTreeNode));
+                StackLinkedList *S = stack_linked_list_create(sizeof (BinarySearchTreeNode));
                 BinarySearchTreeNode *node = root;
-                while(node || stack_linked_list_size(&S))
+                while(node || stack_linked_list_size(S))
                     if(node) {
                         data_print(node->data, data_type);
-                        stack_linked_list_push(&S, node);
+                        stack_linked_list_push(S, node);
                         node = node->left;
                     }
                     else {
-                        node = stack_linked_list_peek(&S);
+                        node = stack_linked_list_peek(S);
                         stack_linked_list_pop(&S);
                         node = node->right;
                     }

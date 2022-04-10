@@ -1,6 +1,19 @@
 #include "binary_search_tree.h"
 
-BinarySearchTree binary_search_tree_create(size_t data_size,
+typedef struct BinarySearchTreeNode {
+    void *data;
+    struct BinarySearchTreeNode *left;
+    struct BinarySearchTreeNode *right;
+} BinarySearchTreeNode;
+
+typedef struct BinarySearchTree {
+    BinarySearchTreeNode *root;
+    size_t data_size;
+    size_t size;
+    int (*compare)(void *data, void *node_data);
+} BinarySearchTree;
+
+BinarySearchTree *binary_search_tree_create(size_t data_size,
     int (*compare)(void *data, void *node_data));
 void binary_search_tree_destroy(BinarySearchTree *BST);
 
@@ -11,16 +24,17 @@ BinarySearchTreeNode *binary_search_tree_search(BinarySearchTree *BST, void *dat
 bool binary_search_tree_insert(BinarySearchTree *BST, void *data);
 bool binary_search_tree_remove(BinarySearchTree *BST, void *data);
 
-BinarySearchTree binary_search_tree_create(size_t data_size,
+BinarySearchTree *binary_search_tree_create(size_t data_size,
     int (*compare)(void *data, void *node_data))
 {
-    BinarySearchTree BST;
+    BinarySearchTree *BST = malloc(sizeof (BinarySearchTree));
+    if(!BST) return NULL;
 
-    BST.root = NULL;
-    BST.data_size = data_size;
-    BST.size = 0;
+    BST->root = NULL;
+    BST->data_size = data_size;
+    BST->size = 0;
 
-    BST.compare = compare;
+    BST->compare = compare;
 
     return BST;
 }

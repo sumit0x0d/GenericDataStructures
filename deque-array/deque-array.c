@@ -27,7 +27,7 @@ DequeArray *deque_array_create(size_t data_size, size_t capacity)
     DequeArray *D = malloc(sizeof (DequeArray));
     if(!D) return NULL;
 
-    D->array = D->array = malloc(data_size * capacity);
+    D->array = malloc(data_size * capacity);
     if(!D->array) return NULL;
 
     D->data_size = data_size;

@@ -5,20 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct BinarySearchTreeNode {
-    void *data;
-    struct BinarySearchTreeNode *left;
-    struct BinarySearchTreeNode *right;
-} BinarySearchTreeNode;
+typedef struct BinarySearchTreeNode BinarySearchTreeNode;
+typedef struct BinarySearchTree BinarySearchTree;
 
-typedef struct BinarySearchTree {
-    BinarySearchTreeNode *root;
-    size_t data_size;
-    size_t size;
-    int (*compare)(void *data, void *node_data);
-} BinarySearchTree;
-
-BinarySearchTree binary_search_tree_create(size_t data_size,
+BinarySearchTree *binary_search_tree_create(size_t data_size,
     int (*compare)(void *data, void *node_data));
 void binary_search_tree_destroy(BinarySearchTree *BST);
 
