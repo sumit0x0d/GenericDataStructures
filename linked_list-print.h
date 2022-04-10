@@ -78,16 +78,16 @@ void stack_linked_list_print(StackLinkedList *S, int data_type)
 {
     if(!stack_linked_list_size(S)) return;
 
-    StackLinkedListNode *node = S->top;
+    StackLinkedListNode *node = stack_linked_list_peek(S);
 
     printf("[Stack (Linked List)]");
 
     printf("\n[Data]\t: ");
     do {
-        data_print(node->data, data_type);
-        node = node->next;
+        data_print(stack_linked_list_node_data(node), data_type);
+        node = stack_linked_list_node_next(node);
     } while(node);
 
     printf("\b");
-    printf("\n[Size]\t: %zu\n", S->size);
+    printf("\n[Size]\t: %zu\n", stack_linked_list_size(S));
 }

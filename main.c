@@ -23,7 +23,7 @@ int main()
     // DoublyLinkedList DLL = doubly_linked_list_create(INT, sizeof (int));
     // QueueLinkedList Q = queue_linked_list_create();
     // SinglyLinkedList SLL = singly_linked_list_create();
-    StackLinkedList S = stack_linked_list_create(sizeof (int));
+    StackLinkedList *S = stack_linked_list_create(sizeof (int));
     
     // DequeArray D = deque_array_create(INT, sizeof (int), 20);
     // StackArray S2 = stack_array_create(sizeof (char), 20);
@@ -48,7 +48,11 @@ int main()
     // int f = 100;
     // int g = 14;
 
-    stack_linked_list_push(&S, &b);
+    stack_linked_list_push(S, &b);
+    stack_linked_list_push(S, &b);
+    stack_linked_list_push(S, &b);
+    stack_linked_list_push(S, &b);
+    stack_linked_list_print(S, INT);
     // hash_table_separate_chaining_insert(&HT, &a, &b);
     // hash_table_separate_chaining_insert(&HT, &b, &a);
     // hash_table_separate_chaining_print(&HT, INT, INT);

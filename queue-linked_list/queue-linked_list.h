@@ -5,19 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct QueueLinkedListNode {
-    void *data;
-    struct QueueLinkedListNode *next;
-} QueueLinkedListNode;
+typedef struct QueueLinkedListNode QueueLinkedListNode;
+typedef struct QueueLinkedList QueueLinkedList;
 
-typedef struct QueueLinkedList {
-    QueueLinkedListNode *front;
-    QueueLinkedListNode *back;
-    size_t data_size;
-    size_t size;
-} QueueLinkedList;
-
-QueueLinkedList queue_linked_list_create(size_t data_size);
+QueueLinkedList *queue_linked_list_create(size_t data_size);
 void queue_linked_list_destroy(QueueLinkedList *Q);
 
 void *queue_linked_list_front(QueueLinkedList *Q);

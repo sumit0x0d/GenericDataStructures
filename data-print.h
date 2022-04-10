@@ -49,7 +49,7 @@ void data_print(void *data, int data_type)
             printf("%hd ", *(unsigned short *)data);
             break;
         case INT:
-            printf("%d ", *(int *)data);
+            printf("%d ", *(int *)&data);
             break;
         case UNSIGNED_INT:
             printf("%u ", *(unsigned int *)data);

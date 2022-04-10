@@ -1,6 +1,18 @@
 #include "queue-linked_list.h"
 
-QueueLinkedList queue_linked_list_create(size_t data_size);
+typedef struct QueueLinkedListNode {
+    void *data;
+    struct QueueLinkedListNode *next;
+} QueueLinkedListNode;
+
+typedef struct QueueLinkedList {
+    QueueLinkedListNode *front;
+    QueueLinkedListNode *back;
+    size_t data_size;
+    size_t size;
+} QueueLinkedList;
+
+QueueLinkedList *queue_linked_list_create(size_t data_size);
 void queue_linked_list_destroy(QueueLinkedList *Q);
 
 void *queue_linked_list_front(QueueLinkedList *Q);
@@ -13,14 +25,15 @@ static void node_destroy(QueueLinkedListNode *Q);
 bool queue_linked_list_enqueue(QueueLinkedList *Q, void *data);
 bool queue_linked_list_dequeue(QueueLinkedList *Q);
 
-QueueLinkedList queue_linked_list_create(size_t data_size)
+QueueLinkedList *queue_linked_list_create(size_t data_size)
 {
-    QueueLinkedList Q;
+    QueueLinkedList *Q = malloc(sizeof (QueueLinkedList));
+    if(!Q) return NULL;
 
-    Q.front = NULL;
-    Q.back = NULL;
-    Q.data_size = data_size;
-    Q.size = 0;
+    Q->front = NULL;
+    Q->back = NULL;
+    Q->data_size = data_size;
+    Q->size = 0;
 
     return Q;
 }
@@ -37,6 +50,9 @@ void queue_linked_list_destroy(QueueLinkedList *Q)
             queue_linked_list_dequeue(Q);
             break;
         }
+    
+    free(Q);
+    Q = NULL;
 }
 
 void *queue_linked_list_front(QueueLinkedList *Q)

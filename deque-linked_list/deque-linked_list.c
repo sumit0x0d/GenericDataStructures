@@ -1,6 +1,19 @@
 #include "deque-linked_list.h"
 
-DequeLinkedList deque_linked_list_create(size_t data_size);
+typedef struct DequeLinkedListNode {
+    void *data;
+    struct DequeLinkedListNode *previous;
+    struct DequeLinkedListNode *next;
+} DequeLinkedListNode;
+
+typedef struct DequeLinkedList {
+    DequeLinkedListNode *front;
+    DequeLinkedListNode *back;
+    size_t data_size;
+    size_t size;
+} DequeLinkedList;
+
+DequeLinkedList *deque_linked_list_create(size_t data_size);
 void deque_linked_list_destroy(DequeLinkedList *D);
 
 void *deque_linked_list_front(DequeLinkedList *D);
@@ -15,33 +28,35 @@ bool deque_linked_list_push_back(DequeLinkedList *D, void *data);
 bool deque_linked_list_pop_front(DequeLinkedList *D);
 bool deque_linked_list_pop_back(DequeLinkedList *D);
 
-DequeLinkedList deque_linked_list_create(size_t data_size)
+DequeLinkedList *deque_linked_list_create(size_t data_size)
 {
-    DequeLinkedList D;
+    DequeLinkedList *D = malloc(sizeof (DequeLinkedList));
+    if(!D) return NULL;
 
-    D.front = NULL;
-    D.back = NULL;
-    D.data_size = data_size;
-    D.size = 0;
+    D->front = NULL;
+    D->back = NULL;
+    D->data_size = data_size;
+    D->size = 0;
 
     return D;
 }
 
-void deque_linked_list_destroy(DequeLinkedList *S)
+void deque_linked_list_destroy(DequeLinkedList *D)
 {
-    DequeLinkedListNode *node = S->front;
+    DequeLinkedListNode *node = D->front;
 
     while(node)
         if(node->next) {
-            deque_linked_list_pop_front(S);
-            node = S->front;   
+            deque_linked_list_pop_front(D);
+            node = D->front;   
         }
         else {
-            deque_linked_list_pop_front(S);
+            deque_linked_list_pop_front(D);
             break;
         }
-
-    return;
+    
+    free(D);
+    D = NULL;
 }
 
 void *deque_linked_list_front(DequeLinkedList *D)

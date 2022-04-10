@@ -5,18 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct StackLinkedListNode {
-    void *data;
-    struct StackLinkedListNode *next;
-} StackLinkedListNode;
+typedef struct StackLinkedListNode StackLinkedListNode;
+typedef struct StackLinkedList StackLinkedList;
 
-typedef struct StackLinkedList {
-    StackLinkedListNode *top;
-    size_t data_size;
-    size_t size;
-} StackLinkedList;
-
-StackLinkedList stack_linked_list_create(size_t data_size);
+StackLinkedList *stack_linked_list_create(size_t data_size);
 void stack_linked_list_destroy(StackLinkedList *S);
 
 void *stack_linked_list_peek(StackLinkedList *S);
