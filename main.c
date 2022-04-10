@@ -9,7 +9,7 @@
 #include "stack-linked_list/stack-linked_list.h"
 #include "avl_tree/avl_tree.h"
 #include "binary_search_tree/binary_search_tree.h"
-// #include "red-black_tree/red-black_tree.h"
+#include "red-black_tree/red-black_tree.h"
 #include "deque-array/deque-array.h"
 #include "dynamic_array/dynamic_array.h"
 #include "queue-array/queue-array.h"
@@ -63,6 +63,11 @@ int main()
     // int f = 100;
     // int g = 14;
 
+    stack_array_push(S2, &a);
+    stack_array_push(S2, &a);
+    stack_array_push(S2, &a);
+    stack_array_push(S2, &a);
+    stack_array_push(S2, &a);
     stack_array_push(S2, &a);
     // stack_linked_list_push(S, &b);
     // stack_linked_list_push(S, &b);

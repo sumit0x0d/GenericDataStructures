@@ -61,6 +61,9 @@ void deque_array_destroy(DequeArray *D)
     D->front = 0;
     D->back = 0;
     D->size = 0;
+
+    free(D);
+    D = NULL;
 }
 
 void *deque_array_front(DequeArray *D)
