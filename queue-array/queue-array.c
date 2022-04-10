@@ -1,6 +1,15 @@
 #include "queue-array.h"
 
-QueueArray queue_array_create(size_t data_size, size_t capacity);
+typedef struct QueueArray {
+    void *array;
+    size_t data_size;
+    size_t front;
+    size_t back;
+    size_t capacity;
+    size_t size;
+} QueueArray;
+
+QueueArray *queue_array_create(size_t data_size, size_t capacity);
 bool queue_array_change_capacity(QueueArray *Q, size_t capacity);
 void queue_array_destroy(QueueArray *Q);
 
@@ -11,16 +20,19 @@ size_t queue_array_size(QueueArray *Q);
 bool queue_array_enqueue(QueueArray *Q, void *data);
 bool queue_array_dequeue(QueueArray *Q);
 
-QueueArray queue_array_create(size_t data_size, size_t capacity)
+QueueArray *queue_array_create(size_t data_size, size_t capacity)
 {
-    QueueArray Q;
+    QueueArray *Q = malloc(sizeof (QueueArray));
+    if(!Q) return NULL;
 
-    Q.array = NULL;
-    Q.data_size = data_size;
-    Q.front = 0;
-    Q.back = 0;
-    Q.capacity = capacity;
-    Q.size = 0;
+    Q->array = malloc(data_size * capacity);
+    if(!Q->array) return NULL;
+
+    Q->data_size = data_size;
+    Q->front = 0;
+    Q->back = 0;
+    Q->capacity = capacity;
+    Q->size = 0;
 
     return Q;
 }
@@ -70,13 +82,6 @@ size_t queue_array_size(QueueArray *Q)
 
 bool queue_array_enqueue(QueueArray *Q, void *data)
 {
-    if(!Q->array) {
-        if(!Q->data_size || !Q->capacity) return false;
-
-        Q->array = malloc(Q->data_size * Q->capacity);
-        if(!Q->array) return false;
-    }
-
     if(Q->back == Q->capacity) {
         if(Q->front) {
             memmove(Q->array, (char *)Q->array + (Q->data_size * Q->front), Q->size);
@@ -97,7 +102,7 @@ bool queue_array_enqueue(QueueArray *Q, void *data)
 
 bool queue_array_dequeue(QueueArray *Q)
 {
-    if(!Q->size) return false;
+    if(!Q->front) return false;
 
     Q->front = Q->front + 1;
 

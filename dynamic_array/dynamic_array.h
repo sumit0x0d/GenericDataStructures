@@ -5,17 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct DynamicArray {
-    void *array;
-    size_t data_size;
-    size_t front;
-    size_t back;
-    size_t capacity;
-    double growth_factor;
-    size_t size;
-} DynamicArray;
+typedef struct DynamicArray DynamicArray;
 
-DynamicArray dynamic_array_create(size_t data_size, size_t capacity, double growth_factor);
+DynamicArray *dynamic_array_create(size_t data_size, size_t capacity, double growth_factor);
 void dynamic_array_destroy(DynamicArray *DA);
 
 void *dynamic_array_front(DynamicArray *DA);

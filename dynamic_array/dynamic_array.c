@@ -1,6 +1,16 @@
 #include "dynamic_array.h"
 
-DynamicArray dynamic_array_create(size_t data_size, size_t capacity, double growth_factor);
+typedef struct DynamicArray {
+    void *array;
+    size_t data_size;
+    size_t front;
+    size_t back;
+    size_t capacity;
+    double growth_factor;
+    size_t size;
+} DynamicArray;
+
+DynamicArray *dynamic_array_create(size_t data_size, size_t capacity, double growth_factor);
 void dynamic_array_destroy(DynamicArray *DA);
 
 void *dynamic_array_front(DynamicArray *DA);
@@ -16,17 +26,20 @@ bool dynamic_array_pop_back(DynamicArray *DA);
 bool dynamic_array_remove(DynamicArray *DA, void *data);
 bool dynamic_array_erase(DynamicArray *DA, size_t index);
 
-DynamicArray dynamic_array_create(size_t data_size, size_t capacity, double growth_factor)
+DynamicArray *dynamic_array_create(size_t data_size, size_t capacity, double growth_factor)
 {
-    DynamicArray DA;
+    DynamicArray *DA = malloc(sizeof (DynamicArray));
+    if(!DA) return NULL;
 
-    DA.array = NULL;
-    DA.data_size = data_size;
-    DA.front = 0;
-    DA.back = 0;
-    DA.capacity = capacity;
-    DA.growth_factor = growth_factor;
-    DA.size = 0;
+    DA->array = malloc(data_size * capacity);
+    if(!DA->array) return NULL;
+
+    DA->data_size = data_size;
+    DA->front = 0;
+    DA->back = 0;
+    DA->capacity = capacity;
+    DA->growth_factor = growth_factor;
+    DA->size = 0;
 
     return DA;
 }

@@ -5,16 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct QueueArray {
-    void *array;
-    size_t data_size;
-    size_t front;
-    size_t back;
-    size_t capacity;
-    size_t size;
-} QueueArray;
+typedef struct QueueArray QueueArray;
 
-QueueArray queue_array_create(size_t data_size, size_t capacity);
+QueueArray *queue_array_create(size_t data_size, size_t capacity);
 bool queue_array_change_capacity(QueueArray *Q, size_t capacity);
 void queue_array_destroy(QueueArray *Q);
 

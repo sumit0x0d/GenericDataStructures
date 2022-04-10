@@ -5,16 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct DequeArray {
-    void *array;
-    size_t data_size;
-    size_t front;
-    size_t back;
-    size_t capacity;
-    size_t size;
-} DequeArray;
+typedef struct DequeArray DequeArray;
 
-DequeArray deque_array_create(size_t data_size, size_t capacity);
+DequeArray *deque_array_create(size_t data_size, size_t capacity);
 bool deque_array_change_capacity(DequeArray *D, size_t capacity);
 void deque_array_destroy(DequeArray *D);
 
