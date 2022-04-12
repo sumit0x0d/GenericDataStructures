@@ -40,7 +40,7 @@ void stack_linked_list_destroy(StackLinkedList *S)
 {
     StackLinkedListNode *node = S->top;
 
-    while(node)
+    while(node) {
         if(node->next) {
             stack_linked_list_pop(S);
             node = S->top;   
@@ -49,6 +49,7 @@ void stack_linked_list_destroy(StackLinkedList *S)
             stack_linked_list_pop(S);
             break;
         }
+    }
 
     free(S);
     S = NULL;
