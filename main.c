@@ -1,7 +1,3 @@
-// #include "array-print.h"
-// #include "binary_tree-print.h"
-// #include "graph-print.h"
-// #include "linked_list-print.h"
 #include "deque-linked_list/deque-linked_list.h"
 #include "doubly_linked_list/doubly_linked_list.h"
 #include "queue-linked_list/queue-linked_list.h"
@@ -15,9 +11,6 @@
 #include "queue-array/queue-array.h"
 #include "stack-array/stack-array.h"
 #include "hash_table-separate_chaining/hash_table-separate_chaining.h"
-
-
-// #include "hash_table-separate_chaining/hash_table-separate_chaining.h"
 
 int compare(void *data, void *node_data) {
     if(*(int *)data < *(int *)node_data)
@@ -42,6 +35,7 @@ int main()
     
     // DequeArray D = deque_array_create(INT, sizeof (int), 20);
     StackArray *S2 = stack_array_create(sizeof (char), 20);
+    if(!S2) return;
     // QueueArray Q = queue_array_create(INT, sizeof (int), 20);
 
     // DynamicArray DA = dynamic_array_create(INT, sizeof (int), 20, 1.5);

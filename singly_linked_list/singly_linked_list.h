@@ -5,20 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct SinglyLinkedListNode {
-    void *data;
-    struct SinglyLinkedListNode *next;
-} SinglyLinkedListNode;
+typedef struct SinglyLinkedListNode SinglyLinkedListNode;
+typedef struct SinglyLinkedList SinglyLinkedList;
 
-typedef struct SinglyLinkedList {
-    SinglyLinkedListNode *head;
-    SinglyLinkedListNode *tail;
-    size_t data_size;
-    size_t size;
-    int (*compare)(void *data, void *node_data);
-} SinglyLinkedList;
-
-SinglyLinkedList singly_linked_list_create(size_t data_size, int (*compare)(void *data, void *node_data));
+SinglyLinkedList *singly_linked_list_create(size_t data_size, int (*compare)(void *data, void *node_data));
 void singly_linked_list_destroy(SinglyLinkedList *SLL);
 
 void *singly_linked_list_head(SinglyLinkedList *SLL);

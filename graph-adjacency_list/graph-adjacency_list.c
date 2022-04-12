@@ -1,6 +1,20 @@
 #include "graph-adjacency_list.h"
 
-GraphAdjacencyList graph_adjacency_list_create(size_t data_size);
+typedef struct Vertex {
+    void *data;
+    size_t index;
+    unsigned long weight;
+    struct Vertex *edge;
+} Vertex;
+
+typedef struct GraphAdjacencyList {
+    Vertex *adjacency_list;
+    size_t data_size;
+    unsigned long vertices;
+    size_t size;
+} GraphAdjacencyList;
+
+GraphAdjacencyList *graph_adjacency_list_create(size_t data_size);
 void graph_adjacency_list_destroy(GraphAdjacencyList *G);
 
 void *graph_adjacency_list_vertices(GraphAdjacencyList *G);
@@ -14,14 +28,15 @@ bool graph_adjacency_list_vertex_remove(GraphAdjacencyList *G, void *data);
 bool graph_adjacency_list_edge_insert(GraphAdjacencyList *G, Vertex *vertex_source, Vertex *vertex_destination, unsigned long weight);
 bool graph_adjacency_list_edge_remove(GraphAdjacencyList *G, Vertex *vertex_source, Vertex *vertex_destination);
 
-GraphAdjacencyList graph_adjacency_list_create(size_t data_size)
+GraphAdjacencyList *graph_adjacency_list_create(size_t data_size)
 {
-    GraphAdjacencyList G;
+    GraphAdjacencyList *G = malloc(sizeof (GraphAdjacencyList));
+    if(!G) return NULL;
 
-    G.adjacency_list = NULL;
-    G.data_size = data_size;
-    G.vertices = 0;
-    G.size = 0;
+    G->adjacency_list = NULL;
+    G->data_size = data_size;
+    G->vertices = 0;
+    G->size = 0;
 
     return G;
 }

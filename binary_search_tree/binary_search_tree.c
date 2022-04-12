@@ -190,9 +190,8 @@ bool binary_search_tree_remove(BinarySearchTree *BST, void *data)
             node_inorder_successor = node_inorder_successor->left;
         }
 
-        if(node_inorder_successor_parent == node) {
+        if(node_inorder_successor_parent == node)
             node_inorder_successor_parent->right = node_inorder_successor->right;
-        }
         else
             node_inorder_successor_parent->left = node_inorder_successor->right;
 

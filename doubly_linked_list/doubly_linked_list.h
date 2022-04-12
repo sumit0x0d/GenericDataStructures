@@ -5,21 +5,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct DoublyLinkedListNode {
-    void *data;
-    struct DoublyLinkedListNode *previous;
-    struct DoublyLinkedListNode *next;
-} DoublyLinkedListNode;
+typedef struct DoublyLinkedListNode DoublyLinkedListNode;
+typedef struct DoublyLinkedList DoublyLinkedList;
 
-typedef struct DoublyLinkedList {
-    DoublyLinkedListNode *head;
-    DoublyLinkedListNode *tail;
-    size_t data_size;
-    size_t size;
-    int (*compare)(void *data, void *node_data);
-} DoublyLinkedList;
-
-DoublyLinkedList doubly_linked_list_create(size_t data_size, int (*compare)(void *data, void *node_data));
+DoublyLinkedList *doubly_linked_list_create(size_t data_size,
+    int (*compare)(void *data, void *node_data));
 void doubly_linked_list_destroy(DoublyLinkedList *DLL);
 
 void *doubly_linked_list_front(DoublyLinkedList *DLL);

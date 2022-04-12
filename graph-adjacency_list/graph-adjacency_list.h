@@ -5,21 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct Vertex {
-    void *data;
-    size_t index;
-    unsigned long weight;
-    struct Vertex *edge;
-} Vertex;
-
-typedef struct GraphAdjacencyList {
-    Vertex *adjacency_list;
-    size_t data_size;
-    unsigned long vertices;
-    size_t size;
-} GraphAdjacencyList;
-
-GraphAdjacencyList graph_adjacency_list_create(size_t data_size);
+GraphAdjacencyList *graph_adjacency_list_create(size_t data_size);
 void graph_adjacency_list_destroy(GraphAdjacencyList *G);
 
 void *graph_adjacency_list_vertices(GraphAdjacencyList *G);

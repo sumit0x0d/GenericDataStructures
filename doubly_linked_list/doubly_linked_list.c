@@ -1,6 +1,20 @@
 #include "doubly_linked_list.h"
 
-DoublyLinkedList doubly_linked_list_create(size_t data_size, int (*compare)(void *data, void *node_data));
+typedef struct DoublyLinkedListNode {
+    void *data;
+    struct DoublyLinkedListNode *previous;
+    struct DoublyLinkedListNode *next;
+} DoublyLinkedListNode;
+
+typedef struct DoublyLinkedList {
+    DoublyLinkedListNode *head;
+    DoublyLinkedListNode *tail;
+    size_t data_size;
+    size_t size;
+    int (*compare)(void *data, void *node_data);
+} DoublyLinkedList;
+
+DoublyLinkedList *doubly_linked_list_create(size_t data_size, int (*compare)(void *data, void *node_data));
 void doubly_linked_list_destroy(DoublyLinkedList *);
 
 void *doubly_linked_list_head(DoublyLinkedList *DLL);
@@ -25,16 +39,17 @@ bool doubly_linked_list_update(DoublyLinkedList *SLL, size_t index, void *data);
 bool doubly_linked_list_linear(DoublyLinkedList *DLL);
 bool doubly_linked_list_circular(DoublyLinkedList *DLL);
 
-DoublyLinkedList doubly_linked_list_create(size_t data_size, int (*compare)(void *data, void *node_data))
+DoublyLinkedList *doubly_linked_list_create(size_t data_size, int (*compare)(void *data, void *node_data))
 {
-    DoublyLinkedList DLL;
+    DoublyLinkedList *DLL = malloc(sizeof (DoublyLinkedList));
+    if(!DLL) return NULL;
 
-    DLL.head = NULL;
-    DLL.tail = NULL;
-    DLL.data_size = data_size;
-    DLL.size = 0;
+    DLL->head = NULL;
+    DLL->tail = NULL;
+    DLL->data_size = data_size;
+    DLL->size = 0;
 
-    DLL.compare = compare;
+    DLL->compare = compare;
 
     return DLL;
 }

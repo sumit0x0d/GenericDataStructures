@@ -1,17 +1,29 @@
 #include "binary_tree.h"
 
-BinaryTree binary_tree_create();
+typedef struct BinaryTreeNode {
+    void *data;
+    struct BinaryTreeNode *left;
+    struct BinaryTreeNode *right;
+} BinaryTreeNode;
+
+typedef struct BinaryTree {
+    BinaryTreeNode *root;
+    size_t size;
+} BinaryTree;
+
+BinaryTree *binary_tree_create();
 
 static BinaryTreeNode *node_create(size_t data_size);
 
 BinaryTreeNode *binary_tree_insert(BinaryTree *BT, void *data, size_t data_size);
 
-BinaryTree binary_tree_create()
+BinaryTree *binary_tree_create()
 {
-    BinaryTree BT;
+    BinaryTree *BT = malloc(sizeof (BinaryTree));
+    if(!BT) return NULL;
 
-    BT.root = NULL;
-    BT.size = 0;
+    BT->root = NULL;
+    BT->size = 0;
 
     return BT;
 }

@@ -85,14 +85,34 @@ size_t deque_array_size(DequeArray *D)
     return D->size;
 }
 
-// bool deque_array_push_front(DequeArray *D, void *data)
-// {
-    
-// }
+bool deque_array_push_front(DequeArray *D, void *data)
+{
+    if(D->back == D->capacity) {
+        if(D->front) {
+            memmove((char *)D->array + D->data_size, (char *)D->array + (D->data_size * D->front), D->size);
+            D->front = 0;
+            D->back = D->size + 1;
+        }
+        else return false;
+    }
+
+    memcpy((char *)D->array, data, D->data_size);
+
+    D->size = D->size + 1;
+
+    return true;
+}
 
 bool deque_array_push_back(DequeArray *D, void *data)
 {
-    if(D->back == D->capacity) return false;
+    if(D->back == D->capacity) {
+        if(D->front) {
+            memmove(D->array, (char *)D->array + (D->data_size * D->front), D->size);
+            D->front = 0;
+            D->back = D->size;
+        }
+        else return false;
+    }
 
     memcpy((char *)D->array + (D->data_size * D->back), data, D->data_size);
 
