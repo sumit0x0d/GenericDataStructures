@@ -27,7 +27,8 @@ bool avl_tree_remove(AVLTree *AVLT, void *data);
 AVLTree *avl_tree_create(size_t data_size, int (*compare)(void *data, void *node_data))
 {
     AVLTree *AVLT = malloc(sizeof (AVLTree));
-    if(!AVLT) return NULL;
+    if(!AVLT)
+        return NULL;
 
     AVLT->root = NULL;
     AVLT->data_size = data_size;
@@ -64,7 +65,8 @@ AVLTreeNode *avl_tree_search(AVLTree *AVLT, void *data)
             node = node->right;
     }
 
-    return NULL;
+   
+        return NULL;
 }
 
 static size_t node_height(AVLTreeNode *node)
@@ -178,12 +180,14 @@ static void node_rebalance(AVLTreeNode *node)
 static AVLTreeNode *node_create(size_t data_size)
 {
     AVLTreeNode *node = malloc(sizeof (AVLTreeNode));
-    if(!node) return NULL;
+    if(!node)
+        return NULL;
 
     node->data = malloc(data_size);
     if(!node->data) {
         free(node);
         node = NULL;
+       
         return NULL;
     }
 
@@ -198,7 +202,8 @@ bool avl_tree_insert(AVLTree *AVLT, void *data)
 {
     if(!avl_tree_size(AVLT)) {
         AVLT->root = node_create(AVLT->data_size);
-        if(!AVLT->root) return false;
+        if(!AVLT->root)
+        return false;
 
         memcpy(AVLT->root->data, data, AVLT->data_size);
 
@@ -224,7 +229,8 @@ bool avl_tree_insert(AVLTree *AVLT, void *data)
     }
 
     node = node_create(AVLT->data_size);
-    if(!node) return false;
+    if(!node)
+        return false;
 
     memcpy(node->data, data, AVLT->data_size);
 

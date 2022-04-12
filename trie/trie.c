@@ -23,7 +23,8 @@ Trie trie_create()
 static TrieNode *node_create()
 {
     TrieNode *node = malloc(sizeof (TrieNode));
-    if(!node) return NULL;
+    if(!node)
+        return NULL;
 
     node->terminal = false;
 
@@ -38,7 +39,8 @@ bool trie_insert(Trie *T, char *string)
 {
     if(!T->root) {
         T->root = node_create();
-        if(!T->root) return false;
+        if(!T->root)
+        return false;
     }
 
     TrieNode *node = T->root; 
@@ -55,6 +57,7 @@ bool trie_insert(Trie *T, char *string)
     //         node->children[(size_t)string[i]] = node_create(string[i]);
     // }
     if(node->terminal)
+       
         return false;
     else
         node->terminal = true;

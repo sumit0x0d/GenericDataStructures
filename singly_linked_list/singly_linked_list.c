@@ -41,7 +41,8 @@ bool singly_linked_list_circular(SinglyLinkedList *SLL);
 SinglyLinkedList *singly_linked_list_create(size_t data_size, int (*compare)(void *data, void *node_data))
 {
     SinglyLinkedList *SLL = malloc(sizeof (SinglyLinkedList));
-    if(!SLL) return NULL;
+    if(!SLL)
+        return NULL;
 
     SLL->head = NULL;
     SLL->tail = NULL;
@@ -60,14 +61,16 @@ SinglyLinkedList *singly_linked_list_create(size_t data_size, int (*compare)(voi
 
 void *singly_linked_list_head(SinglyLinkedList *SLL)
 {
-    if(!SLL->head) return NULL;
+    if(!SLL->head)
+        return NULL;
     
     return SLL->head->data;
 }
 
 void *singly_linked_list_tail(SinglyLinkedList *SLL)
 {
-    if(!SLL->tail) return NULL;
+    if(!SLL->tail)
+        return NULL;
     
     return SLL->tail->data;
 }
@@ -80,12 +83,14 @@ size_t singly_linked_list_size(SinglyLinkedList *SLL)
 static SinglyLinkedListNode *node_create(size_t data_size)
 {
     SinglyLinkedListNode *node = malloc(sizeof (SinglyLinkedListNode));
-    if(!node) return NULL;
+    if(!node)
+        return NULL;
 
     node->data = malloc(data_size);
     if(!node->data) {
         free(node);
         node = NULL;
+       
         return NULL;
     }
 
@@ -103,10 +108,12 @@ static void node_destroy(SinglyLinkedListNode *node)
 
 SinglyLinkedListNode *search(SinglyLinkedList *SLL, void *data)
 {
-    if(!SLL->head) return NULL;
+    if(!SLL->head)
+        return NULL;
 
     SinglyLinkedListNode *node = malloc(sizeof (SinglyLinkedListNode));
-    if(!node) return NULL;
+    if(!node)
+        return NULL;
     
     while(node) {
         if(SLL->compare(data, node->data))
@@ -114,13 +121,15 @@ SinglyLinkedListNode *search(SinglyLinkedList *SLL, void *data)
         node = node->next;
     }
 
-    return NULL;
+   
+        return NULL;
 }
 
 bool singly_linked_list_push_head(SinglyLinkedList *SLL, void *data)
 {
     SinglyLinkedListNode *node = node_create(SLL->data_size);
-    if(!node) return false;
+    if(!node)
+        return false;
 
     memcpy(node->data, data, SLL->data_size);
 
@@ -140,7 +149,8 @@ bool singly_linked_list_push_head(SinglyLinkedList *SLL, void *data)
 bool singly_linked_list_push_tail(SinglyLinkedList *SLL, void *data)
 {
     SinglyLinkedListNode *node = node_create(SLL->data_size);
-    if(!node) return false;
+    if(!node)
+        return false;
 
     memcpy(node->data, data, SLL->data_size);
 
@@ -169,11 +179,13 @@ bool singly_linked_list_insert(SinglyLinkedList *SLL, size_t index, void *data)
     }
 
     if(index > SLL->size)
+       
         return false;
 
     SinglyLinkedListNode *node = SLL->head;
     SinglyLinkedListNode *node_new = node_create(SLL->data_size);
-    if(!node_new) return false;
+    if(!node_new)
+        return false;
 
     memcpy(node_new->data, data, SLL->data_size);
 
@@ -201,7 +213,8 @@ bool singly_linked_list_sorted_insert(SinglyLinkedList *SLL, void *data)
 
     SinglyLinkedListNode *node = SLL->head;
     SinglyLinkedListNode *node_new = node_create(SLL->data_size);
-    if(!node_new) return false;
+    if(!node_new)
+        return false;
 
     memcpy(node_new->data, data, SLL->data_size);
 
@@ -218,7 +231,8 @@ bool singly_linked_list_sorted_insert(SinglyLinkedList *SLL, void *data)
 
 bool singly_linked_list_pop_head(SinglyLinkedList *SLL)
 {
-    if(!SLL->size) return false;
+    if(!SLL->size)
+        return false;
 
     SinglyLinkedListNode *node = SLL->head;
 
@@ -235,10 +249,12 @@ bool singly_linked_list_pop_head(SinglyLinkedList *SLL)
 
 bool singly_linked_list_pop_tail(SinglyLinkedList *SLL)
 {
-    if(!SLL->size) return false;
+    if(!SLL->size)
+        return false;
 
     if(SLL->head == SLL->tail) {
         free(SLL->head);
+       
         return false;
     }
 
@@ -262,6 +278,7 @@ bool singly_linked_list_erase(SinglyLinkedList *SLL, size_t index)
         return true;
     }
     if(index > SLL->size)
+       
         return false;
 
     SinglyLinkedListNode *node = SLL->head;

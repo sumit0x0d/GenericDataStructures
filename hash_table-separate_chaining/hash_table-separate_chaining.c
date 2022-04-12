@@ -32,7 +32,8 @@ HashTable *hash_table_separate_chaining_create(size_t key_size, size_t value_siz
     size_t hash(void *key, size_t buckets), int (*compare)(void *key, void *pair_key))
 {
     HashTable *HT = malloc(sizeof (HashTable));
-    if(!HT) return NULL;
+    if(!HT)
+        return NULL;
 
     HT->array = NULL;
     HT->key_size = key_size;
@@ -57,7 +58,8 @@ void hash_table_separate_chaining_destroy(HashTable *HT)
 void *hash_table_separate_chaining_search(HashTable *HT, void *key)
 {
     size_t index = HT->hash(key, HT->buckets);
-    if(!HT->array[index].key) return NULL;
+    if(!HT->array[index].key)
+        return NULL;
 
     return HT->array[index].value;
 }
@@ -65,10 +67,12 @@ void *hash_table_separate_chaining_search(HashTable *HT, void *key)
 bool hash_table_separate_chaining_insert(HashTable *HT, void *key, void *value)
 {
     if(!HT->array) {
-        if(!HT->key_size || !HT->value_size || !HT->buckets) return false;
+        if(!HT->key_size || !HT->value_size || !HT->buckets)
+        return false;
 
         HT->array = calloc(HT->buckets, sizeof (KeyValuePair));
-        if(!HT->array) return false;
+        if(!HT->array)
+        return false;
     }
 
     KeyValuePair pair = {key, value, NULL, NULL, NULL, RED};

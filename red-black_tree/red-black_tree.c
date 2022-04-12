@@ -29,7 +29,8 @@ RedBlackTree *red_black_tree_create(size_t data_size,
     int (*compare)(void *data, void *node_data))
 {
     RedBlackTree *RBT = malloc(sizeof (RedBlackTree));
-    if(!RBT) return NULL;
+    if(!RBT)
+        return NULL;
 
     RBT->root = NULL;
     RBT->size = 0;
@@ -50,18 +51,21 @@ RedBlackTree *red_black_tree_create(size_t data_size,
 //             node = node->left;
 //         else
 //             node = node->right;
-//     return NULL;
+//    
+        return NULL;
 // }
 
 static RedBlackTreeNode *node_create(size_t data_size)
 {
     RedBlackTreeNode *node = malloc(sizeof (RedBlackTreeNode));
-    if(!node) return NULL;
+    if(!node)
+        return NULL;
 
     node->data = malloc(data_size);
     if(!node->data) {
         free(node);
         node = NULL;
+       
         return NULL;
     }
 
@@ -75,13 +79,15 @@ bool red_black_tree_insert(RedBlackTree *RBT, void *data)
 {
     if(!RBT->size) {
         RBT->root = node_create(RBT->data_size);
-        if(!RBT->root) return false;
+        if(!RBT->root)
+        return false;
 
         memcpy(RBT->root->data, data, RBT->data_size);
 
         RBT->root->parent = NULL;
         RBT->root->color = BLACK;
         
+       
         return false;
     }
 
@@ -100,7 +106,8 @@ bool red_black_tree_insert(RedBlackTree *RBT, void *data)
     }
 
     node = node_create(RBT->data_size);
-    if(!node) return false;
+    if(!node)
+        return false;
 
     memcpy(node->data, data, RBT->data_size);
 

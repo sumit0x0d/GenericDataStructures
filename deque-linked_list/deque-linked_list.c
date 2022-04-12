@@ -31,7 +31,8 @@ bool deque_linked_list_pop_back(DequeLinkedList *D);
 DequeLinkedList *deque_linked_list_create(size_t data_size)
 {
     DequeLinkedList *D = malloc(sizeof (DequeLinkedList));
-    if(!D) return NULL;
+    if(!D)
+        return NULL;
 
     D->front = NULL;
     D->back = NULL;
@@ -61,14 +62,16 @@ void deque_linked_list_destroy(DequeLinkedList *D)
 
 void *deque_linked_list_front(DequeLinkedList *D)
 {
-    if(!D->front) return NULL;
+    if(!D->front)
+        return NULL;
     
     return D->front->data;
 }
 
 void *deque_linked_list_back(DequeLinkedList *D)
 {
-    if(!D->back) return NULL;
+    if(!D->back)
+        return NULL;
     
     return D->back->data;
 }
@@ -81,12 +84,14 @@ size_t deque_linked_list_size(DequeLinkedList *D)
 DequeLinkedListNode *node_create(size_t data_size)
 {
     DequeLinkedListNode *node = malloc(sizeof (DequeLinkedListNode));
-    if(!node) return NULL;
+    if(!node)
+        return NULL;
 
     node->data = malloc(data_size);
     if(!node->data) {
         free(node);
         node = NULL;
+       
         return NULL;
     }
 
@@ -105,7 +110,8 @@ void node_destroy(DequeLinkedListNode *node)
 bool deque_linked_list_push_front(DequeLinkedList *D, void *data)
 {
     DequeLinkedListNode *node = node_create(D->data_size);
-    if(!node) return false;
+    if(!node)
+        return false;
 
     memcpy(node->data, data, D->data_size);
 
@@ -128,7 +134,8 @@ bool deque_linked_list_push_front(DequeLinkedList *D, void *data)
 bool deque_linked_list_push_back(DequeLinkedList *D, void *data)
 {
     DequeLinkedListNode *node = node_create(D->data_size);
-    if(!node) return false; 
+    if(!node)
+        return false; 
 
     memcpy(node->data, data, D->data_size);
 
@@ -150,7 +157,8 @@ bool deque_linked_list_push_back(DequeLinkedList *D, void *data)
 
 bool deque_linked_list_pop_front(DequeLinkedList *D)
 {
-    if(!D->front) return false;
+    if(!D->front)
+        return false;
 
     DequeLinkedListNode *node = D->front;
 
@@ -167,7 +175,8 @@ bool deque_linked_list_pop_front(DequeLinkedList *D)
 
 bool deque_linked_list_pop_back(DequeLinkedList *D)
 {
-    if(!D->front) return false;
+    if(!D->front)
+        return false;
 
     DequeLinkedListNode *node = D->back;
 

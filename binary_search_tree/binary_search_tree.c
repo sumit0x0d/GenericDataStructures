@@ -28,7 +28,8 @@ BinarySearchTree *binary_search_tree_create(size_t data_size,
     int (*compare)(void *data, void *node_data))
 {
     BinarySearchTree *BST = malloc(sizeof (BinarySearchTree));
-    if(!BST) return NULL;
+    if(!BST)
+        return NULL;
 
     BST->root = NULL;
     BST->data_size = data_size;
@@ -63,18 +64,21 @@ BinarySearchTreeNode *binary_search_tree_search(BinarySearchTree *BST, void *dat
             node = node->right;
     }
 
-    return NULL;
+   
+        return NULL;
 }
 
 static BinarySearchTreeNode *node_create(size_t data_size)
 {
     BinarySearchTreeNode *node = malloc(sizeof (BinarySearchTreeNode));
-    if(!node) return NULL;
+    if(!node)
+        return NULL;
 
     node->data = malloc(data_size);
     if(!node->data) {
         free(node);
         node = NULL;
+       
         return NULL;
     }
 
@@ -97,7 +101,8 @@ bool binary_search_tree_insert(BinarySearchTree *BST, void *data)
 {
     if(!binary_search_tree_size(BST)) {
         BST->root = node_create(BST->data_size);
-        if(!BST->root) return false;
+        if(!BST->root)
+            return false;
 
         memcpy(BST->root->data, data, BST->data_size);
 
@@ -113,7 +118,8 @@ bool binary_search_tree_insert(BinarySearchTree *BST, void *data)
     while(node) {
         compare = BST->compare(data, node->data);
         if(compare == 0)
-            return false;
+           
+        return false;
         node_parent = node;
         if(compare < 0)
             node = node->left;
@@ -122,7 +128,8 @@ bool binary_search_tree_insert(BinarySearchTree *BST, void *data)
     }
 
     node = node_create(BST->data_size);
-    if(!node) return false;
+    if(!node)
+        return false;
 
     memcpy(node->data, data, BST->data_size);
 
@@ -138,7 +145,8 @@ bool binary_search_tree_insert(BinarySearchTree *BST, void *data)
 
 bool binary_search_tree_remove(BinarySearchTree *BST, void *data)
 {
-    if(!binary_search_tree_size(BST)) return false;
+    if(!binary_search_tree_size(BST))
+        return false;
 
     BinarySearchTreeNode *node = BST->root;
     BinarySearchTreeNode *node_parent = NULL; 
@@ -155,7 +163,8 @@ bool binary_search_tree_remove(BinarySearchTree *BST, void *data)
             node = node->right;
     }
 
-    if(!node) return false;
+    if(!node)
+        return false;
 
     if(!node->left && !node->right) {
         if(node_parent->left == node)

@@ -25,10 +25,12 @@ bool deque_array_pop_back(DequeArray *D);
 DequeArray *deque_array_create(size_t data_size, size_t capacity)
 {
     DequeArray *D = malloc(sizeof (DequeArray));
-    if(!D) return NULL;
+    if(!D)
+        return NULL;
 
     D->array = malloc(data_size * capacity);
-    if(!D->array) return NULL;
+    if(!D->array)
+        return NULL;
 
     D->data_size = data_size;
     D->front = 0;
@@ -41,10 +43,12 @@ DequeArray *deque_array_create(size_t data_size, size_t capacity)
 
 bool deque_array_change_capacity(DequeArray *D, size_t capacity)
 {
-    if(!capacity) return false;
+    if(!capacity)
+        return false;
 
     void *array = realloc(D->array, D->data_size * capacity);
-    if(!array) return false;
+    if(!array)
+        return false;
 
     D->array = array;
 
@@ -68,14 +72,16 @@ void deque_array_destroy(DequeArray *D)
 
 void *deque_array_front(DequeArray *D)
 {
-    if(!D->array) return NULL;
+    if(!D->array)
+        return NULL;
 
     return (char *)D->array + (D->data_size * D->front);
 }
 
 void *deque_array_back(DequeArray *D)
 {
-    if(!D->array) return NULL;
+    if(!D->array)
+        return NULL;
 
     return (char *)D->array + (D->data_size * D->back);
 }
@@ -93,7 +99,8 @@ bool deque_array_push_front(DequeArray *D, void *data)
             D->front = 0;
             D->back = D->size + 1;
         }
-        else return false;
+        else
+        return false;
     }
 
     memcpy((char *)D->array, data, D->data_size);
@@ -111,7 +118,8 @@ bool deque_array_push_back(DequeArray *D, void *data)
             D->front = 0;
             D->back = D->size;
         }
-        else return false;
+        else
+        return false;
     }
 
     memcpy((char *)D->array + (D->data_size * D->back), data, D->data_size);
