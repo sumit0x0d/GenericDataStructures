@@ -121,8 +121,7 @@ SinglyLinkedListNode *search(SinglyLinkedList *SLL, void *data)
         node = node->next;
     }
 
-   
-        return NULL;
+    return NULL;
 }
 
 bool singly_linked_list_push_head(SinglyLinkedList *SLL, void *data)
@@ -179,7 +178,6 @@ bool singly_linked_list_insert(SinglyLinkedList *SLL, size_t index, void *data)
     }
 
     if(index > SLL->size)
-       
         return false;
 
     SinglyLinkedListNode *node = SLL->head;
@@ -218,9 +216,8 @@ bool singly_linked_list_sorted_insert(SinglyLinkedList *SLL, void *data)
 
     memcpy(node_new->data, data, SLL->data_size);
 
-    while(node && data > node->next->data) {
+    while(node && data > node->next->data)
         node = node->next;
-    }
     node_new->next = node->next;
     node->next = node_new;
 
@@ -254,6 +251,7 @@ bool singly_linked_list_pop_tail(SinglyLinkedList *SLL)
 
     if(SLL->head == SLL->tail) {
         free(SLL->head);
+        SLL->head = NULL;
        
         return false;
     }
