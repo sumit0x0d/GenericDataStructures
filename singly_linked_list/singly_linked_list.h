@@ -8,7 +8,8 @@
 typedef struct SinglyLinkedListNode SinglyLinkedListNode;
 typedef struct SinglyLinkedList SinglyLinkedList;
 
-SinglyLinkedList *singly_linked_list_create(size_t data_size, int (*compare)(void *data, void *node_data));
+SinglyLinkedList *singly_linked_list_create(size_t data_size,
+    int (*compare)(void *data, void *node_data));
 void singly_linked_list_destroy(SinglyLinkedList *SLL);
 
 void *singly_linked_list_head(SinglyLinkedList *SLL);

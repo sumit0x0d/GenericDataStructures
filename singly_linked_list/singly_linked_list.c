@@ -13,7 +13,8 @@ typedef struct SinglyLinkedList {
     int (*compare)(void *data, void *node_data);
 } SinglyLinkedList;
 
-SinglyLinkedList *singly_linked_list_create(size_t data_size, int (*compare)(void *data, void *node_data));
+SinglyLinkedList *singly_linked_list_create(size_t data_size,
+    int (*compare)(void *data, void *node_data));
 void singly_linked_list_destroy(SinglyLinkedList *SLL);
 
 void *singly_linked_list_head(SinglyLinkedList *SLL);
@@ -38,7 +39,8 @@ bool singly_linked_list_update(SinglyLinkedList *SLL, size_t index, void *data);
 bool singly_linked_list_linear(SinglyLinkedList *SLL);
 bool singly_linked_list_circular(SinglyLinkedList *SLL);
 
-SinglyLinkedList *singly_linked_list_create(size_t data_size, int (*compare)(void *data, void *node_data))
+SinglyLinkedList *singly_linked_list_create(size_t data_size,
+    int (*compare)(void *data, void *node_data))
 {
     SinglyLinkedList *SLL = malloc(sizeof (SinglyLinkedList));
     if(!SLL)
