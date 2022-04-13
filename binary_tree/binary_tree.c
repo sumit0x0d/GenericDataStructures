@@ -20,45 +20,39 @@ BinaryTreeNode *binary_tree_insert(BinaryTree *BT, void *data, size_t data_size)
 BinaryTree *binary_tree_create()
 {
     BinaryTree *BT = malloc(sizeof (BinaryTree));
-    if(!BT)
+    if(!BT) {
         return NULL;
-
+    }
     BT->root = NULL;
     BT->size = 0;
-
     return BT;
 }
 
 static BinaryTreeNode *node_create(size_t data_size)
 {
     BinaryTreeNode *node = malloc(sizeof (BinaryTreeNode));
-    if(!node)
+    if(!node) {
         return NULL;
-
+    }
     node->data = malloc(data_size);
     if(!node->data) {
         free(node);
         node = NULL;
-       
         return NULL;
     }
-
     node->left = NULL;
     node->right = NULL;
-
     return node;
 }
 
 BinaryTreeNode *binary_tree_insert(BinaryTree *BT, void *data, size_t data_size)
 {
     BinaryTreeNode *node = node_create(data_size);
-    if(!node)
+    if(!node) {
         return NULL;
-
+    }
     memcpy(node->data, data, data_size);
-
     BT->size = BT->size + 1;
-
     return node;
 }
 

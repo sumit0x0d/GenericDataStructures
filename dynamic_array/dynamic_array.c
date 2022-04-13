@@ -89,7 +89,7 @@ size_t dynamic_array_size(DynamicArray *DA)
 //         if(data == DA->array[i])
 //             return DA->array[i];
 //    
-        return NULL;
+        // return NULL;
 // }
 
 // void array_create(void *array, size_t element_size, size_t size, size_t *capacity, double growth_factor)
@@ -112,7 +112,7 @@ bool dynamic_array_push_front(DynamicArray *DA, void *data)
         DA->capacity = DA->capacity * DA->growth_factor;
         void *array = realloc(DA->array, DA->data_size * DA->capacity);
         if(!array)
-        return false;
+            return false;
 
         DA->array = array;
     }
@@ -132,12 +132,10 @@ bool dynamic_array_push_back(DynamicArray *DA, void *data)
         DA->capacity = DA->capacity * DA->growth_factor;
         void *array = realloc(DA->array, DA->data_size * DA->capacity);
         if(!array)
-        return false;
-        
+            return false;
+
         DA->array = array;
     }
-
-    // array_create(DA->array, data_size, DA->size, &DA->capacity, DA->growth_factor);
 
     memcpy((char *)DA->array + (DA->data_size * DA->size), data, DA->data_size);
 
@@ -155,7 +153,7 @@ bool dynamic_array_insert(DynamicArray *DA, size_t index, void *data)
         DA->capacity = DA->capacity * DA->growth_factor;
         void *array = realloc(DA->array, DA->data_size * DA->capacity);
         if(!array)
-        return false;
+            return false;
 
         DA->array = array;
     }
