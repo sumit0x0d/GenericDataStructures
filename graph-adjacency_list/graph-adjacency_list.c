@@ -98,27 +98,26 @@ bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data)
 {
     if(!G->adjacency_list) {
         G->adjacency_list = malloc(sizeof (Vertex));
-        if(!G->adjacency_list) return false;
+        if(!G->adjacency_list) {
+            return false;
+        }
     }
     else {
         Vertex *adjacency_list = realloc(G->adjacency_list, sizeof (Vertex) * (G->vertices + 1));
-        if(!adjacency_list) return false;
-
+        if(!adjacency_list) {
+            return false;
+        }
         G->adjacency_list = adjacency_list;
     }
-
     Vertex *vertex = vertex_create(G->data_size);
-    if(!vertex) return false;
-
+    if(!vertex) {
+        return false;
+    }
     memcpy(vertex->data, data, G->data_size);
-
     memcpy(G->adjacency_list + (sizeof (Vertex) * G->vertices), vertex, sizeof (Vertex));
-
     G->vertices = G->vertices + 1;
     vertex->index = G->vertices;
-
     G->size = G->size + 1;
-
     return true;
 }
 
