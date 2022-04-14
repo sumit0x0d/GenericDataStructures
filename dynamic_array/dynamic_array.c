@@ -138,10 +138,15 @@ bool dynamic_array_sorted_insert(DynamicArray *DA, void *data)
     for(size_t i = 0; i < DA->size; i++) {
         int compare = DA->compare(data, (char *)DA->array + i);
         if(compare <= 0) {
-            return dynamic_array_insert(DA, i, data);
+            memmove((char *)DA->array + (DA->data_size * i) + DA->data_size, (char *)DA->array + (DA->data_size * i), DA->data_size * DA->size);
+            memcpy((char *)DA->array + (DA->data_size * i), data, DA->data_size);
+            DA->size = DA->size + 1;
+            return true;
         }
     }
-    return dynamic_array_push_back(DA, data);
+    memcpy((char *)DA->array + (DA->data_size * DA->size), data, DA->data_size);
+    DA->size = DA->size + 1;
+    return true;
 }
 
 bool dynamic_array_pop_front(DynamicArray *DA)
