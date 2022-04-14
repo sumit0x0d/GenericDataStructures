@@ -123,18 +123,20 @@ bool deque_array_push_back(DequeArray *D, void *data)
 
 bool deque_array_pop_front(DequeArray *D)
 {
-    if(D->front == D->back) {
+    if(D->size) {
         return false;
     }
     D->front = D->front + 1;
     D->size = D->size - 1;
+    return true;
 }
 
 bool deque_array_pop_back(DequeArray *D)
 {
-    if(D->front == D->back) {
+    if(!D->size) {
         return false;
     }
     D->back = D->back - 1;
     D->size = D->size - 1;
+    return true;
 }

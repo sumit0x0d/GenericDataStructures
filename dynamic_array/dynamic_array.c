@@ -135,10 +135,18 @@ bool dynamic_array_insert(DynamicArray *DA, size_t index, void *data)
 
 bool dynamic_array_sorted_insert(DynamicArray *DA, void *data)
 {
+    if(DA->size == DA->capacity) {
+        DA->capacity = DA->capacity * DA->growth_factor;
+        void *array = realloc(DA->array, DA->data_size * DA->capacity);
+        if(!array) {
+            return false;
+        }
+        DA->array = array;
+    }
     for(size_t i = 0; i < DA->size; i++) {
         int compare = DA->compare(data, (char *)DA->array + i);
         if(compare <= 0) {
-            memmove((char *)DA->array + (DA->data_size * i) + DA->data_size, (char *)DA->array + (DA->data_size * i), DA->data_size * DA->size);
+            memmove((char *)DA->array + (DA->data_size * (i + 1)), (char *)DA->array + (DA->data_size * i), DA->data_size * (DA->size - i - 1));
             memcpy((char *)DA->array + (DA->data_size * i), data, DA->data_size);
             DA->size = DA->size + 1;
             return true;
@@ -176,7 +184,7 @@ bool dynamic_array_erase(DynamicArray *DA, size_t index)
     if(index >= DA->data_size) {
         return false;
     }
-    memmove((char *)DA->array + (DA->data_size * index), (char *)DA->array + (DA->data_size * (index + 1)), (DA->size - index + 1) * DA->data_size);
+    memmove((char *)DA->array + (DA->data_size * index), (char *)DA->array + (DA->data_size * (index + 1)), DA->data_size * (DA->size - index + 1));
     DA->size = DA->size - 1;
     return true;
 }
@@ -188,7 +196,7 @@ bool dynamic_array_remove(DynamicArray *DA, void *data)
     }
     for(size_t i = 0; i < DA->size; i++) {
         if(!DA->compare(data, (char *)DA->array + i)) {
-            memmove((char *)DA->array + (DA->data_size * i), (char *)DA->array + (DA->data_size * (i + 1)), (DA->size - i + 1) * DA->data_size);
+            memmove((char *)DA->array + (DA->data_size * i), (char *)DA->array + (DA->data_size * (i + 1)), DA->data_size * (DA->size - i + 1));
             DA->size = DA->size - 1;
             return true;
         }

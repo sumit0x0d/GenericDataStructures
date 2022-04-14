@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct Vertex Vertex;
+typedef struct GraphAdjacencyList GraphAdjacencyList;
+
 GraphAdjacencyList *graph_adjacency_list_create(size_t data_size);
 void graph_adjacency_list_destroy(GraphAdjacencyList *G);
 

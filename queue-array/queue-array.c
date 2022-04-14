@@ -102,7 +102,7 @@ bool queue_array_enqueue(QueueArray *Q, void *data)
 
 bool queue_array_dequeue(QueueArray *Q)
 {
-    if(!Q->front) {
+    if(!Q->size) {
         return false;
     }
     Q->front = Q->front + 1;

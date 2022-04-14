@@ -31,14 +31,13 @@ bool graph_adjacency_list_edge_remove(GraphAdjacencyList *G, Vertex *vertex_sour
 GraphAdjacencyList *graph_adjacency_list_create(size_t data_size)
 {
     GraphAdjacencyList *G = malloc(sizeof (GraphAdjacencyList));
-    if(!G)
+    if(!G) {
         return NULL;
-
+    }
     G->adjacency_list = NULL;
     G->data_size = data_size;
     G->vertices = 0;
     G->size = 0;
-
     return G;
 }
 
