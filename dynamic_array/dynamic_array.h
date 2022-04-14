@@ -22,7 +22,7 @@ bool dynamic_array_insert(DynamicArray *DA, size_t index, void *data);
 bool dynamic_array_sorted_insert(DynamicArray *DA, void *data);
 bool dynamic_array_pop_front(DynamicArray *DA);
 bool dynamic_array_pop_back(DynamicArray *DA);
-bool dynamic_array_remove(DynamicArray *DA, void *data);
 bool dynamic_array_erase(DynamicArray *DA, size_t index);
+bool dynamic_array_remove(DynamicArray *DA, void *data);
 
 #endif

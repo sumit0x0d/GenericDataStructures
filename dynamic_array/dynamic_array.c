@@ -5,7 +5,7 @@ typedef struct DynamicArray {
     size_t data_size;
     size_t capacity;
     double growth_factor;
-    int compare;
+    int (*compare)(void *data, void *node_data);
     size_t size;
 } DynamicArray;
 
@@ -78,27 +78,9 @@ size_t dynamic_array_size(DynamicArray *DA)
     return DA->size;
 }
 
-// size_t *search(DynamicArray *DA. int data)
+// size_t dynamic_array_search(DynamicArray *DA, void *data)
 // {
-//     for(size_t i = 0; i < DA->size; i++)
-//         if(data == DA->array[i])
-//             return DA->array[i];
-//    
-        // return NULL;
-// }
 
-// void array_create(void *array, size_t element_size, size_t size, size_t *capacity, double growth_factor)
-// {
-//     if(!array) {
-        
-//         array = malloc(element_size * (*capacity));
-//         if(!array) return;
-//     }
-
-//     if(size == (*capacity)) {
-//         (*capacity) = (*capacity) * growth_factor;
-//         array = realloc(array, element_size * (*capacity));
-//     }
 // }
 
 bool dynamic_array_push_front(DynamicArray *DA, void *data)
@@ -153,7 +135,13 @@ bool dynamic_array_insert(DynamicArray *DA, size_t index, void *data)
 
 bool dynamic_array_sorted_insert(DynamicArray *DA, void *data)
 {
-    
+    for(size_t i = 0; i < DA->size; i++) {
+        int compare = DA->compare(data, (char *)DA->array + i);
+        if(compare <= 0) {
+            return dynamic_array_insert(DA, i, data);
+        }
+    }
+    return dynamic_array_push_back(DA, data);
 }
 
 bool dynamic_array_pop_front(DynamicArray *DA)
@@ -175,10 +163,30 @@ bool dynamic_array_pop_back(DynamicArray *DA)
     return true;
 }
 
-// void dynamic_array_erase(DynamicArray *DA. size_t index)
-// {
-//     for(size_t i = index; i < DA->size; i++)
-//         DA->array[i] = DA->array[i+1];
-    
-//     DA->size = DA->size - 1;
-// }
+bool dynamic_array_erase(DynamicArray *DA, size_t index)
+{
+    if(!DA->size) {
+        return false;
+    }
+    if(index >= DA->data_size) {
+        return false;
+    }
+    memmove((char *)DA->array + (DA->data_size * index), (char *)DA->array + (DA->data_size * (index + 1)), (DA->size - index + 1) * DA->data_size);
+    DA->size = DA->size - 1;
+    return true;
+}
+
+bool dynamic_array_remove(DynamicArray *DA, void *data)
+{
+    if(!DA->size) {
+        return false;
+    }
+    for(size_t i = 0; i < DA->size; i++) {
+        if(!DA->compare(data, (char *)DA->array + i)) {
+            memmove((char *)DA->array + (DA->data_size * i), (char *)DA->array + (DA->data_size * (i + 1)), (DA->size - i + 1) * DA->data_size);
+            DA->size = DA->size - 1;
+            return true;
+        }
+    }
+    return false;
+}
