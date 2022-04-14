@@ -121,14 +121,20 @@ bool deque_array_push_back(DequeArray *D, void *data)
     return true;
 }
 
-// bool deque_array_pop_front(DequeArray *D)
-// {
-//     if(D->front != D->back) {
-//         D->front = D->front + 1;
-//     }
-// }
+bool deque_array_pop_front(DequeArray *D)
+{
+    if(D->front == D->back) {
+        return false;
+    }
+    D->front = D->front + 1;
+    D->size = D->size - 1;
+}
 
-// bool deque_array_pop_back(DequeArray *D)
-// {
-    
-// }
+bool deque_array_pop_back(DequeArray *D)
+{
+    if(D->front == D->back) {
+        return false;
+    }
+    D->back = D->back - 1;
+    D->size = D->size - 1;
+}

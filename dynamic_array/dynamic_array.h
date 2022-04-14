@@ -7,7 +7,8 @@
 
 typedef struct DynamicArray DynamicArray;
 
-DynamicArray *dynamic_array_create(size_t data_size, size_t capacity, double growth_factor);
+DynamicArray *dynamic_array_create(size_t data_size, size_t capacity, double growth_factor,
+    int (*compare)(void *data, void *node_data));
 void dynamic_array_destroy(DynamicArray *DA);
 
 void *dynamic_array_front(DynamicArray *DA);

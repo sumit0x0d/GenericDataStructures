@@ -1,16 +1,29 @@
 #include "trie.h"
 
+typedef struct TrieNode {
+    bool terminal;
+    struct TrieNode *children[128];
+} TrieNode;
+
+typedef struct Trie {
+    TrieNode *root;
+    size_t size;
+} Trie;
+
+Trie *trie_create();
+
 TrieNode *trie_search(Trie *T, char *string);
 bool trie_insert(Trie *T, char *string);
 bool trie_remove(Trie *T, char *string);
 
-Trie trie_create()
+Trie *trie_create()
 {
-    Trie trie;
-
-    trie.root = NULL;
-    trie.size = 0;
-
+    Trie *trie = malloc(sizeof (Trie));
+    if(!trie) {
+        return NULL;
+    }
+    trie->root = NULL;
+    trie->size = 0;
     return trie;
 }
 
@@ -23,15 +36,14 @@ Trie trie_create()
 static TrieNode *node_create()
 {
     TrieNode *node = malloc(sizeof (TrieNode));
-    if(!node)
+    if(!node) {
         return NULL;
-
+    }
     node->terminal = false;
-
-    for(int i = 0; i < 128; i++)
+    for(int i = 0; i < 128; i++) {
         node->children[i] = NULL;
+    }
     // memset(node->children, '\0', sizeof (TrieNode) * 128);
-
     return node;
 }
 
@@ -39,15 +51,15 @@ bool trie_insert(Trie *T, char *string)
 {
     if(!T->root) {
         T->root = node_create();
-        if(!T->root)
-        return false;
+        if(!T->root) {
+            return false;
+        }
     }
-
     TrieNode *node = T->root; 
-
     while(*string != '\0') {
-        if(node->children[(size_t)*string] == NULL)
+        if(node->children[(size_t)*string] == NULL) {
             node->children[(size_t)*string] = node_create();
+        }
         node = node->children[(size_t)*string];
         string++;
     }
@@ -56,14 +68,13 @@ bool trie_insert(Trie *T, char *string)
     //     if(node->children[(int)string[i]] == 0)
     //         node->children[(size_t)string[i]] = node_create(string[i]);
     // }
-    if(node->terminal)
-       
+    if(node->terminal) {
         return false;
-    else
+    }
+    else {
         node->terminal = true;
-
+    }
     T->size = T->size + 1;
-
     return true;
 }
 
