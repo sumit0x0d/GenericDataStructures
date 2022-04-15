@@ -14,10 +14,10 @@ enum {
     STACK_LINKED_LIST
 };
 
-void deque_linked_list_print(DequeLinkedList *D, int data_type)
+void deque_linked_list_print(DequeLinkedList* D, int data_type)
 {
     if(!deque_linked_list_size(D)) return;
-    DequeLinkedListNode *node = D->front;
+    DequeLinkedListNode* node = D->front;
 
     printf("[Deque (Linked List)]");
 
@@ -30,7 +30,7 @@ void deque_linked_list_print(DequeLinkedList *D, int data_type)
     printf("\b\n[Deque][Size]\t: %zu\n", D->size);
 }
 
-// void doubly_linked_list_print(DoublyLinkedList *DLL)
+// void doubly_linked_list_print(DoublyLinkedList* DLL)
 // {
 //     if(!DLL->size) return;
 
@@ -40,11 +40,11 @@ void deque_linked_list_print(DequeLinkedList *D, int data_type)
 //     printf("\b\nDoubly Linked List Size: %zu\n", DLL->size);
 // }
 
-void queue_linked_list_print(QueueLinkedList *Q, int data_type)
+void queue_linked_list_print(QueueLinkedList* Q, int data_type)
 {
     if(!queue_linked_list_size(Q)) return;
 
-    QueueLinkedListNode *node = Q->front;
+    QueueLinkedListNode* node = Q->front;
 
     printf("[Queue (Linked List)]");
 
@@ -57,11 +57,11 @@ void queue_linked_list_print(QueueLinkedList *Q, int data_type)
     printf("\b\n[Queue]\n[Size]\t: %zu\n", Q->size);
 }
 
-void singly_linked_list_print(SinglyLinkedList *SLL, int data_type)
+void singly_linked_list_print(SinglyLinkedList* SLL, int data_type)
 {
     if(!singly_linked_list_size(SLL)) return;
 
-    SinglyLinkedListNode *node = SLL->head;
+    SinglyLinkedListNode* node = SLL->head;
     
     printf("[Singly Linked List]");
 
@@ -74,11 +74,11 @@ void singly_linked_list_print(SinglyLinkedList *SLL, int data_type)
     printf("\b\n[Singly Linked List]\n[Size]\t: %zu\n", SLL->size);
 }
 
-void stack_linked_list_print(StackLinkedList *S, int data_type)
+void stack_linked_list_print(StackLinkedList* S, int data_type)
 {
     if(!stack_linked_list_size(S)) return;
 
-    StackLinkedListNode *node = stack_linked_list_peek(S);
+    StackLinkedListNode* node = stack_linked_list_peek(S);
 
     printf("[Stack (Linked List)]");
 

@@ -33,7 +33,7 @@ enum {
 
 #endif
 
-void data_print(void *data, int data_type)
+void data_print(void* data, int data_type)
 {
     switch (data_type) {
         case CHAR:

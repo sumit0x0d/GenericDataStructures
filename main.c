@@ -14,7 +14,7 @@
 
 #include <stdio.h>
 
-int compare(void *data, void *node_data) {
+int compare(void* data, void* node_data) {
     if(*(int *)data < *(int *)node_data)
         return -1;
     else if(*(int *)data > *(int *)node_data)
@@ -22,12 +22,12 @@ int compare(void *data, void *node_data) {
     return 0;
 }
 
-size_t hash(void *key, size_t buckets)
+size_t hash(void* key, size_t buckets)
 {
     return (*(size_t *)key % buckets);
 }
 
-void array_print(void *A, size_t data_size, size_t begin, size_t end, size_t size)
+void array_print(void* A, size_t data_size, size_t begin, size_t end, size_t size)
 {
     if(!A) return;
 
@@ -46,14 +46,14 @@ int main()
     // DoublyLinkedList DLL = doubly_linked_list_create(INT, sizeof (int));
     // QueueLinkedList Q = queue_linked_list_create();
     // SinglyLinkedList SLL = singly_linked_list_create();
-    // StackLinkedList *S = stack_linked_list_create(sizeof (int));
+    // StackLinkedList* S = stack_linked_list_create(sizeof (int));
     
     // DequeArray D = deque_array_create(INT, sizeof (int), 20);
-    // StackArray *S2 = stack_array_create(sizeof (char), 20);
+    // StackArray* S2 = stack_array_create(sizeof (char), 20);
     // if(!S2) return;
-    QueueArray *Q = queue_array_create(sizeof (int), 20);
+    QueueArray* Q = queue_array_create(sizeof (int), 20);
 
-    // DynamicArray *DA = dynamic_array_create(sizeof (int), 20, 1.5, compare);
+    // DynamicArray* DA = dynamic_array_create(sizeof (int), 20, 1.5, compare);
 
     // BinarySearchTree bst_int = binary_search_tree_create(sizeof (int), compare_data);
     // AVLTree AVLT = avl_tree_create(INT, sizeof (int), compare_data);

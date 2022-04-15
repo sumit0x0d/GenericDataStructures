@@ -1,34 +1,34 @@
 #include "red-black_tree.h"
 
 typedef struct RedBlackTreeNode {
-    void *data;
-    struct RedBlackTreeNode *left;
-    struct RedBlackTreeNode *right;
-    struct RedBlackTreeNode *parent;
+    void* data;
+    struct RedBlackTreeNode* left;
+    struct RedBlackTreeNode* right;
+    struct RedBlackTreeNode* parent;
     enum {RED, BLACK} color;
 } RedBlackTreeNode;
 
 typedef struct RedBlackTree {
-    RedBlackTreeNode *root;
+    RedBlackTreeNode* root;
     size_t data_size;
     size_t size;
-    int (*compare)(void *data, void *node_data);
+    int (*compare)(void* data, void* node_data);
 } RedBlackTree;
 
-RedBlackTree *red_black_tree_create(size_t data_size,
-    int (*compare)(void *data, void *node_data));
-void red_black_tree_destroy(RedBlackTree *RBT);
+RedBlackTree* red_black_tree_create(size_t data_size,
+    int (*compare)(void* data, void* node_data));
+void red_black_tree_destroy(RedBlackTree* RBT);
 
-size_t red_black_tree_size(RedBlackTree *RBT);
+size_t red_black_tree_size(RedBlackTree* RBT);
 
-RedBlackTreeNode *red_black_tree_search(RedBlackTree *RBT, void *data);
-bool red_black_tree_insert(RedBlackTree *RBT, void *data);
-bool red_black_tree_remove(RedBlackTree *RBT, void *data);
+RedBlackTreeNode* red_black_tree_search(RedBlackTree* RBT, void* data);
+bool red_black_tree_insert(RedBlackTree* RBT, void* data);
+bool red_black_tree_remove(RedBlackTree* RBT, void* data);
 
-RedBlackTree *red_black_tree_create(size_t data_size,
-    int (*compare)(void *data, void *node_data))
+RedBlackTree* red_black_tree_create(size_t data_size,
+    int (*compare)(void* data, void* node_data))
 {
-    RedBlackTree *RBT = malloc(sizeof (RedBlackTree));
+    RedBlackTree* RBT = malloc(sizeof (RedBlackTree));
     if(!RBT) {
         return NULL;
     }
@@ -39,9 +39,9 @@ RedBlackTree *red_black_tree_create(size_t data_size,
     return RBT;
 }
 
-// RedBlackTreeNode *red_black_tree_search(RedBlackTree *RBT, void *data, size_t data_size)
+// RedBlackTreeNode* red_black_tree_search(RedBlackTree* RBT, void* data, size_t data_size)
 // {
-//     RedBlackTreeNode *node = RBT->root;
+//     RedBlackTreeNode* node = RBT->root;
 //     while(node)
 //         if(data == node->data)
 //             return node;
@@ -53,9 +53,9 @@ RedBlackTree *red_black_tree_create(size_t data_size,
         // return NULL;
 // }
 
-static RedBlackTreeNode *node_create(size_t data_size)
+static RedBlackTreeNode* node_create(size_t data_size)
 {
-    RedBlackTreeNode *node = malloc(sizeof (RedBlackTreeNode));
+    RedBlackTreeNode* node = malloc(sizeof (RedBlackTreeNode));
     if(!node) {
         return NULL;
     }
@@ -70,7 +70,7 @@ static RedBlackTreeNode *node_create(size_t data_size)
     return node;
 }
 
-bool red_black_tree_insert(RedBlackTree *RBT, void *data)
+bool red_black_tree_insert(RedBlackTree* RBT, void* data)
 {
     if(!RBT->size) {
         RBT->root = node_create(RBT->data_size);
@@ -82,8 +82,8 @@ bool red_black_tree_insert(RedBlackTree *RBT, void *data)
         RBT->root->color = BLACK;
         return false;
     }
-    RedBlackTreeNode *node = RBT->root;
-    RedBlackTreeNode *node_parent = NULL;
+    RedBlackTreeNode* node = RBT->root;
+    RedBlackTreeNode* node_parent = NULL;
     int compare;
     while(node) {
         compare = RBT->compare(data, node->data);
@@ -114,7 +114,7 @@ bool red_black_tree_insert(RedBlackTree *RBT, void *data)
     return true;
 }
 
-// void red_black_tree_remove(RedBlackTree *RBT, int data)
+// void red_black_tree_remove(RedBlackTree* RBT, int data)
 // {
 
 // }

@@ -1,25 +1,25 @@
 #include "binary_tree.h"
 
 typedef struct BinaryTreeNode {
-    void *data;
-    struct BinaryTreeNode *left;
-    struct BinaryTreeNode *right;
+    void* data;
+    struct BinaryTreeNode* left;
+    struct BinaryTreeNode* right;
 } BinaryTreeNode;
 
 typedef struct BinaryTree {
-    BinaryTreeNode *root;
+    BinaryTreeNode* root;
     size_t size;
 } BinaryTree;
 
-BinaryTree *binary_tree_create();
+BinaryTree* binary_tree_create();
 
-static BinaryTreeNode *node_create(size_t data_size);
+static BinaryTreeNode* node_create(size_t data_size);
 
-BinaryTreeNode *binary_tree_insert(BinaryTree *BT, void *data, size_t data_size);
+BinaryTreeNode* binary_tree_insert(BinaryTree* BT, void* data, size_t data_size);
 
-BinaryTree *binary_tree_create()
+BinaryTree* binary_tree_create()
 {
-    BinaryTree *BT = malloc(sizeof (BinaryTree));
+    BinaryTree* BT = malloc(sizeof (BinaryTree));
     if(!BT) {
         return NULL;
     }
@@ -28,9 +28,9 @@ BinaryTree *binary_tree_create()
     return BT;
 }
 
-static BinaryTreeNode *node_create(size_t data_size)
+static BinaryTreeNode* node_create(size_t data_size)
 {
-    BinaryTreeNode *node = malloc(sizeof (BinaryTreeNode));
+    BinaryTreeNode* node = malloc(sizeof (BinaryTreeNode));
     if(!node) {
         return NULL;
     }
@@ -45,9 +45,9 @@ static BinaryTreeNode *node_create(size_t data_size)
     return node;
 }
 
-BinaryTreeNode *binary_tree_insert(BinaryTree *BT, void *data, size_t data_size)
+BinaryTreeNode* binary_tree_insert(BinaryTree* BT, void* data, size_t data_size)
 {
-    BinaryTreeNode *node = node_create(data_size);
+    BinaryTreeNode* node = node_create(data_size);
     if(!node) {
         return NULL;
     }
@@ -56,7 +56,7 @@ BinaryTreeNode *binary_tree_insert(BinaryTree *BT, void *data, size_t data_size)
     return node;
 }
 
-// size_t binary_tree_node_height(BinaryTreeNode *node)
+// size_t binary_tree_node_height(BinaryTreeNode* node)
 // {
 //     size_t height = 0;
 //     size_t queue_size;
@@ -78,7 +78,7 @@ BinaryTreeNode *binary_tree_insert(BinaryTree *BT, void *data, size_t data_size)
 //     return height;
 // }
 
-// static BinaryTreeNode *tree_node_inorder_predecessor(BinaryTreeNode *node)
+// static BinaryTreeNode* tree_node_inorder_predecessor(BinaryTreeNode* node)
 // {
 //     if(node->left) {
 //         node = node->left;
@@ -89,7 +89,7 @@ BinaryTreeNode *binary_tree_insert(BinaryTree *BT, void *data, size_t data_size)
 //     return node;
 // }
 
-// static BinaryTreeNode *tree_node_inorder_successor(BinaryTreeNode *node)
+// static BinaryTreeNode* tree_node_inorder_successor(BinaryTreeNode* node)
 // {    
 //     if(node->right) {
 //         node = node->right;
@@ -99,12 +99,12 @@ BinaryTreeNode *binary_tree_insert(BinaryTree *BT, void *data, size_t data_size)
 //     return node;
 // }
 
-// BinaryTree *tree_from_preorder(int preorder[], size_t preorder_size, int inorder[], size_t inorder_size)
+// BinaryTree* tree_from_preorder(int preorder[], size_t preorder_size, int inorder[], size_t inorder_size)
 // {
 //     if(preorder_size != inorder_size)
 //        
         // return NULL;
-//     BinaryTreeNode *root, *node;
+//     BinaryTreeNode* root, *node;
 //     root->data = preorder[0];
 //     node = root;
 //     for(size_t i = 1; i < preorder_size; i++)
@@ -115,7 +115,7 @@ BinaryTreeNode *binary_tree_insert(BinaryTree *BT, void *data, size_t data_size)
 //     return root;
 // }
 
-// BinaryTree *tree_from_postorder(int *postorder, size_t postorder_size, int *inorder, size_t inorder_size)
+// BinaryTree* tree_from_postorder(int *postorder, size_t postorder_size, int *inorder, size_t inorder_size)
 // {
 //     if(postorder_size != inorder_size)
 //        

@@ -13,22 +13,22 @@ enum {
     RED_BLACK_TREE,
 };
 
-void preorder_traverse(void *root, int binary_tree_type, int data_type);
-void inorder_traverse(void *root, int binary_tree_type, int data_type);
-void postorder_traverse(void *root, int binary_tree_type, int data_type);
-void levelorder_traverse(void *root, int binary_tree_type, int data_type);
+void preorder_traverse(void* root, int binary_tree_type, int data_type);
+void inorder_traverse(void* root, int binary_tree_type, int data_type);
+void postorder_traverse(void* root, int binary_tree_type, int data_type);
+void levelorder_traverse(void* root, int binary_tree_type, int data_type);
 
-// void avl_tree_print(AVLTree *AVLT);
-void binary_search_tree_print(BinarySearchTree *BST, int data_type);
-// void red_black_tree_print(RedBlackTree *RBT);
+// void avl_tree_print(AVLTree* AVLT);
+void binary_search_tree_print(BinarySearchTree* BST, int data_type);
+// void red_black_tree_print(RedBlackTree* RBT);
 
-void preorder_traverse(void *root, int binary_tree_type, int data_type)
+void preorder_traverse(void* root, int binary_tree_type, int data_type)
 {    
     switch (binary_tree_type) {
         case AVL_TREE:
             {
                 StackLinkedList S = stack_linked_list_create(sizeof (AVLTreeNode));
-                AVLTreeNode *node = root;
+                AVLTreeNode* node = root;
                 while(node || stack_linked_list_size(&S))
                     if(node) {
                         data_print(node->data, data_type);
@@ -44,8 +44,8 @@ void preorder_traverse(void *root, int binary_tree_type, int data_type)
             break;
         case BINARY_SEARCH_TREE:
             {
-                StackLinkedList *S = stack_linked_list_create(sizeof (BinarySearchTreeNode));
-                BinarySearchTreeNode *node = root;
+                StackLinkedList* S = stack_linked_list_create(sizeof (BinarySearchTreeNode));
+                BinarySearchTreeNode* node = root;
                 while(node || stack_linked_list_size(S))
                     if(node) {
                         data_print(node->data, data_type);
@@ -62,7 +62,7 @@ void preorder_traverse(void *root, int binary_tree_type, int data_type)
         case RED_BLACK_TREE:
             {
                 StackLinkedList S = stack_linked_list_create(sizeof (RedBlackTreeNode));
-                RedBlackTreeNode *node = root;
+                RedBlackTreeNode* node = root;
                 while(node || stack_linked_list_size(&S))
                     if(node) {
                         data_print(node->data, data_type);
@@ -81,13 +81,13 @@ void preorder_traverse(void *root, int binary_tree_type, int data_type)
     }
 }
 
-void inorder_traverse(void *root, int binary_tree_type, int data_type)
+void inorder_traverse(void* root, int binary_tree_type, int data_type)
 {
     switch (binary_tree_type) {
         case AVL_TREE:
             {
                 StackLinkedList S = stack_linked_list_create(sizeof (AVLTreeNode));
-                AVLTreeNode *node = root;
+                AVLTreeNode* node = root;
                 while(node || stack_linked_list_size(&S))
                     if(node) {
                         stack_linked_list_push(&S, node);
@@ -104,7 +104,7 @@ void inorder_traverse(void *root, int binary_tree_type, int data_type)
         case BINARY_SEARCH_TREE:
             {
                 StackLinkedList S = stack_linked_list_create(sizeof (BinarySearchTreeNode));
-                BinarySearchTreeNode *node = root;
+                BinarySearchTreeNode* node = root;
                 while(node || stack_linked_list_size(&S))
                     if(node) {
                         stack_linked_list_push(&S, node);
@@ -121,7 +121,7 @@ void inorder_traverse(void *root, int binary_tree_type, int data_type)
         case RED_BLACK_TREE:
             {
                 StackLinkedList S = stack_linked_list_create(sizeof (RedBlackTreeNode));
-                RedBlackTreeNode *node = root;
+                RedBlackTreeNode* node = root;
                 while(node || stack_linked_list_size(&S))
                     if(node) {
                         stack_linked_list_push(&S, node);
@@ -140,13 +140,13 @@ void inorder_traverse(void *root, int binary_tree_type, int data_type)
     }
 }
 
-void postorder_traverse(void *root, int binary_tree_type, int data_type)
+void postorder_traverse(void* root, int binary_tree_type, int data_type)
 {
     switch (binary_tree_type) {
         case AVL_TREE:
             {
                 StackLinkedList S = stack_linked_list_create(sizeof (AVLTreeNode));
-                AVLTreeNode *node = root;
+                AVLTreeNode* node = root;
                 while(node) {
                     if(node->right) {
                         stack_linked_list_push(&S, node);
@@ -166,13 +166,13 @@ void postorder_traverse(void *root, int binary_tree_type, int data_type)
     }
 }
 
-void levelorder_traverse(void *root, int binary_tree_type, int data_type)
+void levelorder_traverse(void* root, int binary_tree_type, int data_type)
 {
     switch (binary_tree_type) {
         case AVL_TREE:
             {
                 QueueLinkedList Q = queue_linked_list_create(sizeof (AVLTreeNode));
-                AVLTreeNode *node = root;
+                AVLTreeNode* node = root;
                 data_print(node->data, data_type);
                 queue_linked_list_enqueue(&Q, node);
                 while(queue_linked_list_size(&Q)) {
@@ -192,7 +192,7 @@ void levelorder_traverse(void *root, int binary_tree_type, int data_type)
         case BINARY_SEARCH_TREE:
             {
                 QueueLinkedList Q = queue_linked_list_create(sizeof (BinarySearchTreeNode));
-                BinarySearchTreeNode *node = root;
+                BinarySearchTreeNode* node = root;
                 data_print(node->data, data_type);
                 queue_linked_list_enqueue(&Q, node);
                 while(queue_linked_list_size(&Q)) {
@@ -212,7 +212,7 @@ void levelorder_traverse(void *root, int binary_tree_type, int data_type)
         case RED_BLACK_TREE:
             {
                 QueueLinkedList Q = queue_linked_list_create(sizeof (RedBlackTreeNode));
-                RedBlackTreeNode *node = root;
+                RedBlackTreeNode* node = root;
                 data_print(node->data, data_type);
                 queue_linked_list_enqueue(&Q, node);
                 while(queue_linked_list_size(&Q)) {
@@ -234,7 +234,7 @@ void levelorder_traverse(void *root, int binary_tree_type, int data_type)
     }
 }
 
-// void avl_tree_print(AVLTree *AVLT)
+// void avl_tree_print(AVLTree* AVLT)
 // {
 //     // if(!avl_tree_size(AVLT)) return;
 
@@ -252,7 +252,7 @@ void levelorder_traverse(void *root, int binary_tree_type, int data_type)
 //     printf("\b\n[Size]\t: %zu\n", AVLT->size);
 // }
 
-void binary_search_tree_print(BinarySearchTree *BST, int data_type)
+void binary_search_tree_print(BinarySearchTree* BST, int data_type)
 {
     // if(!binary_search_tree_size(BST)) return;
 
@@ -270,7 +270,7 @@ void binary_search_tree_print(BinarySearchTree *BST, int data_type)
     printf("\b\n[Size]\t: %zu\n", BST->size);
 }
 
-// void red_black_tree_print(RedBlackTree *RBT)
+// void red_black_tree_print(RedBlackTree* RBT)
 // {
 //     // if(!red_black_tree_size(RBT)) return;
 

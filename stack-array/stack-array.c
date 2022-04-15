@@ -1,25 +1,25 @@
 #include "stack-array.h"
 
 typedef struct StackArray {
-    void *array;
+    void* array;
     size_t data_size;
     size_t capacity;
     size_t size;
 } StackArray;
 
-StackArray *stack_array_create(size_t data_size, size_t capacity);
-bool stack_array_change_capacity(StackArray *S, size_t capacity);
-void stack_array_destroy(StackArray *S);
+StackArray* stack_array_create(size_t data_size, size_t capacity);
+bool stack_array_change_capacity(StackArray* S, size_t capacity);
+void stack_array_destroy(StackArray* S);
 
-void *stack_array_peek(StackArray *S);
-size_t stack_array_size(StackArray *S);
+void* stack_array_peek(StackArray* S);
+size_t stack_array_size(StackArray* S);
 
-bool stack_array_push(StackArray *S, void *data);
-bool stack_array_pop(StackArray *S);
+bool stack_array_push(StackArray* S, void* data);
+bool stack_array_pop(StackArray* S);
 
-StackArray *stack_array_create(size_t data_size, size_t capacity)
+StackArray* stack_array_create(size_t data_size, size_t capacity)
 {
-    StackArray *S = malloc(sizeof (StackArray));
+    StackArray* S = malloc(sizeof (StackArray));
     if(!S) {
         return NULL;
     }
@@ -33,12 +33,12 @@ StackArray *stack_array_create(size_t data_size, size_t capacity)
     return S;
 }
 
-bool stack_array_change_capacity(StackArray *S, size_t capacity)
+bool stack_array_change_capacity(StackArray* S, size_t capacity)
 {
     if(!capacity) {
         return false;
     }
-    void *array = realloc(S->array, S->data_size * capacity);
+    void* array = realloc(S->array, S->data_size * capacity);
     if(!array) {
         return false;
     }
@@ -47,14 +47,14 @@ bool stack_array_change_capacity(StackArray *S, size_t capacity)
     return true;
 }
 
-void stack_array_destroy(StackArray *S)
+void stack_array_destroy(StackArray* S)
 {
     free(S->array);
     S->array = NULL;
     S->size = 0;
 }
 
-void *stack_array_peek(StackArray *S)
+void* stack_array_peek(StackArray* S)
 {
     if(!S->array) {
         return NULL;
@@ -62,12 +62,12 @@ void *stack_array_peek(StackArray *S)
     return (char *)S->array + (S->data_size * S->size);
 }
 
-size_t stack_array_size(StackArray *S)
+size_t stack_array_size(StackArray* S)
 {
     return S->size;
 }
 
-bool stack_array_push(StackArray *S, void *data)
+bool stack_array_push(StackArray* S, void* data)
 {
     if(S->size == S->capacity) {
         return false;
@@ -77,7 +77,7 @@ bool stack_array_push(StackArray *S, void *data)
     return true;
 }
 
-bool stack_array_pop(StackArray *S)
+bool stack_array_pop(StackArray* S)
 {
     if(!S->size){
         return false;

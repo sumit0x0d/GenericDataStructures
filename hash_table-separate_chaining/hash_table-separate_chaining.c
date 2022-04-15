@@ -1,8 +1,8 @@
 #include "hash_table-separate_chaining.h"
 
 typedef struct KeyValuePair {
-    void *key;
-    void *value;
+    void* key;
+    void* value;
     struct KeyValuePair *left;
     struct KeyValuePair *right;
     struct KeyValuePair *parent;
@@ -15,23 +15,23 @@ typedef struct HashTable {
     size_t value_size;
     size_t buckets;
     size_t size;
-    size_t (*hash)(void *key, size_t buckets);
-    int (*compare)(void *key, void *node_key);
+    size_t (*hash)(void* key, size_t buckets);
+    int (*compare)(void* key, void* node_key);
 } HashTable;
 
-HashTable *hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets,
-    size_t hash(void *key, size_t buckets), int (*compare)(void *key, void *pair_key));
-void hash_table_separate_chaining_destroy(HashTable *HT);
+HashTable* hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets,
+    size_t hash(void* key, size_t buckets), int (*compare)(void* key, void* pair_key));
+void hash_table_separate_chaining_destroy(HashTable* HT);
 
-void *hash_table_separate_chaining_search(HashTable *HT, void *key);
+void* hash_table_separate_chaining_search(HashTable* HT, void* key);
 
-bool hash_table_separate_chaining_insert(HashTable *HT, void *key, void *value);
-bool hash_table_separate_chaining_remove(HashTable *HT, void *key);
+bool hash_table_separate_chaining_insert(HashTable* HT, void* key, void* value);
+bool hash_table_separate_chaining_remove(HashTable* HT, void* key);
 
-HashTable *hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets,
-    size_t hash(void *key, size_t buckets), int (*compare)(void *key, void *pair_key))
+HashTable* hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets,
+    size_t hash(void* key, size_t buckets), int (*compare)(void* key, void* pair_key))
 {
-    HashTable *HT = malloc(sizeof (HashTable));
+    HashTable* HT = malloc(sizeof (HashTable));
     if(!HT) {
         return NULL;
     }
@@ -45,14 +45,14 @@ HashTable *hash_table_separate_chaining_create(size_t key_size, size_t value_siz
     return HT;
 }
 
-void hash_table_separate_chaining_destroy(HashTable *HT)
+void hash_table_separate_chaining_destroy(HashTable* HT)
 {
     free(HT->array);
     HT->array = NULL;
     HT->size = 0;
 }
 
-void *hash_table_separate_chaining_search(HashTable *HT, void *key)
+void* hash_table_separate_chaining_search(HashTable* HT, void* key)
 {
     size_t index = HT->hash(key, HT->buckets);
     if(!HT->array[index].key) {
@@ -61,7 +61,7 @@ void *hash_table_separate_chaining_search(HashTable *HT, void *key)
     return HT->array[index].value;
 }
 
-bool hash_table_separate_chaining_insert(HashTable *HT, void *key, void *value)
+bool hash_table_separate_chaining_insert(HashTable* HT, void* key, void* value)
 {
     if(!HT->array) {
         if(!HT->key_size || !HT->value_size || !HT->buckets) {
@@ -79,7 +79,7 @@ bool hash_table_separate_chaining_insert(HashTable *HT, void *key, void *value)
     return true;
 }
 
-// bool hash_table_separate_chaining_remove(HashTable *HT, void *key, void *value)
+// bool hash_table_separate_chaining_remove(HashTable* HT, void* key, void* value)
 // {
 
 // }

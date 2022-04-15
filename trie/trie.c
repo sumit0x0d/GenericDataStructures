@@ -2,17 +2,17 @@
 
 typedef struct TrieNode {
     bool terminal;
-    struct TrieNode *children[128];
+    struct TrieNode* children[128];
 } TrieNode;
 
 typedef struct Trie {
-    TrieNode *root;
+    TrieNode* root;
     size_t size;
 } Trie;
 
 Trie *trie_create();
 
-TrieNode *trie_search(Trie *T, char *string);
+TrieNode* trie_search(Trie *T, char *string);
 bool trie_insert(Trie *T, char *string);
 bool trie_remove(Trie *T, char *string);
 
@@ -27,15 +27,15 @@ Trie *trie_create()
     return trie;
 }
 
-// TrieNode *search(Trie *T, char *string)
+// TrieNode* search(Trie *T, char *string)
 // {
-//     TrieNode *node = T->root;
+//     TrieNode* node = T->root;
 //     return node;
 // }
 
-static TrieNode *node_create()
+static TrieNode* node_create()
 {
-    TrieNode *node = malloc(sizeof (TrieNode));
+    TrieNode* node = malloc(sizeof (TrieNode));
     if(!node) {
         return NULL;
     }
@@ -55,7 +55,7 @@ bool trie_insert(Trie *T, char *string)
             return false;
         }
     }
-    TrieNode *node = T->root; 
+    TrieNode* node = T->root; 
     while(*string != '\0') {
         if(node->children[(size_t)*string] == NULL) {
             node->children[(size_t)*string] = node_create();
@@ -80,6 +80,6 @@ bool trie_insert(Trie *T, char *string)
 
 // void node_destroy(Trie *T, char character)
 // {
-//     TrieNode *node = T->root;
+//     TrieNode* node = T->root;
 //     free(node);
 // }

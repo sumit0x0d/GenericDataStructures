@@ -2,7 +2,7 @@
 
 #include "data-print.h"
 
-void graph_print(GraphAdjacencyList *G)
+void graph_print(GraphAdjacencyList* G)
 {
     if(!G->size) return;
 

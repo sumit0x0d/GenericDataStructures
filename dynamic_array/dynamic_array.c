@@ -1,38 +1,38 @@
 #include "dynamic_array.h"
 
 typedef struct DynamicArray {
-    void *array;
+    void* array;
     size_t data_size;
     size_t capacity;
     double growth_factor;
-    int (*compare)(void *data, void *node_data);
+    int (*compare)(void* data, void* node_data);
     size_t size;
 } DynamicArray;
 
-DynamicArray *dynamic_array_create(size_t data_size, size_t capacity, double growth_factor,
-    int (*compare)(void *data, void *node_data));
-void dynamic_array_destroy(DynamicArray *DA);
+DynamicArray* dynamic_array_create(size_t data_size, size_t capacity, double growth_factor,
+    int (*compare)(void* data, void* node_data));
+void dynamic_array_destroy(DynamicArray* DA);
 
-void *dynamic_array_front(DynamicArray *DA);
-void *dynamic_array_back(DynamicArray *DA);
-size_t dynamic_array_size(DynamicArray *DA);
+void* dynamic_array_front(DynamicArray* DA);
+void* dynamic_array_back(DynamicArray* DA);
+size_t dynamic_array_size(DynamicArray* DA);
 
-bool dynamic_array_push_front(DynamicArray *DA, void *data);
-bool dynamic_array_push_back(DynamicArray *DA, void *data);
-bool dynamic_array_insert(DynamicArray *DA, size_t index, void *data);
-bool dynamic_array_sorted_insert(DynamicArray *DA, void *data);
-bool dynamic_array_pop_front(DynamicArray *DA);
-bool dynamic_array_pop_back(DynamicArray *DA);
-bool dynamic_array_remove(DynamicArray *DA, void *data);
-bool dynamic_array_erase(DynamicArray *DA, size_t index);
+bool dynamic_array_push_front(DynamicArray* DA, void* data);
+bool dynamic_array_push_back(DynamicArray* DA, void* data);
+bool dynamic_array_insert(DynamicArray* DA, size_t index, void* data);
+bool dynamic_array_sorted_insert(DynamicArray* DA, void* data);
+bool dynamic_array_pop_front(DynamicArray* DA);
+bool dynamic_array_pop_back(DynamicArray* DA);
+bool dynamic_array_remove(DynamicArray* DA, void* data);
+bool dynamic_array_erase(DynamicArray* DA, size_t index);
 
-DynamicArray *dynamic_array_create(size_t data_size, size_t capacity, double growth_factor,
-    int (*compare)(void *data, void *node_data))
+DynamicArray* dynamic_array_create(size_t data_size, size_t capacity, double growth_factor,
+    int (*compare)(void* data, void* node_data))
 {
     if((size_t)(capacity * growth_factor) <= capacity) {
         return NULL;
     }
-    DynamicArray *DA = malloc(sizeof (DynamicArray));
+    DynamicArray* DA = malloc(sizeof (DynamicArray));
     if(!DA) {
         return NULL;
     }
@@ -48,7 +48,7 @@ DynamicArray *dynamic_array_create(size_t data_size, size_t capacity, double gro
     return DA;
 }
 
-void dynamic_array_destroy(DynamicArray *DA)
+void dynamic_array_destroy(DynamicArray* DA)
 {
     free(DA->array);
     DA->array = NULL;
@@ -57,7 +57,7 @@ void dynamic_array_destroy(DynamicArray *DA)
     DA = NULL;
 }
 
-void *dynamic_array_front(DynamicArray *DA)
+void* dynamic_array_front(DynamicArray* DA)
 {
     if(!DA->array) {
         return false;
@@ -65,7 +65,7 @@ void *dynamic_array_front(DynamicArray *DA)
     return DA->array;
 }
 
-void *dynamic_array_back(DynamicArray *DA)
+void* dynamic_array_back(DynamicArray* DA)
 {
     if(!DA->array) {
         return false;
@@ -73,21 +73,21 @@ void *dynamic_array_back(DynamicArray *DA)
     return (char *)DA->array + (DA->data_size * DA->size);
 }
 
-size_t dynamic_array_size(DynamicArray *DA)
+size_t dynamic_array_size(DynamicArray* DA)
 {
     return DA->size;
 }
 
-// size_t dynamic_array_search(DynamicArray *DA, void *data)
+// size_t dynamic_array_search(DynamicArray* DA, void* data)
 // {
 
 // }
 
-bool dynamic_array_push_front(DynamicArray *DA, void *data)
+bool dynamic_array_push_front(DynamicArray* DA, void* data)
 {
     if(DA->size == DA->capacity) {
         DA->capacity = DA->capacity * DA->growth_factor;
-        void *array = realloc(DA->array, DA->data_size * DA->capacity);
+        void* array = realloc(DA->array, DA->data_size * DA->capacity);
         if(!array) {
             return false;
         }
@@ -99,11 +99,11 @@ bool dynamic_array_push_front(DynamicArray *DA, void *data)
     return true;
 }
 
-bool dynamic_array_push_back(DynamicArray *DA, void *data)
+bool dynamic_array_push_back(DynamicArray* DA, void* data)
 {
     if(DA->size == DA->capacity) {
         DA->capacity = DA->capacity * DA->growth_factor;
-        void *array = realloc(DA->array, DA->data_size * DA->capacity);
+        void* array = realloc(DA->array, DA->data_size * DA->capacity);
         if(!array) {
             return false;
         }
@@ -114,14 +114,14 @@ bool dynamic_array_push_back(DynamicArray *DA, void *data)
     return true;
 }
 
-bool dynamic_array_insert(DynamicArray *DA, size_t index, void *data)
+bool dynamic_array_insert(DynamicArray* DA, size_t index, void* data)
 {
     if(index > DA->size) {
         return false;
     }
     if(DA->size == DA->capacity) {
         DA->capacity = DA->capacity * DA->growth_factor;
-        void *array = realloc(DA->array, DA->data_size * DA->capacity);
+        void* array = realloc(DA->array, DA->data_size * DA->capacity);
         if(!array) {
             return false;
         }
@@ -133,11 +133,11 @@ bool dynamic_array_insert(DynamicArray *DA, size_t index, void *data)
     return true;
 }
 
-bool dynamic_array_sorted_insert(DynamicArray *DA, void *data)
+bool dynamic_array_sorted_insert(DynamicArray* DA, void* data)
 {
     if(DA->size == DA->capacity) {
         DA->capacity = DA->capacity * DA->growth_factor;
-        void *array = realloc(DA->array, DA->data_size * DA->capacity);
+        void* array = realloc(DA->array, DA->data_size * DA->capacity);
         if(!array) {
             return false;
         }
@@ -157,7 +157,7 @@ bool dynamic_array_sorted_insert(DynamicArray *DA, void *data)
     return true;
 }
 
-bool dynamic_array_pop_front(DynamicArray *DA)
+bool dynamic_array_pop_front(DynamicArray* DA)
 {
     if(!DA->size) {
         return false;
@@ -167,7 +167,7 @@ bool dynamic_array_pop_front(DynamicArray *DA)
     return true;
 }
 
-bool dynamic_array_pop_back(DynamicArray *DA)
+bool dynamic_array_pop_back(DynamicArray* DA)
 {
     if(!DA->size) {
         return false;
@@ -176,7 +176,7 @@ bool dynamic_array_pop_back(DynamicArray *DA)
     return true;
 }
 
-bool dynamic_array_erase(DynamicArray *DA, size_t index)
+bool dynamic_array_erase(DynamicArray* DA, size_t index)
 {
     if(!DA->size) {
         return false;
@@ -189,7 +189,7 @@ bool dynamic_array_erase(DynamicArray *DA, size_t index)
     return true;
 }
 
-bool dynamic_array_remove(DynamicArray *DA, void *data)
+bool dynamic_array_remove(DynamicArray* DA, void* data)
 {
     if(!DA->size) {
         return false;

@@ -1,7 +1,7 @@
 #include "graph-adjacency_list.h"
 
 typedef struct Vertex {
-    void *data;
+    void* data;
     size_t index;
     unsigned long weight;
     struct Vertex *edge;
@@ -14,23 +14,23 @@ typedef struct GraphAdjacencyList {
     size_t size;
 } GraphAdjacencyList;
 
-GraphAdjacencyList *graph_adjacency_list_create(size_t data_size);
-void graph_adjacency_list_destroy(GraphAdjacencyList *G);
+GraphAdjacencyList* graph_adjacency_list_create(size_t data_size);
+void graph_adjacency_list_destroy(GraphAdjacencyList* G);
 
-void *graph_adjacency_list_vertices(GraphAdjacencyList *G);
-size_t graph_adjacency_list_size(GraphAdjacencyList *G);
+void* graph_adjacency_list_vertices(GraphAdjacencyList* G);
+size_t graph_adjacency_list_size(GraphAdjacencyList* G);
 
 static Vertex *vertex_create(size_t data_size);
 // static void vertex_destroy(Vertex *vertex);
 
-bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data);
-bool graph_adjacency_list_vertex_remove(GraphAdjacencyList *G, void *data);
-bool graph_adjacency_list_edge_insert(GraphAdjacencyList *G, Vertex *vertex_source, Vertex *vertex_destination, unsigned long weight);
-bool graph_adjacency_list_edge_remove(GraphAdjacencyList *G, Vertex *vertex_source, Vertex *vertex_destination);
+bool graph_adjacency_list_vertex_insert(GraphAdjacencyList* G, void* data);
+bool graph_adjacency_list_vertex_remove(GraphAdjacencyList* G, void* data);
+bool graph_adjacency_list_edge_insert(GraphAdjacencyList* G, Vertex *vertex_source, Vertex *vertex_destination, unsigned long weight);
+bool graph_adjacency_list_edge_remove(GraphAdjacencyList* G, Vertex *vertex_source, Vertex *vertex_destination);
 
-GraphAdjacencyList *graph_adjacency_list_create(size_t data_size)
+GraphAdjacencyList* graph_adjacency_list_create(size_t data_size)
 {
-    GraphAdjacencyList *G = malloc(sizeof (GraphAdjacencyList));
+    GraphAdjacencyList* G = malloc(sizeof (GraphAdjacencyList));
     if(!G) {
         return NULL;
     }
@@ -41,7 +41,7 @@ GraphAdjacencyList *graph_adjacency_list_create(size_t data_size)
     return G;
 }
 
-void graph_adjacency_list_destroy(GraphAdjacencyList *G)
+void graph_adjacency_list_destroy(GraphAdjacencyList* G)
 {
     free(G->adjacency_list);
     G->adjacency_list = NULL;
@@ -58,7 +58,7 @@ void graph_adjacency_list_destroy(GraphAdjacencyList *G)
 //     }
 // }
 
-// Vertex *graph_adjacency_list_vertex_search(GraphAdjacencyList *G, void *data)
+// Vertex *graph_adjacency_list_vertex_search(GraphAdjacencyList* G, void* data)
 // {
 //     Vertex *vertex = G->adjacency_list;
 
@@ -93,7 +93,7 @@ Vertex *vertex_create(size_t data_size)
 
 // }
 
-bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data)
+bool graph_adjacency_list_vertex_insert(GraphAdjacencyList* G, void* data)
 {
     if(!G->adjacency_list) {
         G->adjacency_list = malloc(sizeof (Vertex));
@@ -125,12 +125,12 @@ bool graph_adjacency_list_vertex_insert(GraphAdjacencyList *G, void *data)
 
 // }
 
-// void graph_adjacency_list_vertex_remove(GraphAdjacencyList *G)
+// void graph_adjacency_list_vertex_remove(GraphAdjacencyList* G)
 // {
 
 // }
 
-// bool graph_adjacency_list_edge_insert(GraphAdjacencyList *G, Vertex *vertex_source, Vertex *vertex_destination, unsigned long weight)
+// bool graph_adjacency_list_edge_insert(GraphAdjacencyList* G, Vertex *vertex_source, Vertex *vertex_destination, unsigned long weight)
 // {
     
 // }

@@ -1,32 +1,32 @@
 #include "avl_tree.h"
 
 typedef struct AVLTreeNode {
-    void *data;
-    struct AVLTreeNode *left;
-    struct AVLTreeNode *right;
-    struct AVLTreeNode *parent;
+    void* data;
+    struct AVLTreeNode* left;
+    struct AVLTreeNode* right;
+    struct AVLTreeNode* parent;
     int balance_factor;
 } AVLTreeNode;
 
 typedef struct AVLTree {
-    AVLTreeNode *root;
+    AVLTreeNode* root;
     size_t data_size;
     size_t size;
-    int (*compare)(void *data, void *node_data);
+    int (*compare)(void* data, void* node_data);
 } AVLTree;
 
-AVLTree *avl_tree_create(size_t data_size, int (*compare)(void *data, void *node_data));
-void avl_tree_destroy(AVLTree *AVLT);
+AVLTree* avl_tree_create(size_t data_size, int (*compare)(void* data, void* node_data));
+void avl_tree_destroy(AVLTree* AVLT);
 
-size_t avl_tree_size(AVLTree *AVLT);
+size_t avl_tree_size(AVLTree* AVLT);
 
-AVLTreeNode *avl_tree_search(AVLTree *AVLT, void *data);
-bool avl_tree_insert(AVLTree *AVLT, void *data);
-bool avl_tree_remove(AVLTree *AVLT, void *data);
+AVLTreeNode* avl_tree_search(AVLTree* AVLT, void* data);
+bool avl_tree_insert(AVLTree* AVLT, void* data);
+bool avl_tree_remove(AVLTree* AVLT, void* data);
 
-AVLTree *avl_tree_create(size_t data_size, int (*compare)(void *data, void *node_data))
+AVLTree* avl_tree_create(size_t data_size, int (*compare)(void* data, void* node_data))
 {
-    AVLTree *AVLT = malloc(sizeof (AVLTree));
+    AVLTree* AVLT = malloc(sizeof (AVLTree));
     if(!AVLT) {
         return NULL;
     }
@@ -37,20 +37,20 @@ AVLTree *avl_tree_create(size_t data_size, int (*compare)(void *data, void *node
     return AVLT;
 }
 
-void avl_tree_destroy(AVLTree *AVLT)
+void avl_tree_destroy(AVLTree* AVLT)
 {
     free(AVLT);
     AVLT = NULL;
 }
 
-size_t avl_tree_size(AVLTree *AVLT)
+size_t avl_tree_size(AVLTree* AVLT)
 {
     return AVLT->size;
 }
 
-AVLTreeNode *avl_tree_search(AVLTree *AVLT, void *data)
+AVLTreeNode* avl_tree_search(AVLTree* AVLT, void* data)
 {
-    AVLTreeNode *node = AVLT->root;
+    AVLTreeNode* node = AVLT->root;
     int compare;
     while(node) {
         compare = AVLT->compare(data, node->data);
@@ -67,12 +67,12 @@ AVLTreeNode *avl_tree_search(AVLTree *AVLT, void *data)
     return NULL;
 }
 
-static size_t node_height(AVLTreeNode *node)
+static size_t node_height(AVLTreeNode* node)
 {
     return node->balance_factor;
 }
 
-static int node_balance_factor(AVLTreeNode *node)
+static int node_balance_factor(AVLTreeNode* node)
 {
     size_t node_left_height = 0;
     size_t node_right_height = 0;
@@ -85,10 +85,10 @@ static int node_balance_factor(AVLTreeNode *node)
     return (int)(node_right_height - node_left_height);
 }
 
-static AVLTreeNode *node_rotate_left(AVLTreeNode *node)
+static AVLTreeNode* node_rotate_left(AVLTreeNode* node)
 {
-    AVLTreeNode *node_right = node->right;
-    AVLTreeNode *node_right_left = node_right->left;
+    AVLTreeNode* node_right = node->right;
+    AVLTreeNode* node_right_left = node_right->left;
     node_right->left = node;
     node_right->parent = node->parent;
     if(node_right->parent) {
@@ -104,10 +104,10 @@ static AVLTreeNode *node_rotate_left(AVLTreeNode *node)
     return node_right;
 }
 
-static AVLTreeNode *node_rotate_right(AVLTreeNode *node)
+static AVLTreeNode* node_rotate_right(AVLTreeNode* node)
 {
-    AVLTreeNode *node_left = node->left;
-    AVLTreeNode *node_left_right = node_left->right;
+    AVLTreeNode* node_left = node->left;
+    AVLTreeNode* node_left_right = node_left->right;
     node_left->right = node;
     node_left->parent = node->parent;
     if(node_left->parent) {
@@ -123,10 +123,10 @@ static AVLTreeNode *node_rotate_right(AVLTreeNode *node)
     return node_left;
 }
 
-static AVLTreeNode *node_rotate_right_left(AVLTreeNode *node)
+static AVLTreeNode* node_rotate_right_left(AVLTreeNode* node)
 {
-    AVLTreeNode *node_right = node->right;
-    AVLTreeNode *node_right_left = node_right->left;
+    AVLTreeNode* node_right = node->right;
+    AVLTreeNode* node_right_left = node_right->left;
     node_right->left = node_right_left->right;
     node->right = node_right_left->left;
     node_right_left->left = node_right;
@@ -136,10 +136,10 @@ static AVLTreeNode *node_rotate_right_left(AVLTreeNode *node)
     return node_right_left;
 }
 
-static AVLTreeNode *node_rotate_left_right(AVLTreeNode *node)
+static AVLTreeNode* node_rotate_left_right(AVLTreeNode* node)
 {
-    AVLTreeNode *node_left = node->left;
-    AVLTreeNode *node_left_right = node_left->right;
+    AVLTreeNode* node_left = node->left;
+    AVLTreeNode* node_left_right = node_left->right;
     node_left->right = node_left_right->left;
     if(node_left_right->left) {
         node_left_right->left->parent = node_left;
@@ -159,7 +159,7 @@ static AVLTreeNode *node_rotate_left_right(AVLTreeNode *node)
     return node_left_right;
 }
 
-static void node_rebalance(AVLTreeNode *node)
+static void node_rebalance(AVLTreeNode* node)
 {
     if(node->balance_factor == -2 && node->left->balance_factor == -1) {
         node = node_rotate_right(node);
@@ -175,9 +175,9 @@ static void node_rebalance(AVLTreeNode *node)
     }
 }
 
-static AVLTreeNode *node_create(size_t data_size)
+static AVLTreeNode* node_create(size_t data_size)
 {
-    AVLTreeNode *node = malloc(sizeof (AVLTreeNode));
+    AVLTreeNode* node = malloc(sizeof (AVLTreeNode));
     if(!node) {
         return NULL;
     }
@@ -193,7 +193,7 @@ static AVLTreeNode *node_create(size_t data_size)
     return node;
 }
 
-bool avl_tree_insert(AVLTree *AVLT, void *data)
+bool avl_tree_insert(AVLTree* AVLT, void* data)
 {
     if(!avl_tree_size(AVLT)) {
         AVLT->root = node_create(AVLT->data_size);
@@ -205,8 +205,8 @@ bool avl_tree_insert(AVLTree *AVLT, void *data)
         AVLT->size = AVLT->size + 1;
         return true;
     }
-    AVLTreeNode *node = AVLT->root;
-    AVLTreeNode *node_parent = NULL;
+    AVLTreeNode* node = AVLT->root;
+    AVLTreeNode* node_parent = NULL;
     int compare;
     while(node) {
         compare = AVLT->compare(data, node->data);
@@ -246,7 +246,7 @@ bool avl_tree_insert(AVLTree *AVLT, void *data)
     return true;
 }
 
-// bool avl_tree_remove(AVLTree *AVLT, void *data)
+// bool avl_tree_remove(AVLTree* AVLT, void* data)
 // {
     
 // }
