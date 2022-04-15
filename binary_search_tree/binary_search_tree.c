@@ -20,6 +20,9 @@ void binary_search_tree_destroy(BinarySearchTree* BST);
 static inline BinarySearchTreeNode* node_create(size_t data_size);
 static inline void node_destroy(BinarySearchTreeNode* node);
 
+void* binary_search_tree_root(BinarySearchTree* BST);
+size_t binary_search_tree_size(BinarySearchTree* BST);
+
 BinarySearchTreeNode* binary_search_tree_search(BinarySearchTree* BST, void* data);
 bool binary_search_tree_insert(BinarySearchTree* BST, void* data);
 bool binary_search_tree_remove(BinarySearchTree* BST, void* data);
@@ -42,6 +45,14 @@ BinarySearchTree* binary_search_tree_create(size_t data_size,
 // {
 
 // }
+
+void* binary_search_tree_root(BinarySearchTree* BST)
+{
+    if(!BST->root) {
+        return NULL;
+    }
+    return BST->root->data;
+}
 
 size_t binary_search_tree_size(BinarySearchTree* BST)
 {
@@ -203,4 +214,28 @@ bool binary_search_tree_remove(BinarySearchTree* BST, void* data)
     }
     BST->size = BST->size - 1;
     return true;
+}
+
+void* binary_search_tree_data(BinarySearchTreeNode* node)
+{
+    if(!node) {
+        return NULL;
+    }
+    return node->data;
+}
+
+BinarySearchTreeNode* binary_search_tree_left(BinarySearchTreeNode* node)
+{
+    if(!node) {
+        return NULL;
+    }
+    return node->left;
+}
+
+BinarySearchTreeNode* binary_search_tree_right(BinarySearchTreeNode* node)
+{
+    if(!node) {
+        return NULL;
+    }
+    return node->right;
 }

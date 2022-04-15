@@ -259,7 +259,19 @@ void binary_search_tree_print(BinarySearchTree* BST, int data_type)
     printf("[Binary Search Tree]");
 
     printf("\n[Pre-Order]\t: ");
-    preorder_traverse(BST->root, BINARY_SEARCH_TREE, data_type);
+    StackLinkedList* S = stack_linked_list_create(sizeof (BinarySearchTreeNode*));
+    BinarySearchTreeNode* node = binary_search_tree_root(BST);
+    while(node || stack_linked_list_size(S))
+        if(node) {
+            data_print(binary_search_tree_data(node), data_type);
+            stack_linked_list_push(S, node);
+            node = binary_search_tree_left(node);
+        }
+        else {
+            node = stack_linked_list_peek(S);
+            stack_linked_list_pop(&S);
+            node = binary_search_tree_right(node);
+        }
 
     printf("\n[In-Order]\t: ");
     inorder_traverse(BST->root, BINARY_SEARCH_TREE, data_type);
