@@ -18,7 +18,18 @@ typedef struct AVLTree {
 AVLTree* avl_tree_create(size_t data_size, int (*compare)(void* data, void* node_data));
 void avl_tree_destroy(AVLTree* AVLT);
 
+void* avlt_tree_root(AVLTree* AVLT);
 size_t avl_tree_size(AVLTree* AVLT);
+
+static size_t node_height(AVLTreeNode* node);
+static int node_balance_factor(AVLTreeNode* node);
+static AVLTreeNode* node_rotate_left(AVLTreeNode* node);
+static AVLTreeNode* node_rotate_right(AVLTreeNode* node);
+static AVLTreeNode* node_rotate_right_left(AVLTreeNode* node);
+static AVLTreeNode* node_rotate_left_right(AVLTreeNode* node);
+static void node_rebalance(AVLTreeNode* node);
+static AVLTreeNode* node_create(size_t data_size);
+static void node_destroy(AVLTreeNode* node);
 
 AVLTreeNode* avl_tree_search(AVLTree* AVLT, void* data);
 bool avl_tree_insert(AVLTree* AVLT, void* data);
@@ -41,6 +52,14 @@ void avl_tree_destroy(AVLTree* AVLT)
 {
     free(AVLT);
     AVLT = NULL;
+}
+
+void* avlt_tree_root(AVLTree* AVLT)
+{
+    if(!AVLT->root) {
+        return NULL;
+    }
+    return AVLT->root->data;
 }
 
 size_t avl_tree_size(AVLTree* AVLT)
@@ -246,7 +265,73 @@ bool avl_tree_insert(AVLTree* AVLT, void* data)
     return true;
 }
 
-// bool avl_tree_remove(AVLTree* AVLT, void* data)
-// {
-    
-// }
+bool avl_tree_remove(AVLTree* AVLT, void* data)
+{
+    if(!binary_search_tree_size(AVLT)) {
+        return false;
+    }
+    AVLTreeNode* node = AVLT->root;
+    AVLTreeNode* node_parent = NULL; 
+    int compare;
+    while(node) {
+        compare = AVLT->compare(data, node->data);
+        if(compare == 0) {
+            break;
+        }
+        node_parent = node;
+        if(compare < 0) {
+            node = node->left;
+        }
+        else {
+            node = node->right;
+        }
+    }
+    if(!node) {   
+        return false;
+    }
+    if(!node->left && !node->right) {
+        if(node_parent->left == node) {
+            node_parent->left = NULL;
+        }
+        else {
+            node_parent->right = NULL;
+        }
+        node_destroy(node);
+    }
+    else if(!node->left) {
+        if(node_parent->right == node) {
+            node_parent->right = node->right;
+        }
+        else {
+            node_parent->left = node->right;
+        }
+        node_destroy(node);
+    }
+    else if(!node->right) {
+        if(node_parent->left == node) {
+            node_parent->left = node->left;
+        }
+        else {
+            node_parent->right = node->left;
+        }
+        node_destroy(node);
+    }
+    else {
+        AVLTreeNode* node_inorder_successor = node->right;
+        AVLTreeNode* node_inorder_successor_parent = node;
+        while(node_inorder_successor->left) {
+            node_inorder_successor_parent = node_inorder_successor;
+            node_inorder_successor = node_inorder_successor->left;
+        }
+        if(node_inorder_successor_parent == node) {
+            node_inorder_successor_parent->right = node_inorder_successor->right;
+        }
+        else {
+            node_inorder_successor_parent->left = node_inorder_successor->right;
+        }
+        memcpy(node->data, node_inorder_successor->data, AVLT->data_size);
+        node_destroy(node_inorder_successor);
+    }
+    AVLT->size = AVLT->size - 1;
+    return true;
+}

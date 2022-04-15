@@ -11,6 +11,9 @@ typedef struct AVLTree AVLTree;
 AVLTree* avl_tree_create(size_t data_size, int (*compare)(void* data, void* node_data));
 void avl_tree_destroy(AVLTree* AVLT);
 
+void* avlt_tree_root(AVLTree* AVLT);
+size_t avlt_tree_size(AVLTree* AVLT);
+
 AVLTreeNode* avl_tree_search(AVLTree* AVLT, void* data);
 bool avl_tree_insert(AVLTree* AVLT, void* data);
 bool avl_tree_remove(AVLTree* AVLT, void* data);
