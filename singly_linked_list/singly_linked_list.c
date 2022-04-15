@@ -304,19 +304,3 @@ bool singly_linked_list_circular(SinglyLinkedList* SLL)
     }
     return true;
 }
-
-void* singly_linked_list_node_data(SinglyLinkedListNode* node)
-{
-    if(!node) {
-        return NULL;
-    }
-    return node->data;
-}
-
-SinglyLinkedListNode* singly_linked_list_node_next(SinglyLinkedListNode* node)
-{
-    if(!node) {
-        return NULL;
-    }
-    return node->next;
-}

@@ -60,7 +60,8 @@ void deque_array_destroy(DequeArray* D)
     D->array = NULL;
     free(D);
     D = NULL;
-}
+}// Both of the for loops print "529".
+
 
 void* deque_array_front(DequeArray* D)
 {

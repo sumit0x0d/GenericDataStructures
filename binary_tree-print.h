@@ -274,12 +274,12 @@ void binary_search_tree_print(BinarySearchTree* BST, int data_type)
         }
 
     printf("\n[In-Order]\t: ");
-    inorder_traverse(BST->root, BINARY_SEARCH_TREE, data_type);
+    // inorder_traverse(BST->root, BINARY_SEARCH_TREE, data_type);
     
     // printf("\n[Lever-Order]\t: ");
     // levelorder_traverse(BST->root, BINARY_SEARCH_TREE, data_type);
 
-    printf("\b\n[Size]\t: %zu\n", BST->size);
+    // printf("\b\n[Size]\t: %zu\n", BST->size);
 }
 
 // void red_black_tree_print(RedBlackTree* RBT)
