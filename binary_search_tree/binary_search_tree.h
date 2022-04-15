@@ -19,8 +19,8 @@ BinarySearchTreeNode* binary_search_tree_search(BinarySearchTree* BST, void* dat
 bool binary_search_tree_insert(BinarySearchTree* BST, void* data);
 bool binary_search_tree_remove(BinarySearchTree* BST, void* data);
 
-void* binary_search_tree_data(BinarySearchTreeNode* node);
-BinarySearchTreeNode* binary_search_tree_left(BinarySearchTreeNode* node);
-BinarySearchTreeNode* binary_search_tree_right(BinarySearchTreeNode* node);
+void* binary_search_tree_node_data(BinarySearchTreeNode* node);
+BinarySearchTreeNode* binary_search_tree_node_left(BinarySearchTreeNode* node);
+BinarySearchTreeNode* binary_search_tree_node_right(BinarySearchTreeNode* node);
 
 #endif

@@ -45,24 +45,19 @@ void binary_search_tree_print(BinarySearchTree* BST)
 
     printf("\n[In-Order]\t: ");
     BinarySearchTreeNode* node = binary_search_tree_root(BST);
-    StackArray* S = stack_array_create(sizeof (BinarySearchTreeNode*), 20);
-    while(node || stack_array_size(S)) {
+    StackLinkedList* S = stack_linked_list_create(sizeof (BinarySearchTreeNode*));
+    while(node || stack_linked_list_size(S)) {
         if(node) {
-            printf("%d ", *(int*)binary_search_tree_data(node));
-            stack_array_push(S, node);
-            node = binary_search_tree_left(node);
+            printf("%d ", *(int*)binary_search_tree_node_data(node));
+            stack_linked_list_push(S, node);
+            node = binary_search_tree_node_left(node);
         }
         else {
-            node = stack_array_peek(S);
-            stack_array_pop(S);
-            node = binary_search_tree_right(node);
+            // node = ;
+            node = binary_search_tree_node_right(stack_linked_list_peek(S));
+            stack_linked_list_pop(S);
         }
     }
-    // inorder_traverse(BST->root, BINARY_SEARCH_TREE, data_type);
-    
-    // printf("\n[Lever-Order]\t: ");
-    // levelorder_traverse(BST->root, BINARY_SEARCH_TREE, data_type);
-
     printf("\b\n[Size]\t: %zu\n", binary_search_tree_size(BST));
 }
 
@@ -80,9 +75,9 @@ void binary_search_tree_print(BinarySearchTree* BST)
 // }
 int main()
 {
-    int a[10] = {10, 20, 15, 5, 50, 40, 25, 35, 95, 55};
+    int a[10] = {10, 3, 15, 5, 50, 40, 25, 35, 95, 55};
     BinarySearchTree *BST = binary_search_tree_create(sizeof (int), compare);
-    for(int i = 0; i < 10; i++) {
+    for(int i = 0; i < 3; i++) {
         binary_search_tree_insert(BST, &a[i]);
     }
     binary_search_tree_print(BST);

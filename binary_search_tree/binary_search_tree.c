@@ -216,7 +216,7 @@ bool binary_search_tree_remove(BinarySearchTree* BST, void* data)
     return true;
 }
 
-void* binary_search_tree_data(BinarySearchTreeNode* node)
+void* binary_search_tree_node_data(BinarySearchTreeNode* node)
 {
     if(!node) {
         return NULL;
@@ -224,7 +224,7 @@ void* binary_search_tree_data(BinarySearchTreeNode* node)
     return node->data;
 }
 
-BinarySearchTreeNode* binary_search_tree_left(BinarySearchTreeNode* node)
+BinarySearchTreeNode* binary_search_tree_node_left(BinarySearchTreeNode* node)
 {
     if(!node) {
         return NULL;
@@ -232,7 +232,7 @@ BinarySearchTreeNode* binary_search_tree_left(BinarySearchTreeNode* node)
     return node->left;
 }
 
-BinarySearchTreeNode* binary_search_tree_right(BinarySearchTreeNode* node)
+BinarySearchTreeNode* binary_search_tree_node_right(BinarySearchTreeNode* node)
 {
     if(!node) {
         return NULL;
