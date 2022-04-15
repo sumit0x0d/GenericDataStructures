@@ -23,4 +23,7 @@ void* binary_search_tree_node_data(BinarySearchTreeNode* node);
 BinarySearchTreeNode* binary_search_tree_node_left(BinarySearchTreeNode* node);
 BinarySearchTreeNode* binary_search_tree_node_right(BinarySearchTreeNode* node);
 
+void binary_search_tree_preorder_traverse(BinarySearchTree *BST,
+    void (*function)(void *data));
+
 #endif

@@ -21,8 +21,8 @@ void* singly_linked_list_head(SinglyLinkedList* SLL);
 void* singly_linked_list_tail(SinglyLinkedList* SLL);
 size_t singly_linked_list_size(SinglyLinkedList* SLL);
 
-static inline SinglyLinkedListNode* node_create(size_t data_size);
-static inline void node_destroy(SinglyLinkedListNode* node);
+static SinglyLinkedListNode* node_create(size_t data_size);
+static void node_destroy(SinglyLinkedListNode* node);
 
 SinglyLinkedListNode* singly_linked_list_search(SinglyLinkedList* SLL, void* data);
 void* singly_linked_list_at(SinglyLinkedList* SLL, size_t index);
@@ -84,7 +84,7 @@ size_t singly_linked_list_size(SinglyLinkedList* SLL)
     return SLL->size;
 }
 
-static inline SinglyLinkedListNode* node_create(size_t data_size)
+static SinglyLinkedListNode* node_create(size_t data_size)
 {
     SinglyLinkedListNode* node = malloc(sizeof (SinglyLinkedListNode));
     if(!node) {
@@ -99,7 +99,7 @@ static inline SinglyLinkedListNode* node_create(size_t data_size)
     return node;
 }
 
-static inline void node_destroy(SinglyLinkedListNode* node)
+static void node_destroy(SinglyLinkedListNode* node)
 {
     free(node->data);
     node->data = NULL;

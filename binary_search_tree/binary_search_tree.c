@@ -13,12 +13,21 @@ typedef struct BinarySearchTree {
     int (*compare)(void* data, void* node_data);
 } BinarySearchTree;
 
+typedef struct StackNode {
+    BinarySearchTreeNode* data;
+    struct StackNode* next;
+} StackNode;
+
+typedef struct Stack {
+    StackNode* top;
+} Stack;
+
 BinarySearchTree* binary_search_tree_create(size_t data_size,
     int (*compare)(void* data, void* node_data));
 void binary_search_tree_destroy(BinarySearchTree* BST);
 
-static inline BinarySearchTreeNode* node_create(size_t data_size);
-static inline void node_destroy(BinarySearchTreeNode* node);
+static BinarySearchTreeNode* node_create(size_t data_size);
+static void node_destroy(BinarySearchTreeNode* node);
 
 BinarySearchTreeNode* binary_search_tree_root(BinarySearchTree* BST);
 size_t binary_search_tree_size(BinarySearchTree* BST);
@@ -26,6 +35,20 @@ size_t binary_search_tree_size(BinarySearchTree* BST);
 BinarySearchTreeNode* binary_search_tree_search(BinarySearchTree* BST, void* data);
 bool binary_search_tree_insert(BinarySearchTree* BST, void* data);
 bool binary_search_tree_remove(BinarySearchTree* BST, void* data);
+
+static Stack* stack_create();
+static BinarySearchTreeNode* stack_peek(Stack* S);
+static bool stack_push(Stack* S, BinarySearchTreeNode* data);
+static bool stack_pop(Stack* S);
+
+void binary_search_tree_preorder_traverse(BinarySearchTree *BST,
+    void (*function)(void *data));
+void binary_search_tree_inorder_traverse(BinarySearchTree *BST,
+    void (*function)(void *data));
+void binary_search_tree_postorder_traverse(BinarySearchTree *BST,
+    void (*function)(void *data));
+void binary_search_tree_levelorder_traverse(BinarySearchTree *BST,
+    void (*function)(void *data));
 
 BinarySearchTree* binary_search_tree_create(size_t data_size,
     int (*compare)(void* data, void* node_data))
@@ -77,7 +100,7 @@ BinarySearchTreeNode* binary_search_tree_search(BinarySearchTree* BST, void* dat
     return NULL;
 }
 
-static inline BinarySearchTreeNode* node_create(size_t data_size)
+static BinarySearchTreeNode* node_create(size_t data_size)
 {
     BinarySearchTreeNode* node = malloc(sizeof (BinarySearchTreeNode));
     if(!node) {
@@ -94,7 +117,7 @@ static inline BinarySearchTreeNode* node_create(size_t data_size)
     return node;
 }
 
-static inline void node_destroy(BinarySearchTreeNode* node)
+static void node_destroy(BinarySearchTreeNode* node)
 {
     free(node->data);
     node->data = NULL;
@@ -238,4 +261,71 @@ BinarySearchTreeNode* binary_search_tree_node_right(BinarySearchTreeNode* node)
         return NULL;
     }
     return node->right;
+}
+
+static Stack* stack_create()
+{
+    Stack* S = malloc(sizeof (Stack));
+    if(!S) {
+        return NULL;
+    }
+    S->top = NULL;
+    return S;
+}
+
+static BinarySearchTreeNode* stack_peek(Stack* S)
+{
+    if(!S->top) {
+        return NULL;
+    }
+    return S->top->data;
+}
+
+static bool stack_push(Stack* S, BinarySearchTreeNode* data)
+{
+    StackNode *node = malloc(sizeof (StackNode));
+    if(!node) {
+        return false;
+    }
+    node->data = malloc(sizeof (BinarySearchTreeNode));
+    if(!node->data) {
+        free(node);
+        node = NULL;
+        return false;
+    }
+    memcpy(node->data, data, sizeof(BinarySearchTreeNode));
+    node->next = S->top;
+    S->top = node;
+    return true;
+}
+
+static bool stack_pop(Stack* S)
+{
+    if(!S->top) {
+        return false;
+    }
+    StackNode* node = S->top;
+    S->top = S->top->next;
+    free(node);
+    node = NULL;
+    return true;
+}
+
+void binary_search_tree_preorder_traverse(BinarySearchTree *BST,
+    void (*function)(void *data))
+{
+    BinarySearchTreeNode* node = BST->root;
+    Stack* S = stack_create();
+    while(node || S->top) {
+        if(node) {
+            stack_push(S, node);
+            node = node->left;
+        }
+        else {
+            node = stack_peek(S);
+            stack_pop(S);
+            function(node->data);
+            node = node->right;
+        }
+    }
 }
