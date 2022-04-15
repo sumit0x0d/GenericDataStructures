@@ -15,7 +15,7 @@
 #include <stdio.h>
 
 int compare(void* data, void* node_data) {
-    if(*(int *)data < *(int *)node_data)
+    if(*(int*)data < *(int*)node_data)
         return -1;
     else if(*(int *)data > *(int *)node_data)
         return 1;

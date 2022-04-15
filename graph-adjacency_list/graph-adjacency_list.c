@@ -20,8 +20,8 @@ void graph_adjacency_list_destroy(GraphAdjacencyList* G);
 void* graph_adjacency_list_vertices(GraphAdjacencyList* G);
 size_t graph_adjacency_list_size(GraphAdjacencyList* G);
 
-static Vertex *vertex_create(size_t data_size);
-// static void vertex_destroy(Vertex *vertex);
+static inline Vertex *vertex_create(size_t data_size);
+// static inline void vertex_destroy(Vertex *vertex);
 
 bool graph_adjacency_list_vertex_insert(GraphAdjacencyList* G, void* data);
 bool graph_adjacency_list_vertex_remove(GraphAdjacencyList* G, void* data);

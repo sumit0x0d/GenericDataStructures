@@ -53,7 +53,7 @@ RedBlackTree* red_black_tree_create(size_t data_size,
         // return NULL;
 // }
 
-static RedBlackTreeNode* node_create(size_t data_size)
+static inline RedBlackTreeNode* node_create(size_t data_size)
 {
     RedBlackTreeNode* node = malloc(sizeof (RedBlackTreeNode));
     if(!node) {

@@ -22,8 +22,8 @@ void* doubly_linked_list_head(DoublyLinkedList* DLL);
 void* doubly_linked_list_tail(DoublyLinkedList* DLL);
 size_t doubly_linked_list_size(DoublyLinkedList* DLL);
 
-static DoublyLinkedListNode* node_create(size_t data_size);
-static void node_destroy(DoublyLinkedListNode* node);
+static inline DoublyLinkedListNode* node_create(size_t data_size);
+static inline void node_destroy(DoublyLinkedListNode* node);
 
 DoublyLinkedListNode* doubly_linked_list_search(DoublyLinkedList* DLL, void* data);
 void* doubly_linked_list_at(DoublyLinkedList* DLL, size_t index);
@@ -75,7 +75,7 @@ size_t doubly_linked_list_size(DoublyLinkedList* DLL)
     return DLL->size;
 }
 
-static DoublyLinkedListNode* node_create(size_t data_size)
+static inline DoublyLinkedListNode* node_create(size_t data_size)
 {
     DoublyLinkedListNode* node = malloc(sizeof (DoublyLinkedListNode));
     if(!node) {
@@ -90,7 +90,7 @@ static DoublyLinkedListNode* node_create(size_t data_size)
     return node;
 }
 
-static void node_destroy(DoublyLinkedListNode* node)
+static inline void node_destroy(DoublyLinkedListNode* node)
 {
     free(node->data);
     node->data = NULL;

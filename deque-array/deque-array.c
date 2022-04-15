@@ -67,7 +67,7 @@ void deque_array_destroy(DequeArray* D)
 
 void* deque_array_front(DequeArray* D)
 {
-    if(!D->array) {
+    if(!D->size) {
         return NULL;
     }
     return (char *)D->array + (D->data_size * D->front);
@@ -75,7 +75,7 @@ void* deque_array_front(DequeArray* D)
 
 void* deque_array_back(DequeArray* D)
 {
-    if(!D->array) {
+    if(!D->size) {
         return NULL;
     }
     return (char *)D->array + (D->data_size * D->back);

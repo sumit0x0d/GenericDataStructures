@@ -56,7 +56,7 @@ void stack_array_destroy(StackArray* S)
 
 void* stack_array_peek(StackArray* S)
 {
-    if(!S->array) {
+    if(!S->size) {
         return NULL;
     }
     return (char *)S->array + (S->data_size * S->size);

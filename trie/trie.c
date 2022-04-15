@@ -33,7 +33,7 @@ Trie *trie_create()
 //     return node;
 // }
 
-static TrieNode* node_create()
+static inline TrieNode* node_create()
 {
     TrieNode* node = malloc(sizeof (TrieNode));
     if(!node) {

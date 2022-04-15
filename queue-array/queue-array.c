@@ -63,7 +63,7 @@ void queue_array_destroy(QueueArray* Q)
 
 void* queue_array_front(QueueArray* Q)
 {
-    if(!Q->array) {
+    if(!Q->size) {
         return NULL;
     }
     return (char *)Q->array + (Q->data_size * Q->front);
@@ -71,7 +71,7 @@ void* queue_array_front(QueueArray* Q)
 
 void* queue_array_back(QueueArray* Q)
 {
-    if(!Q->array) {
+    if(!Q->size) {
         return NULL;
     }
     return (char *)Q->array + (Q->data_size * Q->back);

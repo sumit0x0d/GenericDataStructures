@@ -13,7 +13,7 @@ typedef struct BinaryTree {
 
 BinaryTree* binary_tree_create();
 
-static BinaryTreeNode* node_create(size_t data_size);
+static inline BinaryTreeNode* node_create(size_t data_size);
 
 BinaryTreeNode* binary_tree_insert(BinaryTree* BT, void* data, size_t data_size);
 
@@ -28,7 +28,7 @@ BinaryTree* binary_tree_create()
     return BT;
 }
 
-static BinaryTreeNode* node_create(size_t data_size)
+static inline BinaryTreeNode* node_create(size_t data_size)
 {
     BinaryTreeNode* node = malloc(sizeof (BinaryTreeNode));
     if(!node) {
@@ -78,7 +78,7 @@ BinaryTreeNode* binary_tree_insert(BinaryTree* BT, void* data, size_t data_size)
 //     return height;
 // }
 
-// static BinaryTreeNode* tree_node_inorder_predecessor(BinaryTreeNode* node)
+// static inline BinaryTreeNode* tree_node_inorder_predecessor(BinaryTreeNode* node)
 // {
 //     if(node->left) {
 //         node = node->left;
@@ -89,7 +89,7 @@ BinaryTreeNode* binary_tree_insert(BinaryTree* BT, void* data, size_t data_size)
 //     return node;
 // }
 
-// static BinaryTreeNode* tree_node_inorder_successor(BinaryTreeNode* node)
+// static inline BinaryTreeNode* tree_node_inorder_successor(BinaryTreeNode* node)
 // {    
 //     if(node->right) {
 //         node = node->right;

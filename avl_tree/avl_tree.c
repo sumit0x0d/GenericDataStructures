@@ -21,15 +21,15 @@ void avl_tree_destroy(AVLTree* AVLT);
 void* avlt_tree_root(AVLTree* AVLT);
 size_t avl_tree_size(AVLTree* AVLT);
 
-static size_t node_height(AVLTreeNode* node);
-static int node_balance_factor(AVLTreeNode* node);
-static AVLTreeNode* node_rotate_left(AVLTreeNode* node);
-static AVLTreeNode* node_rotate_right(AVLTreeNode* node);
-static AVLTreeNode* node_rotate_right_left(AVLTreeNode* node);
-static AVLTreeNode* node_rotate_left_right(AVLTreeNode* node);
-static void node_rebalance(AVLTreeNode* node);
-static AVLTreeNode* node_create(size_t data_size);
-static void node_destroy(AVLTreeNode* node);
+static inline AVLTreeNode* node_create(size_t data_size);
+static inline void node_destroy(AVLTreeNode* node);
+static inline size_t node_height(AVLTreeNode* node);
+static inline int node_balance_factor(AVLTreeNode* node);
+static inline AVLTreeNode* node_rotate_right(AVLTreeNode* node);
+static inline AVLTreeNode* node_rotate_left(AVLTreeNode* node);
+static inline AVLTreeNode* node_rotate_right_left(AVLTreeNode* node);
+static inline AVLTreeNode* node_rotate_left_right(AVLTreeNode* node);
+static inline void node_rebalance(AVLTreeNode* node);
 
 AVLTreeNode* avl_tree_search(AVLTree* AVLT, void* data);
 bool avl_tree_insert(AVLTree* AVLT, void* data);
@@ -67,6 +67,32 @@ size_t avl_tree_size(AVLTree* AVLT)
     return AVLT->size;
 }
 
+static inline AVLTreeNode* node_create(size_t data_size)
+{
+    AVLTreeNode* node = malloc(sizeof (AVLTreeNode));
+    if(!node) {
+        return NULL;
+    }
+    node->data = malloc(data_size);
+    if(!node->data) {
+        free(node);
+        node = NULL;
+        return NULL;
+    }
+    node->left = NULL;
+    node->right = NULL;
+    node->balance_factor = 0;
+    return node;
+}
+
+static inline void node_destroy(AVLTreeNode* node)
+{
+    free(node->data);
+    node->data = NULL;
+    free(node);
+    node = NULL;
+}
+
 AVLTreeNode* avl_tree_search(AVLTree* AVLT, void* data)
 {
     AVLTreeNode* node = AVLT->root;
@@ -86,12 +112,12 @@ AVLTreeNode* avl_tree_search(AVLTree* AVLT, void* data)
     return NULL;
 }
 
-static size_t node_height(AVLTreeNode* node)
+static inline size_t node_height(AVLTreeNode* node)
 {
     return node->balance_factor;
 }
 
-static int node_balance_factor(AVLTreeNode* node)
+static inline int node_balance_factor(AVLTreeNode* node)
 {
     size_t node_left_height = 0;
     size_t node_right_height = 0;
@@ -104,7 +130,25 @@ static int node_balance_factor(AVLTreeNode* node)
     return (int)(node_right_height - node_left_height);
 }
 
-static AVLTreeNode* node_rotate_left(AVLTreeNode* node)
+static inline AVLTreeNode* node_rotate_right(AVLTreeNode* node)
+{
+    AVLTreeNode* node_left = node->left;
+    AVLTreeNode* node_left_right = node_left->right;
+    node_left->right = node;
+    node_left->parent = node->parent;
+    if(node_left->parent) {
+        node_left->parent->left = node_left;
+    }
+    if(node_left_right) {
+        node_left_right->parent = node;
+    }
+    node->parent = node_left;
+    node->left = node_left_right;
+    // node->balance_factor = node_balance_factor(node);;
+    // node_left->balance_factor = node_balance_factor(node_left);
+    return node_left;
+}
+static inline AVLTreeNode* node_rotate_left(AVLTreeNode* node)
 {
     AVLTreeNode* node_right = node->right;
     AVLTreeNode* node_right_left = node_right->left;
@@ -123,26 +167,7 @@ static AVLTreeNode* node_rotate_left(AVLTreeNode* node)
     return node_right;
 }
 
-static AVLTreeNode* node_rotate_right(AVLTreeNode* node)
-{
-    AVLTreeNode* node_left = node->left;
-    AVLTreeNode* node_left_right = node_left->right;
-    node_left->right = node;
-    node_left->parent = node->parent;
-    if(node_left->parent) {
-        node_left->parent->left = node_left;
-    }
-    if(node_left_right) {
-        node_left_right->parent = node;
-    }
-    node->parent = node_left;
-    node->left = node_left_right;
-    // node->balance_factor = node_balance_factor(node);;
-    // node_left->balance_factor = node_balance_factor(node_left);
-    return node_left;
-}
-
-static AVLTreeNode* node_rotate_right_left(AVLTreeNode* node)
+static inline AVLTreeNode* node_rotate_right_left(AVLTreeNode* node)
 {
     AVLTreeNode* node_right = node->right;
     AVLTreeNode* node_right_left = node_right->left;
@@ -155,7 +180,7 @@ static AVLTreeNode* node_rotate_right_left(AVLTreeNode* node)
     return node_right_left;
 }
 
-static AVLTreeNode* node_rotate_left_right(AVLTreeNode* node)
+static inline AVLTreeNode* node_rotate_left_right(AVLTreeNode* node)
 {
     AVLTreeNode* node_left = node->left;
     AVLTreeNode* node_left_right = node_left->right;
@@ -178,7 +203,7 @@ static AVLTreeNode* node_rotate_left_right(AVLTreeNode* node)
     return node_left_right;
 }
 
-static void node_rebalance(AVLTreeNode* node)
+static inline void node_rebalance(AVLTreeNode* node)
 {
     if(node->balance_factor == -2 && node->left->balance_factor == -1) {
         node = node_rotate_right(node);
@@ -192,24 +217,6 @@ static void node_rebalance(AVLTreeNode* node)
     else if(node->balance_factor == -2 && node->left->balance_factor == 1) {
         node = node_rotate_left_right(node);
     }
-}
-
-static AVLTreeNode* node_create(size_t data_size)
-{
-    AVLTreeNode* node = malloc(sizeof (AVLTreeNode));
-    if(!node) {
-        return NULL;
-    }
-    node->data = malloc(data_size);
-    if(!node->data) {
-        free(node);
-        node = NULL;
-        return NULL;
-    }
-    node->left = NULL;
-    node->right = NULL;
-    node->balance_factor = 0;
-    return node;
 }
 
 bool avl_tree_insert(AVLTree* AVLT, void* data)
@@ -267,7 +274,7 @@ bool avl_tree_insert(AVLTree* AVLT, void* data)
 
 bool avl_tree_remove(AVLTree* AVLT, void* data)
 {
-    if(!binary_search_tree_size(AVLT)) {
+    if(!AVLT->root) {
         return false;
     }
     AVLTreeNode* node = AVLT->root;
