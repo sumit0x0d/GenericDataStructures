@@ -51,7 +51,8 @@ void stack_array_destroy(StackArray* S)
 {
     free(S->array);
     S->array = NULL;
-    S->size = 0;
+    free(S);
+    S = NULL;
 }
 
 void* stack_array_peek(StackArray* S)

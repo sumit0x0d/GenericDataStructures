@@ -49,7 +49,8 @@ void hash_table_separate_chaining_destroy(HashTable* HT)
 {
     free(HT->array);
     HT->array = NULL;
-    HT->size = 0;
+    free(HT);
+    HT = NULL;
 }
 
 void* hash_table_separate_chaining_search(HashTable* HT, void* key)

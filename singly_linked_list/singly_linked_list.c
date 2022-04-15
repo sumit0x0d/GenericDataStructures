@@ -39,6 +39,9 @@ bool singly_linked_list_update(SinglyLinkedList* SLL, size_t index, void* data);
 bool singly_linked_list_linear(SinglyLinkedList* SLL);
 bool singly_linked_list_circular(SinglyLinkedList* SLL);
 
+void* singly_linked_list_node_data(SinglyLinkedListNode* node);
+SinglyLinkedListNode* singly_linked_list_node_next(SinglyLinkedListNode* node);
+
 SinglyLinkedList* singly_linked_list_create(size_t data_size,
     int (*compare)(void* data, void* node_data))
 {
@@ -300,4 +303,20 @@ bool singly_linked_list_circular(SinglyLinkedList* SLL)
         SLL->tail->next = SLL->head;
     }
     return true;
+}
+
+void* singly_linked_list_node_data(SinglyLinkedListNode* node)
+{
+    if(!node) {
+        return NULL;
+    }
+    return node->data;
+}
+
+SinglyLinkedListNode* singly_linked_list_node_next(SinglyLinkedListNode* node)
+{
+    if(!node) {
+        return NULL;
+    }
+    return node->next;
 }

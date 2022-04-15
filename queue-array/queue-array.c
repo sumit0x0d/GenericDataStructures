@@ -56,9 +56,8 @@ void queue_array_destroy(QueueArray* Q)
 {
     free(Q->array);
     Q->array = NULL;
-    Q->front = 0;
-    Q->back = 0;
-    Q->size = 0;
+    free(Q);
+    Q = NULL;
 }
 
 void* queue_array_front(QueueArray* Q)

@@ -27,7 +27,7 @@ void preorder_traverse(void* root, int binary_tree_type, int data_type)
     switch (binary_tree_type) {
         case AVL_TREE:
             {
-                StackLinkedList S = stack_linked_list_create(sizeof (AVLTreeNode));
+                StackLinkedList *S = stack_linked_list_create(sizeof (AVLTreeNode*));
                 AVLTreeNode* node = root;
                 while(node || stack_linked_list_size(&S))
                     if(node) {

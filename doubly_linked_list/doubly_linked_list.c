@@ -40,6 +40,10 @@ bool doubly_linked_list_update(DoublyLinkedList* SLL, size_t index, void* data);
 bool doubly_linked_list_linear(DoublyLinkedList* DLL);
 bool doubly_linked_list_circular(DoublyLinkedList* DLL);
 
+void* doubly_linked_list_node_data(DoublyLinkedListNode* node);
+DoublyLinkedListNode* doubly_linked_list_node_next(DoublyLinkedListNode* node);
+DoublyLinkedListNode* doubly_linked_list_node_previous(DoublyLinkedListNode* node);
+
 DoublyLinkedList* doubly_linked_list_create(size_t data_size, int (*compare)(void* data, void* node_data))
 {
     DoublyLinkedList* DLL = malloc(sizeof (DoublyLinkedList));
@@ -252,4 +256,28 @@ bool doubly_linked_list_remove(DoublyLinkedList* DLL, void* data)
     }
     erase(DLL, count);
     return true;
+}
+
+void* doubly_linked_list_node_data(DoublyLinkedListNode* node)
+{
+    if(!node) {
+        return NULL;
+    }
+    return node->data;
+}
+
+DoublyLinkedListNode* doubly_linked_list_node_next(DoublyLinkedListNode* node)
+{
+    if(!node) {
+        return NULL;
+    }
+    return node->next;
+}
+
+DoublyLinkedListNode* doubly_linked_list_node_previous(DoublyLinkedListNode* node)
+{
+    if(!node) {
+        return NULL;
+    }
+    return node->previous;
 }

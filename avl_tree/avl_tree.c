@@ -129,25 +129,6 @@ static inline int node_balance_factor(AVLTreeNode* node)
     }
     return (int)(node_right_height - node_left_height);
 }
-
-static inline AVLTreeNode* node_rotate_right(AVLTreeNode* node)
-{
-    AVLTreeNode* node_left = node->left;
-    AVLTreeNode* node_left_right = node_left->right;
-    node_left->right = node;
-    node_left->parent = node->parent;
-    if(node_left->parent) {
-        node_left->parent->left = node_left;
-    }
-    if(node_left_right) {
-        node_left_right->parent = node;
-    }
-    node->parent = node_left;
-    node->left = node_left_right;
-    // node->balance_factor = node_balance_factor(node);;
-    // node_left->balance_factor = node_balance_factor(node_left);
-    return node_left;
-}
 static inline AVLTreeNode* node_rotate_left(AVLTreeNode* node)
 {
     AVLTreeNode* node_right = node->right;
@@ -167,18 +148,25 @@ static inline AVLTreeNode* node_rotate_left(AVLTreeNode* node)
     return node_right;
 }
 
-static inline AVLTreeNode* node_rotate_right_left(AVLTreeNode* node)
+static inline AVLTreeNode* node_rotate_right(AVLTreeNode* node)
 {
-    AVLTreeNode* node_right = node->right;
-    AVLTreeNode* node_right_left = node_right->left;
-    node_right->left = node_right_left->right;
-    node->right = node_right_left->left;
-    node_right_left->left = node_right;
-    node_right_left->right = node;
-    // node->balance_factor = node_balance_factor(node);
-    // node_right_left->balance_factor = node_balance_factor(node_right_left);
-    return node_right_left;
+    AVLTreeNode* node_left = node->left;
+    AVLTreeNode* node_left_right = node_left->right;
+    node_left->right = node;
+    node_left->parent = node->parent;
+    if(node_left->parent) {
+        node_left->parent->left = node_left;
+    }
+    if(node_left_right) {
+        node_left_right->parent = node;
+    }
+    node->parent = node_left;
+    node->left = node_left_right;
+    // node->balance_factor = node_balance_factor(node);;
+    // node_left->balance_factor = node_balance_factor(node_left);
+    return node_left;
 }
+
 
 static inline AVLTreeNode* node_rotate_left_right(AVLTreeNode* node)
 {
@@ -203,19 +191,32 @@ static inline AVLTreeNode* node_rotate_left_right(AVLTreeNode* node)
     return node_left_right;
 }
 
+static inline AVLTreeNode* node_rotate_right_left(AVLTreeNode* node)
+{
+    AVLTreeNode* node_right = node->right;
+    AVLTreeNode* node_right_left = node_right->left;
+    node_right->left = node_right_left->right;
+    node->right = node_right_left->left;
+    node_right_left->left = node_right;
+    node_right_left->right = node;
+    // node->balance_factor = node_balance_factor(node);
+    // node_right_left->balance_factor = node_balance_factor(node_right_left);
+    return node_right_left;
+}
+
 static inline void node_rebalance(AVLTreeNode* node)
 {
-    if(node->balance_factor == -2 && node->left->balance_factor == -1) {
-        node = node_rotate_right(node);
-    }
-    else if(node->balance_factor == 2 && node->right->balance_factor == 1) {
+    if(node->balance_factor == 2 && node->right->balance_factor == 1) {
         node = node_rotate_left(node);
     }
-    else if(node->balance_factor == 2 && node->right->balance_factor == -1) {
-        node = node_rotate_right_left(node);
+    else if(node->balance_factor == -2 && node->left->balance_factor == -1) {
+        node = node_rotate_right(node);
     }
     else if(node->balance_factor == -2 && node->left->balance_factor == 1) {
         node = node_rotate_left_right(node);
+    }
+    else if(node->balance_factor == 2 && node->right->balance_factor == -1) {
+        node = node_rotate_right_left(node);
     }
 }
 

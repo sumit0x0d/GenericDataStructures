@@ -58,9 +58,6 @@ void deque_array_destroy(DequeArray* D)
 {
     free(D->array);
     D->array = NULL;
-    D->front = 0;
-    D->back = 0;
-    D->size = 0;
     free(D);
     D = NULL;
 }
@@ -123,7 +120,7 @@ bool deque_array_push_back(DequeArray* D, void* data)
 
 bool deque_array_pop_front(DequeArray* D)
 {
-    if(D->size) {
+    if(!D->size) {
         return false;
     }
     D->front = D->front + 1;

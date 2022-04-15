@@ -45,7 +45,6 @@ void graph_adjacency_list_destroy(GraphAdjacencyList* G)
 {
     free(G->adjacency_list);
     G->adjacency_list = NULL;
-
     G->vertices = 0;
     G->size = 0;
 }
@@ -71,20 +70,17 @@ void graph_adjacency_list_destroy(GraphAdjacencyList* G)
 Vertex *vertex_create(size_t data_size)
 {
     Vertex *vertex = malloc(sizeof (Vertex));
-    if(!vertex)
+    if(!vertex) {
         return NULL;
-
+    }
     vertex->data = malloc(data_size);
     if(!vertex->data) {
         free(vertex);
         vertex = NULL;
-       
         return NULL;
     }
-
     vertex->weight = 0;
     vertex->edge = NULL;
-
     return vertex;
 }
 
