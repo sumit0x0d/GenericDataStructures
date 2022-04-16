@@ -48,8 +48,8 @@ void binary_search_tree_print(BinarySearchTree* BST)
     StackLinkedList* S = stack_linked_list_create(sizeof (BinarySearchTreeNode*));
     while(node || stack_linked_list_size(S)) {
         if(node) {
-            printf("%d ", *(int*)binary_search_tree_node_data(node));
             stack_linked_list_push(S, &node);
+            printf("%d ", *(int*)binary_search_tree_node_data(node));
             node = binary_search_tree_node_left(node);
         }
         else {
