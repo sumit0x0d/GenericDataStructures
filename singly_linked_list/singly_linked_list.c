@@ -1,17 +1,17 @@
 #include "singly_linked_list.h"
 
-typedef struct SinglyLinkedListNode {
+struct SinglyLinkedListNode {
     void* data;
     struct SinglyLinkedListNode* next;
-} SinglyLinkedListNode;
+};
 
-typedef struct SinglyLinkedList {
+struct SinglyLinkedList {
     SinglyLinkedListNode* head;
     SinglyLinkedListNode* tail;
     size_t data_size;
     size_t size;
     int (*compare)(void* data, void* node_data);
-} SinglyLinkedList;
+};
 
 SinglyLinkedList* singly_linked_list_create(size_t data_size,
     int (*compare)(void* data, void* node_data));

@@ -1,15 +1,15 @@
 #include "hash_table-separate_chaining.h"
 
-typedef struct KeyValuePair {
+struct KeyValuePair {
     void* key;
     void* value;
     struct KeyValuePair *left;
     struct KeyValuePair *right;
     struct KeyValuePair *parent;
     enum {RED, BLACK} color;
-} KeyValuePair;
+};
 
-typedef struct HashTable {
+struct HashTable {
     KeyValuePair *array;
     size_t key_size;
     size_t value_size;
@@ -17,7 +17,7 @@ typedef struct HashTable {
     size_t size;
     size_t (*hash)(void* key, size_t buckets);
     int (*compare)(void* key, void* node_key);
-} HashTable;
+};
 
 HashTable* hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets,
     size_t hash(void* key, size_t buckets), int (*compare)(void* key, void* pair_key));

@@ -1,13 +1,13 @@
 #include "dynamic_array.h"
 
-typedef struct DynamicArray {
+struct DynamicArray {
     void* array;
     size_t data_size;
     size_t capacity;
     double growth_factor;
     int (*compare)(void* data, void* node_data);
     size_t size;
-} DynamicArray;
+};
 
 DynamicArray* dynamic_array_create(size_t data_size, size_t capacity, double growth_factor,
     int (*compare)(void* data, void* node_data));

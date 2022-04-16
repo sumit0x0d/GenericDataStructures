@@ -1,13 +1,13 @@
 #include "deque-array.h"
 
-typedef struct DequeArray {
+struct DequeArray {
     void* array;
     size_t data_size;
     size_t front;
     size_t back;
     size_t capacity;
     size_t size;
-} DequeArray;
+};
 
 DequeArray* deque_array_create(size_t data_size, size_t capacity);
 bool deque_array_change_capacity(DequeArray* D, size_t capacity);

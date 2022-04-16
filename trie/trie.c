@@ -1,14 +1,14 @@
 #include "trie.h"
 
-typedef struct TrieNode {
+struct TrieNode {
     bool terminal;
     struct TrieNode* children[128];
-} TrieNode;
+};
 
-typedef struct Trie {
+struct Trie {
     TrieNode* root;
     size_t size;
-} Trie;
+};
 
 Trie *trie_create();
 

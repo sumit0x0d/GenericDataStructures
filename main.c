@@ -37,28 +37,26 @@ void array_print(void* A, size_t data_size, size_t begin, size_t end, size_t siz
     printf("\n[Size]\t: %zu\n", size);
 }
 
-void binary_search_tree_print(BinarySearchTree* BST)
+void binary_tree_print(AVLTree* AVLT)
 {
-    if(!binary_search_tree_size(BST)) return;
-
-    printf("[Binary Search Tree]");
-
-    printf("\n[In-Order]\t: ");
-    BinarySearchTreeNode* node = binary_search_tree_root(BST);
-    StackLinkedList* S = stack_linked_list_create(sizeof (BinarySearchTreeNode*));
+    if(!avl_tree_size(AVLT)) return;
+    printf("[Binary Tree]");
+    printf("\n[In-Order] : ");
+    AVLTreeNode* node = avl_tree_begin(AVLT);
+    StackLinkedList* S = stack_linked_list_create(sizeof (AVLTreeNode*));
     while(node || stack_linked_list_size(S)) {
         if(node) {
             stack_linked_list_push(S, &node);
-            printf("%d ", *(int*)binary_search_tree_node_data(node));
-            node = binary_search_tree_node_left(node);
+            node = avl_tree_node_left(node);
         }
         else {
-            node = stack_linked_list_peek(S);
+            node = *(AVLTreeNode **)stack_linked_list_peek(S);
             stack_linked_list_pop(S);
-            node = binary_search_tree_node_right(node);
+            printf("%d(%d) ", *(int*)avl_tree_node_data(node), avl_tree_node_balance_factor(node));
+            node = avl_tree_node_right(node);
         }
     }
-    printf("\b\n[Size]\t: %zu\n", binary_search_tree_size(BST));
+    printf("\b\n[Size]\t: %zu\n", avl_tree_size(AVLT));
 }
 
 // void linked_list_print(void* begin, void* end)
@@ -77,9 +75,11 @@ void binary_search_tree_print(BinarySearchTree* BST)
 int main()
 {
     int a[10] = {10, 3, 15, 5, 50, 40, 25, 35, 95, 55};
-    BinarySearchTree *BST = binary_search_tree_create(sizeof (int), compare);
+    AVLTree *AVLT = avl_tree_create(sizeof (int), compare);
     for(int i = 0; i < 10; i++) {
-        binary_search_tree_insert(BST, &a[i]);
+        avl_tree_insert(AVLT, &a[i]);
     }
-    binary_search_tree_print(BST);
+    // int b = 40;
+    // binary_search_tree_remove(BST, &b);
+    binary_tree_print(AVLT);
 }

@@ -1,9 +1,9 @@
 #include "graph-adjacency_matrix.h"
 
-typedef struct GraphAdjacencyMatrix {
+struct GraphAdjacencyMatrix {
     int *adjacency_matrix;
     unsigned long vertex;
-} GraphAdjacencyMatrix;
+};
 
 bool graph_adjacency_matrix_adjacent(GraphAdjacencyMatrix *G, unsigned long vertex);
 bool graph_adjacency_matrix_neighbors(GraphAdjacencyMatrix *G, unsigned long vertex);

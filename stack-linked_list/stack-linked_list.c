@@ -1,15 +1,15 @@
 #include "stack-linked_list.h"
 
-typedef struct StackLinkedListNode {
+struct StackLinkedListNode {
     void* data;
     struct StackLinkedListNode* next;
-} StackLinkedListNode;
+};
 
-typedef struct StackLinkedList {
+struct StackLinkedList {
     StackLinkedListNode* top;
     size_t data_size;
     size_t size;
-} StackLinkedList;
+};
 
 StackLinkedList* stack_linked_list_create(size_t data_size);
 void stack_linked_list_destroy(StackLinkedList* S);

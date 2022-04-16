@@ -1,18 +1,18 @@
 #include "doubly_linked_list.h"
 
-typedef struct DoublyLinkedListNode {
+struct DoublyLinkedListNode {
     void* data;
     struct DoublyLinkedListNode* previous;
     struct DoublyLinkedListNode* next;
-} DoublyLinkedListNode;
+};
 
-typedef struct DoublyLinkedList {
+struct DoublyLinkedList {
     DoublyLinkedListNode* head;
     DoublyLinkedListNode* tail;
     size_t data_size;
     size_t size;
     int (*compare)(void* data, void* node_data);
-} DoublyLinkedList;
+};
 
 DoublyLinkedList* doubly_linked_list_create(size_t data_size,
     int (*compare)(void* data, void* node_data));

@@ -1,15 +1,15 @@
 #include "binary_tree.h"
 
-typedef struct BinaryTreeNode {
+struct BinaryTreeNode {
     void* data;
     struct BinaryTreeNode* left;
     struct BinaryTreeNode* right;
-} BinaryTreeNode;
+};
 
-typedef struct BinaryTree {
+struct BinaryTree {
     BinaryTreeNode* root;
     size_t size;
-} BinaryTree;
+};
 
 BinaryTree* binary_tree_create();
 

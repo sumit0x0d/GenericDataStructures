@@ -1,11 +1,11 @@
 #include "stack-array.h"
 
-typedef struct StackArray {
+struct StackArray {
     void* array;
     size_t data_size;
     size_t capacity;
     size_t size;
-} StackArray;
+};
 
 StackArray* stack_array_create(size_t data_size, size_t capacity);
 bool stack_array_change_capacity(StackArray* S, size_t capacity);

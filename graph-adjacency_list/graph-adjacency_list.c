@@ -1,18 +1,18 @@
 #include "graph-adjacency_list.h"
 
-typedef struct Vertex {
+struct Vertex {
     void* data;
     size_t index;
     unsigned long weight;
     struct Vertex *edge;
-} Vertex;
+};
 
-typedef struct GraphAdjacencyList {
+struct GraphAdjacencyList {
     Vertex *adjacency_list;
     size_t data_size;
     unsigned long vertices;
     size_t size;
-} GraphAdjacencyList;
+};
 
 GraphAdjacencyList* graph_adjacency_list_create(size_t data_size);
 void graph_adjacency_list_destroy(GraphAdjacencyList* G);

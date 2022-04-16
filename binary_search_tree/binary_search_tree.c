@@ -1,17 +1,17 @@
 #include "binary_search_tree.h"
 
-typedef struct BinarySearchTreeNode {
+struct BinarySearchTreeNode {
     void* data;
     struct BinarySearchTreeNode* left;
     struct BinarySearchTreeNode* right;
-} BinarySearchTreeNode;
+};
 
-typedef struct BinarySearchTree {
+struct BinarySearchTree {
     BinarySearchTreeNode* root;
     size_t data_size;
     size_t size;
     int (*compare)(void* data, void* node_data);
-} BinarySearchTree;
+};
 
 BinarySearchTree* binary_search_tree_create(size_t data_size,
     int (*compare)(void* data, void* node_data));
