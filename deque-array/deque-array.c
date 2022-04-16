@@ -60,8 +60,7 @@ void deque_array_destroy(DequeArray* D)
     D->array = NULL;
     free(D);
     D = NULL;
-}// Both of the for loops print "529".
-
+}
 
 void* deque_array_front(DequeArray* D)
 {
@@ -86,17 +85,16 @@ size_t deque_array_size(DequeArray* D)
 
 bool deque_array_push_front(DequeArray* D, void* data)
 {
-    if(D->back == D->capacity) {
-        if(D->front) {
-            memmove((char *)D->array + D->data_size, (char *)D->array + (D->data_size * D->front), D->size);
-            D->front = 0;
-            D->back = D->size + 1;
-        }
-        else {
-            return false;
-        }
+    if(D->front) {
+        D->front = D->front - 1;
     }
-    memcpy((char *)D->array, data, D->data_size);
+    else if(D->back == D->capacity) {
+        return false;
+    }
+    else {
+        memmove((char *)D->array + D->data_size, (char *)D->array, D->size);
+    }
+    memcpy((char *)D->array + (D->data_size * D->front), data, D->data_size);
     D->size = D->size + 1;
     return true;
 }

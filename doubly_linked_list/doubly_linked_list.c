@@ -36,9 +36,12 @@ bool doubly_linked_list_pop_head(DoublyLinkedList* DLL);
 bool doubly_linked_list_pop_tail(DoublyLinkedList* DLL);
 bool doubly_linked_list_remove(DoublyLinkedList* DLL, void* data);
 bool doubly_linked_list_erase(DoublyLinkedList* DLL, size_t index);
-bool doubly_linked_list_update(DoublyLinkedList* SLL, size_t index, void* data);
+bool doubly_linked_list_update(DoublyLinkedList* DLL, size_t index, void* data);
 bool doubly_linked_list_linear(DoublyLinkedList* DLL);
 bool doubly_linked_list_circular(DoublyLinkedList* DLL);
+
+DoublyLinkedListNode* doubly_linked_list_begin(DoublyLinkedList* DLL);
+DoublyLinkedListNode* doubly_linked_list_end(DoublyLinkedList* DLL);
 
 void* doubly_linked_list_node_data(DoublyLinkedListNode* node);
 DoublyLinkedListNode* doubly_linked_list_node_next(DoublyLinkedListNode* node);
@@ -258,26 +261,27 @@ bool doubly_linked_list_remove(DoublyLinkedList* DLL, void* data)
     return true;
 }
 
+DoublyLinkedListNode* doubly_linked_list_begin(DoublyLinkedList* DLL)
+{
+    return DLL->head;
+}
+
+DoublyLinkedListNode* doubly_linked_list_end(DoublyLinkedList* DLL)
+{
+    return DLL->tail;
+}
+
 void* doubly_linked_list_node_data(DoublyLinkedListNode* node)
 {
-    if(!node) {
-        return NULL;
-    }
     return node->data;
 }
 
 DoublyLinkedListNode* doubly_linked_list_node_next(DoublyLinkedListNode* node)
 {
-    if(!node) {
-        return NULL;
-    }
     return node->next;
 }
 
 DoublyLinkedListNode* doubly_linked_list_node_previous(DoublyLinkedListNode* node)
 {
-    if(!node) {
-        return NULL;
-    }
     return node->previous;
 }

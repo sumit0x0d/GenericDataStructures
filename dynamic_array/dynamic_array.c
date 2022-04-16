@@ -62,7 +62,7 @@ void dynamic_array_destroy(DynamicArray* DA)
 void* dynamic_array_front(DynamicArray* DA)
 {
     if(!DA->size) {
-        return false;
+        return NULL;
     }
     return DA->array;
 }
@@ -70,7 +70,7 @@ void* dynamic_array_front(DynamicArray* DA)
 void* dynamic_array_back(DynamicArray* DA)
 {
     if(!DA->size) {
-        return false;
+        return NULL;
     }
     return (char *)DA->array + (DA->data_size * DA->size);
 }

@@ -39,7 +39,7 @@ void array_print(void* A, size_t data_size, size_t begin, size_t end, size_t siz
 
 void binary_search_tree_print(BinarySearchTree* BST)
 {
-    // if(!binary_search_tree_size(BST)) return;
+    if(!binary_search_tree_size(BST)) return;
 
     printf("[Binary Search Tree]");
 
@@ -49,23 +49,19 @@ void binary_search_tree_print(BinarySearchTree* BST)
     while(node || stack_linked_list_size(S)) {
         if(node) {
             printf("%d ", *(int*)binary_search_tree_node_data(node));
-            stack_linked_list_push(S, node);
+            stack_linked_list_push(S, &node);
             node = binary_search_tree_node_left(node);
         }
         else {
-            // node = ;
-            node = binary_search_tree_node_right(stack_linked_list_peek(S));
+            node = stack_linked_list_peek(S);
             stack_linked_list_pop(S);
+            node = binary_search_tree_node_right(node);
         }
     }
     printf("\b\n[Size]\t: %zu\n", binary_search_tree_size(BST));
 }
 
-void function(void* data)
-{
-    printf("%d ", *(int*)data/2);
-}
-// void linked_list_print(void* head, void* tail, void *next)
+// void linked_list_print(void* begin, void* end)
 // {
 //     if(!head) return;
 //     printf("\n[Data]\t: ");
@@ -76,7 +72,8 @@ void function(void* data)
 
 //     printf("\b");
 //     printf("\n[Size]\t: %zu\n", stack_linked_list_size(S));
-// }
+// // }
+
 int main()
 {
     int a[10] = {10, 3, 15, 5, 50, 40, 25, 35, 95, 55};
@@ -84,6 +81,5 @@ int main()
     for(int i = 0; i < 10; i++) {
         binary_search_tree_insert(BST, &a[i]);
     }
-    // binary_search_tree_print(BST);
-    binary_search_tree_preorder_traverse(BST, function);
+    binary_search_tree_print(BST);
 }

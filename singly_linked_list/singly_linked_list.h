@@ -31,4 +31,10 @@ bool singly_linked_list_update(SinglyLinkedList* SLL, size_t index, void* data);
 bool singly_linked_list_linear(SinglyLinkedList* SLL);
 bool singly_linked_list_circular(SinglyLinkedList* SLL);
 
+SinglyLinkedListNode* singly_linked_list_begin(SinglyLinkedList* SLL);
+SinglyLinkedListNode* singly_linked_list_end(SinglyLinkedList* SLL);
+
+void* singly_linked_list_node_data(SinglyLinkedListNode* node);
+SinglyLinkedListNode* singly_linked_list_node_next(SinglyLinkedListNode* node);
+
 #endif
