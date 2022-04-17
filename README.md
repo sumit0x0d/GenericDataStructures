@@ -5,8 +5,8 @@
 | Binary Tree        | Insert             | Remove             | Search             |
 | :----------------: | :----------------: | :----------------: | :----------------: |
 | Binary Search Tree | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| AVL Tree           | :heavy_check_mark: | :light_check_mark: | :heavy_check_mark: |
-| Red-Black Tree     | :light_check_mark: | :light_check_mark: | :light_check_mark: |
+| AVL Tree           | :heavy_check_mark: | :white_check_mark: | :heavy_check_mark: |
+| Red-Black Tree     | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 |                     | Insert             | Remove             | Search             |
 | :-----------------: | :----------------: | :----------------: | :----------------: |
