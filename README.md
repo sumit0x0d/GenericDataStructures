@@ -18,7 +18,7 @@
 | Queue (Array)       | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | Queue (Linked List) | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
-|                     | Push Front         | Push Back          | Search             |
+|                     | Push               | Pop                | Search             |
 | :-----------------: | :----------------: | :----------------: | :----------------: |
 | Stack (Array)       | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | Stack (Linked List) | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
