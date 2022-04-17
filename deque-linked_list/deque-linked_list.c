@@ -110,7 +110,7 @@ bool deque_linked_list_push_front(DequeLinkedList* D, void* data)
     }
     memcpy(node->data, data, D->data_size);
     node->previous = NULL;
-    if(D->size) {
+    if(D->front) {
         D->front->previous = node;
         node->next = D->front;
     }

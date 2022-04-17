@@ -107,7 +107,7 @@ bool queue_linked_list_enqueue(QueueLinkedList* Q, void* data)
         return false;
     }
     memcpy(node->data, data, Q->data_size);
-    if(Q->size) {
+    if(Q->front) {
         Q->back->next = node;
     }
     else {

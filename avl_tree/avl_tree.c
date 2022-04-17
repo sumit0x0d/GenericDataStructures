@@ -15,6 +15,17 @@ struct AVLTree {
     int (*compare)(void* data, void* node_data);
 };
 
+typedef struct QueueNode {
+    AVLTreeNode data;
+    struct QueueNode *next;
+} QueueNode;
+
+typedef struct Queue {
+    struct QueueNode *front;
+    struct QueueNode *back;
+    size_t size;
+} Queue;
+
 AVLTree* avl_tree_create(size_t data_size, int (*compare)(void* data, void* node_data));
 void avl_tree_destroy(AVLTree* AVLT);
 
@@ -23,6 +34,15 @@ size_t avl_tree_size(AVLTree* AVLT);
 
 static AVLTreeNode* node_create(size_t data_size);
 static void node_destroy(AVLTreeNode* node);
+
+static Queue* queue_create();
+static void queue_destroy(Queue* Q);
+static void* queue_front(Queue* Q);
+static void* queue_back(Queue* Q);
+static size_t queue_size(Queue* Q);
+static bool queue_enqueue(Queue* Q, AVLTreeNode data);
+static bool queue_dequeue(Queue* Q);
+
 static size_t node_height(AVLTreeNode* node);
 static int node_balance_factor(AVLTreeNode* node);
 static AVLTreeNode* node_rotate_right(AVLTreeNode* node);
@@ -118,6 +138,52 @@ AVLTreeNode* avl_tree_search(AVLTree* AVLT, void* data)
         }
     }
     return NULL;
+}
+
+Queue* queue_create()
+{
+    Queue* Q = malloc(sizeof (Queue*));
+    if(!Q) {
+        return NULL;
+    }
+    Q->front = NULL;
+    Q->back = NULL;
+    Q->size = 0;
+    return Q;
+}
+
+static bool queue_enqueue(Queue* Q, AVLTreeNode data)
+{
+    QueueNode *node = malloc(sizeof (QueueNode));
+    if(!node) {
+        return false;
+    }
+    node->data = data;
+    if(Q->front) {
+        Q->back->next = node;
+    }
+    else {
+        Q->front = node;
+    }
+    Q->back = node;
+    Q->size = Q->size + 1;
+    return true;
+}
+
+static bool queue_dequeue(Queue* Q)
+{
+    if(!Q->front) {
+        return false;
+    }
+    QueueNode* node = Q->front;
+    Q->front = Q->front->next;
+    if(!Q->front) {
+        Q->back = NULL;
+    }
+    free(node);
+    node = NULL;
+    Q->size = Q->size - 1;
+    return true;
 }
 
 static size_t node_height(AVLTreeNode* node)
