@@ -51,9 +51,9 @@ static AVLTreeNode* node_rotate_right_left(AVLTreeNode* node);
 static AVLTreeNode* node_rotate_left_right(AVLTreeNode* node);
 static void node_rebalance(AVLTreeNode* node);
 
-AVLTreeNode* avl_tree_search(AVLTree* AVLT, void* data);
 bool avl_tree_insert(AVLTree* AVLT, void* data);
 bool avl_tree_remove(AVLTree* AVLT, void* data);
+AVLTreeNode* avl_tree_search(AVLTree* AVLT, void* data);
 
 AVLTreeNode* avl_tree_begin(AVLTree* AVLT);
 
@@ -119,25 +119,6 @@ static void node_destroy(AVLTreeNode* node)
     node->data = NULL;
     free(node);
     node = NULL;
-}
-
-AVLTreeNode* avl_tree_search(AVLTree* AVLT, void* data)
-{
-    AVLTreeNode* node = AVLT->root;
-    int compare;
-    while(node) {
-        compare = AVLT->compare(data, node->data);
-        if(compare == 0) {
-            return node;
-        }
-        else if(compare < 0) {
-            node = node->left;
-        }
-        else {
-            node = node->right;
-        }
-    }
-    return NULL;
 }
 
 Queue* queue_create()
@@ -418,6 +399,25 @@ bool avl_tree_remove(AVLTree* AVLT, void* data)
     }
     AVLT->size = AVLT->size - 1;
     return true;
+}
+
+AVLTreeNode* avl_tree_search(AVLTree* AVLT, void* data)
+{
+    AVLTreeNode* node = AVLT->root;
+    int compare;
+    while(node) {
+        compare = AVLT->compare(data, node->data);
+        if(compare == 0) {
+            return node;
+        }
+        else if(compare < 0) {
+            node = node->left;
+        }
+        else {
+            node = node->right;
+        }
+    }
+    return NULL;
 }
 
 AVLTreeNode* avl_tree_begin(AVLTree* AVLT)

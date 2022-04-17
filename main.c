@@ -1,16 +1,4 @@
-#include "deque-linked_list/deque-linked_list.h"
-#include "doubly_linked_list/doubly_linked_list.h"
-#include "queue-linked_list/queue-linked_list.h"
-#include "singly_linked_list/singly_linked_list.h"
-#include "stack-linked_list/stack-linked_list.h"
-#include "avl_tree/avl_tree.h"
-#include "binary_search_tree/binary_search_tree.h"
-#include "red-black_tree/red-black_tree.h"
-#include "deque-array/deque-array.h"
-#include "dynamic_array/dynamic_array.h"
-#include "queue-array/queue-array.h"
-#include "stack-array/stack-array.h"
-#include "hash_table-separate_chaining/hash_table-separate_chaining.h"
+#include "generic_data_structures.h"
 
 #include <stdio.h>
 
@@ -37,7 +25,29 @@ void array_print(void* A, size_t data_size, size_t begin, size_t end, size_t siz
     printf("\n[Size]\t: %zu\n", size);
 }
 
-void binary_tree_print(AVLTree* AVLT)
+void binary_tree_preorder_traversal(AVLTree* AVLT)
+{
+    if(!avl_tree_size(AVLT)) return;
+    printf("[Binary Tree]");
+    printf("\n[Pre-Order] : ");
+    AVLTreeNode* node = avl_tree_begin(AVLT);
+    StackLinkedList* S = stack_linked_list_create(sizeof (AVLTreeNode*));
+    while(node || stack_linked_list_size(S)) {
+        if(node) {
+            printf("%d(%d) ", *(int*)avl_tree_node_data(node), avl_tree_node_balance_factor(node));
+            stack_linked_list_push(S, &node);
+            node = avl_tree_node_left(node);
+        }
+        else {
+            node = *(AVLTreeNode **)stack_linked_list_peek(S);
+            stack_linked_list_pop(S);
+            node = avl_tree_node_right(node);
+        }
+    }
+    printf("\b\n[Size]\t: %zu\n", avl_tree_size(AVLT));
+}
+
+void binary_tree_inorder_traversal(AVLTree* AVLT)
 {
     if(!avl_tree_size(AVLT)) return;
     printf("[Binary Tree]");
@@ -58,6 +68,48 @@ void binary_tree_print(AVLTree* AVLT)
     }
     printf("\b\n[Size]\t: %zu\n", avl_tree_size(AVLT));
 }
+
+// void binary_tree_levelorder_traversal(AVLTree* AVLT)
+// {
+//     QueueLinkedList *Q = queue_linked_list_create(sizeof (AVLTreeNode*));
+//     AVLTreeNode* node = avl_tree_begin(AVLT);
+//     printf("%d(%d) ", *(int*)avl_tree_node_data(node), avl_tree_node_balance_factor(node));
+//     queue_linked_list_enqueue(&Q, &node);
+//     while(queue_linked_list_size(&Q)) {
+//         node = queue_linked_list_front(&Q);
+//         queue_linked_list_dequeue(&Q);
+//         if(avl_tree_node_left(node)) {
+//             printf("%d(%d) ", *(int*)avl_tree_node_data(node), avl_tree_node_balance_factor(node));
+//             queue_linked_list_enqueue(&Q, avl_tree_node_left(node));
+//         }
+//         if( avl_tree_node_right(node)) {
+//             printf("%d(%d) ", *(int*)avl_tree_node_data(node), avl_tree_node_balance_factor(node));
+//             queue_linked_list_enqueue(&Q, avl_tree_node_right(node));
+//         }
+//     }
+// }
+
+// void binary_tree_postorder_traversal(AVLTree* AVLT)
+// {
+//     if(!avl_tree_size(AVLT)) return;
+//     printf("[Binary Tree]");
+//     printf("\n[In-Order] : ");
+//     AVLTreeNode* node = avl_tree_begin(AVLT);
+//     StackLinkedList* S = stack_linked_list_create(sizeof (AVLTreeNode*));
+//     while(node || stack_linked_list_size(S)) {
+//         if(node) {
+//             stack_linked_list_push(S, &node);
+//             node = avl_tree_node_left(node);
+//         }
+//         else {
+//             node = *(AVLTreeNode **)stack_linked_list_peek(S);
+//             stack_linked_list_pop(S);
+//             printf("%d(%d) ", *(int*)avl_tree_node_data(node), avl_tree_node_balance_factor(node));
+//             node = avl_tree_node_right(node);
+//         }
+//     }
+//     printf("\b\n[Size]\t: %zu\n", avl_tree_size(AVLT));
+// }
 
 // void linked_list_print(void* begin, void* end)
 // {
@@ -81,5 +133,8 @@ int main()
     }
     // int b = 40;
     // binary_search_tree_remove(BST, &b);
-    binary_tree_print(AVLT);
+    binary_tree_preorder_traversal(AVLT);
+    binary_tree_inorder_traversal(AVLT);
+    // binary_tree_postorder_traversal(AVLT);
+    // binary_tree_levelorder_traversal(AVLT);
 }
