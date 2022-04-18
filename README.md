@@ -17,14 +17,14 @@ Binary Tree
 
 
 
-|                     | Enqueue            | Dequeue            |
-| :-----------------: | :----------------: | :----------------: |
-| Queue (Array)       | :heavy_check_mark: | :heavy_check_mark: |
-| Queue (Linked List) | :heavy_check_mark: | :heavy_check_mark: |
+|                     | Enqueue            | Dequeue            | Front              | Back               |
+| :-----------------: | :----------------: | :----------------: | :----------------: | :----------------: |
+| Queue (Array)       | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Queue (Linked List) | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
 
-|                     | Push               | Pop                |
-| :-----------------: | :----------------: | :----------------: |
-| Stack (Array)       | :heavy_check_mark: | :heavy_check_mark: |
-| Stack (Linked List) | :heavy_check_mark: | :heavy_check_mark: |
+|                     | Push               | Pop                | peek               |
+| :-----------------: | :----------------: | :----------------: | :----------------: |
+| Stack (Array)       | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Stack (Linked List) | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
