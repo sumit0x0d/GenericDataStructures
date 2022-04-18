@@ -14,11 +14,11 @@ void avl_tree_destroy(AVLTree* AVLT);
 void* avl_tree_root(AVLTree* AVLT);
 size_t avl_tree_size(AVLTree* AVLT);
 
-AVLTreeNode* avl_tree_search(AVLTree* AVLT, void* data);
 bool avl_tree_insert(AVLTree* AVLT, void* data);
 bool avl_tree_remove(AVLTree* AVLT, void* data);
 
 AVLTreeNode* avl_tree_begin(AVLTree* BST);
+AVLTreeNode* avl_tree_search(AVLTree* AVLT, void* data);
 
 void* avl_tree_node_data(AVLTreeNode* node);
 AVLTreeNode* avl_tree_node_left(AVLTreeNode* node);
