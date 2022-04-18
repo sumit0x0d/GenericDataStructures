@@ -300,15 +300,19 @@ static void node_rebalance(AVLTreeNode* node)
 {
     if(node->balance_factor == 2 && node->right->balance_factor == 1) {
         node_rotate_left(node);
+        return;
     }
-    else if(node->balance_factor == -2 && node->left->balance_factor == -1) {
+    if(node->balance_factor == -2 && node->left->balance_factor == -1) {
         node_rotate_right(node);
+        return;
     }
-    else if(node->balance_factor == -2 && node->left->balance_factor == 1) {
+    if(node->balance_factor == -2 && node->left->balance_factor == 1) {
         node_rotate_left_right(node);
+        return;
     }
-    else if(node->balance_factor == 2 && node->right->balance_factor == -1) {
+    if(node->balance_factor == 2 && node->right->balance_factor == -1) {
         node_rotate_right_left(node);
+        return;
     }
 }
 

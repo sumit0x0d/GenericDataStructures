@@ -5,14 +5,14 @@
 int compare(void* data, void* node_data) {
     if(*(int*)data < *(int*)node_data)
         return -1;
-    else if(*(int *)data > *(int *)node_data)
+    if(*(int *)data > *(int *)node_data)
         return 1;
     return 0;
 }
 
 size_t hash(void* key, size_t buckets)
 {
-    return (*(size_t *)key % buckets);
+    return *(size_t *)key % buckets;
 }
 
 void array_print(void* A, size_t data_size, size_t begin, size_t end, size_t size)
