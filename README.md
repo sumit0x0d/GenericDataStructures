@@ -8,4 +8,5 @@ Features:
 
 Easy To understand for people like me (below average).  
 No code pollutions.  
+No need of comments as variable names make sense.  
 Consistency maintained.  
