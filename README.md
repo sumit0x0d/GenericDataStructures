@@ -10,10 +10,10 @@ Binary Tree
 
 
 
-|                     | Push Front         | Push Back          | Pop Front          | Pop Back           |
-| :-----------------: | :----------------: | :----------------: | :----------------: | :----------------: |
-| Deque (Array)       | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| Deque (Linked List) | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+|                     | Push Front         | Push Back          | Pop Front          | Pop Back           | Front              | Back               |
+| :-----------------: | :----------------: | :----------------: | :----------------: | :----------------: | :----------------: | :----------------: |
+| Deque (Array)       | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Deque (Linked List) | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
 
