@@ -257,7 +257,7 @@ bool doubly_linked_list_remove(DoublyLinkedList* DLL, void* data)
         count++;
         node = node->next;
     }
-    erase(DLL, count);
+    doubly_linked_list_erase(DLL, count);
     return true;
 }
 
