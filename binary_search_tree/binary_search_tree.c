@@ -23,11 +23,11 @@ size_t binary_search_tree_size(BinarySearchTree* BST);
 static BinarySearchTreeNode* node_create(size_t data_size);
 static void node_destroy(BinarySearchTreeNode* node);
 
-BinarySearchTreeNode* binary_search_tree_search(BinarySearchTree* BST, void* data);
 bool binary_search_tree_insert(BinarySearchTree* BST, void* data);
 bool binary_search_tree_remove(BinarySearchTree* BST, void* data);
 
 BinarySearchTreeNode* binary_search_tree_begin(BinarySearchTree* BST);
+BinarySearchTreeNode* binary_search_tree_search(BinarySearchTree* BST, void* data);
 
 void* binary_search_tree_node_data(BinarySearchTreeNode* node);
 BinarySearchTreeNode* binary_search_tree_node_left(BinarySearchTreeNode* node);
@@ -63,24 +63,6 @@ void* binary_search_tree_root(BinarySearchTree* BST)
 size_t binary_search_tree_size(BinarySearchTree* BST)
 {
     return BST->size;
-}
-
-BinarySearchTreeNode* binary_search_tree_search(BinarySearchTree* BST, void* data)
-{
-    BinarySearchTreeNode* node = BST->root;
-    while(node) {
-        int compare = BST->compare(data, node->data);
-        if(compare == 0) {
-            return node;
-        }
-        if(compare < 0) {
-            node = node->left;
-        }
-        else {
-            node = node->right;
-        }
-    }
-    return NULL;
 }
 
 static BinarySearchTreeNode* node_create(size_t data_size)
@@ -224,6 +206,24 @@ bool binary_search_tree_remove(BinarySearchTree* BST, void* data)
 BinarySearchTreeNode* binary_search_tree_begin(BinarySearchTree* BST)
 {
     return BST->root;
+}
+
+BinarySearchTreeNode* binary_search_tree_search(BinarySearchTree* BST, void* data)
+{
+    BinarySearchTreeNode* node = BST->root;
+    while(node) {
+        int compare = BST->compare(data, node->data);
+        if(compare == 0) {
+            return node;
+        }
+        if(compare < 0) {
+            node = node->left;
+        }
+        else {
+            node = node->right;
+        }
+    }
+    return NULL;
 }
 
 void* binary_search_tree_node_data(BinarySearchTreeNode* node)

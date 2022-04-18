@@ -135,6 +135,9 @@ int main()
     // binary_search_tree_remove(BST, &b);
     binary_tree_preorder_traversal(AVLT);
     binary_tree_inorder_traversal(AVLT);
+    avl_tree_remove(AVLT, &a[3]);
+    binary_tree_preorder_traversal(AVLT);
+    binary_tree_inorder_traversal(AVLT);
     // binary_tree_postorder_traversal(AVLT);
     // binary_tree_levelorder_traversal(AVLT);
 }

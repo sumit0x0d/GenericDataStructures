@@ -402,6 +402,7 @@ bool avl_tree_remove(AVLTree* AVLT, void* data)
             node_parent->right = NULL;
         }
         node_destroy(node);
+        node_parent->balance_factor = node_balance_factor(node_parent);
     }
     else if(!node->left) {
         if(node_parent->right == node) {
@@ -411,6 +412,7 @@ bool avl_tree_remove(AVLTree* AVLT, void* data)
             node_parent->left = node->right;
         }
         node_destroy(node);
+        node_parent->balance_factor = node_balance_factor(node_parent);
     }
     else if(!node->right) {
         if(node_parent->left == node) {
@@ -420,6 +422,7 @@ bool avl_tree_remove(AVLTree* AVLT, void* data)
             node_parent->right = node->left;
         }
         node_destroy(node);
+        node_parent->balance_factor = node_balance_factor(node_parent);
     }
     else {
         AVLTreeNode* node_inorder_successor = node->right;
@@ -436,9 +439,15 @@ bool avl_tree_remove(AVLTree* AVLT, void* data)
         }
         memcpy(node->data, node_inorder_successor->data, AVLT->data_size);
         node_destroy(node_inorder_successor);
+        node_parent->balance_factor = node_balance_factor(node_inorder_successor_parent);
     }
     AVLT->size = AVLT->size - 1;
     return true;
+}
+
+AVLTreeNode* avl_tree_begin(AVLTree* AVLT)
+{
+    return AVLT->root;
 }
 
 AVLTreeNode* avl_tree_search(AVLTree* AVLT, void* data)
@@ -458,11 +467,6 @@ AVLTreeNode* avl_tree_search(AVLTree* AVLT, void* data)
         }
     }
     return NULL;
-}
-
-AVLTreeNode* avl_tree_begin(AVLTree* AVLT)
-{
-    return AVLT->root;
 }
 
 void* avl_tree_node_data(AVLTreeNode* node)

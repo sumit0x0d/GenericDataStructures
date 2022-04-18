@@ -15,11 +15,11 @@ void binary_search_tree_destroy(BinarySearchTree* BST);
 void* binary_search_tree_root(BinarySearchTree* BST);
 size_t binary_search_tree_size(BinarySearchTree* BST);
 
-BinarySearchTreeNode* binary_search_tree_search(BinarySearchTree* BST, void* data);
 bool binary_search_tree_insert(BinarySearchTree* BST, void* data);
 bool binary_search_tree_remove(BinarySearchTree* BST, void* data);
 
 BinarySearchTreeNode* binary_search_tree_begin(BinarySearchTree* BST);
+BinarySearchTreeNode* binary_search_tree_search(BinarySearchTree* BST, void* data);
 
 void* binary_search_tree_node_data(BinarySearchTreeNode* node);
 BinarySearchTreeNode* binary_search_tree_node_left(BinarySearchTreeNode* node);
