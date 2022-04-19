@@ -25,9 +25,6 @@ size_t doubly_linked_list_size(DoublyLinkedList* DLL);
 static DoublyLinkedListNode* node_create(size_t data_size);
 static void node_destroy(DoublyLinkedListNode* node);
 
-DoublyLinkedListNode* doubly_linked_list_search(DoublyLinkedList* DLL, void* data);
-void* doubly_linked_list_at(DoublyLinkedList* DLL, size_t index);
-
 bool doubly_linked_list_push_head(DoublyLinkedList* DLL, void* data);
 bool doubly_linked_list_push_tail(DoublyLinkedList* DLL, void* data);
 bool doubly_linked_list_insert(DoublyLinkedList* DLL, size_t index, void* data);
@@ -42,6 +39,8 @@ bool doubly_linked_list_circular(DoublyLinkedList* DLL);
 
 DoublyLinkedListNode* doubly_linked_list_begin(DoublyLinkedList* DLL);
 DoublyLinkedListNode* doubly_linked_list_end(DoublyLinkedList* DLL);
+DoublyLinkedListNode* doubly_linked_list_search(DoublyLinkedList* DLL, void* data);
+DoublyLinkedListNode* doubly_linked_list_at(DoublyLinkedList* DLL, size_t index);
 
 void* doubly_linked_list_node_data(DoublyLinkedListNode* node);
 DoublyLinkedListNode* doubly_linked_list_node_next(DoublyLinkedListNode* node);

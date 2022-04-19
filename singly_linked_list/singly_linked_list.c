@@ -39,7 +39,7 @@ bool singly_linked_list_circular(SinglyLinkedList* SLL);
 SinglyLinkedListNode* singly_linked_list_begin(SinglyLinkedList* SLL);
 SinglyLinkedListNode* singly_linked_list_end(SinglyLinkedList* SLL);
 SinglyLinkedListNode* singly_linked_list_search(SinglyLinkedList* SLL, void* data);
-void* singly_linked_list_at(SinglyLinkedList* SLL, size_t index);
+SinglyLinkedListNode* singly_linked_list_at(SinglyLinkedList* SLL, size_t index);
 
 void* singly_linked_list_node_data(SinglyLinkedListNode* node);
 SinglyLinkedListNode* singly_linked_list_node_next(SinglyLinkedListNode* node);
