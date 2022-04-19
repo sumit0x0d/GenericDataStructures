@@ -34,8 +34,8 @@ void binary_tree_preorder_traversal(AVLTree* AVLT)
     StackLinkedList* S = stack_linked_list_create(sizeof (AVLTreeNode*));
     while(node || stack_linked_list_size(S)) {
         if(node) {
-            printf("%d(%d) ", *(int*)avl_tree_node_data(node), avl_tree_node_balance_factor(node));
             stack_linked_list_push(S, &node);
+            printf("%d ", *(int*)avl_tree_node_data(node));
             node = avl_tree_node_left(node);
         }
         else {
@@ -62,7 +62,7 @@ void binary_tree_inorder_traversal(AVLTree* AVLT)
         else {
             node = *(AVLTreeNode **)stack_linked_list_peek(S);
             stack_linked_list_pop(S);
-            printf("%d(%d) ", *(int*)avl_tree_node_data(node), avl_tree_node_balance_factor(node));
+            printf("%d ", *(int*)avl_tree_node_data(node));
             node = avl_tree_node_right(node);
         }
     }
@@ -126,18 +126,18 @@ void binary_tree_inorder_traversal(AVLTree* AVLT)
 
 int main()
 {
-    int a[10] = {10, 3, 15, 5, 50, 40, 25, 35, 95, 55};
+    int a[10] = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
     AVLTree *AVLT = avl_tree_create(sizeof (int), compare);
-    for(int i = 0; i < 10; i++) {
+    for(int i = 0; i < 3; i++) {
         avl_tree_insert(AVLT, &a[i]);
     }
     // int b = 40;
     // binary_search_tree_remove(BST, &b);
     binary_tree_preorder_traversal(AVLT);
     binary_tree_inorder_traversal(AVLT);
-    avl_tree_remove(AVLT, &a[3]);
-    binary_tree_preorder_traversal(AVLT);
-    binary_tree_inorder_traversal(AVLT);
+    // avl_tree_remove(AVLT, &a[3]);
+    // binary_tree_preorder_traversal(AVLT);
+    // binary_tree_inorder_traversal(AVLT);
     // binary_tree_postorder_traversal(AVLT);
     // binary_tree_levelorder_traversal(AVLT);
 }
