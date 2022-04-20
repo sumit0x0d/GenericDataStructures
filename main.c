@@ -35,7 +35,7 @@ void binary_tree_preorder_traversal(AVLTree* AVLT)
     while(node || stack_linked_list_size(S)) {
         if(node) {
             stack_linked_list_push(S, &node);
-            printf("%d ", *(int*)avl_tree_node_data(node));
+            printf("%d(%d) ", *(int*)avl_tree_node_data(node), avl_tree_node_balance_factor(node));
             node = avl_tree_node_left(node);
         }
         else {
@@ -126,9 +126,9 @@ void binary_tree_inorder_traversal(AVLTree* AVLT)
 
 int main()
 {
-    int a[10] = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+    int a[12] = {15, 2, 45, 123, 53, 640, 80, 80, 930, 31100, 1010, 10};
     AVLTree *AVLT = avl_tree_create(sizeof (int), compare);
-    for(int i = 0; i < 3; i++) {
+    for(int i = 0; i < 11; i++) {
         avl_tree_insert(AVLT, &a[i]);
     }
     // int b = 40;
