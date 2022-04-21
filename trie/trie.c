@@ -12,9 +12,9 @@ struct Trie {
 
 Trie *trie_create();
 
-TrieNode* trie_search(Trie *T, char *string);
-bool trie_insert(Trie *T, char *string);
-bool trie_remove(Trie *T, char *string);
+TrieNode* trie_search(Trie *T, char* string);
+bool trie_insert(Trie *T, char* string);
+bool trie_remove(Trie *T, char* string);
 
 Trie *trie_create()
 {
@@ -27,7 +27,7 @@ Trie *trie_create()
     return trie;
 }
 
-// TrieNode* search(Trie *T, char *string)
+// TrieNode* search(Trie *T, char* string)
 // {
 //     TrieNode* node = T->root;
 //     return node;
@@ -47,7 +47,7 @@ static TrieNode* node_create()
     return node;
 }
 
-bool trie_insert(Trie *T, char *string)
+bool trie_insert(Trie *T, char* string)
 {
     if(!T->root) {
         T->root = node_create();

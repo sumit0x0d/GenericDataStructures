@@ -20,7 +20,7 @@ void array_print(void* A, size_t data_size, size_t begin, size_t end, size_t siz
     if(!A) return;
     printf("\n[Data]\t: ");
     for(size_t i = begin; i < end; i++) {
-        printf("%d ", *(int *)((char *)A + (data_size * i)));
+        printf("%d ", *(int *)((char* )A + (data_size * i)));
     }
     printf("\n[Size]\t: %zu\n", size);
 }

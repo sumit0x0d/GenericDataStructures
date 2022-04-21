@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void print_t(TrieNode* node, unsigned char *pr, int length)
+void print_t(TrieNode* node, unsigned char* pr, int length)
 {
     unsigned char newpr[length+2];
     memcpy(newpr, pr, length);

@@ -64,12 +64,12 @@ void deque_array_destroy(DequeArray* D)
 
 void* deque_array_front(DequeArray* D)
 {
-    return (char *)D->array + (D->data_size * D->front);
+    return (char* )D->array + (D->data_size * D->front);
 }
 
 void* deque_array_back(DequeArray* D)
 {
-    return (char *)D->array + (D->data_size * D->back);
+    return (char* )D->array + (D->data_size * D->back);
 }
 
 size_t deque_array_size(DequeArray* D)
@@ -86,9 +86,9 @@ bool deque_array_push_front(DequeArray* D, void* data)
         return false;
     }
     else {
-        memmove((char *)D->array + D->data_size, (char *)D->array, D->size);
+        memmove((char* )D->array + D->data_size, (char* )D->array, D->size);
     }
-    memcpy((char *)D->array + (D->data_size * D->front), data, D->data_size);
+    memcpy((char* )D->array + (D->data_size * D->front), data, D->data_size);
     D->size = D->size + 1;
     return true;
 }
@@ -97,7 +97,7 @@ bool deque_array_push_back(DequeArray* D, void* data)
 {
     if(D->back == D->capacity) {
         if(D->front) {
-            memmove(D->array, (char *)D->array + (D->data_size * D->front), D->size);
+            memmove(D->array, (char* )D->array + (D->data_size * D->front), D->size);
             D->front = 0;
             D->back = D->size;
         }
@@ -105,7 +105,7 @@ bool deque_array_push_back(DequeArray* D, void* data)
             return false;
         }
     }
-    memcpy((char *)D->array + (D->data_size * D->back), data, D->data_size);
+    memcpy((char* )D->array + (D->data_size * D->back), data, D->data_size);
     D->back = D->back + 1;
     D->size = D->size + 1;
     return true;

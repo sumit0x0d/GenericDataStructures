@@ -62,12 +62,12 @@ void queue_array_destroy(QueueArray* Q)
 
 void* queue_array_front(QueueArray* Q)
 {
-    return (char *)Q->array + (Q->data_size * Q->front);
+    return (char* )Q->array + (Q->data_size * Q->front);
 }
 
 void* queue_array_back(QueueArray* Q)
 {
-    return (char *)Q->array + (Q->data_size * Q->back);
+    return (char* )Q->array + (Q->data_size * Q->back);
 }
 
 size_t queue_array_size(QueueArray* Q)
@@ -79,7 +79,7 @@ bool queue_array_enqueue(QueueArray* Q, void* data)
 {
     if(Q->back == Q->capacity) {
         if(Q->front) {
-            memmove(Q->array, (char *)Q->array + (Q->data_size * Q->front), Q->size);
+            memmove(Q->array, (char* )Q->array + (Q->data_size * Q->front), Q->size);
             Q->front = 0;
             Q->back = Q->size;
         }
@@ -87,7 +87,7 @@ bool queue_array_enqueue(QueueArray* Q, void* data)
             return false;
         }
     }
-    memcpy((char *)Q->array + (Q->data_size * Q->back), data, Q->data_size);
+    memcpy((char* )Q->array + (Q->data_size * Q->back), data, Q->data_size);
     Q->back = Q->back + 1;
     Q->size = Q->size + 1;
     return true;

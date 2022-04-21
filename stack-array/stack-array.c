@@ -57,7 +57,7 @@ void stack_array_destroy(StackArray* S)
 
 void* stack_array_peek(StackArray* S)
 {
-    return (char *)S->array + (S->data_size * S->size);
+    return (char* )S->array + (S->data_size * S->size);
 }
 
 size_t stack_array_size(StackArray* S)
@@ -70,7 +70,7 @@ bool stack_array_push(StackArray* S, void* data)
     if(S->size == S->capacity) {
         return false;
     }
-    memcpy((char *)S->array + (S->data_size * S->size), data, S->data_size);
+    memcpy((char* )S->array + (S->data_size * S->size), data, S->data_size);
     S->size = S->size + 1;
     return true;
 }
