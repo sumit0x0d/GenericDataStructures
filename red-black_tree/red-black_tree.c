@@ -116,24 +116,29 @@ bool red_black_tree_insert(RedBlackTree* RBT, void* data)
 
 // }
 
-// RedBlackTreeNode* red_black_tree_begin(RedBlackTree* RBT)
-// {
+RedBlackTreeNode* red_black_tree_begin(RedBlackTree* RBT)
+{
+    return RBT->root;
+}
 
-// }
-
-// RedBlackTreeNode* red_black_tree_search(RedBlackTree* RBT, void* data, size_t data_size)
-// {
-//     RedBlackTreeNode* node = RBT->root;
-//     while(node)
-//         if(data == node->data)
-//             return node;
-//         else if(data < node->data)
-//             node = node->left;
-//         else
-//             node = node->right;
-//    
-        // return NULL;
-// }
+RedBlackTreeNode* red_black_tree_search(RedBlackTree* RBT, void* data)
+{
+    RedBlackTreeNode* node = RBT->root;
+    int compare;
+    while(node) {
+        compare = RBT->compare(data, node->data);
+        if(compare == 0) {
+            return node;
+        }
+        else if(compare < 0) {
+            node = node->left;
+        }
+        else {
+            node = node->right;
+        }
+    }
+    return NULL;
+}
 
 
 void* red_black_tree_node_data(RedBlackTreeNode* node)

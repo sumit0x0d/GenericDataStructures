@@ -159,7 +159,7 @@ static void queue_dequeue(Queue* Q)
 
 static size_t avl_subtree_height(Queue *Q, AVLTreeNode* node)
 {
-    size_t height = 1;
+    size_t height = 0;
     queue_enqueue(Q, node);
     while(Q->size) {
         size_t queue_size = Q->size;
