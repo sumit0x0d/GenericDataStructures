@@ -126,9 +126,9 @@ void binary_tree_inorder_traversal(AVLTree* AVLT)
 
 int main()
 {
-    int a[12] = {15, 2, 45, 123, 53, 640, 80, 80, 930, 31100, 1010, 10};
+    int a[24] = {10, 20, 30, 40, 50, 60, 70, 80, 930, 31100, 1010, 1024, 145, 25, 465, 1723, 536, 6404, 8013, 330, 9230, 31011, 1011, 12};
     AVLTree *AVLT = avl_tree_create(sizeof (int), compare);
-    for(int i = 0; i < 11; i++) {
+    for(int i = 0; i < 7; i++) {
         avl_tree_insert(AVLT, &a[i]);
     }
     // int b = 40;
