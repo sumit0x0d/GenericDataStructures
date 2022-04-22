@@ -177,6 +177,22 @@ static RedBlackTreeNode* red_black_subtree_rotate_right_left(RedBlackTreeNode* n
 static void red_black_tree_rebalance(RedBlackTree* RBT, RedBlackTreeNode* node)
 {
     while(node) {
+        if(node->parent->left == node) {
+            if(node->color == RED && (!node->parent->right || node->parent->right->color == BLACK)) {
+                node = red_black_subtree_rotate_left(node);
+            }
+            if(node->color == RED && (node->parent->right && node->parent->right->color == RED)) {
+                node->parent->color = BLACK;
+            }
+        }
+        else {
+            if(node->color == RED && (!node->parent->left || node->parent->left->color == BLACK)) {
+                node = red_black_subtree_rotate_left(node);
+            }
+            if(node->color == RED && (node->parent->left && node->parent->left->color == RED)) {
+                node->parent->color = BLACK;
+            }
+        }
         node = node->parent;
     }
 }
