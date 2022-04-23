@@ -188,12 +188,15 @@ static void red_black_tree_rebalance(RedBlackTree* RBT, RedBlackTreeNode* node)
         else {
             if(node->color == RED && (!node->parent->left || node->parent->left->color == BLACK)) {
                 node = red_black_subtree_rotate_left(node);
+                node = red_black_subtree_rotate_right_left(node);
+                node = red_black_subtree_rotate_left_right(node);
+                node = red_black_subtree_rotate_right(node);
             }
             if(node->color == RED && (node->parent->left && node->parent->left->color == RED)) {
                 node->parent->color = BLACK;
             }
         }
-        node = node->parent;
+        RBT->root = node->parent;
     }
 }
 
