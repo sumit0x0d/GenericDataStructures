@@ -105,6 +105,7 @@ static AVLTreeNode* node_create(size_t data_size)
     }
     node->left = NULL;
     node->right = NULL;
+    node->balance_factor = 0;
     return node;
 }
 
@@ -124,6 +125,8 @@ static Queue* queue_create(size_t capacity)
     }
     Q->array = malloc(sizeof (AVLTreeNode) * capacity);
     if(!Q->array) {
+        free(Q);
+        Q = NULL;
         return NULL;
     }
     Q->front = 0;
@@ -140,11 +143,11 @@ static AVLTreeNode* queue_front(Queue* Q)
 
 static void queue_enqueue(Queue* Q, AVLTreeNode* data)
 {
-    if(Q->back == Q->capacity && Q->front) {
-        memmove(Q->array, Q->array + (sizeof (AVLTreeNode) * Q->front), Q->size);
-        Q->front = 0;
-        Q->back = Q->size;
-    }
+    // if((Q->back == Q->capacity) && Q->front) {
+    //     memmove(Q->array, Q->array + (sizeof (AVLTreeNode) * Q->front), Q->size);
+    //     Q->front = 0;
+    //     Q->back = Q->size;
+    // }
     memcpy(Q->array + (sizeof (AVLTreeNode) * Q->back), data, sizeof (AVLTreeNode));
     Q->back = Q->back + 1;
     Q->size = Q->size + 1;
@@ -159,9 +162,6 @@ static void queue_dequeue(Queue* Q)
 static size_t avl_subtree_height(AVLTreeNode* node, Queue *Q)
 {
     size_t height = 0;
-    Q->front = 0;
-    Q->back = 0;
-    Q->size = 0;
     queue_enqueue(Q, node);
     while(Q->size) {
         size_t queue_size = Q->size;
@@ -178,7 +178,6 @@ static size_t avl_subtree_height(AVLTreeNode* node, Queue *Q)
         }
         height = height + 1;
     }
-        printf("%zu ", height);
     return height;
 }
 
@@ -249,16 +248,16 @@ static AVLTreeNode* avl_subtree_rotate_left(AVLTreeNode* node)
 {
     AVLTreeNode* node_right = node->right;
     node->right = node_right->left;
-    if(node->right) {
+    if(node_right->left) {
         node_right->left->parent = node;
     }
     node_right->parent = node->parent;
     if(node->parent) {
-        if(node_right->parent->left == node) {
-            node_right->parent->left = node_right;
+        if(node->parent->left == node) {
+            node->parent->left = node_right;
         }
         else {
-            node_right->parent->right = node_right;
+            node->parent->right = node_right;
         }
     }
     node->parent = node_right;
@@ -271,17 +270,17 @@ static AVLTreeNode* avl_subtree_rotate_right_left(AVLTreeNode* node)
     AVLTreeNode* node_right = node->right;
     AVLTreeNode* node_right_left = node_right->left;
     node_right->left = node_right_left->right;
-    if(node_right_left->right) {
-        node_right_left->right->parent = node_right;
+    if(node_right->left) {
+        node_right->left->parent = node_right;
     }
     node->right = node_right_left->left;
-    if(node_right_left->left) {
-        node_right_left->left->parent = node;
+    if(node->right) {
+        node->right->parent = node;
     }
     node_right_left->right = node_right;
     node_right->parent = node_right_left;
     node_right_left->parent = node->parent;
-    if(node->parent) {
+    if(node_right_left->parent) {
         if(node_right_left->parent->left == node) {
             node_right_left->parent->left = node_right_left;
         }
@@ -301,13 +300,10 @@ static void avl_tree_rebalance(AVLTree* AVLT, AVLTreeNode* node, Queue* Q)
         if(node->balance_factor == -2) {
             if(node->left->balance_factor == -1) {
                 node = avl_subtree_rotate_right(node);
-                node_balance_factor(node, Q);
-                // node_balance_factor(node->left, Q);
                 node_balance_factor(node->right, Q);
             }
             else if(node->left->balance_factor == 1) {
                 node = avl_subtree_rotate_left_right(node);
-                node_balance_factor(node, Q);
                 node_balance_factor(node->left, Q);
                 node_balance_factor(node->right, Q);
             }
@@ -315,20 +311,17 @@ static void avl_tree_rebalance(AVLTree* AVLT, AVLTreeNode* node, Queue* Q)
         else if(node->balance_factor == 2) {
             if(node->right->balance_factor == 1) {
                 node = avl_subtree_rotate_left(node);
-                node_balance_factor(node, Q);
                 node_balance_factor(node->left, Q);
-                // node_balance_factor(node->right, Q);
             }
             else if(node->right->balance_factor == -1) {
                 node = avl_subtree_rotate_right_left(node);
-                node_balance_factor(node, Q);
                 node_balance_factor(node->left, Q);
                 node_balance_factor(node->right, Q);
             }
         }
+        node_balance_factor(node, Q);
         if(!node->parent) {
             AVLT->root = node;
-            // break;
         }
         node = node->parent;
     }
@@ -363,6 +356,7 @@ bool avl_tree_insert(AVLTree* AVLT, void* data)
         }
     }
     Queue *Q = queue_create((AVLT->size + 1)/2);
+    // Queue *Q = queue_create(AVLT->size);
     if(!Q) {
         return false;
     }
