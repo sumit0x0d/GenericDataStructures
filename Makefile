@@ -2,8 +2,8 @@ CC = gcc
 
 TARGET = main
 
-CFLAGS = -std=c99 -O0 -g -Wall -Wpedantic -Wextra -Werror
-# -fsanitize=address 
+CFLAGS = -std=c99 -O0 -g -Wall -Wpedantic -Wextra 
+# CFLAGS = -std=c99 -O0 -g -Wall -Wpedantic -Wextra -Werror -fsanitize=address 
 
 main1:
 	$(CC) $(CFLAGS) \
