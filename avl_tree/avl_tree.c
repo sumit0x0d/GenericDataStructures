@@ -138,12 +138,12 @@ static Queue* queue_create(size_t capacity)
 
 static AVLTreeNode* queue_front(Queue* Q)
 {
-    return Q->array + (sizeof (AVLTreeNode) * Q->front);
+    return Q->array + Q->front;
 }
 
 static void queue_enqueue(Queue* Q, AVLTreeNode* data)
 {
-    memcpy(Q->array + (sizeof (AVLTreeNode) * Q->back), data, sizeof (AVLTreeNode));
+    memcpy(Q->array + Q->back, data, sizeof (AVLTreeNode));
     Q->back = (Q->back + 1) % Q->capacity;
     Q->size = Q->size + 1;
 }
@@ -360,7 +360,6 @@ bool avl_tree_insert(AVLTree* AVLT, void* data)
     if(!Q) {
         return false;
     }
-    printf("%zu ", Q->capacity);
     node = node_create(AVLT->data_size);
     if(!node) {
         return false;

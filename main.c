@@ -129,7 +129,7 @@ int main()
     // int a[24] = {10, 20, 30, 40, 50, 60, 70, 80, 930, 31100, 1010, 1024, 145, 25, 465, 1723, 536, 6404, 8013, 330, 9230, 31011, 1011, 12};
     // int a[24] = {10, 20, 15, 40, 50, 60, 70, 80, 930, 31100, 1010, 1024, 145, 25, 465, 1723, 536, 6404, 8013, 330, 9230, 31011, 1011, 12};
     AVLTree *AVLT = avl_tree_create(sizeof (int), compare);
-    for(int i = 1; i <= 75; i++) {
+    for(int i = 1; i <= 80; i++) {
         if(!avl_tree_insert(AVLT, &i)) {
             break;
         }
@@ -148,8 +148,5 @@ int main()
     binary_tree_preorder_traversal(AVLT);
     binary_tree_inorder_traversal(AVLT);
     // avl_tree_remove(AVLT, &a[3]);
-    // binary_tree_preorder_traversal(AVLT);
-    // binary_tree_inorder_traversal(AVLT);
-    // binary_tree_postorder_traversal(AVLT);
-    // binary_tree_levelorder_traversal(AVLT);
+
 }
