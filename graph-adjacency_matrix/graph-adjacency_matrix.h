@@ -4,15 +4,15 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-typedef struct GraphAdjacencyMatrix GraphAdjacencyMatrix;
+typedef struct GraphAM GraphAM;
 
-GraphAdjacencyMatrix *graph_create();
-void graph_adjacency_matrix_destroy(GraphAdjacencyMatrix *G);
-bool graph_adjacency_matrix_adjacent(GraphAdjacencyMatrix *G, unsigned long vertex);
-bool graph_adjacency_matrix_neighbors(GraphAdjacencyMatrix *G, unsigned long vertex);
-bool graph_adjacency_matrix_insert_vertex(GraphAdjacencyMatrix *G, unsigned long vertex);
-bool graph_adjacency_matrix_remove_vertex(GraphAdjacencyMatrix *G, unsigned long vertex);
-bool graph_adjacency_matrix_insert_edge(GraphAdjacencyMatrix *G, unsigned long vertex_source, unsigned long vertex_destination);
-bool graph_adjacency_matrix_remove_edge(GraphAdjacencyMatrix *G, unsigned long vertex_source, unsigned long vertex_destination);
+GraphAM *graph_create();
+void graph_adjacency_matrix_destroy(GraphAM *G);
+bool graph_adjacency_matrix_adjacent(GraphAM *G, unsigned long vertex);
+bool graph_adjacency_matrix_neighbors(GraphAM *G, unsigned long vertex);
+bool graph_adjacency_matrix_insert_vertex(GraphAM *G, unsigned long vertex);
+bool graph_adjacency_matrix_remove_vertex(GraphAM *G, unsigned long vertex);
+bool graph_adjacency_matrix_insert_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_destination);
+bool graph_adjacency_matrix_remove_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_destination);
 
 #endif

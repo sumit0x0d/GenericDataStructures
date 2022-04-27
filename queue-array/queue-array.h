@@ -5,17 +5,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct QueueArray QueueArray;
+typedef struct QueueA QueueA;
 
-QueueArray* queue_array_create(size_t data_size, size_t capacity);
-bool queue_array_change_capacity(QueueArray* Q, size_t capacity);
-void queue_array_destroy(QueueArray* Q);
+QueueA* queue_array_create(size_t data_size, size_t capacity);
+bool queue_array_change_capacity(QueueA* Q, size_t capacity);
+void queue_array_destroy(QueueA* Q);
 
-void* queue_array_front(QueueArray* Q);
-void* queue_array_back(QueueArray* Q);
-size_t queue_array_size(QueueArray* Q);
+void* queue_array_front(QueueA* Q);
+void* queue_array_back(QueueA* Q);
+size_t queue_array_size(QueueA* Q);
 
-bool queue_array_enqueue(QueueArray* Q, void* data);
-bool queue_array_dequeue(QueueArray* Q);
+bool queue_array_enqueue(QueueA* Q, void* data);
+bool queue_array_dequeue(QueueA* Q);
 
 #endif

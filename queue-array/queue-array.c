@@ -1,6 +1,6 @@
 #include "queue-array.h"
 
-struct QueueArray {
+struct QueueA {
     void* array;
     size_t data_size;
     size_t front;
@@ -9,20 +9,20 @@ struct QueueArray {
     size_t size;
 };
 
-QueueArray* queue_array_create(size_t data_size, size_t capacity);
-bool queue_array_change_capacity(QueueArray* Q, size_t capacity);
-void queue_array_destroy(QueueArray* Q);
+QueueA* queue_array_create(size_t data_size, size_t capacity);
+bool queue_array_change_capacity(QueueA* Q, size_t capacity);
+void queue_array_destroy(QueueA* Q);
 
-void* queue_array_front(QueueArray* Q);
-void* queue_array_back(QueueArray* Q);
-size_t queue_array_size(QueueArray* Q);
+void* queue_array_front(QueueA* Q);
+void* queue_array_back(QueueA* Q);
+size_t queue_array_size(QueueA* Q);
 
-bool queue_array_enqueue(QueueArray* Q, void* data);
-bool queue_array_dequeue(QueueArray* Q);
+bool queue_array_enqueue(QueueA* Q, void* data);
+bool queue_array_dequeue(QueueA* Q);
 
-QueueArray* queue_array_create(size_t data_size, size_t capacity)
+QueueA* queue_array_create(size_t data_size, size_t capacity)
 {
-    QueueArray* Q = malloc(sizeof (QueueArray));
+    QueueA* Q = malloc(sizeof (QueueA));
     if(!Q) {
         return NULL;
     }
@@ -38,7 +38,7 @@ QueueArray* queue_array_create(size_t data_size, size_t capacity)
     return Q;
 }
 
-bool queue_array_change_capacity(QueueArray* Q, size_t capacity)
+bool queue_array_change_capacity(QueueA* Q, size_t capacity)
 {
     if(!capacity) {
         return false;
@@ -52,7 +52,7 @@ bool queue_array_change_capacity(QueueArray* Q, size_t capacity)
     return true;
 }
 
-void queue_array_destroy(QueueArray* Q)
+void queue_array_destroy(QueueA* Q)
 {
     free(Q->array);
     Q->array = NULL;
@@ -60,26 +60,26 @@ void queue_array_destroy(QueueArray* Q)
     Q = NULL;
 }
 
-void* queue_array_front(QueueArray* Q)
+void* queue_array_front(QueueA* Q)
 {
-    return (char *)Q->array + (Q->data_size * Q->front);
+    return (char*)Q->array + (Q->data_size * Q->front);
 }
 
-void* queue_array_back(QueueArray* Q)
+void* queue_array_back(QueueA* Q)
 {
-    return (char *)Q->array + (Q->data_size * Q->back);
+    return (char*)Q->array + (Q->data_size * Q->back);
 }
 
-size_t queue_array_size(QueueArray* Q)
+size_t queue_array_size(QueueA* Q)
 {
     return Q->size;
 }
 
-bool queue_array_enqueue(QueueArray* Q, void* data)
+bool queue_array_enqueue(QueueA* Q, void* data)
 {
     if(Q->back == Q->capacity) {
         if(Q->front) {
-            memmove(Q->array, (char *)Q->array + (Q->data_size * Q->front), Q->size);
+            memmove(Q->array, (char*)Q->array + (Q->data_size * Q->front), Q->size);
             Q->front = 0;
             Q->back = Q->size;
         }
@@ -87,13 +87,13 @@ bool queue_array_enqueue(QueueArray* Q, void* data)
             return false;
         }
     }
-    memcpy((char *)Q->array + (Q->data_size * Q->back), data, Q->data_size);
+    memcpy((char*)Q->array + (Q->data_size * Q->back), data, Q->data_size);
     Q->back = Q->back + 1;
     Q->size = Q->size + 1;
     return true;
 }
 
-bool queue_array_dequeue(QueueArray* Q)
+bool queue_array_dequeue(QueueA* Q)
 {
     if(!Q->size) {
         return false;

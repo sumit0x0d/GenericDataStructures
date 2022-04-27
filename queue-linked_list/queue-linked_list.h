@@ -5,17 +5,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct QueueLinkedListNode QueueLinkedListNode;
-typedef struct QueueLinkedList QueueLinkedList;
+typedef struct QueueLLNode QueueLLNode;
+typedef struct QueueLL QueueLL;
 
-QueueLinkedList* queue_linked_list_create(size_t data_size);
-void queue_linked_list_destroy(QueueLinkedList* Q);
+QueueLL* queue_linked_list_create(size_t data_size);
+void queue_linked_list_destroy(QueueLL* Q);
 
-void* queue_linked_list_front(QueueLinkedList* Q);
-void* queue_linked_list_back(QueueLinkedList* Q);
-size_t queue_linked_list_size(QueueLinkedList* Q);
+void* queue_linked_list_front(QueueLL* Q);
+void* queue_linked_list_back(QueueLL* Q);
+size_t queue_linked_list_size(QueueLL* Q);
 
-bool queue_linked_list_enqueue(QueueLinkedList* Q, void* data);
-bool queue_linked_list_dequeue(QueueLinkedList* Q);
+bool queue_linked_list_enqueue(QueueLL* Q, void* data);
+bool queue_linked_list_dequeue(QueueLL* Q);
 
 #endif
