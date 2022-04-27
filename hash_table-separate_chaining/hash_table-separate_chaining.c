@@ -78,6 +78,11 @@ HashTableSCPair* pair_create(size_t key_size, size_t value_size)
     return pair;
 }
 
+void pair_destroy(HashTableSCPair *pair)
+{
+
+}
+
 bool hash_table_separate_chaining_insert(HashTableSC* HT, void* key, void* value)
 {
     HashTableSCPair* pair = pair_create(HT->key_size, HT->value_size);
