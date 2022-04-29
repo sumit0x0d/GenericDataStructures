@@ -3,8 +3,8 @@
 DequeLL* DequeLL_create(size_t data_size);
 void DequeLL_destroy(DequeLL* D);
 
-static DequeLLNode* deque_node_create(size_t data_size);
-static void deque_node_destroy(DequeLLNode* D);
+static DequeLLNode* DequeLLnode_create(size_t data_size);
+static void DequeLLnode_destroy(DequeLLNode* D);
 
 bool DequeLL_push_front(DequeLL* D, void* data);
 bool DequeLL_push_back(DequeLL* D, void* data);
@@ -41,7 +41,7 @@ void DequeLL_destroy(DequeLL* D)
     D = NULL;
 }
 
-DequeLLNode* deque_node_create(size_t data_size)
+static DequeLLNode* DequeLLnode_create(size_t data_size)
 {
     DequeLLNode* node = malloc(sizeof (DequeLLNode));
     if(!node) {
@@ -56,7 +56,7 @@ DequeLLNode* deque_node_create(size_t data_size)
     return node;
 }
 
-void deque_node_destroy(DequeLLNode* node)
+static void DequeLLnode_destroy(DequeLLNode* node)
 {
     free(node->data);
     node->data = NULL;
@@ -66,7 +66,7 @@ void deque_node_destroy(DequeLLNode* node)
 
 bool DequeLL_push_front(DequeLL* D, void* data)
 {
-    DequeLLNode* node = deque_node_create(D->data_size);
+    DequeLLNode* node = DequeLLnode_create(D->data_size);
     if(!node) {
         return false;
     }
@@ -87,7 +87,7 @@ bool DequeLL_push_front(DequeLL* D, void* data)
 
 bool DequeLL_push_back(DequeLL* D, void* data)
 {
-    DequeLLNode* node = deque_node_create(D->data_size);
+    DequeLLNode* node = DequeLLnode_create(D->data_size);
     if(!node) {
         return false; 
     }
@@ -116,7 +116,7 @@ bool DequeLL_pop_front(DequeLL* D)
     if(!D->front) {
         D->back = NULL;
     }
-    deque_node_destroy(node);
+    DequeLLnode_destroy(node);
     D->size = D->size - 1;
     return true;
 }
@@ -131,7 +131,7 @@ bool DequeLL_pop_back(DequeLL* D)
     if(D->back) {
         D->back->next = NULL;
     }
-    deque_node_destroy(node);
+    DequeLLnode_destroy(node);
     D->size = D->size - 1;
     return true;
 }

@@ -6,10 +6,10 @@ RedBlackTree* RedBlackTree_create(size_t data_size,
 void* RedBlackTree_root(RedBlackTree* RedBlackT);
 size_t RedBlackTree_size(RedBlackTree* RedBlackT);
 
-static RedBlackTreeNode* red_black_subtree_rotate_right(RedBlackTreeNode* node);
-static RedBlackTreeNode* red_black_subtree_rotate_left_right(RedBlackTreeNode* node);
-static RedBlackTreeNode* red_black_subtree_rotate_left(RedBlackTreeNode* node);
-static RedBlackTreeNode* red_black_subtree_rotate_right_left(RedBlackTreeNode* node);
+static RedBlackTreeNode* RedBlackTreeNode_rotate_right(RedBlackTreeNode* node);
+static RedBlackTreeNode* RedBlackTreeNode_rotate_left_right(RedBlackTreeNode* node);
+static RedBlackTreeNode* RedBlackTreeNode_rotate_left(RedBlackTreeNode* node);
+static RedBlackTreeNode* RedBlackTreeNode_rotate_right_left(RedBlackTreeNode* node);
 static void RedBlackTree_rebalance(RedBlackTree* RBT, RedBlackTreeNode* node);
 
 bool RedBlackTree_insert(RedBlackTree* RBT, void* data);
@@ -48,7 +48,7 @@ static RedBlackTreeNode* node_create(size_t data_size)
     return node;
 }
 
-static RedBlackTreeNode* red_black_subtree_rotate_right(RedBlackTreeNode* node)
+static RedBlackTreeNode* RedBlackTreeNode_rotate_right(RedBlackTreeNode* node)
 {
     RedBlackTreeNode* node_left = node->left;
     node->left = node_left->right;
@@ -69,7 +69,7 @@ static RedBlackTreeNode* red_black_subtree_rotate_right(RedBlackTreeNode* node)
     return node_left;
 }
 
-static RedBlackTreeNode* red_black_subtree_rotate_left_right(RedBlackTreeNode* node)
+static RedBlackTreeNode* RedBlackTreeNode_rotate_left_right(RedBlackTreeNode* node)
 {
     RedBlackTreeNode* node_left = node->left;
     RedBlackTreeNode* node_left_right = node_left->right;
@@ -100,7 +100,7 @@ static RedBlackTreeNode* red_black_subtree_rotate_left_right(RedBlackTreeNode* n
     return node_left_right;
 }
 
-static RedBlackTreeNode* red_black_subtree_rotate_left(RedBlackTreeNode* node)
+static RedBlackTreeNode* RedBlackTreeNode_rotate_left(RedBlackTreeNode* node)
 {
     RedBlackTreeNode* node_right = node->right;
     node->right = node_right->left;
@@ -121,7 +121,7 @@ static RedBlackTreeNode* red_black_subtree_rotate_left(RedBlackTreeNode* node)
     return node_right;
 }
 
-static RedBlackTreeNode* red_black_subtree_rotate_right_left(RedBlackTreeNode* node)
+static RedBlackTreeNode* RedBlackTreeNode_rotate_right_left(RedBlackTreeNode* node)
 {
     RedBlackTreeNode* node_right = node->right;
     RedBlackTreeNode* node_right_left = node_right->left;
@@ -157,7 +157,7 @@ static void RedBlackTree_rebalance(RedBlackTree* RBT, RedBlackTreeNode* node)
     while(node) {
         if(node->parent->left == node) {
             if(node->color == RED && (!node->parent->right || node->parent->right->color == BLACK)) {
-                node = red_black_subtree_rotate_left(node);
+                node = RedBlackTreeNode_rotate_left(node);
             }
             if(node->color == RED && (node->parent->right && node->parent->right->color == RED)) {
                 node->parent->color = BLACK;
@@ -165,10 +165,10 @@ static void RedBlackTree_rebalance(RedBlackTree* RBT, RedBlackTreeNode* node)
         }
         else {
             if(node->color == RED && (!node->parent->left || node->parent->left->color == BLACK)) {
-                node = red_black_subtree_rotate_left(node);
-                node = red_black_subtree_rotate_right_left(node);
-                node = red_black_subtree_rotate_left_right(node);
-                node = red_black_subtree_rotate_right(node);
+                node = RedBlackTreeNode_rotate_left(node);
+                node = RedBlackTreeNode_rotate_right_left(node);
+                node = RedBlackTreeNode_rotate_left_right(node);
+                node = RedBlackTreeNode_rotate_right(node);
             }
             if(node->color == RED && (node->parent->left && node->parent->left->color == RED)) {
                 node->parent->color = BLACK;

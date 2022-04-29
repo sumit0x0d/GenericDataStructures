@@ -9,7 +9,7 @@ typedef struct GraphAM {
     unsigned long vertex;
 } GraphAM;
 
-GraphAM *graph_create();
+GraphAM *graphAM_create();
 void GraphAM_destroy(GraphAM *G);
 
 bool GraphAM_adjacent(GraphAM *G, unsigned long vertex);

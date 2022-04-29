@@ -4,8 +4,8 @@ HashTableSC* HashTableSC_create(size_t key_size, size_t value_size, size_t bucke
     size_t hash(void* key, size_t buckets), int (*compare)(void* key, void* pair_key));
 void HashTableSC_destroy(HashTableSC* HT);
 
-HashTableSCPair* hash_table_pair_create(size_t key_size, size_t value_size);
-void hash_table_pair_destroy(HashTableSCPair *pair);
+HashTableSCPair* HashTableSCPair_create(size_t key_size, size_t value_size);
+void HashTableSCPair_destroy(HashTableSCPair *pair);
 
 void* HashTableSC_search(HashTableSC* HT, void* key);
 
@@ -42,7 +42,7 @@ void HashTableSC_destroy(HashTableSC* HT)
     HT = NULL;
 }
 
-HashTableSCPair* hash_table_pair_create(size_t key_size, size_t value_size)
+HashTableSCPair* HashTableSCPair_create(size_t key_size, size_t value_size)
 {
     HashTableSCPair* pair = malloc(sizeof (HashTableSCPair));
     if(!pair) {
@@ -65,14 +65,14 @@ HashTableSCPair* hash_table_pair_create(size_t key_size, size_t value_size)
     return pair;
 }
 
-void hash_table_pair_destroy(HashTableSCPair *pair)
+void HashTableSCPair_destroy(HashTableSCPair *pair)
 {
     free(pair);
 }
 
 bool HashTableSC_insert(HashTableSC* HT, void* key, void* value)
 {
-    HashTableSCPair* pair = hash_table_pair_create(HT->key_size, HT->value_size);
+    HashTableSCPair* pair = HashTableSCPair_create(HT->key_size, HT->value_size);
     if(!pair) {
         return false;
     }
@@ -80,15 +80,15 @@ bool HashTableSC_insert(HashTableSC* HT, void* key, void* value)
     memcpy(pair->value, value, HT->value_size);
     pair->next = NULL;
     size_t index = HT->hash(key, HT->buckets);
-    if(HT->array + index) {
-        HashTableSCPair* ptr = HT->array + index;
+    if(&HT->array[index]) {
+        HashTableSCPair* ptr = &HT->array[index];
         while(ptr->next) {
             ptr = ptr->next;
         }
         ptr->next = pair;
     }
     else {
-        memcpy(HT->array + index, pair, sizeof (HashTableSCPair));
+        memcpy(&HT->array[index], pair, sizeof (HashTableSCPair));
     }
     HT->size = HT->size + 1;
     return true;

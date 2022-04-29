@@ -3,8 +3,8 @@
 QueueLL* QueueLL_create(size_t data_size);
 void QueueLL_destroy(QueueLL* Q);
 
-static QueueLLNode* queue_node_create(size_t data_size);
-static void queue_node_destroy(QueueLLNode* Q);
+static QueueLLNode* QueueLLnode_create(size_t data_size);
+static void QueueLLnode_destroy(QueueLLNode* Q);
 
 bool QueueLL_enqueue(QueueLL* Q, void* data);
 bool QueueLL_dequeue(QueueLL* Q);
@@ -39,7 +39,7 @@ void QueueLL_destroy(QueueLL* Q)
     Q = NULL;
 }
 
-static QueueLLNode* queue_node_create(size_t data_size)
+static QueueLLNode* QueueLLnode_create(size_t data_size)
 {
     QueueLLNode* node = malloc(sizeof (QueueLLNode));
     if(!node) {
@@ -55,7 +55,7 @@ static QueueLLNode* queue_node_create(size_t data_size)
     return node;
 }
 
-static void queue_node_destroy(QueueLLNode* node)
+static void QueueLLnode_destroy(QueueLLNode* node)
 {
     free(node->data);
     node->data = NULL;
@@ -65,7 +65,7 @@ static void queue_node_destroy(QueueLLNode* node)
 
 bool QueueLL_enqueue(QueueLL* Q, void* data)
 {
-    QueueLLNode* node = queue_node_create(Q->data_size);
+    QueueLLNode* node = QueueLLnode_create(Q->data_size);
     if(!node) {
         return false;
     }
@@ -91,7 +91,7 @@ bool QueueLL_dequeue(QueueLL* Q)
     if(!Q->front) {
         Q->back = NULL;
     }
-    queue_node_destroy(node);
+    QueueLLnode_destroy(node);
     Q->size = Q->size - 1;
     return true;
 }

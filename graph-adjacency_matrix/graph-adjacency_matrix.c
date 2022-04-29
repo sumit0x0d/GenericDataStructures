@@ -7,7 +7,7 @@ bool GraphAM_remove_vertex(GraphAM *G, unsigned long vertex);
 bool GraphAM_insert_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_destination);
 bool GraphAM_remove_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_destination);
 
-GraphAM *graph_create()
+GraphAM *graphAM_create()
 {
     GraphAM *G = malloc(sizeof (GraphAM));
     if(!G) {
