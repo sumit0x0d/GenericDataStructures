@@ -1,26 +1,13 @@
 #include "queue-array.h"
 
-struct QueueA {
-    void* array;
-    size_t data_size;
-    size_t front;
-    size_t back;
-    size_t capacity;
-    size_t size;
-};
+QueueA* QueueA_create(size_t data_size, size_t capacity);
+bool QueueA_change_capacity(QueueA* Q, size_t capacity);
+void QueueA_destroy(QueueA* Q);
 
-QueueA* queue_array_create(size_t data_size, size_t capacity);
-bool queue_array_change_capacity(QueueA* Q, size_t capacity);
-void queue_array_destroy(QueueA* Q);
+bool QueueA_enqueue(QueueA* Q, void* data);
+bool QueueA_dequeue(QueueA* Q);
 
-void* queue_array_front(QueueA* Q);
-void* queue_array_back(QueueA* Q);
-size_t queue_array_size(QueueA* Q);
-
-bool queue_array_enqueue(QueueA* Q, void* data);
-bool queue_array_dequeue(QueueA* Q);
-
-QueueA* queue_array_create(size_t data_size, size_t capacity)
+QueueA* QueueA_create(size_t data_size, size_t capacity)
 {
     QueueA* Q = malloc(sizeof (QueueA));
     if(!Q) {
@@ -38,7 +25,7 @@ QueueA* queue_array_create(size_t data_size, size_t capacity)
     return Q;
 }
 
-bool queue_array_change_capacity(QueueA* Q, size_t capacity)
+bool QueueA_change_capacity(QueueA* Q, size_t capacity)
 {
     if(!capacity) {
         return false;
@@ -52,7 +39,7 @@ bool queue_array_change_capacity(QueueA* Q, size_t capacity)
     return true;
 }
 
-void queue_array_destroy(QueueA* Q)
+void QueueA_destroy(QueueA* Q)
 {
     free(Q->array);
     Q->array = NULL;
@@ -60,22 +47,7 @@ void queue_array_destroy(QueueA* Q)
     Q = NULL;
 }
 
-void* queue_array_front(QueueA* Q)
-{
-    return (char*)Q->array + (Q->data_size * Q->front);
-}
-
-void* queue_array_back(QueueA* Q)
-{
-    return (char*)Q->array + (Q->data_size * Q->back);
-}
-
-size_t queue_array_size(QueueA* Q)
-{
-    return Q->size;
-}
-
-bool queue_array_enqueue(QueueA* Q, void* data)
+bool QueueA_enqueue(QueueA* Q, void* data)
 {
     if(Q->back == Q->capacity) {
         if(Q->front) {
@@ -93,7 +65,7 @@ bool queue_array_enqueue(QueueA* Q, void* data)
     return true;
 }
 
-bool queue_array_dequeue(QueueA* Q)
+bool QueueA_dequeue(QueueA* Q)
 {
     if(!Q->size) {
         return false;

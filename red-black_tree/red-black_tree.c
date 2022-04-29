@@ -1,45 +1,23 @@
 #include "red-black_tree.h"
 
-struct RedBlackTreeNode {
-    void* data;
-    struct RedBlackTreeNode* left;
-    struct RedBlackTreeNode* right;
-    struct RedBlackTreeNode* parent;
-    enum {RED, BLACK} color;
-};
-
-struct RedBlackTree {
-    RedBlackTreeNode* root;
-    size_t data_size;
-    size_t size;
-    int (*compare)(void* data, void* node_data);
-};
-
-RedBlackTree* red_black_tree_create(size_t data_size,
+RedBlackTree* RedBlackTree_create(size_t data_size,
     int (*compare)(void* data, void* node_data));
 
-void* red_black_tree_root(RedBlackTree* RedBlackT);
-size_t red_black_tree_size(RedBlackTree* RedBlackT);
+void* RedBlackTree_root(RedBlackTree* RedBlackT);
+size_t RedBlackTree_size(RedBlackTree* RedBlackT);
 
 static RedBlackTreeNode* red_black_subtree_rotate_right(RedBlackTreeNode* node);
 static RedBlackTreeNode* red_black_subtree_rotate_left_right(RedBlackTreeNode* node);
 static RedBlackTreeNode* red_black_subtree_rotate_left(RedBlackTreeNode* node);
 static RedBlackTreeNode* red_black_subtree_rotate_right_left(RedBlackTreeNode* node);
-static void red_black_tree_rebalance(RedBlackTree* RBT, RedBlackTreeNode* node);
+static void RedBlackTree_rebalance(RedBlackTree* RBT, RedBlackTreeNode* node);
 
-bool red_black_tree_insert(RedBlackTree* RBT, void* data);
-bool red_black_tree_remove(RedBlackTree* RBT, void* data);
+bool RedBlackTree_insert(RedBlackTree* RBT, void* data);
+bool RedBlackTree_remove(RedBlackTree* RBT, void* data);
 
-RedBlackTreeNode* red_black_tree_begin(RedBlackTree* RBT);
-RedBlackTreeNode* red_black_tree_search(RedBlackTree* RBT, void* data);
+RedBlackTreeNode* RedBlackTree_search(RedBlackTree* RBT, void* data);
 
-void* red_black_tree_node_data(RedBlackTreeNode* node);
-RedBlackTreeNode* red_black_tree_node_left(RedBlackTreeNode* node);
-RedBlackTreeNode* red_black_tree_node_right(RedBlackTreeNode* node);
-RedBlackTreeNode* red_black_tree_node_parent(RedBlackTreeNode* node);
-int red_black_tree_node_color(RedBlackTreeNode* node);
-
-RedBlackTree* red_black_tree_create(size_t data_size,
+RedBlackTree* RedBlackTree_create(size_t data_size,
     int (*compare)(void* data, void* node_data))
 {
     RedBlackTree* RBT = malloc(sizeof (RedBlackTree));
@@ -174,7 +152,7 @@ static RedBlackTreeNode* red_black_subtree_rotate_right_left(RedBlackTreeNode* n
     return node_right_left;
 }
 
-static void red_black_tree_rebalance(RedBlackTree* RBT, RedBlackTreeNode* node)
+static void RedBlackTree_rebalance(RedBlackTree* RBT, RedBlackTreeNode* node)
 {
     while(node) {
         if(node->parent->left == node) {
@@ -200,7 +178,7 @@ static void red_black_tree_rebalance(RedBlackTree* RBT, RedBlackTreeNode* node)
     }
 }
 
-bool red_black_tree_insert(RedBlackTree* RBT, void* data)
+bool RedBlackTree_insert(RedBlackTree* RBT, void* data)
 {
     if(!RBT->size) {
         RBT->root = node_create(RBT->data_size);
@@ -242,22 +220,17 @@ bool red_black_tree_insert(RedBlackTree* RBT, void* data)
     else {
         node_parent->right = node;
     }
-    red_black_tree_rebalance(RBT, node_parent);
+    RedBlackTree_rebalance(RBT, node_parent);
     RBT->size = RBT->size + 1;
     return true;
 }
 
-// void red_black_tree_remove(RedBlackTree* RBT, int data)
+// void RedBlackTree_remove(RedBlackTree* RBT, int data)
 // {
 
 // }
 
-RedBlackTreeNode* red_black_tree_begin(RedBlackTree* RBT)
-{
-    return RBT->root;
-}
-
-RedBlackTreeNode* red_black_tree_search(RedBlackTree* RBT, void* data)
+RedBlackTreeNode* RedBlackTree_search(RedBlackTree* RBT, void* data)
 {
     RedBlackTreeNode* node = RBT->root;
     int compare;
@@ -274,29 +247,4 @@ RedBlackTreeNode* red_black_tree_search(RedBlackTree* RBT, void* data)
         }
     }
     return NULL;
-}
-
-void* red_black_tree_node_data(RedBlackTreeNode* node)
-{
-    return node->data;
-}
-
-RedBlackTreeNode* red_black_tree_node_left(RedBlackTreeNode* node)
-{
-    return node->left;
-}
-
-RedBlackTreeNode* red_black_tree_node_right(RedBlackTreeNode* node)
-{
-    return node->right;
-}
-
-RedBlackTreeNode* red_black_tree_node_parent(RedBlackTreeNode* node)
-{
-    return node->parent;
-}
-
-int red_black_tree_node_color(RedBlackTreeNode* node)
-{
-    return node->color;
 }

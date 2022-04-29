@@ -5,36 +5,37 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct DoublyLinkedListNode DoublyLinkedListNode;
-typedef struct DoublyLinkedList DoublyLinkedList;
+typedef struct DoublyLinkedListNode {
+    void* data;
+    struct DoublyLinkedListNode* previous;
+    struct DoublyLinkedListNode* next;
+} DoublyLinkedListNode;
 
-DoublyLinkedList* doubly_linked_list_create(size_t data_size,
+typedef struct DoublyLinkedList {
+    DoublyLinkedListNode* head;
+    DoublyLinkedListNode* tail;
+    size_t data_size;
+    size_t size;
+    int (*compare)(void* data, void* node_data);
+} DoublyLinkedList;
+
+DoublyLinkedList* DoublyLinkedList_create(size_t data_size,
     int (*compare)(void* data, void* node_data));
-void doubly_linked_list_destroy(DoublyLinkedList* DLL);
+void DoublyLinkedList_destroy(DoublyLinkedList* DLL);
 
-void* doubly_linked_list_front(DoublyLinkedList* DLL);
-void* doubly_linked_list_back(DoublyLinkedList* DLL);
-size_t doubly_linked_list_size(DoublyLinkedList* DLL);
+bool DoublyLinkedList_push_front(DoublyLinkedList* DLL, void* data);
+bool DoublyLinkedList_push_back(DoublyLinkedList* DLL, void* data);
+bool DoublyLinkedList_insert(DoublyLinkedList* DLL, size_t index, void* data);
+bool DoublyLinkedList_sorted_insert(DoublyLinkedList* DLL, void* data);
+bool DoublyLinkedList_pop_front(DoublyLinkedList* DLL);
+bool DoublyLinkedList_pop_back(DoublyLinkedList* DLL);
+bool DoublyLinkedList_remove(DoublyLinkedList* DLL, void* data);
+bool DoublyLinkedList_erase(DoublyLinkedList* DLL, size_t index);
+bool DoublyLinkedList_update(DoublyLinkedList* SLL, size_t index, void* data);
+bool DoublyLinkedList_linear(DoublyLinkedList* DLL);
+bool DoublyLinkedList_circular(DoublyLinkedList* DLL);
 
-bool doubly_linked_list_push_front(DoublyLinkedList* DLL, void* data);
-bool doubly_linked_list_push_back(DoublyLinkedList* DLL, void* data);
-bool doubly_linked_list_insert(DoublyLinkedList* DLL, size_t index, void* data);
-bool doubly_linked_list_sorted_insert(DoublyLinkedList* DLL, void* data);
-bool doubly_linked_list_pop_front(DoublyLinkedList* DLL);
-bool doubly_linked_list_pop_back(DoublyLinkedList* DLL);
-bool doubly_linked_list_remove(DoublyLinkedList* DLL, void* data);
-bool doubly_linked_list_erase(DoublyLinkedList* DLL, size_t index);
-bool doubly_linked_list_update(DoublyLinkedList* SLL, size_t index, void* data);
-bool doubly_linked_list_linear(DoublyLinkedList* DLL);
-bool doubly_linked_list_circular(DoublyLinkedList* DLL);
-
-DoublyLinkedListNode* doubly_linked_list_begin(DoublyLinkedList* DLL);
-DoublyLinkedListNode* doubly_linked_list_end(DoublyLinkedList* DLL);
-DoublyLinkedListNode* doubly_linked_list_search(DoublyLinkedList* DLL, void* data);
-DoublyLinkedListNode* doubly_linked_list_at(DoublyLinkedList* DLL, size_t index);
-
-void* doubly_linked_list_node_data(DoublyLinkedListNode* node);
-DoublyLinkedListNode* doubly_linked_list_node_next(DoublyLinkedListNode* node);
-DoublyLinkedListNode* doubly_linked_list_node_previous(DoublyLinkedListNode* node);
+DoublyLinkedListNode* DoublyLinkedList_search(DoublyLinkedList* DLL, void* data);
+DoublyLinkedListNode* DoublyLinkedList_at(DoublyLinkedList* DLL, size_t index);
 
 #endif

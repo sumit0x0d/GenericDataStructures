@@ -1,28 +1,15 @@
 #include "deque-array.h"
 
-struct DequeA {
-    void* array;
-    size_t data_size;
-    size_t front;
-    size_t back;
-    size_t capacity;
-    size_t size;
-};
+DequeA* DequeA_create(size_t data_size, size_t capacity);
+bool DequeA_change_capacity(DequeA* D, size_t capacity);
+void DequeA_destroy(DequeA* D);
 
-DequeA* deque_array_create(size_t data_size, size_t capacity);
-bool deque_array_change_capacity(DequeA* D, size_t capacity);
-void deque_array_destroy(DequeA* D);
+bool DequeA_push_front(DequeA* D, void* data);
+bool DequeA_push_back(DequeA* D, void* data);
+bool DequeA_pop_front(DequeA* D);
+bool DequeA_pop_back(DequeA* D);
 
-void* deque_array_front(DequeA* D);
-void* deque_array_back(DequeA* D);
-size_t deque_array_size(DequeA* D);
-
-bool deque_array_push_front(DequeA* D, void* data);
-bool deque_array_push_back(DequeA* D, void* data);
-bool deque_array_pop_front(DequeA* D);
-bool deque_array_pop_back(DequeA* D);
-
-DequeA* deque_array_create(size_t data_size, size_t capacity)
+DequeA* DequeA_create(size_t data_size, size_t capacity)
 {
     DequeA* D = malloc(sizeof (DequeA));
     if(!D) {
@@ -40,7 +27,7 @@ DequeA* deque_array_create(size_t data_size, size_t capacity)
     return D;
 }
 
-bool deque_array_change_capacity(DequeA* D, size_t capacity)
+bool DequeA_change_capacity(DequeA* D, size_t capacity)
 {
     if(!capacity) {
         return false;
@@ -54,7 +41,7 @@ bool deque_array_change_capacity(DequeA* D, size_t capacity)
     return true;
 }
 
-void deque_array_destroy(DequeA* D)
+void DequeA_destroy(DequeA* D)
 {
     free(D->array);
     D->array = NULL;
@@ -62,22 +49,7 @@ void deque_array_destroy(DequeA* D)
     D = NULL;
 }
 
-void* deque_array_front(DequeA* D)
-{
-    return (char* )D->array + (D->data_size * D->front);
-}
-
-void* deque_array_back(DequeA* D)
-{
-    return (char* )D->array + (D->data_size * D->back);
-}
-
-size_t deque_array_size(DequeA* D)
-{
-    return D->size;
-}
-
-bool deque_array_push_front(DequeA* D, void* data)
+bool DequeA_push_front(DequeA* D, void* data)
 {
     if(D->front) {
         D->front = D->front - 1;
@@ -93,7 +65,7 @@ bool deque_array_push_front(DequeA* D, void* data)
     return true;
 }
 
-bool deque_array_push_back(DequeA* D, void* data)
+bool DequeA_push_back(DequeA* D, void* data)
 {
     if(D->back == D->capacity) {
         if(D->front) {
@@ -111,7 +83,7 @@ bool deque_array_push_back(DequeA* D, void* data)
     return true;
 }
 
-bool deque_array_pop_front(DequeA* D)
+bool DequeA_pop_front(DequeA* D)
 {
     if(!D->size) {
         return false;
@@ -121,7 +93,7 @@ bool deque_array_pop_front(DequeA* D)
     return true;
 }
 
-bool deque_array_pop_back(DequeA* D)
+bool DequeA_pop_back(DequeA* D)
 {
     if(!D->size) {
         return false;

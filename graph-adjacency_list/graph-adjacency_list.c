@@ -1,34 +1,20 @@
 #include "graph-adjacency_list.h"
 
-struct Vertex {
-    void* data;
-    size_t index;
-    unsigned long weight;
-    struct Vertex *edge;
-};
+GraphAL* GraphAL_create(size_t data_size);
+void GraphAL_destroy(GraphAL* G);
 
-struct GraphAL {
-    Vertex *adjacency_list;
-    size_t data_size;
-    unsigned long vertices;
-    size_t size;
-};
-
-GraphAL* graph_adjacency_list_create(size_t data_size);
-void graph_adjacency_list_destroy(GraphAL* G);
-
-void* graph_adjacency_list_vertices(GraphAL* G);
-size_t graph_adjacency_list_size(GraphAL* G);
+void* GraphAL_vertices(GraphAL* G);
+size_t GraphAL_size(GraphAL* G);
 
 static Vertex *vertex_create(size_t data_size);
 // static void vertex_destroy(Vertex *vertex);
 
-bool graph_adjacency_list_vertex_insert(GraphAL* G, void* data);
-bool graph_adjacency_list_vertex_remove(GraphAL* G, void* data);
-bool graph_adjacency_list_edge_insert(GraphAL* G, Vertex *vertex_source, Vertex *vertex_destination, unsigned long weight);
-bool graph_adjacency_list_edge_remove(GraphAL* G, Vertex *vertex_source, Vertex *vertex_destination);
+bool GraphAL_vertex_insert(GraphAL* G, void* data);
+bool GraphAL_vertex_remove(GraphAL* G, void* data);
+bool GraphAL_edge_insert(GraphAL* G, Vertex *vertex_source, Vertex *vertex_destination, unsigned long weight);
+bool GraphAL_edge_remove(GraphAL* G, Vertex *vertex_source, Vertex *vertex_destination);
 
-GraphAL* graph_adjacency_list_create(size_t data_size)
+GraphAL* GraphAL_create(size_t data_size)
 {
     GraphAL* G = malloc(sizeof (GraphAL));
     if(!G) {
@@ -41,7 +27,7 @@ GraphAL* graph_adjacency_list_create(size_t data_size)
     return G;
 }
 
-void graph_adjacency_list_destroy(GraphAL* G)
+void GraphAL_destroy(GraphAL* G)
 {
     free(G->adjacency_list);
     G->adjacency_list = NULL;
@@ -57,7 +43,7 @@ void graph_adjacency_list_destroy(GraphAL* G)
 //     }
 // }
 
-// Vertex *graph_adjacency_list_vertex_search(GraphAL* G, void* data)
+// Vertex *GraphAL_vertex_search(GraphAL* G, void* data)
 // {
 //     Vertex *vertex = G->adjacency_list;
 
@@ -89,7 +75,7 @@ Vertex *vertex_create(size_t data_size)
 
 // }
 
-bool graph_adjacency_list_vertex_insert(GraphAL* G, void* data)
+bool GraphAL_vertex_insert(GraphAL* G, void* data)
 {
     if(!G->adjacency_list) {
         G->adjacency_list = malloc(sizeof (Vertex));
@@ -121,12 +107,12 @@ bool graph_adjacency_list_vertex_insert(GraphAL* G, void* data)
 
 // }
 
-// void graph_adjacency_list_vertex_remove(GraphAL* G)
+// void GraphAL_vertex_remove(GraphAL* G)
 // {
 
 // }
 
-// bool graph_adjacency_list_edge_insert(GraphAL* G, Vertex *vertex_source, Vertex *vertex_destination, unsigned long weight)
+// bool GraphAL_edge_insert(GraphAL* G, Vertex *vertex_source, Vertex *vertex_destination, unsigned long weight)
 // {
     
 // }

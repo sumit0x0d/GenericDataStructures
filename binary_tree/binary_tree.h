@@ -4,12 +4,20 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct BinaryTreeNode BinaryTreeNode;
-typedef struct BinaryTree BinaryTree;
+typedef struct BinaryTreeNode {
+    void* data;
+    struct BinaryTreeNode* left;
+    struct BinaryTreeNode* right;
+} BinaryTreeNode;
 
-BinaryTree* binary_tree_create();
-void binary_tree_destroy(BinaryTree* bt);
+typedef struct BinaryTree {
+    BinaryTreeNode* root;
+    size_t size;
+} BinaryTree;
 
-BinaryTreeNode* binary_tree_insert(BinaryTree* bt, void* data, size_t data_size);
+BinaryTree* BinaryTree_create();
+void BinaryTree_destroy(BinaryTree* bt);
+
+BinaryTreeNode* BinaryTree_insert(BinaryTree* bt, void* data, size_t data_size);
 
 #endif

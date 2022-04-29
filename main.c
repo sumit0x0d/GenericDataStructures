@@ -27,64 +27,64 @@ void array_print(void* A, size_t data_size, size_t begin, size_t end, size_t siz
 
 void binary_tree_preorder_traversal(AVLTree* AVLT)
 {
-    if(!avl_tree_size(AVLT)) return;
+    if(!AVLT->size) return;
     printf("[Binary Tree]");
     printf("\n[Pre-Order] : ");
-    AVLTreeNode* node = avl_tree_begin(AVLT);
-    StackLinkedList* S = stack_linked_list_create(sizeof (AVLTreeNode*));
-    while(node || stack_linked_list_size(S)) {
+    AVLTreeNode* node = AVLT->root;
+    StackLL* S = StackLL_create(sizeof (AVLTreeNode));
+    while(node || S->size) {
         if(node) {
-            stack_linked_list_push(S, &node);
-            printf("%d(%d) ", *(int*)avl_tree_node_data(node), avl_tree_node_balance_factor(node));
-            node = avl_tree_node_left(node);
+            StackLL_push(S, node);
+            printf("%d(%d) ", *(int*)node->data, node->balance_factor);
+            node = node->left;
         }
         else {
-            node = *(AVLTreeNode **)stack_linked_list_peek(S);
-            stack_linked_list_pop(S);
-            node = avl_tree_node_right(node);
+            node = S->top->data;
+            StackLL_pop(S);
+            node = node->right;
         }
     }
-    printf("\b\n[Size]\t: %zu\n", avl_tree_size(AVLT));
+    printf("\b\n[Size]\t: %zu\n", AVLT->size);
 }
 
 void binary_tree_inorder_traversal(AVLTree* AVLT)
 {
-    if(!avl_tree_size(AVLT)) return;
+    if(!AVLT->size) return;
     printf("[Binary Tree]");
     printf("\n[In-Order] : ");
-    AVLTreeNode* node = avl_tree_begin(AVLT);
-    StackLinkedList* S = stack_linked_list_create(sizeof (AVLTreeNode*));
-    while(node || stack_linked_list_size(S)) {
+    AVLTreeNode* node = AVLT->root;
+    StackLL* S = StackLL_create(sizeof (AVLTreeNode));
+    while(node || S->size) {
         if(node) {
-            stack_linked_list_push(S, &node);
-            node = avl_tree_node_left(node);
+            StackLL_push(S, node);
+            node = node->left;
         }
         else {
-            node = *(AVLTreeNode **)stack_linked_list_peek(S);
-            stack_linked_list_pop(S);
-            printf("%d ", *(int*)avl_tree_node_data(node));
-            node = avl_tree_node_right(node);
+            node = S->top->data;
+            StackLL_pop(S);
+            printf("%d(%d) ", *(int*)node->data, node->balance_factor);
+            node = node->right;
         }
     }
-    printf("\b\n[Size]\t: %zu\n", avl_tree_size(AVLT));
+    printf("\b\n[Size]\t: %zu\n", AVLT->size);
 }
 
 // void binary_tree_levelorder_traversal(AVLTree* AVLT)
 // {
-//     QueueLL *Q = queue_linked_list_create(sizeof (AVLTreeNode*));
+//     QueueLL *Q = QueueLL_create(sizeof (AVLTreeNode*));
 //     AVLTreeNode* node = avl_tree_begin(AVLT);
 //     printf("%d(%d) ", *(int*)avl_tree_node_data(node), avl_tree_node_balance_factor(node));
-//     queue_linked_list_enqueue(&Q, &node);
-//     while(queue_linked_list_size(&Q)) {
-//         node = queue_linked_list_front(&Q);
-//         queue_linked_list_dequeue(&Q);
+//     QueueLL_enqueue(&Q, &node);
+//     while(QueueLL_size(&Q)) {
+//         node = QueueLL_front(&Q);
+//         QueueLL_dequeue(&Q);
 //         if(avl_tree_node_left(node)) {
 //             printf("%d(%d) ", *(int*)avl_tree_node_data(node), avl_tree_node_balance_factor(node));
-//             queue_linked_list_enqueue(&Q, avl_tree_node_left(node));
+//             QueueLL_enqueue(&Q, avl_tree_node_left(node));
 //         }
 //         if( avl_tree_node_right(node)) {
 //             printf("%d(%d) ", *(int*)avl_tree_node_data(node), avl_tree_node_balance_factor(node));
-//             queue_linked_list_enqueue(&Q, avl_tree_node_right(node));
+//             QueueLL_enqueue(&Q, avl_tree_node_right(node));
 //         }
 //     }
 // }
@@ -95,7 +95,7 @@ void binary_tree_inorder_traversal(AVLTree* AVLT)
 //     printf("[Binary Tree]");
 //     printf("\n[In-Order] : ");
 //     AVLTreeNode* node = avl_tree_begin(AVLT);
-//     StackLinkedList* S = stack_linked_list_create(sizeof (AVLTreeNode*));
+//     StackLL* S = stack_linked_list_create(sizeof (AVLTreeNode*));
 //     while(node || stack_linked_list_size(S)) {
 //         if(node) {
 //             stack_linked_list_push(S, &node);
@@ -128,12 +128,12 @@ int main()
 {
     // int a[24] = {10, 20, 30, 40, 50, 60, 70, 80, 930, 31100, 1010, 1024, 145, 25, 465, 1723, 536, 6404, 8013, 330, 9230, 31011, 1011, 12};
     // int a[24] = {10, 20, 15, 40, 50, 60, 70, 80, 930, 31100, 1010, 1024, 145, 25, 465, 1723, 536, 6404, 8013, 330, 9230, 31011, 1011, 12};
-    // AVLTree *AVLT = avl_tree_create(sizeof (int), compare);
-    // for(int i = 1; i <= 80; i++) {
-    //     if(!avl_tree_insert(AVLT, &i)) {
-    //         break;
-    //     }
-    // }
+    AVLTree *AVLT = AVLTree_create(sizeof (int), compare);
+    for(int i = 1; i <= 80; i++) {
+        if(!AVLTree_insert(AVLT, &i)) {
+            break;
+        }
+    }
     // int a = 39;
     // if(!avl_tree_insert(AVLT, &a)) {
     //     printf("error");
@@ -145,9 +145,8 @@ int main()
     // }
     // int b = 40;
     // binary_search_tree_remove(BST, &b);
-    // binary_tree_preorder_traversal(AVLT);
+    binary_tree_preorder_traversal(AVLT);
     // binary_tree_inorder_traversal(AVLT);
     // avl_tree_remove(AVLT, &a[3]);
-    HashTable
 
 }

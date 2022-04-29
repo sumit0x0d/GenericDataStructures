@@ -1,31 +1,15 @@
 #include "queue-linked_list.h"
 
-struct QueueLLNode {
-    void* data;
-    struct QueueLLNode* next;
-};
+QueueLL* QueueLL_create(size_t data_size);
+void QueueLL_destroy(QueueLL* Q);
 
-struct QueueLL {
-    QueueLLNode* front;
-    QueueLLNode* back;
-    size_t data_size;
-    size_t size;
-};
+static QueueLLNode* queue_node_create(size_t data_size);
+static void queue_node_destroy(QueueLLNode* Q);
 
-QueueLL* queue_linked_list_create(size_t data_size);
-void queue_linked_list_destroy(QueueLL* Q);
+bool QueueLL_enqueue(QueueLL* Q, void* data);
+bool QueueLL_dequeue(QueueLL* Q);
 
-void* queue_linked_list_front(QueueLL* Q);
-void* queue_linked_list_back(QueueLL* Q);
-size_t queue_linked_list_size(QueueLL* Q);
-
-static QueueLLNode* node_create(size_t data_size);
-static void node_destroy(QueueLLNode* Q);
-
-bool queue_linked_list_enqueue(QueueLL* Q, void* data);
-bool queue_linked_list_dequeue(QueueLL* Q);
-
-QueueLL* queue_linked_list_create(size_t data_size)
+QueueLL* QueueLL_create(size_t data_size)
 {
     QueueLL* Q = malloc(sizeof (QueueLL));
     if(!Q) {
@@ -38,16 +22,16 @@ QueueLL* queue_linked_list_create(size_t data_size)
     return Q;
 }
 
-void queue_linked_list_destroy(QueueLL* Q)
+void QueueLL_destroy(QueueLL* Q)
 {
     QueueLLNode* node = Q->front;
     while(node) {
         if(node->next) {
-            queue_linked_list_dequeue(Q);
+            QueueLL_dequeue(Q);
             node = Q->front;   
         }
         else {
-            queue_linked_list_dequeue(Q);
+            QueueLL_dequeue(Q);
             break;
         }
     }
@@ -55,28 +39,7 @@ void queue_linked_list_destroy(QueueLL* Q)
     Q = NULL;
 }
 
-void* queue_linked_list_front(QueueLL* Q)
-{
-    if(!Q->front) {
-        return NULL;
-    }
-    return Q->front->data;
-}
-
-void* queue_linked_list_back(QueueLL* Q)
-{
-    if(!Q->back) {
-        return NULL;
-    }
-    return Q->back->data;
-}
-
-size_t queue_linked_list_size(QueueLL* Q)
-{
-    return Q->size;
-}
-
-static QueueLLNode* node_create(size_t data_size)
+static QueueLLNode* queue_node_create(size_t data_size)
 {
     QueueLLNode* node = malloc(sizeof (QueueLLNode));
     if(!node) {
@@ -92,7 +55,7 @@ static QueueLLNode* node_create(size_t data_size)
     return node;
 }
 
-static void node_destroy(QueueLLNode* node)
+static void queue_node_destroy(QueueLLNode* node)
 {
     free(node->data);
     node->data = NULL;
@@ -100,9 +63,9 @@ static void node_destroy(QueueLLNode* node)
     node = NULL;
 }
 
-bool queue_linked_list_enqueue(QueueLL* Q, void* data)
+bool QueueLL_enqueue(QueueLL* Q, void* data)
 {
-    QueueLLNode* node = node_create(Q->data_size);
+    QueueLLNode* node = queue_node_create(Q->data_size);
     if(!node) {
         return false;
     }
@@ -118,7 +81,7 @@ bool queue_linked_list_enqueue(QueueLL* Q, void* data)
     return true;
 }
 
-bool queue_linked_list_dequeue(QueueLL* Q)
+bool QueueLL_dequeue(QueueLL* Q)
 {
     if(!Q->front) {
         return false;
@@ -128,7 +91,7 @@ bool queue_linked_list_dequeue(QueueLL* Q)
     if(!Q->front) {
         Q->back = NULL;
     }
-    node_destroy(node);
+    queue_node_destroy(node);
     Q->size = Q->size - 1;
     return true;
 }

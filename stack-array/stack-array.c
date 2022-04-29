@@ -1,23 +1,13 @@
 #include "stack-array.h"
 
-struct StackA {
-    void* array;
-    size_t data_size;
-    size_t capacity;
-    size_t size;
-};
+StackA* StackA_create(size_t data_size, size_t capacity);
+bool StackA_change_capacity(StackA* S, size_t capacity);
+void StackA_destroy(StackA* S);
 
-StackA* stack_array_create(size_t data_size, size_t capacity);
-bool stack_array_change_capacity(StackA* S, size_t capacity);
-void stack_array_destroy(StackA* S);
+bool StackA_push(StackA* S, void* data);
+bool StackA_pop(StackA* S);
 
-void* stack_array_peek(StackA* S);
-size_t stack_array_size(StackA* S);
-
-bool stack_array_push(StackA* S, void* data);
-bool stack_array_pop(StackA* S);
-
-StackA* stack_array_create(size_t data_size, size_t capacity)
+StackA* StackA_create(size_t data_size, size_t capacity)
 {
     StackA* S = malloc(sizeof (StackA));
     if(!S) {
@@ -33,7 +23,7 @@ StackA* stack_array_create(size_t data_size, size_t capacity)
     return S;
 }
 
-bool stack_array_change_capacity(StackA* S, size_t capacity)
+bool StackA_change_capacity(StackA* S, size_t capacity)
 {
     if(!capacity) {
         return false;
@@ -47,7 +37,7 @@ bool stack_array_change_capacity(StackA* S, size_t capacity)
     return true;
 }
 
-void stack_array_destroy(StackA* S)
+void StackA_destroy(StackA* S)
 {
     free(S->array);
     S->array = NULL;
@@ -55,17 +45,7 @@ void stack_array_destroy(StackA* S)
     S = NULL;
 }
 
-void* stack_array_peek(StackA* S)
-{
-    return (char* )S->array + (S->data_size * S->size);
-}
-
-size_t stack_array_size(StackA* S)
-{
-    return S->size;
-}
-
-bool stack_array_push(StackA* S, void* data)
+bool StackA_push(StackA* S, void* data)
 {
     if(S->size == S->capacity) {
         return false;
@@ -75,7 +55,7 @@ bool stack_array_push(StackA* S, void* data)
     return true;
 }
 
-bool stack_array_pop(StackA* S)
+bool StackA_pop(StackA* S)
 {
     if(!S->size){
         return false;

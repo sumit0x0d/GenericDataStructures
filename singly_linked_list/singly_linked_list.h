@@ -5,35 +5,36 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct SinglyLinkedListNode SinglyLinkedListNode;
-typedef struct SinglyLinkedList SinglyLinkedList;
+typedef struct SinglyLinkedListNode {
+    void* data;
+    struct SinglyLinkedListNode* next;
+} SinglyLinkedListNode;
 
-SinglyLinkedList* singly_linked_list_create(size_t data_size,
+typedef struct SinglyLinkedList {
+    SinglyLinkedListNode* head;
+    SinglyLinkedListNode* tail;
+    size_t data_size;
+    size_t size;
+    int (*compare)(void* data, void* node_data);
+} SinglyLinkedList;
+
+SinglyLinkedList* SinglyLinkedList_create(size_t data_size,
     int (*compare)(void* data, void* node_data));
-void singly_linked_list_destroy(SinglyLinkedList* SLL);
+void SinglyLinkedList_destroy(SinglyLinkedList* SLL);
 
-void* singly_linked_list_head(SinglyLinkedList* SLL);
-void* singly_linked_list_tail(SinglyLinkedList* SLL);
-size_t singly_linked_list_size(SinglyLinkedList* SLL);
+bool SinglyLinkedList_push_head(SinglyLinkedList* SLL, void* data);
+bool SinglyLinkedList_push_tail(SinglyLinkedList* SLL, void* data);
+bool SinglyLinkedList_insert(SinglyLinkedList* SLL, size_t index, void* data);
+bool SinglyLinkedList_sorted_insert(SinglyLinkedList* SLL, void* data);
+bool SinglyLinkedList_pop_head(SinglyLinkedList* SLL);
+bool SinglyLinkedList_pop_tail(SinglyLinkedList* SLL);
+bool SinglyLinkedList_remove(SinglyLinkedList* SLL, void* data);
+bool SinglyLinkedList_erase(SinglyLinkedList* SLL, size_t index);
+bool SinglyLinkedList_update(SinglyLinkedList* SLL, size_t index, void* data);
+bool SinglyLinkedList_linear(SinglyLinkedList* SLL);
+bool SinglyLinkedList_circular(SinglyLinkedList* SLL);
 
-bool singly_linked_list_push_head(SinglyLinkedList* SLL, void* data);
-bool singly_linked_list_push_tail(SinglyLinkedList* SLL, void* data);
-bool singly_linked_list_insert(SinglyLinkedList* SLL, size_t index, void* data);
-bool singly_linked_list_sorted_insert(SinglyLinkedList* SLL, void* data);
-bool singly_linked_list_pop_head(SinglyLinkedList* SLL);
-bool singly_linked_list_pop_tail(SinglyLinkedList* SLL);
-bool singly_linked_list_remove(SinglyLinkedList* SLL, void* data);
-bool singly_linked_list_erase(SinglyLinkedList* SLL, size_t index);
-bool singly_linked_list_update(SinglyLinkedList* SLL, size_t index, void* data);
-bool singly_linked_list_linear(SinglyLinkedList* SLL);
-bool singly_linked_list_circular(SinglyLinkedList* SLL);
-
-SinglyLinkedListNode* singly_linked_list_begin(SinglyLinkedList* SLL);
-SinglyLinkedListNode* singly_linked_list_end(SinglyLinkedList* SLL);
-SinglyLinkedListNode* singly_linked_list_search(SinglyLinkedList* SLL, void* data);
-SinglyLinkedListNode* singly_linked_list_at(SinglyLinkedList* SLL, size_t index);
-
-void* singly_linked_list_node_data(SinglyLinkedListNode* node);
-SinglyLinkedListNode* singly_linked_list_node_next(SinglyLinkedListNode* node);
+SinglyLinkedListNode* SinglyLinkedList_search(SinglyLinkedList* SLL, void* data);
+SinglyLinkedListNode* SinglyLinkedList_at(SinglyLinkedList* SLL, size_t index);
 
 #endif

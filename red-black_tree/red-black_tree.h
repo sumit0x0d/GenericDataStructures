@@ -5,25 +5,27 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct RedBlackTreeNode RedBlackTreeNode;
-typedef struct RedBlackTree RedBlackTree;
+typedef struct RedBlackTreeNode {
+    void* data;
+    struct RedBlackTreeNode* left;
+    struct RedBlackTreeNode* right;
+    struct RedBlackTreeNode* parent;
+    enum {RED, BLACK} color;
+} RedBlackTreeNode;
 
-RedBlackTree* red_black_tree_create(size_t data_size,
+typedef struct RedBlackTree {
+    RedBlackTreeNode* root;
+    size_t data_size;
+    size_t size;
+    int (*compare)(void* data, void* node_data);
+} RedBlackTree;
+
+RedBlackTree* RedBlackTree_create(size_t data_size,
     int (*compare)(void* data, void* node_data));
 
-void* red_black_tree_root(RedBlackTree* RedBlackT);
-size_t red_black_tree_size(RedBlackTree* RedBlackT);
+bool RedBlackTree_insert(RedBlackTree* RBT, void* data);
+bool RedBlackTree_remove(RedBlackTree* RBT, void* data);
 
-bool red_black_tree_insert(RedBlackTree* RBT, void* data);
-bool red_black_tree_remove(RedBlackTree* RBT, void* data);
-
-RedBlackTreeNode* red_black_tree_begin(RedBlackTree* RBT);
-RedBlackTreeNode* red_black_tree_search(RedBlackTree* RBT, void* data);
-
-void* red_black_tree_node_data(RedBlackTreeNode* node);
-RedBlackTreeNode* red_black_tree_node_left(RedBlackTreeNode* node);
-RedBlackTreeNode* red_black_tree_node_right(RedBlackTreeNode* node);
-RedBlackTreeNode* red_black_tree_node_parent(RedBlackTreeNode* node);
-int red_black_tree_node_color(RedBlackTreeNode* node);
+RedBlackTreeNode* RedBlackTree_search(RedBlackTree* RBT, void* data);
 
 #endif

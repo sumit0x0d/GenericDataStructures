@@ -1,23 +1,12 @@
 #include "binary_tree.h"
 
-struct BinaryTreeNode {
-    void* data;
-    struct BinaryTreeNode* left;
-    struct BinaryTreeNode* right;
-};
-
-struct BinaryTree {
-    BinaryTreeNode* root;
-    size_t size;
-};
-
-BinaryTree* binary_tree_create();
+BinaryTree* BinaryTree_create();
 
 static BinaryTreeNode* node_create(size_t data_size);
 
-BinaryTreeNode* binary_tree_insert(BinaryTree* BT, void* data, size_t data_size);
+BinaryTreeNode* BinaryTree_insert(BinaryTree* BT, void* data, size_t data_size);
 
-BinaryTree* binary_tree_create()
+BinaryTree* BinaryTree_create()
 {
     BinaryTree* BT = malloc(sizeof (BinaryTree));
     if(!BT) {
@@ -45,7 +34,7 @@ static BinaryTreeNode* node_create(size_t data_size)
     return node;
 }
 
-BinaryTreeNode* binary_tree_insert(BinaryTree* BT, void* data, size_t data_size)
+BinaryTreeNode* BinaryTree_insert(BinaryTree* BT, void* data, size_t data_size)
 {
     BinaryTreeNode* node = node_create(data_size);
     if(!node) {
@@ -56,7 +45,7 @@ BinaryTreeNode* binary_tree_insert(BinaryTree* BT, void* data, size_t data_size)
     return node;
 }
 
-// size_t binary_tree_node_height(BinaryTreeNode* node)
+// size_t BinaryTree_node_height(BinaryTreeNode* node)
 // {
 //     size_t height = 0;
 //     size_t queue_size;

@@ -5,24 +5,30 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct BinarySearchTreeNode BinarySearchTreeNode;
-typedef struct BinarySearchTree BinarySearchTree;
+typedef struct BinarySearchTreeNode {
+    void* data;
+    struct BinarySearchTreeNode* left;
+    struct BinarySearchTreeNode* right;
+} BinarySearchTreeNode;
 
-BinarySearchTree* binary_search_tree_create(size_t data_size,
+typedef struct BinarySearchTree {
+    BinarySearchTreeNode* root;
+    size_t data_size;
+    size_t size;
+    int (*compare)(void* data, void* node_data);
+} BinarySearchTree;
+
+BinarySearchTree* BinarySearchTree_create(size_t data_size,
     int (*compare)(void* data, void* node_data));
-void binary_search_tree_destroy(BinarySearchTree* BST);
+void BinarySearchTree_destroy(BinarySearchTree* BST);
 
-void* binary_search_tree_root(BinarySearchTree* BST);
-size_t binary_search_tree_size(BinarySearchTree* BST);
+void* BinarySearchTree_root(BinarySearchTree* BST);
+size_t BinarySearchTree_size(BinarySearchTree* BST);
 
-bool binary_search_tree_insert(BinarySearchTree* BST, void* data);
-bool binary_search_tree_remove(BinarySearchTree* BST, void* data);
+bool BinarySearchTree_insert(BinarySearchTree* BST, void* data);
+bool BinarySearchTree_remove(BinarySearchTree* BST, void* data);
 
-BinarySearchTreeNode* binary_search_tree_begin(BinarySearchTree* BST);
-BinarySearchTreeNode* binary_search_tree_search(BinarySearchTree* BST, void* data);
-
-void* binary_search_tree_node_data(BinarySearchTreeNode* node);
-BinarySearchTreeNode* binary_search_tree_node_left(BinarySearchTreeNode* node);
-BinarySearchTreeNode* binary_search_tree_node_right(BinarySearchTreeNode* node);
+BinarySearchTreeNode* BinarySearchTree_begin(BinarySearchTree* BST);
+BinarySearchTreeNode* BinarySearchTree_search(BinarySearchTree* BST, void* data);
 
 #endif

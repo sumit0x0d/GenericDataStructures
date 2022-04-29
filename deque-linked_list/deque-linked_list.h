@@ -5,19 +5,25 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct DequeLLNode DequeLLNode;
-typedef struct DequeLL DequeLL;
+typedef struct DequeLLNode {
+    void* data;
+    struct DequeLLNode* previous;
+    struct DequeLLNode* next;
+} DequeLLNode;
 
-DequeLL* deque_linked_list_create(size_t data_size);
-void deque_linked_list_destroy(DequeLL* D);
+typedef struct DequeLL {
+    DequeLLNode* front;
+    DequeLLNode* back;
+    size_t data_size;
+    size_t size;
+} DequeLL;
 
-void* deque_linked_list_front(DequeLL* D);
-void* deque_linked_list_back(DequeLL* D);
-size_t deque_linked_list_size(DequeLL* D);
+DequeLL* DequeLL_create(size_t data_size);
+void DequeLL_destroy(DequeLL* D);
 
-bool deque_linked_list_push_front(DequeLL* D, void* data);
-bool deque_linked_list_push_back(DequeLL* D, void* data);
-bool deque_linked_list_pop_front(DequeLL* D);
-bool deque_linked_list_pop_back(DequeLL* D);
+bool DequeLL_push_front(DequeLL* D, void* data);
+bool DequeLL_push_back(DequeLL* D, void* data);
+bool DequeLL_pop_front(DequeLL* D);
+bool DequeLL_pop_back(DequeLL* D);
 
 #endif

@@ -1,34 +1,17 @@
 #include "deque-linked_list.h"
 
-struct DequeLLNode {
-    void* data;
-    struct DequeLLNode* previous;
-    struct DequeLLNode* next;
-};
+DequeLL* DequeLL_create(size_t data_size);
+void DequeLL_destroy(DequeLL* D);
 
-struct DequeLL {
-    DequeLLNode* front;
-    DequeLLNode* back;
-    size_t data_size;
-    size_t size;
-};
+static DequeLLNode* deque_node_create(size_t data_size);
+static void deque_node_destroy(DequeLLNode* D);
 
-DequeLL* deque_linked_list_create(size_t data_size);
-void deque_linked_list_destroy(DequeLL* D);
+bool DequeLL_push_front(DequeLL* D, void* data);
+bool DequeLL_push_back(DequeLL* D, void* data);
+bool DequeLL_pop_front(DequeLL* D);
+bool DequeLL_pop_back(DequeLL* D);
 
-void* deque_linked_list_front(DequeLL* D);
-void* deque_linked_list_back(DequeLL* D);
-size_t deque_linked_list_size(DequeLL* D);
-
-static DequeLLNode* node_create(size_t data_size);
-static void node_destroy(DequeLLNode* D);
-
-bool deque_linked_list_push_front(DequeLL* D, void* data);
-bool deque_linked_list_push_back(DequeLL* D, void* data);
-bool deque_linked_list_pop_front(DequeLL* D);
-bool deque_linked_list_pop_back(DequeLL* D);
-
-DequeLL* deque_linked_list_create(size_t data_size)
+DequeLL* DequeLL_create(size_t data_size)
 {
     DequeLL* D = malloc(sizeof (DequeLL));
     if(!D) {
@@ -41,16 +24,16 @@ DequeLL* deque_linked_list_create(size_t data_size)
     return D;
 }
 
-void deque_linked_list_destroy(DequeLL* D)
+void DequeLL_destroy(DequeLL* D)
 {
     DequeLLNode* node = D->front;
     while(node) {
         if(node->next) {
-            deque_linked_list_pop_front(D);
+            DequeLL_pop_front(D);
             node = D->front;   
         }
         else {
-            deque_linked_list_pop_front(D);
+            DequeLL_pop_front(D);
             break;
         }
     }
@@ -58,28 +41,7 @@ void deque_linked_list_destroy(DequeLL* D)
     D = NULL;
 }
 
-void* deque_linked_list_front(DequeLL* D)
-{
-    if(!D->front) {
-        return NULL;
-    }
-    return D->front->data;
-}
-
-void* deque_linked_list_back(DequeLL* D)
-{
-    if(!D->back) {
-        return NULL;
-    }
-    return D->back->data;
-}
-
-size_t deque_linked_list_size(DequeLL* D)
-{
-    return D->size;
-}
-
-DequeLLNode* node_create(size_t data_size)
+DequeLLNode* deque_node_create(size_t data_size)
 {
     DequeLLNode* node = malloc(sizeof (DequeLLNode));
     if(!node) {
@@ -94,7 +56,7 @@ DequeLLNode* node_create(size_t data_size)
     return node;
 }
 
-void node_destroy(DequeLLNode* node)
+void deque_node_destroy(DequeLLNode* node)
 {
     free(node->data);
     node->data = NULL;
@@ -102,9 +64,9 @@ void node_destroy(DequeLLNode* node)
     node = NULL;
 }
 
-bool deque_linked_list_push_front(DequeLL* D, void* data)
+bool DequeLL_push_front(DequeLL* D, void* data)
 {
-    DequeLLNode* node = node_create(D->data_size);
+    DequeLLNode* node = deque_node_create(D->data_size);
     if(!node) {
         return false;
     }
@@ -123,9 +85,9 @@ bool deque_linked_list_push_front(DequeLL* D, void* data)
     return true;
 }
 
-bool deque_linked_list_push_back(DequeLL* D, void* data)
+bool DequeLL_push_back(DequeLL* D, void* data)
 {
-    DequeLLNode* node = node_create(D->data_size);
+    DequeLLNode* node = deque_node_create(D->data_size);
     if(!node) {
         return false; 
     }
@@ -144,7 +106,7 @@ bool deque_linked_list_push_back(DequeLL* D, void* data)
     return true;
 }
 
-bool deque_linked_list_pop_front(DequeLL* D)
+bool DequeLL_pop_front(DequeLL* D)
 {
     if(!D->front) {
         return false;
@@ -154,12 +116,12 @@ bool deque_linked_list_pop_front(DequeLL* D)
     if(!D->front) {
         D->back = NULL;
     }
-    node_destroy(node);
+    deque_node_destroy(node);
     D->size = D->size - 1;
     return true;
 }
 
-bool deque_linked_list_pop_back(DequeLL* D)
+bool DequeLL_pop_back(DequeLL* D)
 {
     if(!D->front) {
         return false;
@@ -169,7 +131,7 @@ bool deque_linked_list_pop_back(DequeLL* D)
     if(D->back) {
         D->back->next = NULL;
     }
-    node_destroy(node);
+    deque_node_destroy(node);
     D->size = D->size - 1;
     return true;
 }

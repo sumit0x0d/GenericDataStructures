@@ -1,31 +1,18 @@
 #include "hash_table-separate_chaining.h"
 
-struct HashTableSCPair {
-    void* key;
-    void* value;
-    struct HashTableSCPair* next;
-};
-
-struct HashTableSC {
-    HashTableSCPair* array;
-    size_t key_size;
-    size_t value_size;
-    size_t buckets;
-    size_t size;
-    size_t (*hash)(void* key, size_t buckets);
-    int (*compare)(void* key, void* node_key);
-};
-
-HashTableSC* hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets,
+HashTableSC* HashTableSC_create(size_t key_size, size_t value_size, size_t buckets,
     size_t hash(void* key, size_t buckets), int (*compare)(void* key, void* pair_key));
-void hash_table_separate_chaining_destroy(HashTableSC* HT);
+void HashTableSC_destroy(HashTableSC* HT);
 
-void* hash_table_separate_chaining_search(HashTableSC* HT, void* key);
+HashTableSCPair* hash_table_pair_create(size_t key_size, size_t value_size);
+void hash_table_pair_destroy(HashTableSCPair *pair);
 
-bool hash_table_separate_chaining_insert(HashTableSC* HT, void* key, void* value);
-bool hash_table_separate_chaining_remove(HashTableSC* HT, void* key);
+void* HashTableSC_search(HashTableSC* HT, void* key);
 
-HashTableSC* hash_table_separate_chaining_create(size_t key_size, size_t value_size, size_t buckets,
+bool HashTableSC_insert(HashTableSC* HT, void* key, void* value);
+bool HashTableSC_remove(HashTableSC* HT, void* key);
+
+HashTableSC* HashTableSC_create(size_t key_size, size_t value_size, size_t buckets,
     size_t hash(void* key, size_t buckets), int (*compare)(void* key, void* pair_key))
 {
     HashTableSC* HT = malloc(sizeof (HashTableSC));
@@ -47,7 +34,7 @@ HashTableSC* hash_table_separate_chaining_create(size_t key_size, size_t value_s
     return HT;
 }
 
-void hash_table_separate_chaining_destroy(HashTableSC* HT)
+void HashTableSC_destroy(HashTableSC* HT)
 {
     free(HT->array);
     HT->array = NULL;
@@ -55,7 +42,7 @@ void hash_table_separate_chaining_destroy(HashTableSC* HT)
     HT = NULL;
 }
 
-HashTableSCPair* pair_create(size_t key_size, size_t value_size)
+HashTableSCPair* hash_table_pair_create(size_t key_size, size_t value_size)
 {
     HashTableSCPair* pair = malloc(sizeof (HashTableSCPair));
     if(!pair) {
@@ -78,14 +65,14 @@ HashTableSCPair* pair_create(size_t key_size, size_t value_size)
     return pair;
 }
 
-void pair_destroy(HashTableSCPair *pair)
+void hash_table_pair_destroy(HashTableSCPair *pair)
 {
-
+    free(pair);
 }
 
-bool hash_table_separate_chaining_insert(HashTableSC* HT, void* key, void* value)
+bool HashTableSC_insert(HashTableSC* HT, void* key, void* value)
 {
-    HashTableSCPair* pair = pair_create(HT->key_size, HT->value_size);
+    HashTableSCPair* pair = hash_table_pair_create(HT->key_size, HT->value_size);
     if(!pair) {
         return false;
     }
@@ -107,12 +94,12 @@ bool hash_table_separate_chaining_insert(HashTableSC* HT, void* key, void* value
     return true;
 }
 
-// bool hash_table_separate_chaining_remove(HashTableSC* HT, void* key, void* value)
+// bool HashTableSC_remove(HashTableSC* HT, void* key, void* value)
 // {
 
 // }
 
-void* hash_table_separate_chaining_search(HashTableSC* HT, void* key)
+void* HashTableSC_search(HashTableSC* HT, void* key)
 {
     size_t index = HT->hash(key, HT->buckets);
     if(!HT->array[index].key) {

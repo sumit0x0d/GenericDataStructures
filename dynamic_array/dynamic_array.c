@@ -1,35 +1,22 @@
 #include "dynamic_array.h"
 
-struct DynamicArray {
-    void* array;
-    size_t data_size;
-    size_t capacity;
-    double growth_factor;
-    int (*compare)(void* data, void* node_data);
-    size_t size;
-};
-
-DynamicArray* dynamic_array_create(size_t data_size, size_t capacity, double growth_factor,
+DynamicArray* DynamicArray_create(size_t data_size, size_t capacity, double growth_factor,
     int (*compare)(void* data, void* node_data));
-void dynamic_array_destroy(DynamicArray* DA);
+void DynamicArray_destroy(DynamicArray* DA);
 
-void* dynamic_array_front(DynamicArray* DA);
-void* dynamic_array_back(DynamicArray* DA);
-size_t dynamic_array_size(DynamicArray* DA);
+bool DynamicArray_push_front(DynamicArray* DA, void* data);
+bool DynamicArray_push_back(DynamicArray* DA, void* data);
+bool DynamicArray_insert(DynamicArray* DA, size_t index, void* data);
+bool DynamicArray_sorted_insert(DynamicArray* DA, void* data);
+bool DynamicArray_pop_front(DynamicArray* DA);
+bool DynamicArray_pop_back(DynamicArray* DA);
+bool DynamicArray_remove(DynamicArray* DA, void* data);
+bool DynamicArray_erase(DynamicArray* DA, size_t index);
 
-bool dynamic_array_push_front(DynamicArray* DA, void* data);
-bool dynamic_array_push_back(DynamicArray* DA, void* data);
-bool dynamic_array_insert(DynamicArray* DA, size_t index, void* data);
-bool dynamic_array_sorted_insert(DynamicArray* DA, void* data);
-bool dynamic_array_pop_front(DynamicArray* DA);
-bool dynamic_array_pop_back(DynamicArray* DA);
-bool dynamic_array_remove(DynamicArray* DA, void* data);
-bool dynamic_array_erase(DynamicArray* DA, size_t index);
+size_t DynamicArray_search(DynamicArray* DA, void* data);
+void* DynamicArray_at(DynamicArray* DA, size_t index);
 
-size_t dynamic_array_search(DynamicArray* DA, void* data);
-void* dynamic_array_at(DynamicArray* DA, size_t index);
-
-DynamicArray* dynamic_array_create(size_t data_size, size_t capacity, double growth_factor,
+DynamicArray* DynamicArray_create(size_t data_size, size_t capacity, double growth_factor,
     int (*compare)(void* data, void* node_data))
 {
     if((size_t)(capacity * growth_factor) <= capacity) {
@@ -51,7 +38,7 @@ DynamicArray* dynamic_array_create(size_t data_size, size_t capacity, double gro
     return DA;
 }
 
-void dynamic_array_destroy(DynamicArray* DA)
+void DynamicArray_destroy(DynamicArray* DA)
 {
     free(DA->array);
     DA->array = NULL;
@@ -60,22 +47,7 @@ void dynamic_array_destroy(DynamicArray* DA)
     DA = NULL;
 }
 
-void* dynamic_array_front(DynamicArray* DA)
-{
-    return DA->array;
-}
-
-void* dynamic_array_back(DynamicArray* DA)
-{
-    return (char* )DA->array + (DA->data_size * DA->size);
-}
-
-size_t dynamic_array_size(DynamicArray* DA)
-{
-    return DA->size;
-}
-
-bool dynamic_array_push_front(DynamicArray* DA, void* data)
+bool DynamicArray_push_front(DynamicArray* DA, void* data)
 {
     if(DA->size == DA->capacity) {
         DA->capacity = DA->capacity * DA->growth_factor;
@@ -91,7 +63,7 @@ bool dynamic_array_push_front(DynamicArray* DA, void* data)
     return true;
 }
 
-bool dynamic_array_push_back(DynamicArray* DA, void* data)
+bool DynamicArray_push_back(DynamicArray* DA, void* data)
 {
     if(DA->size == DA->capacity) {
         DA->capacity = DA->capacity * DA->growth_factor;
@@ -106,7 +78,7 @@ bool dynamic_array_push_back(DynamicArray* DA, void* data)
     return true;
 }
 
-bool dynamic_array_insert(DynamicArray* DA, size_t index, void* data)
+bool DynamicArray_insert(DynamicArray* DA, size_t index, void* data)
 {
     if(index > DA->size) {
         return false;
@@ -125,7 +97,7 @@ bool dynamic_array_insert(DynamicArray* DA, size_t index, void* data)
     return true;
 }
 
-bool dynamic_array_sorted_insert(DynamicArray* DA, void* data)
+bool DynamicArray_sorted_insert(DynamicArray* DA, void* data)
 {
     if(DA->size == DA->capacity) {
         DA->capacity = DA->capacity * DA->growth_factor;
@@ -149,7 +121,7 @@ bool dynamic_array_sorted_insert(DynamicArray* DA, void* data)
     return true;
 }
 
-bool dynamic_array_pop_front(DynamicArray* DA)
+bool DynamicArray_pop_front(DynamicArray* DA)
 {
     if(!DA->size) {
         return false;
@@ -159,7 +131,7 @@ bool dynamic_array_pop_front(DynamicArray* DA)
     return true;
 }
 
-bool dynamic_array_pop_back(DynamicArray* DA)
+bool DynamicArray_pop_back(DynamicArray* DA)
 {
     if(!DA->size) {
         return false;
@@ -168,7 +140,7 @@ bool dynamic_array_pop_back(DynamicArray* DA)
     return true;
 }
 
-bool dynamic_array_erase(DynamicArray* DA, size_t index)
+bool DynamicArray_erase(DynamicArray* DA, size_t index)
 {
     if(!DA->size) {
         return false;
@@ -181,7 +153,7 @@ bool dynamic_array_erase(DynamicArray* DA, size_t index)
     return true;
 }
 
-bool dynamic_array_remove(DynamicArray* DA, void* data)
+bool DynamicArray_remove(DynamicArray* DA, void* data)
 {
     if(!DA->size) {
         return false;
@@ -196,12 +168,12 @@ bool dynamic_array_remove(DynamicArray* DA, void* data)
     return false;
 }
 
-// size_t dynamic_array_search(DynamicArray* DA, void* data)
+// size_t DynamicArray_search(DynamicArray* DA, void* data)
 // {
 
 // }
 
-void* dynamic_array_at(DynamicArray* DA, size_t index)
+void* DynamicArray_at(DynamicArray* DA, size_t index)
 {
     if(!DA->size) {
         return NULL;
