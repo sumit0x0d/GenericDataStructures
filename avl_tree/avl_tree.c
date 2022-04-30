@@ -2,13 +2,13 @@
 
 #include <stdio.h>
 
-typedef struct Queue {
+typedef struct CircularBuffer {
     AVLTreeNode* array;
-    size_t front;
-    size_t back;
+    size_t begin;
+    size_t end;
     size_t capacity;
     size_t size;
-} Queue;
+} CircularBuffer;
 
 AVLTree* AVLTree_create(size_t data_size, int (*compare)(void* data, void* node_data));
 void AVLTree_destroy(AVLTree* AVLT);
@@ -16,17 +16,17 @@ void AVLTree_destroy(AVLTree* AVLT);
 static AVLTreeNode* AVLTreeNode_create(size_t data_size);
 static void AVLTreeNode_destroy(AVLTreeNode* node);
 
-static Queue* Queue_create(size_t capacity);
-static inline void Queue_enqueue(Queue* Q, AVLTreeNode* data);
-static inline void Queue_dequeue(Queue* Q);
+static CircularBuffer* CircularBuffer_create(size_t capacity);
+static inline void CircularBuffer_push(CircularBuffer* CB, AVLTreeNode* data);
+static inline void CircularBuffer_pop(CircularBuffer* CB);
 
-static size_t AVLTreeNode_height(AVLTreeNode* node, Queue *Q);
-static void AVLTreeNode_balance_factor(AVLTreeNode* node, Queue *Q);
+static size_t AVLTreeNode_height(AVLTreeNode* node, CircularBuffer *CB);
+static void AVLTreeNode_balance_factor(AVLTreeNode* node, CircularBuffer *CB);
 static AVLTreeNode* AVLTreeNode_rotate_right(AVLTreeNode* node);
 static AVLTreeNode* AVLTreeNode_rotate_left_right(AVLTreeNode* node);
 static AVLTreeNode* AVLTreeNode_rotate_left(AVLTreeNode* node);
 static AVLTreeNode* AVLTreeNode_rotate_right_left(AVLTreeNode* node);
-static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, Queue* Q);
+static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, CircularBuffer* CB);
 
 bool AVLTree_insert(AVLTree* AVLT, void* data);
 bool AVLTree_remove(AVLTree* AVLT, void* data);
@@ -78,52 +78,52 @@ static void AVLTreeNode_destroy(AVLTreeNode* node)
     node = NULL;
 }
 
-static Queue* Queue_create(size_t capacity)
+static CircularBuffer* CircularBuffer_create(size_t capacity)
 {
-    Queue* Q = malloc(sizeof (Queue));
-    if(!Q) {
+    CircularBuffer* CB = malloc(sizeof (CircularBuffer));
+    if(!CB) {
         return NULL;
     }
-    Q->array = malloc(sizeof (AVLTreeNode) * capacity);
-    if(!Q->array) {
-        free(Q);
-        Q = NULL;
+    CB->array = malloc(sizeof (AVLTreeNode) * capacity);
+    if(!CB->array) {
+        free(CB);
+        CB = NULL;
         return NULL;
     }
-    Q->front = 0;
-    Q->back = 0;
-    Q->capacity = capacity;
-    Q->size = 0;
-    return Q;
+    CB->begin = 0;
+    CB->end = 0;
+    CB->capacity = capacity;
+    CB->size = 0;
+    return CB;
 }
 
-static inline void Queue_enqueue(Queue* Q, AVLTreeNode* data)
+static inline void CircularBuffer_push(CircularBuffer* CB, AVLTreeNode* data)
 {
-    memcpy(&Q->array[Q->back], data, sizeof (AVLTreeNode));
-    Q->back = (Q->back + 1) % Q->capacity;
-    Q->size = Q->size + 1;
+    memcpy(&CB->array[CB->end], data, sizeof (AVLTreeNode));
+    CB->end = (CB->end + 1) % CB->capacity;
+    CB->size = CB->size + 1;
 }
 
-static inline void Queue_dequeue(Queue* Q)
+static inline void CircularBuffer_pop(CircularBuffer* CB)
 {
-    Q->front = (Q->front + 1) % Q->capacity;
-    Q->size = Q->size - 1;
+    CB->begin = (CB->begin + 1) % CB->capacity;
+    CB->size = CB->size - 1;
 }
 
-static size_t AVLTreeNode_height(AVLTreeNode* node, Queue *Q)
+static size_t AVLTreeNode_height(AVLTreeNode* node, CircularBuffer *CB)
 {
     size_t height = 0;
-    Queue_enqueue(Q, node);
-    while(Q->size) {
-        size_t queue_size = Q->size;
+    CircularBuffer_push(CB, node);
+    while(CB->size) {
+        size_t queue_size = CB->size;
         while(queue_size) {
-            node = &Q->array[Q->front];
-            Queue_dequeue(Q);
+            node = &CB->array[CB->begin];
+            CircularBuffer_pop(CB);
             if(node->left) {
-                Queue_enqueue(Q, node->left);
+                CircularBuffer_push(CB, node->left);
             }
             if(node->right) {
-                Queue_enqueue(Q, node->right);
+                CircularBuffer_push(CB, node->right);
             }
             queue_size = queue_size - 1;
         }
@@ -132,15 +132,15 @@ static size_t AVLTreeNode_height(AVLTreeNode* node, Queue *Q)
     return height;
 }
 
-static void AVLTreeNode_balance_factor(AVLTreeNode* node, Queue *Q)
+static void AVLTreeNode_balance_factor(AVLTreeNode* node, CircularBuffer *CB)
 {
     size_t height_left = 0;
     size_t height_right = 0;
     if(node->left) {
-        height_left = AVLTreeNode_height(node->left, Q);
+        height_left = AVLTreeNode_height(node->left, CB);
     }
     if(node->right) {
-        height_right = AVLTreeNode_height(node->right, Q);
+        height_right = AVLTreeNode_height(node->right, CB);
     }
     node->balance_factor = (int)(height_right - height_left);
 }
@@ -243,15 +243,15 @@ static AVLTreeNode* AVLTreeNode_rotate_right_left(AVLTreeNode* node)
     return node_right_left;
 }
 
-static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, Queue* Q)
+static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, CircularBuffer* CB)
 {
     while(node) {
-        AVLTreeNode_balance_factor(node, Q);
+        AVLTreeNode_balance_factor(node, CB);
         if(node->balance_factor == -2) {
             if(node->left->balance_factor == -1) {
                 node = AVLTreeNode_rotate_right(node);
-                AVLTreeNode_balance_factor(node, Q);
-                AVLTreeNode_balance_factor(node->right, Q);
+                AVLTreeNode_balance_factor(node, CB);
+                AVLTreeNode_balance_factor(node->right, CB);
                 if(!node->parent) {
                     AVLT->root = node;
                     return;
@@ -259,7 +259,7 @@ static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, Queue* Q)
             }
             else if(node->left->balance_factor == 1) {
                 node = AVLTreeNode_rotate_left_right(node);
-                AVLTreeNode_balance_factor(node, Q);
+                AVLTreeNode_balance_factor(node, CB);
                 if(!node->parent) {
                     AVLT->root = node;
                     return;
@@ -269,8 +269,8 @@ static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, Queue* Q)
         else if(node->balance_factor == 2) {
             if(node->right->balance_factor == 1) {
                 node = AVLTreeNode_rotate_left(node);
-                AVLTreeNode_balance_factor(node, Q);
-                AVLTreeNode_balance_factor(node->left, Q);
+                AVLTreeNode_balance_factor(node, CB);
+                AVLTreeNode_balance_factor(node->left, CB);
                 if(!node->parent) {
                     AVLT->root = node;
                     return;
@@ -278,7 +278,7 @@ static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, Queue* Q)
             }
             else if(node->right->balance_factor == -1) {
                 node = AVLTreeNode_rotate_right_left(node);
-                AVLTreeNode_balance_factor(node, Q);
+                AVLTreeNode_balance_factor(node, CB);
                 if(!node->parent) {
                     AVLT->root = node;
                     return;
@@ -317,8 +317,8 @@ bool AVLTree_insert(AVLTree* AVLT, void* data)
             node = node->right;
         }
     }
-    Queue *Q = Queue_create((AVLT->size + 2)/2);
-    if(!Q) {
+    CircularBuffer *CB = CircularBuffer_create((AVLT->size + 2)/2);
+    if(!CB) {
         return false;
     }
     node = AVLTreeNode_create(AVLT->data_size);
@@ -333,9 +333,19 @@ bool AVLTree_insert(AVLTree* AVLT, void* data)
     else {
         node_parent->right = node;
     }
-    AVLTree_rebalance(AVLT, node_parent, Q);
+    AVLTree_rebalance(AVLT, node_parent, CB);
     AVLT->size = AVLT->size + 1;
     return true;
+}
+
+void AVLTreeNode_inorder_predecessor(AVLTreeNode* node)
+{
+
+}
+
+void AVLTreeNode_inorder_successor(AVLTreeNode* node)
+{
+    
 }
 
 bool AVLTree_remove(AVLTree* AVLT, void* data)
@@ -343,75 +353,75 @@ bool AVLTree_remove(AVLTree* AVLT, void* data)
     if(!AVLT->root) {
         return false;
     }
-    AVLTreeNode* node = AVLT->root;
-    AVLTreeNode* node_parent = NULL; 
+    AVLTreeNode* pointer = AVLT->root;
+    AVLTreeNode* pointer_parent = NULL; 
     int compare;
-    while(node) {
-        compare = AVLT->compare(data, node->data);
+    while(pointer) {
+        compare = AVLT->compare(data, pointer->data);
         if(compare == 0) {
             break;
         }
-        node_parent = node;
+        pointer_parent = pointer;
         if(compare < 0) {
-            node = node->left;
+            pointer = pointer->left;
         }
         else {
-            node = node->right;
+            pointer = pointer->right;
         }
     }
-    if(!node) {   
+    if(!pointer) {   
         return false;
     }
-    Queue *Q = Queue_create((AVLT->size + 1)/2);
-    if(!Q) {
+    CircularBuffer *CB = CircularBuffer_create((AVLT->size + 2)/2);
+    if(!CB) {
         return false;
     }
-    if(!node->left && !node->right) {
-        if(node_parent->left == node) {
-            node_parent->left = NULL;
+    if(!pointer->left && !pointer->right) {
+        if(pointer_parent->left == pointer) {
+            pointer_parent->left = NULL;
         }
         else {
-            node_parent->right = NULL;
+            pointer_parent->right = NULL;
         }
-        AVLTreeNode_destroy(node);
-        AVLTree_rebalance(AVLT, node_parent, Q);
+        AVLTreeNode_destroy(pointer);
+        AVLTree_rebalance(AVLT, pointer_parent, CB);
     }
-    else if(!node->left) {
-        if(node_parent->right == node) {
-            node_parent->right = node->right;
+    else if(!pointer->left) {
+        if(pointer_parent->right == pointer) {
+            pointer_parent->right = pointer->right;
         }
         else {
-            node_parent->left = node->right;
+            pointer_parent->left = pointer->right;
         }
-        AVLTreeNode_destroy(node);
-        AVLTree_rebalance(AVLT, node_parent, Q);
+        AVLTreeNode_destroy(pointer);
+        AVLTree_rebalance(AVLT, pointer_parent, CB);
     }
-    else if(!node->right) {
-        if(node_parent->left == node) {
-            node_parent->left = node->left;
+    else if(!pointer->right) {
+        if(pointer_parent->left == pointer) {
+            pointer_parent->left = pointer->left;
         }
         else {
-            node_parent->right = node->left;
+            pointer_parent->right = pointer->left;
         }
-        AVLTreeNode_destroy(node);
-        AVLTree_rebalance(AVLT, node_parent, Q);
+        AVLTreeNode_destroy(pointer);
+        AVLTree_rebalance(AVLT, pointer_parent, CB);
     }
     else {
-        AVLTreeNode* node_inorder_successor = node->right;
-        AVLTreeNode* node_inorder_successor_parent = node;
+        AVLTreeNode* node_inorder_successor = pointer->right;
+        AVLTreeNode* node_inorder_successor_parent = pointer;
         while(node_inorder_successor->left) {
             node_inorder_successor_parent = node_inorder_successor;
             node_inorder_successor = node_inorder_successor->left;
         }
-        if(node_inorder_successor_parent == node) {
+        if(node_inorder_successor_parent == pointer) {
             node_inorder_successor_parent->right = node_inorder_successor->right;
         }
         else {
             node_inorder_successor_parent->left = node_inorder_successor->right;
         }
-        memcpy(node->data, node_inorder_successor->data, AVLT->data_size);
+        memcpy(pointer->data, node_inorder_successor->data, AVLT->data_size);
         AVLTreeNode_destroy(node_inorder_successor);
-        AVLTree_rebalance(AVLT, node_inorder_successor_parent, Q);
+        AVLTree_rebalance(AVLT, node_inorder_successor_parent, CB);
     }
     AVLT->size = AVLT->size - 1;
     return true;
@@ -419,18 +429,18 @@ bool AVLTree_remove(AVLTree* AVLT, void* data)
 
 AVLTreeNode* AVLTree_search(AVLTree* AVLT, void* data)
 {
-    AVLTreeNode* node = AVLT->root;
+    AVLTreeNode* pointer = AVLT->root;
     int compare;
-    while(node) {
-        compare = AVLT->compare(data, node->data);
+    while(pointer) {
+        compare = AVLT->compare(data, pointer->data);
         if(compare == 0) {
-            return node;
+            return pointer;
         }
         else if(compare < 0) {
-            node = node->left;
+            pointer = pointer->left;
         }
         else {
-            node = node->right;
+            pointer = pointer->right;
         }
     }
     return NULL;

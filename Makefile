@@ -10,6 +10,7 @@ main1:
 	./avl_tree/avl_tree.c \
 	./binary_search_tree/binary_search_tree.c \
 	./binary_tree/binary_tree.c \
+	./circular_buffer/circular_buffer.c \
 	./deque-array/deque-array.c \
 	./deque-linked_list/deque-linked_list.c \
 	./doubly_linked_list/doubly_linked_list.c \

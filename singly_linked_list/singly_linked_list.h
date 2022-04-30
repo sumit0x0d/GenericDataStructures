@@ -31,8 +31,6 @@ bool SinglyLinkedList_pop_tail(SinglyLinkedList* SLL);
 bool SinglyLinkedList_remove(SinglyLinkedList* SLL, void* data);
 bool SinglyLinkedList_erase(SinglyLinkedList* SLL, size_t index);
 bool SinglyLinkedList_update(SinglyLinkedList* SLL, size_t index, void* data);
-bool SinglyLinkedList_linear(SinglyLinkedList* SLL);
-bool SinglyLinkedList_circular(SinglyLinkedList* SLL);
 
 SinglyLinkedListNode* SinglyLinkedList_search(SinglyLinkedList* SLL, void* data);
 SinglyLinkedListNode* SinglyLinkedList_at(SinglyLinkedList* SLL, size_t index);

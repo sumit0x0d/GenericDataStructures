@@ -24,11 +24,11 @@ QueueLL* QueueLL_create(size_t data_size)
 
 void QueueLL_destroy(QueueLL* Q)
 {
-    QueueLLNode* node = Q->front;
-    while(node) {
-        if(node->next) {
+    QueueLLNode* pointer = Q->front;
+    while(pointer) {
+        if(pointer->next) {
             QueueLL_dequeue(Q);
-            node = Q->front;   
+            pointer = Q->front;   
         }
         else {
             QueueLL_dequeue(Q);
@@ -86,12 +86,12 @@ bool QueueLL_dequeue(QueueLL* Q)
     if(!Q->front) {
         return false;
     }
-    QueueLLNode* node = Q->front;
+    QueueLLNode* pointer = Q->front;
     Q->front = Q->front->next;
     if(!Q->front) {
         Q->back = NULL;
     }
-    QueueLLnode_destroy(node);
+    QueueLLnode_destroy(pointer);
     Q->size = Q->size - 1;
     return true;
 }

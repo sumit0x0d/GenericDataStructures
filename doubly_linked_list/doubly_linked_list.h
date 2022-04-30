@@ -32,8 +32,6 @@ bool DoublyLinkedList_pop_back(DoublyLinkedList* DLL);
 bool DoublyLinkedList_remove(DoublyLinkedList* DLL, void* data);
 bool DoublyLinkedList_erase(DoublyLinkedList* DLL, size_t index);
 bool DoublyLinkedList_update(DoublyLinkedList* SLL, size_t index, void* data);
-bool DoublyLinkedList_linear(DoublyLinkedList* DLL);
-bool DoublyLinkedList_circular(DoublyLinkedList* DLL);
 
 DoublyLinkedListNode* DoublyLinkedList_search(DoublyLinkedList* DLL, void* data);
 DoublyLinkedListNode* DoublyLinkedList_at(DoublyLinkedList* DLL, size_t index);

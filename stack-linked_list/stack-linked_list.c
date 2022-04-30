@@ -23,11 +23,11 @@ StackLL* StackLL_create(size_t data_size)
 
 void StackLL_destroy(StackLL* S)
 {
-    StackLLNode* node = S->top;
-    while(node) {
-        if(node->next) {
+    StackLLNode* pointer = S->top;
+    while(pointer) {
+        if(pointer->next) {
             StackLL_pop(S);
-            node = S->top;   
+            pointer = S->top;   
         }
         else {
             StackLL_pop(S);
@@ -79,9 +79,9 @@ bool StackLL_pop(StackLL* S)
     if(!S->top) {
         return false;
     }
-    StackLLNode* node = S->top;
+    StackLLNode* pointer = S->top;
     S->top = S->top->next;
-    StackLLnode_destroy(node);
+    StackLLnode_destroy(pointer);
     S->size = S->size - 1;
     return true;
 }
