@@ -3,7 +3,7 @@
 
 #include "avl_tree/avl_tree.h"
 #include "binary_search_tree/binary_search_tree.h"
-#include "circular_buffer/circular_buffer.h"
+#include "circular_queue/circular_queue.h"
 #include "deque-array/deque-array.h"
 #include "deque-linked_list/deque-linked_list.h"
 #include "doubly_linked_list/doubly_linked_list.h"

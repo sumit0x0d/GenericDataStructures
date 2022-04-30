@@ -2,13 +2,13 @@
 
 #include <stdio.h>
 
-typedef struct CircularBuffer {
+typedef struct CircularQueue {
     AVLTreeNode* array;
-    size_t begin;
-    size_t end;
+    size_t front;
+    size_t back;
     size_t capacity;
     size_t size;
-} CircularBuffer;
+} CircularQueue;
 
 AVLTree* AVLTree_create(size_t data_size, int (*compare)(void* data, void* node_data));
 void AVLTree_destroy(AVLTree* AVLT);
@@ -16,17 +16,20 @@ void AVLTree_destroy(AVLTree* AVLT);
 static AVLTreeNode* AVLTreeNode_create(size_t data_size);
 static void AVLTreeNode_destroy(AVLTreeNode* node);
 
-static CircularBuffer* CircularBuffer_create(size_t capacity);
-static inline void CircularBuffer_push(CircularBuffer* CB, AVLTreeNode* data);
-static inline void CircularBuffer_pop(CircularBuffer* CB);
+static CircularQueue* CircularQueue_create(size_t capacity);
+static inline void CircularQueue_enqueue(CircularQueue* CB, AVLTreeNode* data);
+static inline void CircularQueue_dequeue(CircularQueue* CB);
 
-static size_t AVLTreeNode_height(AVLTreeNode* node, CircularBuffer *CB);
-static void AVLTreeNode_balance_factor(AVLTreeNode* node, CircularBuffer *CB);
+static size_t AVLTreeNode_height(AVLTreeNode* node, CircularQueue *CB);
+static void AVLTreeNode_balance_factor(AVLTreeNode* node, CircularQueue *CB);
 static AVLTreeNode* AVLTreeNode_rotate_right(AVLTreeNode* node);
 static AVLTreeNode* AVLTreeNode_rotate_left_right(AVLTreeNode* node);
 static AVLTreeNode* AVLTreeNode_rotate_left(AVLTreeNode* node);
 static AVLTreeNode* AVLTreeNode_rotate_right_left(AVLTreeNode* node);
-static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, CircularBuffer* CB);
+static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, CircularQueue* CB);
+
+AVLTreeNode* AVLTreeNode_inorder_predecessor(AVLTreeNode* node);
+AVLTreeNode* AVLTreeNode_inorder_successor(AVLTreeNode* node);
 
 bool AVLTree_insert(AVLTree* AVLT, void* data);
 bool AVLTree_remove(AVLTree* AVLT, void* data);
@@ -78,9 +81,9 @@ static void AVLTreeNode_destroy(AVLTreeNode* node)
     node = NULL;
 }
 
-static CircularBuffer* CircularBuffer_create(size_t capacity)
+static CircularQueue* CircularQueue_create(size_t capacity)
 {
-    CircularBuffer* CB = malloc(sizeof (CircularBuffer));
+    CircularQueue* CB = malloc(sizeof (CircularQueue));
     if(!CB) {
         return NULL;
     }
@@ -90,40 +93,40 @@ static CircularBuffer* CircularBuffer_create(size_t capacity)
         CB = NULL;
         return NULL;
     }
-    CB->begin = 0;
-    CB->end = 0;
+    CB->front = 0;
+    CB->back = 0;
     CB->capacity = capacity;
     CB->size = 0;
     return CB;
 }
 
-static inline void CircularBuffer_push(CircularBuffer* CB, AVLTreeNode* data)
+static inline void CircularQueue_enqueue(CircularQueue* CB, AVLTreeNode* data)
 {
-    memcpy(&CB->array[CB->end], data, sizeof (AVLTreeNode));
-    CB->end = (CB->end + 1) % CB->capacity;
+    memcpy(&CB->array[CB->back], data, sizeof (AVLTreeNode));
+    CB->back = (CB->back + 1) % CB->capacity;
     CB->size = CB->size + 1;
 }
 
-static inline void CircularBuffer_pop(CircularBuffer* CB)
+static inline void CircularQueue_dequeue(CircularQueue* CB)
 {
-    CB->begin = (CB->begin + 1) % CB->capacity;
+    CB->front = (CB->front + 1) % CB->capacity;
     CB->size = CB->size - 1;
 }
 
-static size_t AVLTreeNode_height(AVLTreeNode* node, CircularBuffer *CB)
+static size_t AVLTreeNode_height(AVLTreeNode* node, CircularQueue *CB)
 {
     size_t height = 0;
-    CircularBuffer_push(CB, node);
+    CircularQueue_enqueue(CB, node);
     while(CB->size) {
         size_t queue_size = CB->size;
         while(queue_size) {
-            node = &CB->array[CB->begin];
-            CircularBuffer_pop(CB);
+            node = &CB->array[CB->front];
+            CircularQueue_dequeue(CB);
             if(node->left) {
-                CircularBuffer_push(CB, node->left);
+                CircularQueue_enqueue(CB, node->left);
             }
             if(node->right) {
-                CircularBuffer_push(CB, node->right);
+                CircularQueue_enqueue(CB, node->right);
             }
             queue_size = queue_size - 1;
         }
@@ -132,7 +135,7 @@ static size_t AVLTreeNode_height(AVLTreeNode* node, CircularBuffer *CB)
     return height;
 }
 
-static void AVLTreeNode_balance_factor(AVLTreeNode* node, CircularBuffer *CB)
+static void AVLTreeNode_balance_factor(AVLTreeNode* node, CircularQueue *CB)
 {
     size_t height_left = 0;
     size_t height_right = 0;
@@ -243,7 +246,7 @@ static AVLTreeNode* AVLTreeNode_rotate_right_left(AVLTreeNode* node)
     return node_right_left;
 }
 
-static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, CircularBuffer* CB)
+static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, CircularQueue* CB)
 {
     while(node) {
         AVLTreeNode_balance_factor(node, CB);
@@ -317,7 +320,7 @@ bool AVLTree_insert(AVLTree* AVLT, void* data)
             node = node->right;
         }
     }
-    CircularBuffer *CB = CircularBuffer_create((AVLT->size + 2)/2);
+    CircularQueue *CB = CircularQueue_create((AVLT->size + 2)/2);
     if(!CB) {
         return false;
     }
@@ -338,14 +341,33 @@ bool AVLTree_insert(AVLTree* AVLT, void* data)
     return true;
 }
 
-void AVLTreeNode_inorder_predecessor(AVLTreeNode* node)
+AVLTreeNode* AVLTreeNode_inorder_predecessor(AVLTreeNode* node)
 {
-
+    AVLTreeNode* pointer = node->left;
+    AVLTreeNode* pointer_parent = node;
+    while(pointer->right) {
+        pointer_parent = pointer;
+        pointer = pointer->right;
+    }
+    if(pointer_parent == node) {
+        pointer_parent->left = pointer->left;
+    }
+    else {
+        pointer_parent->right = pointer->left;
+    }
+    return pointer;
 }
 
-void AVLTreeNode_inorder_successor(AVLTreeNode* node)
+AVLTreeNode* AVLTreeNode_inorder_successor(AVLTreeNode* node)
 {
-    
+    AVLTreeNode* pointer = node->right;
+    // AVLTreeNode* pointer_parent = node;
+    while(pointer->left) {
+        // pointer_parent = pointer;
+        pointer = pointer->left;
+    }
+
+    return pointer;
 }
 
 bool AVLTree_remove(AVLTree* AVLT, void* data)
@@ -372,7 +394,7 @@ bool AVLTree_remove(AVLTree* AVLT, void* data)
     if(!pointer) {   
         return false;
     }
-    CircularBuffer *CB = CircularBuffer_create((AVLT->size + 2)/2);
+    CircularQueue *CB = CircularQueue_create((AVLT->size + 2)/2);
     if(!CB) {
         return false;
     }
@@ -407,21 +429,23 @@ bool AVLTree_remove(AVLTree* AVLT, void* data)
         AVLTree_rebalance(AVLT, pointer_parent, CB);
     }
     else {
-        AVLTreeNode* node_inorder_successor = pointer->right;
-        AVLTreeNode* node_inorder_successor_parent = pointer;
-        while(node_inorder_successor->left) {
-            node_inorder_successor_parent = node_inorder_successor;
-            node_inorder_successor = node_inorder_successor->left;
-        }
-        if(node_inorder_successor_parent == pointer) {
-            node_inorder_successor_parent->right = node_inorder_successor->right;
+        if(AVLT->root->balance_factor < 0) {
+            // pointer = pointer->left;
+            AVLTreeNode_inorder_predecessor(pointer_parent);
         }
         else {
-            node_inorder_successor_parent->left = node_inorder_successor->right;
+            AVLTreeNode* inorder_successor = AVLTreeNode_inorder_successor(pointer);
+            AVLTreeNode* inorder_successor_parent = inorder_successor->parent;
+            // if(inorder_successor_parent == pointer) {
+            //     pointer_parent->right = pointer->right;
+            // }
+            // else {
+            //     pointer_parent->left = pointer->right;
+            // }
+            // memcpy(pointer->data, inorder_successor->data, AVLT->data_size);
+            AVLTreeNode_destroy(inorder_successor);
+            AVLTree_rebalance(AVLT, inorder_successor_parent, CB);
         }
-        memcpy(pointer->data, node_inorder_successor->data, AVLT->data_size);
-        AVLTreeNode_destroy(node_inorder_successor);
-        AVLTree_rebalance(AVLT, node_inorder_successor_parent, CB);
     }
     AVLT->size = AVLT->size - 1;
     return true;
