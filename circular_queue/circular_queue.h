@@ -15,9 +15,9 @@ typedef struct CircularQueue {
 } CircularQueue;
 
 CircularQueue* CircularQueue_create(size_t data_size, size_t capacity);
-void CircularQueue_destroy(CircularQueue *CB);
+void CircularQueue_destroy(CircularQueue *CQ);
 
-bool CircularQueue_enqueue(CircularQueue* CB, void* data);
-bool CircularQueue_dequeue(CircularQueue* CB);
+bool CircularQueue_enqueue(CircularQueue* CQ, void* data);
+bool CircularQueue_dequeue(CircularQueue* CQ);
 
 #endif

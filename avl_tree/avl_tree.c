@@ -17,16 +17,16 @@ static AVLTreeNode* AVLTreeNode_create(size_t data_size);
 static void AVLTreeNode_destroy(AVLTreeNode* node);
 
 static CircularQueue* CircularQueue_create(size_t capacity);
-static inline void CircularQueue_enqueue(CircularQueue* CB, AVLTreeNode* data);
-static inline void CircularQueue_dequeue(CircularQueue* CB);
+static inline void CircularQueue_enqueue(CircularQueue* CQ, AVLTreeNode* data);
+static inline void CircularQueue_dequeue(CircularQueue* CQ);
 
-static size_t AVLTreeNode_height(AVLTreeNode* node, CircularQueue *CB);
-static void AVLTreeNode_balance_factor(AVLTreeNode* node, CircularQueue *CB);
+static size_t AVLTreeNode_height(AVLTreeNode* node, CircularQueue *CQ);
+static void AVLTreeNode_balance_factor(AVLTreeNode* node, CircularQueue *CQ);
 static AVLTreeNode* AVLTreeNode_rotate_right(AVLTreeNode* node);
 static AVLTreeNode* AVLTreeNode_rotate_left_right(AVLTreeNode* node);
 static AVLTreeNode* AVLTreeNode_rotate_left(AVLTreeNode* node);
 static AVLTreeNode* AVLTreeNode_rotate_right_left(AVLTreeNode* node);
-static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, CircularQueue* CB);
+static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, CircularQueue* CQ);
 
 AVLTreeNode* AVLTreeNode_inorder_predecessor(AVLTreeNode* node);
 AVLTreeNode* AVLTreeNode_inorder_successor(AVLTreeNode* node);
@@ -83,50 +83,50 @@ static void AVLTreeNode_destroy(AVLTreeNode* node)
 
 static CircularQueue* CircularQueue_create(size_t capacity)
 {
-    CircularQueue* CB = malloc(sizeof (CircularQueue));
-    if(!CB) {
+    CircularQueue* CQ = malloc(sizeof (CircularQueue));
+    if(!CQ) {
         return NULL;
     }
-    CB->array = malloc(sizeof (AVLTreeNode) * capacity);
-    if(!CB->array) {
-        free(CB);
-        CB = NULL;
+    CQ->array = malloc(sizeof (AVLTreeNode) * capacity);
+    if(!CQ->array) {
+        free(CQ);
+        CQ = NULL;
         return NULL;
     }
-    CB->front = 0;
-    CB->back = 0;
-    CB->capacity = capacity;
-    CB->size = 0;
-    return CB;
+    CQ->front = 0;
+    CQ->back = 0;
+    CQ->capacity = capacity;
+    CQ->size = 0;
+    return CQ;
 }
 
-static inline void CircularQueue_enqueue(CircularQueue* CB, AVLTreeNode* data)
+static inline void CircularQueue_enqueue(CircularQueue* CQ, AVLTreeNode* data)
 {
-    memcpy(&CB->array[CB->back], data, sizeof (AVLTreeNode));
-    CB->back = (CB->back + 1) % CB->capacity;
-    CB->size = CB->size + 1;
+    memcpy(&CQ->array[CQ->back], data, sizeof (AVLTreeNode));
+    CQ->back = (CQ->back + 1) % CQ->capacity;
+    CQ->size = CQ->size + 1;
 }
 
-static inline void CircularQueue_dequeue(CircularQueue* CB)
+static inline void CircularQueue_dequeue(CircularQueue* CQ)
 {
-    CB->front = (CB->front + 1) % CB->capacity;
-    CB->size = CB->size - 1;
+    CQ->front = (CQ->front + 1) % CQ->capacity;
+    CQ->size = CQ->size - 1;
 }
 
-static size_t AVLTreeNode_height(AVLTreeNode* node, CircularQueue *CB)
+static size_t AVLTreeNode_height(AVLTreeNode* node, CircularQueue *CQ)
 {
     size_t height = 0;
-    CircularQueue_enqueue(CB, node);
-    while(CB->size) {
-        size_t queue_size = CB->size;
+    CircularQueue_enqueue(CQ, node);
+    while(CQ->size) {
+        size_t queue_size = CQ->size;
         while(queue_size) {
-            node = &CB->array[CB->front];
-            CircularQueue_dequeue(CB);
+            node = &CQ->array[CQ->front];
+            CircularQueue_dequeue(CQ);
             if(node->left) {
-                CircularQueue_enqueue(CB, node->left);
+                CircularQueue_enqueue(CQ, node->left);
             }
             if(node->right) {
-                CircularQueue_enqueue(CB, node->right);
+                CircularQueue_enqueue(CQ, node->right);
             }
             queue_size = queue_size - 1;
         }
@@ -135,15 +135,15 @@ static size_t AVLTreeNode_height(AVLTreeNode* node, CircularQueue *CB)
     return height;
 }
 
-static void AVLTreeNode_balance_factor(AVLTreeNode* node, CircularQueue *CB)
+static void AVLTreeNode_balance_factor(AVLTreeNode* node, CircularQueue *CQ)
 {
     size_t height_left = 0;
     size_t height_right = 0;
     if(node->left) {
-        height_left = AVLTreeNode_height(node->left, CB);
+        height_left = AVLTreeNode_height(node->left, CQ);
     }
     if(node->right) {
-        height_right = AVLTreeNode_height(node->right, CB);
+        height_right = AVLTreeNode_height(node->right, CQ);
     }
     node->balance_factor = (int)(height_right - height_left);
 }
@@ -246,15 +246,15 @@ static AVLTreeNode* AVLTreeNode_rotate_right_left(AVLTreeNode* node)
     return node_right_left;
 }
 
-static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, CircularQueue* CB)
+static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, CircularQueue* CQ)
 {
     while(node) {
-        AVLTreeNode_balance_factor(node, CB);
+        AVLTreeNode_balance_factor(node, CQ);
         if(node->balance_factor == -2) {
             if(node->left->balance_factor == -1) {
                 node = AVLTreeNode_rotate_right(node);
-                AVLTreeNode_balance_factor(node, CB);
-                AVLTreeNode_balance_factor(node->right, CB);
+                AVLTreeNode_balance_factor(node, CQ);
+                AVLTreeNode_balance_factor(node->right, CQ);
                 if(!node->parent) {
                     AVLT->root = node;
                     return;
@@ -262,7 +262,7 @@ static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, CircularQueue* C
             }
             else if(node->left->balance_factor == 1) {
                 node = AVLTreeNode_rotate_left_right(node);
-                AVLTreeNode_balance_factor(node, CB);
+                AVLTreeNode_balance_factor(node, CQ);
                 if(!node->parent) {
                     AVLT->root = node;
                     return;
@@ -272,8 +272,8 @@ static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, CircularQueue* C
         else if(node->balance_factor == 2) {
             if(node->right->balance_factor == 1) {
                 node = AVLTreeNode_rotate_left(node);
-                AVLTreeNode_balance_factor(node, CB);
-                AVLTreeNode_balance_factor(node->left, CB);
+                AVLTreeNode_balance_factor(node, CQ);
+                AVLTreeNode_balance_factor(node->left, CQ);
                 if(!node->parent) {
                     AVLT->root = node;
                     return;
@@ -281,7 +281,7 @@ static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, CircularQueue* C
             }
             else if(node->right->balance_factor == -1) {
                 node = AVLTreeNode_rotate_right_left(node);
-                AVLTreeNode_balance_factor(node, CB);
+                AVLTreeNode_balance_factor(node, CQ);
                 if(!node->parent) {
                     AVLT->root = node;
                     return;
@@ -320,8 +320,8 @@ bool AVLTree_insert(AVLTree* AVLT, void* data)
             node = node->right;
         }
     }
-    CircularQueue *CB = CircularQueue_create((AVLT->size + 2)/2);
-    if(!CB) {
+    CircularQueue *CQ = CircularQueue_create((AVLT->size + 2)/2);
+    if(!CQ) {
         return false;
     }
     node = AVLTreeNode_create(AVLT->data_size);
@@ -336,7 +336,7 @@ bool AVLTree_insert(AVLTree* AVLT, void* data)
     else {
         node_parent->right = node;
     }
-    AVLTree_rebalance(AVLT, node_parent, CB);
+    AVLTree_rebalance(AVLT, node_parent, CQ);
     AVLT->size = AVLT->size + 1;
     return true;
 }
@@ -344,16 +344,8 @@ bool AVLTree_insert(AVLTree* AVLT, void* data)
 AVLTreeNode* AVLTreeNode_inorder_predecessor(AVLTreeNode* node)
 {
     AVLTreeNode* pointer = node->left;
-    AVLTreeNode* pointer_parent = node;
     while(pointer->right) {
-        pointer_parent = pointer;
         pointer = pointer->right;
-    }
-    if(pointer_parent == node) {
-        pointer_parent->left = pointer->left;
-    }
-    else {
-        pointer_parent->right = pointer->left;
     }
     return pointer;
 }
@@ -361,12 +353,9 @@ AVLTreeNode* AVLTreeNode_inorder_predecessor(AVLTreeNode* node)
 AVLTreeNode* AVLTreeNode_inorder_successor(AVLTreeNode* node)
 {
     AVLTreeNode* pointer = node->right;
-    // AVLTreeNode* pointer_parent = node;
     while(pointer->left) {
-        // pointer_parent = pointer;
         pointer = pointer->left;
     }
-
     return pointer;
 }
 
@@ -394,8 +383,8 @@ bool AVLTree_remove(AVLTree* AVLT, void* data)
     if(!pointer) {   
         return false;
     }
-    CircularQueue *CB = CircularQueue_create((AVLT->size + 2)/2);
-    if(!CB) {
+    CircularQueue *CQ = CircularQueue_create((AVLT->size + 2)/2);
+    if(!CQ) {
         return false;
     }
     if(!pointer->left && !pointer->right) {
@@ -406,7 +395,7 @@ bool AVLTree_remove(AVLTree* AVLT, void* data)
             pointer_parent->right = NULL;
         }
         AVLTreeNode_destroy(pointer);
-        AVLTree_rebalance(AVLT, pointer_parent, CB);
+        AVLTree_rebalance(AVLT, pointer_parent, CQ);
     }
     else if(!pointer->left) {
         if(pointer_parent->right == pointer) {
@@ -416,7 +405,7 @@ bool AVLTree_remove(AVLTree* AVLT, void* data)
             pointer_parent->left = pointer->right;
         }
         AVLTreeNode_destroy(pointer);
-        AVLTree_rebalance(AVLT, pointer_parent, CB);
+        AVLTree_rebalance(AVLT, pointer_parent, CQ);
     }
     else if(!pointer->right) {
         if(pointer_parent->left == pointer) {
@@ -426,25 +415,32 @@ bool AVLTree_remove(AVLTree* AVLT, void* data)
             pointer_parent->right = pointer->left;
         }
         AVLTreeNode_destroy(pointer);
-        AVLTree_rebalance(AVLT, pointer_parent, CB);
+        AVLTree_rebalance(AVLT, pointer_parent, CQ);
     }
     else {
         if(AVLT->root->balance_factor < 0) {
-            // pointer = pointer->left;
-            AVLTreeNode_inorder_predecessor(pointer_parent);
+            AVLTreeNode* inorder_predecessor = AVLTreeNode_inorder_predecessor(pointer);
+            AVLTreeNode* inorder_predecessor_parent = inorder_predecessor->parent;
+            free(pointer->data);
+            pointer->data = inorder_predecessor->data;
+            inorder_predecessor_parent->left = inorder_predecessor->right;
+            if(inorder_predecessor_parent->left) {
+                inorder_predecessor_parent->left->parent = inorder_predecessor_parent;
+            }
+            AVLTreeNode_destroy(inorder_predecessor);
+            AVLTree_rebalance(AVLT, inorder_predecessor_parent, CQ);
         }
         else {
             AVLTreeNode* inorder_successor = AVLTreeNode_inorder_successor(pointer);
             AVLTreeNode* inorder_successor_parent = inorder_successor->parent;
-            // if(inorder_successor_parent == pointer) {
-            //     pointer_parent->right = pointer->right;
-            // }
-            // else {
-            //     pointer_parent->left = pointer->right;
-            // }
-            // memcpy(pointer->data, inorder_successor->data, AVLT->data_size);
+            free(pointer->data);
+            pointer->data = inorder_successor->data;
+            inorder_successor_parent->left = inorder_successor->right;
+            if(inorder_successor_parent->left) {
+                inorder_successor_parent->left->parent = inorder_successor_parent;
+            }
             AVLTreeNode_destroy(inorder_successor);
-            AVLTree_rebalance(AVLT, inorder_successor_parent, CB);
+            AVLTree_rebalance(AVLT, inorder_successor_parent, CQ);
         }
     }
     AVLT->size = AVLT->size - 1;
