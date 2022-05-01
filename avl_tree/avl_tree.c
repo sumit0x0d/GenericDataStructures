@@ -1,7 +1,5 @@
 #include "avl_tree.h"
 
-#include <stdio.h>
-
 typedef struct CircularQueue {
     AVLTreeNode* array;
     size_t front;
