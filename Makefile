@@ -7,24 +7,22 @@ CFLAGS = -std=c99 -O0 -g -Wall -Wpedantic -Wextra -Werror
 
 main1:
 	$(CC) $(CFLAGS) \
-	./avl_tree/avl_tree.c \
-	./binary_search_tree/binary_search_tree.c \
-	./binary_tree/binary_tree.c \
-	./circular_queue/circular_queue.c \
-	./deque-array/deque-array.c \
-	./deque-linked_list/deque-linked_list.c \
-	./doubly_linked_list/doubly_linked_list.c \
-	./dynamic_array/dynamic_array.c \
-	./graph-adjacency_list/graph-adjacency_list.c \
-	./graph-adjacency_matrix/graph-adjacency_matrix.c \
-	./hash_table-separate_chaining/hash_table-separate_chaining.c \
-	./queue-array/queue-array.c \
-	./queue-linked_list/queue-linked_list.c \
-	./red-black_tree/red-black_tree.c \
-	./singly_linked_list/singly_linked_list.c \
-	./stack-array/stack-array.c \
-	./stack-linked_list/stack-linked_list.c \
-	./trie/trie.c \
+	./AVLTree/AVLTree.c \
+	./BinarySearchTree/BinarySearchTree.c \
+	./CircularQueue/CircularQueue.c \
+	./Deque-Array/Deque-Array.c \
+	./Deque-LinkedList/Deque-LinkedList.c \
+	./DoublyLinkedList/DoublyLinkedList.c \
+	./DynamicArray/DynamicArray.c \
+	./Graph-AdjacencyList/Graph-AdjacencyList.c \
+	./Graph-AdjacencyMatrix/Graph-AdjacencyMatrix.c \
+	./HashTable-SeparateChaining/HashTable-SeparateChaining.c \
+	./Queue-Array/Queue-Array.c \
+	./Queue-LinkedList/Queue-LinkedList.c \
+	./RedBlackTree/RedBlackTree.c \
+	./SinglyLinkedList/SinglyLinkedList.c \
+	./Stack-Array/Stack-Array.c \
+	./Stack-LinkedList/Stack-LinkedList.c \
 	./main.c \
 	-o $(TARGET)
 

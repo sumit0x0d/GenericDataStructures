@@ -1,4 +1,4 @@
-#include "generic_data_structures.h"
+#include "GenericDataStructures.h"
 
 #include <stdio.h>
 
