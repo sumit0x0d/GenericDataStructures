@@ -23,4 +23,7 @@ bool DequeA_push_back(DequeA* D, void* data);
 bool DequeA_pop_front(DequeA* D);
 bool DequeA_pop_back(DequeA* D);
 
+void* DequeA_front(DequeA* Q);
+void* DequeA_back(DequeA* Q);
+
 #endif

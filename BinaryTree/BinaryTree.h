@@ -20,4 +20,6 @@ void BinaryTree_destroy(BinaryTree* bt);
 
 BinaryTreeNode* BinaryTree_insert(BinaryTree* bt, void* data, size_t data_size);
 
+void* BinaryTree_root(BinaryTree* BT);
+
 #endif

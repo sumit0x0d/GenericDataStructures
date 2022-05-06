@@ -1,10 +1,10 @@
 #include "BinarySearchTree.h"
 
 BinarySearchTree* BinarySearchTree_create(size_t data_size,
-    int (*compare)(void* data, void* node_data));
+    int (*compare)(void* data1, void* data2));
 void BinarySearchTree_destroy(BinarySearchTree* BST);
 
-static BinarySearchTreeNode* BInarySearchTreeNode_create(size_t data_size);
+static BinarySearchTreeNode* BinarySearchTreeNode_create(size_t data_size);
 static void BInarySearchTreeNode_destroy(BinarySearchTreeNode* node);
 
 bool BinarySearchTree_insert(BinarySearchTree* BST, void* data);
@@ -12,8 +12,10 @@ bool BinarySearchTree_remove(BinarySearchTree* BST, void* data);
 
 BinarySearchTreeNode* BinarySearchTree_search(BinarySearchTree* BST, void* data);
 
+void* BinarySearchTree_root(BinarySearchTree* BST);
+
 BinarySearchTree* BinarySearchTree_create(size_t data_size,
-    int (*compare)(void* data, void* node_data))
+    int (*compare)(void* data1, void* data2))
 {
     BinarySearchTree* BST = malloc(sizeof (BinarySearchTree));
     if(!BST) {
@@ -185,4 +187,12 @@ BinarySearchTreeNode* BinarySearchTree_search(BinarySearchTree* BST, void* data)
         }
     }
     return NULL;
+}
+
+void* BinarySearchTree_root(BinarySearchTree* BST)
+{
+    if(!BST->root) {
+        return NULL;
+    }
+    return BST->root->data;
 }

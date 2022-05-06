@@ -2,9 +2,11 @@
 
 BinaryTree* BinaryTree_create();
 
-static BinaryTreeNode* node_create(size_t data_size);
+static BinaryTreeNode* BinaryTreeNode_create(size_t data_size);
 
 BinaryTreeNode* BinaryTree_insert(BinaryTree* BT, void* data, size_t data_size);
+
+void* BinaryTree_root(BinaryTree* BT);
 
 BinaryTree* BinaryTree_create()
 {
@@ -17,7 +19,7 @@ BinaryTree* BinaryTree_create()
     return BT;
 }
 
-static BinaryTreeNode* node_create(size_t data_size)
+static BinaryTreeNode* BinaryTreeNode_create(size_t data_size)
 {
     BinaryTreeNode* node = malloc(sizeof (BinaryTreeNode));
     if(!node) {
@@ -36,7 +38,7 @@ static BinaryTreeNode* node_create(size_t data_size)
 
 BinaryTreeNode* BinaryTree_insert(BinaryTree* BT, void* data, size_t data_size)
 {
-    BinaryTreeNode* node = node_create(data_size);
+    BinaryTreeNode* node = BinaryTreeNode_create(data_size);
     if(!node) {
         return NULL;
     }
@@ -45,68 +47,10 @@ BinaryTreeNode* BinaryTree_insert(BinaryTree* BT, void* data, size_t data_size)
     return node;
 }
 
-// size_t BinaryTree_node_height(BinaryTreeNode* node)
-// {
-//     size_t height = 0;
-//     size_t queue_size;
-//     Queue queue = queue_create();
-//     queue.enqueue(&queue, node);
-//     while(queue_size) {
-//         queue_size = queue.size;
-//         while(queue_size) {
-//             node = queue.front->data;
-//             queue.dequeue(&queue);
-//             if(node->left)
-//                 queue.enqueue(&queue, node->left);
-//             if(node->right)
-//                 queue.enqueue(&queue, node->right);
-//             queue_size--;
-//         }
-//         height++;
-//     }
-//     return height;
-// }
-
-// static BinaryTreeNode* tree_node_inorder_predecessor(BinaryTreeNode* node)
-// {
-//     if(node->left) {
-//         node = node->left;
-//         while(node->right)
-//             node = node->right;
-//     }
-
-//     return node;
-// }
-
-// static BinaryTreeNode* tree_node_inorder_successor(BinaryTreeNode* node)
-// {    
-//     if(node->right) {
-//         node = node->right;
-//         while(node->left)
-//             node = node->left;
-//     }
-//     return node;
-// }
-
-// BinaryTree* tree_from_preorder(int preorder[], size_t preorder_size, int inorder[], size_t inorder_size)
-// {
-//     if(preorder_size != inorder_size)
-//        
-        // return NULL;
-//     BinaryTreeNode* root, *node;
-//     root->data = preorder[0];
-//     node = root;
-//     for(size_t i = 1; i < preorder_size; i++)
-//         for(size_t j = 0; j < inorder_size; j++) {
-//             if(node->data == inorder[j])
-//                 return;
-//         }
-//     return root;
-// }
-
-// BinaryTree* tree_from_postorder(int *postorder, size_t postorder_size, int *inorder, size_t inorder_size)
-// {
-//     if(postorder_size != inorder_size)
-//        
-        // return NULL;
-// }
+void* BinaryTree_root(BinaryTree* BT)
+{
+    if(!BT->root) {
+        return NULL;
+    }
+    return BT->root->data;
+}

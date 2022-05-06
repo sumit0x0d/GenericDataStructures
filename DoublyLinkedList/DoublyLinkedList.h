@@ -16,11 +16,11 @@ typedef struct DoublyLinkedList {
     DoublyLinkedListNode* tail;
     size_t data_size;
     size_t size;
-    int (*compare)(void* data, void* node_data);
+    int (*compare)(void* data1, void* data2);
 } DoublyLinkedList;
 
 DoublyLinkedList* DoublyLinkedList_create(size_t data_size,
-    int (*compare)(void* data, void* node_data));
+    int (*compare)(void* data1, void* data2));
 void DoublyLinkedList_destroy(DoublyLinkedList* DLL);
 
 bool DoublyLinkedList_push_front(DoublyLinkedList* DLL, void* data);
@@ -35,5 +35,8 @@ bool DoublyLinkedList_update(DoublyLinkedList* SLL, size_t index, void* data);
 
 DoublyLinkedListNode* DoublyLinkedList_search(DoublyLinkedList* DLL, void* data);
 DoublyLinkedListNode* DoublyLinkedList_at(DoublyLinkedList* DLL, size_t index);
+
+void* DoublyLinkedList_head(DoublyLinkedList* DLL)
+void* DoublyLinkedList_tail(DoublyLinkedList* DLL)
 
 #endif

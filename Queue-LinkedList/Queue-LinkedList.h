@@ -23,4 +23,7 @@ void QueueLL_destroy(QueueLL* Q);
 bool QueueLL_enqueue(QueueLL* Q, void* data);
 bool QueueLL_dequeue(QueueLL* Q);
 
+void* QueueLL_front(QueueLL* Q);
+void* QueueLL_back(QueueLL* Q);
+
 #endif

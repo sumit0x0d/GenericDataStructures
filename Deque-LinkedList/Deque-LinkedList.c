@@ -11,6 +11,9 @@ bool DequeLL_push_back(DequeLL* D, void* data);
 bool DequeLL_pop_front(DequeLL* D);
 bool DequeLL_pop_back(DequeLL* D);
 
+void* DequeLL_front(DequeLL* Q);
+void* DequeLL_back(DequeLL* Q);
+
 DequeLL* DequeLL_create(size_t data_size)
 {
     DequeLL* D = malloc(sizeof (DequeLL));
@@ -30,7 +33,7 @@ void DequeLL_destroy(DequeLL* D)
     while(pointer) {
         if(pointer->next) {
             DequeLL_pop_front(D);
-            pointer = D->front;   
+            pointer = D->front;
         }
         else {
             DequeLL_pop_front(D);
@@ -134,4 +137,20 @@ bool DequeLL_pop_back(DequeLL* D)
     DequeLLnode_destroy(pointer);
     D->size = D->size - 1;
     return true;
+}
+
+void* DequeLL_front(DequeLL* Q)
+{
+    if(!Q->front) {
+        return NULL;
+    }
+    return Q->front->data;
+}
+
+void* DequeLL_back(DequeLL* Q)
+{
+    if(!Q->back) {
+        return NULL;
+    }
+    return Q->back->data;
 }

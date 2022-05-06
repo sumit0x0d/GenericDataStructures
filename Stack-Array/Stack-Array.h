@@ -19,4 +19,6 @@ void StackA_destroy(StackA* S);
 bool StackA_push(StackA* S, void* data);
 bool StackA_pop(StackA* S);
 
+void* StackA_peek(StackA* S);
+
 #endif

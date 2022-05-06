@@ -7,6 +7,9 @@ void QueueA_destroy(QueueA* Q);
 bool QueueA_enqueue(QueueA* Q, void* data);
 bool QueueA_dequeue(QueueA* Q);
 
+void* QueueA_front(QueueA* Q);
+void* QueueA_back(QueueA* Q);
+
 QueueA* QueueA_create(size_t data_size, size_t capacity)
 {
     QueueA* Q = malloc(sizeof (QueueA));
@@ -73,4 +76,20 @@ bool QueueA_dequeue(QueueA* Q)
     Q->front = Q->front + 1;
     Q->size = Q->size - 1;
     return true;
+}
+
+void* QueueA_front(QueueA* Q)
+{
+    if(!Q->size) {
+        return NULL;
+    }
+    return (char*)Q->array + (Q->data_size * Q->front);
+}
+
+void* QueueA_back(QueueA* Q)
+{
+    if(!Q->size) {
+        return NULL;
+    }
+    return (char*)Q->array + (Q->data_size * (Q->back - 1));
 }

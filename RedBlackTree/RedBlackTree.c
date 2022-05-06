@@ -1,7 +1,7 @@
 #include "RedBlackTree.h"
 
 RedBlackTree* RedBlackTree_create(size_t data_size,
-    int (*compare)(void* data, void* node_data));
+    int (*compare)(void* data1, void* data2));
 
 void* RedBlackTree_root(RedBlackTree* RedBlackT);
 size_t RedBlackTree_size(RedBlackTree* RedBlackT);
@@ -17,8 +17,10 @@ bool RedBlackTree_remove(RedBlackTree* RBT, void* data);
 
 RedBlackTreeNode* RedBlackTree_search(RedBlackTree* RBT, void* data);
 
+void* RedBlackTree_root(RedBlackTree* RBT);
+
 RedBlackTree* RedBlackTree_create(size_t data_size,
-    int (*compare)(void* data, void* node_data))
+    int (*compare)(void* data1, void* data2))
 {
     RedBlackTree* RBT = malloc(sizeof (RedBlackTree));
     if(!RBT) {
@@ -152,12 +154,27 @@ static RedBlackTreeNode* RedBlackTreeNode_rotate_right_left(RedBlackTreeNode* no
     return node_right_left;
 }
 
+void RedBlackTreeNode_recolor(RedBlackTreeNode* node)
+{
+
+}
+
 static void RedBlackTree_rebalance(RedBlackTree* RBT, RedBlackTreeNode* node)
 {
     while(node) {
+        if(node->color == RED) {
+            if(node->parent->left == node) {
+                if(!node->parent->right || node->parent->right->color == BLACK) {
+                    node = RedBlackTreeNode_rotate_right(node);
+                }
+                else if(node->parent->right || node->parent->right->color == RED) {
+
+                }
+            }
+        }
         if(node->parent->left == node) {
             if(node->color == RED && (!node->parent->right || node->parent->right->color == BLACK)) {
-                node = RedBlackTreeNode_rotate_left(node);
+                
             }
             if(node->color == RED && (node->parent->right && node->parent->right->color == RED)) {
                 node->parent->color = BLACK;
@@ -247,4 +264,12 @@ RedBlackTreeNode* RedBlackTree_search(RedBlackTree* RBT, void* data)
         }
     }
     return NULL;
+}
+
+void* RedBlackTree_root(RedBlackTree* RBT)
+{
+    if(!RBT->root) {
+        return NULL;
+    }
+    return RBT->root->data;
 }

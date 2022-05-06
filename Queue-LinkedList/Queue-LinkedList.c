@@ -9,6 +9,9 @@ static void QueueLLnode_destroy(QueueLLNode* Q);
 bool QueueLL_enqueue(QueueLL* Q, void* data);
 bool QueueLL_dequeue(QueueLL* Q);
 
+void* QueueLL_front(QueueLL* Q);
+void* QueueLL_back(QueueLL* Q);
+
 QueueLL* QueueLL_create(size_t data_size)
 {
     QueueLL* Q = malloc(sizeof (QueueLL));
@@ -94,4 +97,20 @@ bool QueueLL_dequeue(QueueLL* Q)
     QueueLLnode_destroy(pointer);
     Q->size = Q->size - 1;
     return true;
+}
+
+void* QueueLL_front(QueueLL* Q)
+{
+    if(!Q->front) {
+        return NULL;
+    }
+    return Q->front->data;
+}
+
+void* QueueLL_back(QueueLL* Q)
+{
+    if(!Q->back) {
+        return NULL;
+    }
+    return Q->back->data;
 }

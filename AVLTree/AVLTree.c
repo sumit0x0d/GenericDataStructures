@@ -8,7 +8,7 @@ typedef struct CircularQueue {
     size_t size;
 } CircularQueue;
 
-AVLTree* AVLTree_create(size_t data_size, int (*compare)(void* data, void* node_data));
+AVLTree* AVLTree_create(size_t data_size, int (*compare)(void* data1, void* data2));
 void AVLTree_destroy(AVLTree* AVLT);
 
 static AVLTreeNode* AVLTreeNode_create(size_t data_size);
@@ -34,7 +34,9 @@ bool AVLTree_remove(AVLTree* AVLT, void* data);
 
 AVLTreeNode* AVLTree_search(AVLTree* AVLT, void* data);
 
-AVLTree* AVLTree_create(size_t data_size, int (*compare)(void* data, void* node_data))
+void* AVLTree_root(AVLTree* AVLT);
+
+AVLTree* AVLTree_create(size_t data_size, int (*compare)(void* data1, void* data2))
 {
     AVLTree* AVLT = malloc(sizeof (AVLTree));
     if(!AVLT) {
@@ -462,4 +464,12 @@ AVLTreeNode* AVLTree_search(AVLTree* AVLT, void* data)
         }
     }
     return NULL;
+}
+
+void* AVLTree_root(AVLTree* AVLT)
+{
+    if(!AVLT->root) {
+        return NULL;
+    }
+    return AVLT->root->data;
 }

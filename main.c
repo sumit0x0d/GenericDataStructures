@@ -1,8 +1,8 @@
-#include "GenericDataStructures.h"
+#include "generic_data_structures.h"
 
 #include <stdio.h>
 
-int compare(void* data, void* node_data) {
+int compare(void* data1, void* data2) {
     if(*(int*)data < *(int*)node_data)
         return -1;
     if(*(int *)data > *(int *)node_data)
@@ -14,102 +14,6 @@ size_t hash(void* key, size_t buckets)
 {
     return *(size_t *)key % buckets;
 }
-
-void array_print(void* A, size_t data_size, size_t begin, size_t end, size_t size)
-{
-    if(!A) return;
-    printf("\n[Data]\t: ");
-    for(size_t i = begin; i < end; i++) {
-        printf("%d ", *(int *)((char* )A + (data_size * i)));
-    }
-    printf("\n[Size]\t: %zu\n", size);
-}
-
-void binary_tree_preorder_traversal(AVLTree* AVLT)
-{
-    if(!AVLT->size) return;
-    printf("[Binary Tree]");
-    printf("\n[Pre-Order] : ");
-    AVLTreeNode* node = AVLT->root;
-    StackLL* S = StackLL_create(sizeof (AVLTreeNode));
-    while(node || S->size) {
-        if(node) {
-            StackLL_push(S, node);
-            printf("%d(%d) ", *(int*)node->data, node->balance_factor);
-            node = node->left;
-        }
-        else {
-            node = S->top->data;
-            StackLL_pop(S);
-            node = node->right;
-        }
-    }
-    printf("\b\n[Size]\t: %zu\n", AVLT->size);
-}
-
-void binary_tree_inorder_traversal(AVLTree* AVLT)
-{
-    if(!AVLT->size) return;
-    printf("[Binary Tree]");
-    printf("\n[In-Order] : ");
-    AVLTreeNode* node = AVLT->root;
-    StackLL* S = StackLL_create(sizeof (AVLTreeNode));
-    while(node || S->size) {
-        if(node) {
-            StackLL_push(S, node);
-            node = node->left;
-        }
-        else {
-            node = S->top->data;
-            StackLL_pop(S);
-            printf("%d(%d) ", *(int*)node->data, node->balance_factor);
-            node = node->right;
-        }
-    }
-    printf("\b\n[Size]\t: %zu\n", AVLT->size);
-}
-
-// void binary_tree_levelorder_traversal(AVLTree* AVLT)
-// {
-//     QueueLL *Q = QueueLL_create(sizeof (AVLTreeNode*));
-//     AVLTreeNode* node = avl_tree_begin(AVLT);
-//     printf("%d(%d) ", *(int*)avl_tree_node_data(node), avl_tree_node_balance_factor(node));
-//     QueueLL_enqueue(&Q, &node);
-//     while(QueueLL_size(&Q)) {
-//         node = QueueLL_front(&Q);
-//         QueueLL_dequeue(&Q);
-//         if(avl_tree_node_left(node)) {
-//             printf("%d(%d) ", *(int*)avl_tree_node_data(node), avl_tree_node_balance_factor(node));
-//             QueueLL_enqueue(&Q, avl_tree_node_left(node));
-//         }
-//         if( avl_tree_node_right(node)) {
-//             printf("%d(%d) ", *(int*)avl_tree_node_data(node), avl_tree_node_balance_factor(node));
-//             QueueLL_enqueue(&Q, avl_tree_node_right(node));
-//         }
-//     }
-// }
-
-// void binary_tree_postorder_traversal(AVLTree* AVLT)
-// {
-//     if(!avl_tree_size(AVLT)) return;
-//     printf("[Binary Tree]");
-//     printf("\n[In-Order] : ");
-//     AVLTreeNode* node = avl_tree_begin(AVLT);
-//     StackLL* S = stack_linked_list_create(sizeof (AVLTreeNode*));
-//     while(node || stack_linked_list_size(S)) {
-//         if(node) {
-//             stack_linked_list_push(S, &node);
-//             node = avl_tree_node_left(node);
-//         }
-//         else {
-//             node = *(AVLTreeNode **)stack_linked_list_peek(S);
-//             stack_linked_list_pop(S);
-//             printf("%d(%d) ", *(int*)avl_tree_node_data(node), avl_tree_node_balance_factor(node));
-//             node = avl_tree_node_right(node);
-//         }
-//     }
-//     printf("\b\n[Size]\t: %zu\n", avl_tree_size(AVLT));
-// }
 
 // void linked_list_print(void* begin, void* end)
 // {
@@ -145,11 +49,18 @@ int main()
     // }
     char a = 'I';
     int b = 1;
+    // char c = 'A';
+    // int d = 2;
     // binary_search_tree_remove(BST, &b);
     // binary_tree_preorder_traversal(AVLT);
-    HashTableSC *HT = HashTableSC_create(sizeof (char), sizeof (int), 100, hash, compare);
+    HashTableSC *HT = HashTableSC_create(sizeof (char), sizeof (int), 10, hash, compare);
     HashTableSC_insert(HT, &a, &b);
+    // HashTableSC_insert(HT, &c, &d);
+    int* i = HashTableSC_search(HT, &a);
+    if(i)
+    printf("%d", *i);
     // binary_tree_inorder_traversal(AVLT);
     // avl_tree_remove(AVLT, &a[3]);
+
 
 }

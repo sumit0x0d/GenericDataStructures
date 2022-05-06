@@ -1,7 +1,7 @@
 #include "SinglyLinkedList.h"
 
 SinglyLinkedList* SinglyLinkedList_create(size_t data_size,
-    int (*compare)(void* data, void* node_data));
+    int (*compare)(void* data1, void* data2));
 void SinglyLinkedList_destroy(SinglyLinkedList* SLL);
 
 static SinglyLinkedListNode* SinglyLinkedListNode_create(size_t data_size);
@@ -20,8 +20,11 @@ bool SinglyLinkedList_update(SinglyLinkedList* SLL, size_t index, void* data);
 SinglyLinkedListNode* SinglyLinkedList_search(SinglyLinkedList* SLL, void* data);
 SinglyLinkedListNode* SinglyLinkedList_at(SinglyLinkedList* SLL, size_t index);
 
+void* SinglyLinkedList_head(SinglyLinkedList* SLL);
+void* SinglyLinkedList_tail(SinglyLinkedList* SLL);
+
 SinglyLinkedList* SinglyLinkedList_create(size_t data_size,
-    int (*compare)(void* data, void* node_data))
+    int (*compare)(void* data1, void* data2))
 {
     SinglyLinkedList* SLL = malloc(sizeof (SinglyLinkedList));
     if(!SLL) {
@@ -245,4 +248,20 @@ SinglyLinkedListNode* search(SinglyLinkedList* SLL, void* data)
         node = node->next;
     }
     return NULL;
+}
+
+void* SinglyLinkedList_head(SinglyLinkedList* SLL)
+{
+    if(!SLL->head) {
+        return NULL;
+    }
+    return SLL->head->data;
+}
+
+void* SinglyLinkedList_tail(SinglyLinkedList* SLL)
+{
+    if(!SLL->tail) {
+        return NULL;
+    }
+    return SLL->tail->data;
 }

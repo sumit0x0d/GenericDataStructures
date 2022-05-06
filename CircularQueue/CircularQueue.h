@@ -20,4 +20,7 @@ void CircularQueue_destroy(CircularQueue *CQ);
 bool CircularQueue_enqueue(CircularQueue* CQ, void* data);
 bool CircularQueue_dequeue(CircularQueue* CQ);
 
+void* CircularQueue_front(CircularQueue* CQ);
+void* CircularQueue_back(CircularQueue* CQ);
+
 #endif

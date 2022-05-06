@@ -1,7 +1,7 @@
 #include "DynamicArray.h"
 
 DynamicArray* DynamicArray_create(size_t data_size, size_t capacity, double growth_factor,
-    int (*compare)(void* data, void* node_data));
+    int (*compare)(void* data1, void* data2));
 void DynamicArray_destroy(DynamicArray* DA);
 
 bool DynamicArray_push_front(DynamicArray* DA, void* data);
@@ -17,7 +17,7 @@ size_t DynamicArray_search(DynamicArray* DA, void* data);
 void* DynamicArray_at(DynamicArray* DA, size_t index);
 
 DynamicArray* DynamicArray_create(size_t data_size, size_t capacity, double growth_factor,
-    int (*compare)(void* data, void* node_data))
+    int (*compare)(void* data1, void* data2))
 {
     if((size_t)(capacity * growth_factor) <= capacity) {
         return NULL;

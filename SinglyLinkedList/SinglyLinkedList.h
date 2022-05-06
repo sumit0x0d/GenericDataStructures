@@ -15,11 +15,11 @@ typedef struct SinglyLinkedList {
     SinglyLinkedListNode* tail;
     size_t data_size;
     size_t size;
-    int (*compare)(void* data, void* node_data);
+    int (*compare)(void* data1, void* data2);
 } SinglyLinkedList;
 
 SinglyLinkedList* SinglyLinkedList_create(size_t data_size,
-    int (*compare)(void* data, void* node_data));
+    int (*compare)(void* data1, void* data2));
 void SinglyLinkedList_destroy(SinglyLinkedList* SLL);
 
 bool SinglyLinkedList_push_head(SinglyLinkedList* SLL, void* data);
@@ -34,5 +34,8 @@ bool SinglyLinkedList_update(SinglyLinkedList* SLL, size_t index, void* data);
 
 SinglyLinkedListNode* SinglyLinkedList_search(SinglyLinkedList* SLL, void* data);
 SinglyLinkedListNode* SinglyLinkedList_at(SinglyLinkedList* SLL, size_t index);
+
+void* SinglyLinkedList_head(SinglyLinkedList* SLL);
+void* SinglyLinkedList_tail(SinglyLinkedList* SLL);
 
 #endif

@@ -22,4 +22,6 @@ void StackLL_destroy(StackLL* S);
 bool StackLL_push(StackLL* S, void* data);
 bool StackLL_pop(StackLL* S);
 
+void* StackLL_peek(StackLL* S);
+
 #endif

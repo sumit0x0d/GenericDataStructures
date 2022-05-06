@@ -6,6 +6,9 @@ void CircularQueue_destroy(CircularQueue *CQ);
 bool CircularQueue_enqueue(CircularQueue* CQ, void* data);
 bool CircularQueue_dequeue(CircularQueue* CQ);
 
+void* CircularQueue_front(CircularQueue* CQ);
+void* CircularQueue_back(CircularQueue* CQ);
+
 CircularQueue* CircularQueue_create(size_t data_size, size_t capacity)
 {
     CircularQueue* CQ = malloc(sizeof (CircularQueue));
@@ -50,4 +53,20 @@ bool CircularQueue_dequeue(CircularQueue* CQ)
     CQ->front = (CQ->front + 1) % CQ->capacity;
     CQ->size = CQ->size - 1;
     return true;
+}
+
+void* CircularQueue_front(CircularQueue* CQ)
+{
+    if(!CQ->size) {
+        return NULL;
+    }
+    return (char*)CQ->array + (CQ->data_size * CQ->front);
+}
+
+void* CircularQueue_back(CircularQueue* CQ)
+{
+    if(!CQ->size) {
+        return NULL;
+    }
+    return (char*)CQ->array + (CQ->data_size * (CQ->back - 1));
 }

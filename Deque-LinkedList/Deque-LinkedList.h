@@ -26,4 +26,7 @@ bool DequeLL_push_back(DequeLL* D, void* data);
 bool DequeLL_pop_front(DequeLL* D);
 bool DequeLL_pop_back(DequeLL* D);
 
+void* DequeLL_front(DequeLL* Q);
+void* DequeLL_back(DequeLL* Q);
+
 #endif

@@ -1,7 +1,7 @@
 #include "DoublyLinkedList.h"
 
 DoublyLinkedList* DoublyLinkedList_create(size_t data_size,
-    int (*compare)(void* data, void* node_data));
+    int (*compare)(void* data1, void* data2));
 void DoublyLinkedList_destroy(DoublyLinkedList* );
 
 static DoublyLinkedListNode* doubly_linked_list_node_create(size_t data_size);
@@ -20,7 +20,10 @@ bool DoublyLinkedList_update(DoublyLinkedList* DLL, size_t index, void* data);
 DoublyLinkedListNode* DoublyLinkedList_search(DoublyLinkedList* DLL, void* data);
 DoublyLinkedListNode* DoublyLinkedList_at(DoublyLinkedList* DLL, size_t index);
 
-DoublyLinkedList* DoublyLinkedList_create(size_t data_size, int (*compare)(void* data, void* node_data))
+void* DoublyLinkedList_head(DoublyLinkedList* DLL);
+void* DoublyLinkedList_tail(DoublyLinkedList* DLL);
+
+DoublyLinkedList* DoublyLinkedList_create(size_t data_size, int (*compare)(void* data1, void* data2))
 {
     DoublyLinkedList* DLL = malloc(sizeof (DoublyLinkedList));
     if(!DLL) {
@@ -210,4 +213,20 @@ bool DoublyLinkedList_remove(DoublyLinkedList* DLL, void* data)
     }
     DoublyLinkedList_erase(DLL, count);
     return true;
+}
+
+void* DoublyLinkedList_head(DoublyLinkedList* DLL)
+{
+    if(!DLL->head) {
+        return NULL;
+    }
+    return DLL->head->data;
+}
+
+void* DoublyLinkedList_back(DoublyLinkedList* DLL)
+{
+    if(!DLL->tail) {
+        return NULL;
+    }
+    return DLL->tail->data;
 }

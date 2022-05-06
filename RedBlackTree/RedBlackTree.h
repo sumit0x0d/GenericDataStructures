@@ -17,15 +17,17 @@ typedef struct RedBlackTree {
     RedBlackTreeNode* root;
     size_t data_size;
     size_t size;
-    int (*compare)(void* data, void* node_data);
+    int (*compare)(void* data1, void* data2);
 } RedBlackTree;
 
 RedBlackTree* RedBlackTree_create(size_t data_size,
-    int (*compare)(void* data, void* node_data));
+    int (*compare)(void* data1, void* data2));
 
 bool RedBlackTree_insert(RedBlackTree* RBT, void* data);
 bool RedBlackTree_remove(RedBlackTree* RBT, void* data);
 
 RedBlackTreeNode* RedBlackTree_search(RedBlackTree* RBT, void* data);
+
+void* RedBlackTree_root(RedBlackTree* RBT);
 
 #endif

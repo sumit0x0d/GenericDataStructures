@@ -1,9 +1,9 @@
 #ifndef HASH_TABLE_H
 #define HASH_TABLE_H
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
 
 typedef struct HashTableSCPair {
     void* key;
@@ -22,7 +22,7 @@ typedef struct HashTableSC {
 } HashTableSC;
 
 HashTableSC* HashTableSC_create(size_t key_size, size_t value_size, size_t buckets,
-    size_t hash(void* key, size_t buckets), int (*compare)(void* key, void* pair_key));
+    size_t (*hash)(void* key, size_t buckets), int (*compare)(void* key1, void* key2));
 void HashTableSC_destroy(HashTableSC* HT);
 
 bool HashTableSC_insert(HashTableSC* HT, void* key, void* value);

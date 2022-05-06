@@ -7,6 +7,8 @@ void StackA_destroy(StackA* S);
 bool StackA_push(StackA* S, void* data);
 bool StackA_pop(StackA* S);
 
+void* StackA_peek(StackA* S);
+
 StackA* StackA_create(size_t data_size, size_t capacity)
 {
     StackA* S = malloc(sizeof (StackA));
@@ -62,4 +64,12 @@ bool StackA_pop(StackA* S)
     }
     S->size = S->size - 1;
     return true;
+}
+
+void* StackA_peek(StackA* S)
+{
+    if(!S->size) {
+        return NULL;
+    }
+    return (char*)S->array + (S->size - 1);
 }

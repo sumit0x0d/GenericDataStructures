@@ -7,7 +7,7 @@ void* GraphAL_vertices(GraphAL* G);
 size_t GraphAL_size(GraphAL* G);
 
 static Vertex *vertex_create(size_t data_size);
-// static void vertex_destroy(Vertex *vertex);
+// static void vertex_destinationroy(Vertex *vertex);
 
 bool GraphAL_vertex_insert(GraphAL* G, void* data);
 bool GraphAL_vertex_remove(GraphAL* G, void* data);
@@ -70,7 +70,7 @@ Vertex *vertex_create(size_t data_size)
     return vertex;
 }
 
-// void vertex_destroy(Vertex *vertex)
+// void vertex_destinationroy(Vertex *vertex)
 // {
 
 // }
@@ -102,7 +102,7 @@ bool GraphAL_vertex_insert(GraphAL* G, void* data)
     return true;
 }
 
-// void graph_vertex_destroy(Vertex *vertex)
+// void graph_vertex_destinationroy(Vertex *vertex)
 // {
 
 // }

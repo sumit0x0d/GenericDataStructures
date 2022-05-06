@@ -21,4 +21,7 @@ void QueueA_destroy(QueueA* Q);
 bool QueueA_enqueue(QueueA* Q, void* data);
 bool QueueA_dequeue(QueueA* Q);
 
+void* QueueA_front(QueueA* Q);
+void* QueueA_back(QueueA* Q);
+
 #endif

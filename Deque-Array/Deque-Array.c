@@ -9,6 +9,9 @@ bool DequeA_push_back(DequeA* D, void* data);
 bool DequeA_pop_front(DequeA* D);
 bool DequeA_pop_back(DequeA* D);
 
+void* DequeA_front(DequeA* Q);
+void* DequeA_back(DequeA* Q);
+
 DequeA* DequeA_create(size_t data_size, size_t capacity)
 {
     DequeA* D = malloc(sizeof (DequeA));
@@ -101,4 +104,20 @@ bool DequeA_pop_back(DequeA* D)
     D->back = D->back - 1;
     D->size = D->size - 1;
     return true;
+}
+
+void* DequeA_front(DequeA* Q)
+{
+    if(!Q->size) {
+        return NULL;
+    }
+    return (char*)Q->array + (Q->data_size * Q->front);
+}
+
+void* DequeA_back(DequeA* Q)
+{
+    if(!Q->size) {
+        return NULL;
+    }
+    return (char*)Q->array + (Q->data_size * (Q->back - 1));
 }
