@@ -1,7 +1,7 @@
 #include "Trie.h"
 
 struct TrieNode {
-    bool terminal;
+    int terminal;
     struct TrieNode* children[128];
 };
 
@@ -13,8 +13,8 @@ struct Trie {
 Trie *trie_create();
 
 TrieNode* trie_search(Trie *T, char* string);
-bool trie_insert(Trie *T, char* string);
-bool trie_remove(Trie *T, char* string);
+int trie_insert(Trie *T, char* string);
+int trie_remove(Trie *T, char* string);
 
 Trie *trie_create()
 {
@@ -39,7 +39,7 @@ static TrieNode* node_create()
     if(!node) {
         return NULL;
     }
-    node->terminal = false;
+    node->terminal = 0;
     for(int i = 0; i < 128; i++) {
         node->children[i] = NULL;
     }
@@ -47,12 +47,12 @@ static TrieNode* node_create()
     return node;
 }
 
-bool trie_insert(Trie *T, char* string)
+int trie_insert(Trie *T, char* string)
 {
     if(!T->root) {
         T->root = node_create();
         if(!T->root) {
-            return false;
+            return 0;
         }
     }
     TrieNode* node = T->root; 
@@ -69,13 +69,13 @@ bool trie_insert(Trie *T, char* string)
     //         node->children[(size_t)string[i]] = node_create(string[i]);
     // }
     if(node->terminal) {
-        return false;
+        return 0;
     }
     else {
-        node->terminal = true;
+        node->terminal = 1;
     }
     T->size = T->size + 1;
-    return true;
+    return 1;
 }
 
 // void node_destroy(Trie *T, char character)

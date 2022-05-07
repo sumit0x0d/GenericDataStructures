@@ -10,7 +10,7 @@
 #include "DynamicArray/DynamicArray.h"
 #include "Graph-AdjacencyList/Graph-AdjacencyList.h"
 #include "Graph-AdjacencyMatrix/Graph-AdjacencyMatrix.h"
-#include "HashTable-SeparateChaining/HashTable-SeparateChaining.h"
+#include "HashTable-SeparateChain/HashTable-SeparateChain.h"
 #include "Queue-Array/Queue-Array.h"
 #include "Queue-LinkedList/Queue-LinkedList.h"
 #include "RedBlackTree/RedBlackTree.h"

@@ -16,7 +16,7 @@ main1:
 	./DynamicArray/DynamicArray.c \
 	./Graph-AdjacencyList/Graph-AdjacencyList.c \
 	./Graph-AdjacencyMatrix/Graph-AdjacencyMatrix.c \
-	./HashTable-SeparateChaining/HashTable-SeparateChaining.c \
+	./HashTable-SeparateChain/HashTable-SeparateChain.c \
 	./Queue-Array/Queue-Array.c \
 	./Queue-LinkedList/Queue-LinkedList.c \
 	./RedBlackTree/RedBlackTree.c \

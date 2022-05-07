@@ -5,14 +5,14 @@ Array* Array_create(size_t data_size, size_t capacity,
 void Array_change_capacity(Array* A, size_t capacity);
 void Array_destroy(Array* A);
 
-bool Array_push_front(Array* DA, void* data);
-bool Array_push_back(Array* DA, void* data);
-bool Array_insert(Array* DA, size_t index, void* data);
-bool Array_sorted_insert(Array* DA, void* data);
-bool Array_pop_front(Array* DA);
-bool Array_pop_back(Array* DA);
-bool Array_remove(Array* DA, void* data);
-bool Array_erase(Array* DA, size_t index);
+int Array_push_front(Array* DA, void* data);
+int Array_push_back(Array* DA, void* data);
+int Array_insert(Array* DA, size_t index, void* data);
+int Array_sorted_insert(Array* DA, void* data);
+int Array_pop_front(Array* DA);
+int Array_pop_back(Array* DA);
+int Array_remove(Array* DA, void* data);
+int Array_erase(Array* DA, size_t index);
 
 size_t Array_search(Array* A, void* data);
 
@@ -39,15 +39,15 @@ Array* Array_create(size_t data_size, size_t capacity,
 void Array_change_capacity(Array* A, size_t capacity)
 {
     if(!capacity) {
-        return false;
+        return 0;
     }
     void* array = realloc(A->array, A->data_size * capacity);
     if(!array) {
-        return false;
+        return 0;
     }
     A->array = array;
     A->capacity = capacity;
-    return true;
+    return 1;
 }
 
 void Array_destroy(Array* A)
@@ -58,48 +58,52 @@ void Array_destroy(Array* A)
     A = NULL;
 }
 
-bool Array_push_front(Array* A, void* data)
+int Array_push_front(Array* A, void* data)
 {
     if(A->size == A->capacity) {
-        return false;
+        return 0;
     }
     memmove((char*)A->array + A->data_size, A->array, A->data_size * A->size);
     memcpy(A->array, data, A->data_size);
     A->size = A->size + 1;
-    return true;
+    return 1;
 }
 
-bool Array_push_back(Array* A, void* data)
+int Array_push_back(Array* A, void* data)
 {
     if(A->size == A->capacity) {
-        return false;
+        return 0;
     }
     memcpy((char*)A->array + (A->data_size * A->size), data, A->data_size);
     A->size = A->size + 1;
-    return true;
+    return 1;
 }
 
-bool Array_pop_front(Array* A)
+int Array_pop_front(Array* A)
 {
     if(!A->size) {
-        return false;
+        return 0;
     }
     memmove(A->array, (char* )A->array + A->data_size, (A->size - 1) * A->data_size);
     A->size = A->size - 1;
-    return true;
+    return 1;
 }
 
-bool Array_pop_back(Array* A)
+int Array_pop_back(Array* A)
 {
-    
+    if(!A->size) {
+        return 0;
+    }
+    A->size = A->size - 1;
+    return 1;
 }
 
-bool Array_remove(Array* A, void* data)
+int Array_remove(Array* A, void* data)
 {
 
 }
 
-bool Array_reverse(Array* A, void* data)
+int Array_reverse(Array* A, void* data)
 {
 
 }

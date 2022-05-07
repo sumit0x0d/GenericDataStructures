@@ -1,19 +1,19 @@
-#include "HashTable-SeparateChaining.h"
+#include "HashTable-SeparateChain.h"
 
 HashTableSC* HashTableSC_create(size_t key_size, size_t value_size, size_t buckets,
-    size_t (*hash)(void* key, size_t buckets), int (*compare)(void* key1, void* key2));
+    size_t (*hash)(void* key, size_t buckets));
 void HashTableSC_destroy(HashTableSC* HT);
 
 HashTableSCPair* HashTableSCPair_create(size_t key_size, size_t value_size);
 void HashTableSCPair_destroy(HashTableSCPair *pair);
 
-bool HashTableSC_insert(HashTableSC* HT, void* key, void* value);
-bool HashTableSC_remove(HashTableSC* HT, void* key);
+int HashTableSC_insert(HashTableSC* HT, void* key, void* value);
+int HashTableSC_remove(HashTableSC* HT, void* key);
 
 void* HashTableSC_search(HashTableSC* HT, void* key);
 
 HashTableSC* HashTableSC_create(size_t key_size, size_t value_size, size_t buckets,
-    size_t (*hash)(void* key, size_t buckets), int (*compare)(void* key1, void* key2))
+    size_t (*hash)(void* key, size_t buckets))
 {
     HashTableSC* HT = malloc(sizeof (HashTableSC));
     if(!HT) {
@@ -30,7 +30,6 @@ HashTableSC* HashTableSC_create(size_t key_size, size_t value_size, size_t bucke
     HT->buckets = buckets;
     HT->size = 0;
     HT->hash = hash;
-    HT->compare = compare;
     return HT;
 }
 
@@ -75,11 +74,11 @@ void HashTableSCPair_destroy(HashTableSCPair *pair)
     pair = NULL;
 }
 
-bool HashTableSC_insert(HashTableSC* HT, void* key, void* value)
+int HashTableSC_insert(HashTableSC* HT, void* key, void* value)
 {
     HashTableSCPair* pair = HashTableSCPair_create(HT->key_size, HT->value_size);
     if(!pair) {
-        return false;
+        return 0;
     }
     memcpy(pair->key, key, HT->key_size);
     memcpy(pair->value, value, HT->value_size);
@@ -96,10 +95,10 @@ bool HashTableSC_insert(HashTableSC* HT, void* key, void* value)
         memcpy(&HT->array[index], pair, sizeof (HashTableSCPair));
     }
     HT->size = HT->size + 1;
-    return true;
+    return 1;
 }
 
-// bool HashTableSC_remove(HashTableSC* HT, void* key)
+// int HashTableSC_remove(HashTableSC* HT, void* key)
 // {
 //     size_t index = HT->hash(key, HT->buckets);
 // }

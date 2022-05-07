@@ -12,8 +12,8 @@ static RedBlackTreeNode* RedBlackTreeNode_rotate_left(RedBlackTreeNode* node);
 static RedBlackTreeNode* RedBlackTreeNode_rotate_right_left(RedBlackTreeNode* node);
 static void RedBlackTree_rebalance(RedBlackTree* RBT, RedBlackTreeNode* node);
 
-bool RedBlackTree_insert(RedBlackTree* RBT, void* data);
-bool RedBlackTree_remove(RedBlackTree* RBT, void* data);
+int RedBlackTree_insert(RedBlackTree* RBT, void* data);
+int RedBlackTree_remove(RedBlackTree* RBT, void* data);
 
 RedBlackTreeNode* RedBlackTree_search(RedBlackTree* RBT, void* data);
 
@@ -195,18 +195,18 @@ static void RedBlackTree_rebalance(RedBlackTree* RBT, RedBlackTreeNode* node)
     }
 }
 
-bool RedBlackTree_insert(RedBlackTree* RBT, void* data)
+int RedBlackTree_insert(RedBlackTree* RBT, void* data)
 {
     if(!RBT->size) {
         RBT->root = RedBlackTreeNode_create(RBT->data_size);
         if(!RBT->root) {
-            return false;
+            return 0;
         }
         memcpy(RBT->root->data, data, RBT->data_size);
         RBT->root->parent = NULL;
         RBT->root->color = BLACK;
         RBT->size = RBT->size + 1;
-        return true;
+        return 1;
     }
     RedBlackTreeNode* node = RBT->root;
     RedBlackTreeNode* node_parent = NULL;
@@ -226,7 +226,7 @@ bool RedBlackTree_insert(RedBlackTree* RBT, void* data)
     }
     node = RedBlackTreeNode_create(RBT->data_size);
     if(!node) {
-        return false;
+        return 0;
     }
     memcpy(node->data, data, RBT->data_size);
     node->parent = node_parent;
@@ -239,7 +239,7 @@ bool RedBlackTree_insert(RedBlackTree* RBT, void* data)
     }
     RedBlackTree_rebalance(RBT, node_parent);
     RBT->size = RBT->size + 1;
-    return true;
+    return 1;
 }
 
 // void RedBlackTree_remove(RedBlackTree* RBT, int data)

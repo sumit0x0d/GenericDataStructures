@@ -1,7 +1,6 @@
 #ifndef BINARY_SEARCH_TREE_H
 #define BINARY_SEARCH_TREE_H
 
-#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -22,8 +21,8 @@ BinarySearchTree* BinarySearchTree_create(size_t data_size,
     int (*compare)(void* data1, void* data2));
 void BinarySearchTree_destroy(BinarySearchTree* BST);
 
-bool BinarySearchTree_insert(BinarySearchTree* BST, void* data);
-bool BinarySearchTree_remove(BinarySearchTree* BST, void* data);
+int BinarySearchTree_insert(BinarySearchTree* BST, void* data);
+int BinarySearchTree_remove(BinarySearchTree* BST, void* data);
 
 void* BinarySearchTree_root(BinarySearchTree* BST);
 

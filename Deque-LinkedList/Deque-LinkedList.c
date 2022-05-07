@@ -6,10 +6,10 @@ void DequeLL_destroy(DequeLL* D);
 static DequeLLNode* DequeLLnode_create(size_t data_size);
 static void DequeLLnode_destroy(DequeLLNode* D);
 
-bool DequeLL_push_front(DequeLL* D, void* data);
-bool DequeLL_push_back(DequeLL* D, void* data);
-bool DequeLL_pop_front(DequeLL* D);
-bool DequeLL_pop_back(DequeLL* D);
+int DequeLL_push_front(DequeLL* D, void* data);
+int DequeLL_push_back(DequeLL* D, void* data);
+void DequeLL_pop_front(DequeLL* D);
+void DequeLL_pop_back(DequeLL* D);
 
 void* DequeLL_front(DequeLL* Q);
 void* DequeLL_back(DequeLL* Q);
@@ -67,11 +67,11 @@ static void DequeLLnode_destroy(DequeLLNode* node)
     node = NULL;
 }
 
-bool DequeLL_push_front(DequeLL* D, void* data)
+int DequeLL_push_front(DequeLL* D, void* data)
 {
     DequeLLNode* node = DequeLLnode_create(D->data_size);
     if(!node) {
-        return false;
+        return 0;
     }
     memcpy(node->data, data, D->data_size);
     node->previous = NULL;
@@ -85,14 +85,14 @@ bool DequeLL_push_front(DequeLL* D, void* data)
     }
     D->front = node;
     D->size = D->size + 1;
-    return true;
+    return 1;
 }
 
-bool DequeLL_push_back(DequeLL* D, void* data)
+int DequeLL_push_back(DequeLL* D, void* data)
 {
     DequeLLNode* node = DequeLLnode_create(D->data_size);
     if(!node) {
-        return false; 
+        return 0; 
     }
     memcpy(node->data, data, D->data_size);
     node->next = NULL;
@@ -106,14 +106,11 @@ bool DequeLL_push_back(DequeLL* D, void* data)
     }
     D->back = node;
     D->size = D->size + 1;
-    return true;
+    return 1;
 }
 
-bool DequeLL_pop_front(DequeLL* D)
+void DequeLL_pop_front(DequeLL* D)
 {
-    if(!D->front) {
-        return false;
-    }
     DequeLLNode* pointer = D->front;
     D->front = D->front->next;
     if(!D->front) {
@@ -121,14 +118,10 @@ bool DequeLL_pop_front(DequeLL* D)
     }
     DequeLLnode_destroy(pointer);
     D->size = D->size - 1;
-    return true;
 }
 
-bool DequeLL_pop_back(DequeLL* D)
+void DequeLL_pop_back(DequeLL* D)
 {
-    if(!D->front) {
-        return false;
-    }
     DequeLLNode* pointer = D->back;
     D->back = D->back->previous;
     if(D->back) {
@@ -136,21 +129,14 @@ bool DequeLL_pop_back(DequeLL* D)
     }
     DequeLLnode_destroy(pointer);
     D->size = D->size - 1;
-    return true;
 }
 
 void* DequeLL_front(DequeLL* Q)
 {
-    if(!Q->front) {
-        return NULL;
-    }
     return Q->front->data;
 }
 
 void* DequeLL_back(DequeLL* Q)
 {
-    if(!Q->back) {
-        return NULL;
-    }
     return Q->back->data;
 }

@@ -1,11 +1,11 @@
 #include "Graph-AdjacencyMatrix.h"
 
-bool GraphAM_adjacent(GraphAM *G, unsigned long vertex);
-bool GraphAM_neighbors(GraphAM *G, unsigned long vertex);
-bool GraphAM_insert_vertex(GraphAM *G, unsigned long vertex);
-bool GraphAM_remove_vertex(GraphAM *G, unsigned long vertex);
-bool GraphAM_insert_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_destination);
-bool GraphAM_remove_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_destination);
+int GraphAM_adjacent(GraphAM *G, unsigned long vertex);
+int GraphAM_neighbors(GraphAM *G, unsigned long vertex);
+int GraphAM_insert_vertex(GraphAM *G, unsigned long vertex);
+int GraphAM_remove_vertex(GraphAM *G, unsigned long vertex);
+int GraphAM_insert_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_destination);
+int GraphAM_remove_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_destination);
 
 GraphAM *graphAM_create()
 {
@@ -24,12 +24,12 @@ GraphAM *graphAM_create()
     
 // }
 
-// bool graph_insert_vertex(GraphAM *G, unsigned long vertex)
+// int graph_insert_vertex(GraphAM *G, unsigned long vertex)
 // {
 
 // }
 
-// bool graph_insert_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_destination)
+// int graph_insert_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_destination)
 // {
     
 // }

@@ -6,13 +6,13 @@ void GraphAL_destroy(GraphAL* G);
 void* GraphAL_vertices(GraphAL* G);
 size_t GraphAL_size(GraphAL* G);
 
-static Vertex *vertex_create(size_t data_size);
-// static void vertex_destinationroy(Vertex *vertex);
+static GraphALVertex *vertex_create(size_t data_size);
+// static void vertex_destinationroy(GraphALVertex *vertex);
 
-bool GraphAL_vertex_insert(GraphAL* G, void* data);
-bool GraphAL_vertex_remove(GraphAL* G, void* data);
-bool GraphAL_edge_insert(GraphAL* G, Vertex *vertex_source, Vertex *vertex_destination, unsigned long weight);
-bool GraphAL_edge_remove(GraphAL* G, Vertex *vertex_source, Vertex *vertex_destination);
+int GraphAL_vertex_insert(GraphAL* G, void* data);
+int GraphAL_vertex_remove(GraphAL* G, void* data);
+int GraphAL_edge_insert(GraphAL* G, GraphALVertex *vertex_source, GraphALVertex *vertex_destination, unsigned long weight);
+int GraphAL_edge_remove(GraphAL* G, GraphALVertex *vertex_source, GraphALVertex *vertex_destination);
 
 GraphAL* GraphAL_create(size_t data_size)
 {
@@ -35,17 +35,17 @@ void GraphAL_destroy(GraphAL* G)
     G->size = 0;
 }
 
-// void adjacency_list_create(Vertex *adjacency_list)
+// void adjacency_list_create(GraphALVertex *adjacency_list)
 // {
 //     if(!adjacency_list) {
-//         adjacency_list = malloc(sizeof (Vertex));
+//         adjacency_list = malloc(sizeof (GraphALVertex));
 //         if(!adjacency_list) return;
 //     }
 // }
 
-// Vertex *GraphAL_vertex_search(GraphAL* G, void* data)
+// GraphALVertex *GraphAL_vertex_search(GraphAL* G, void* data)
 // {
-//     Vertex *vertex = G->adjacency_list;
+//     GraphALVertex *vertex = G->adjacency_list;
 
 //     for(unsigned long i = 0; i < G->vertices; i++) {
 //         if(vertex->data == )
@@ -53,9 +53,9 @@ void GraphAL_destroy(GraphAL* G)
 //     }
 // }
 
-Vertex *vertex_create(size_t data_size)
+GraphALVertex *GraphALVertex_create(size_t data_size)
 {
-    Vertex *vertex = malloc(sizeof (Vertex));
+    GraphALVertex *vertex = malloc(sizeof (GraphALVertex));
     if(!vertex) {
         return NULL;
     }
@@ -70,39 +70,39 @@ Vertex *vertex_create(size_t data_size)
     return vertex;
 }
 
-// void vertex_destinationroy(Vertex *vertex)
+// void vertex_destinationroy(GraphALVertex *vertex)
 // {
 
 // }
 
-bool GraphAL_vertex_insert(GraphAL* G, void* data)
+int GraphAL_vertex_insert(GraphAL* G, void* data)
 {
     if(!G->adjacency_list) {
-        G->adjacency_list = malloc(sizeof (Vertex));
+        G->adjacency_list = malloc(sizeof (GraphALVertex));
         if(!G->adjacency_list) {
-            return false;
+            return 0;
         }
     }
     else {
-        Vertex *adjacency_list = realloc(G->adjacency_list, sizeof (Vertex) * (G->vertices + 1));
+        GraphALVertex *adjacency_list = realloc(G->adjacency_list, sizeof (GraphALVertex) * (G->vertices + 1));
         if(!adjacency_list) {
-            return false;
+            return 0;
         }
         G->adjacency_list = adjacency_list;
     }
-    Vertex *vertex = vertex_create(G->data_size);
+    GraphALVertex *vertex = GraphALVertex_create(G->data_size);
     if(!vertex) {
-        return false;
+        return 0;
     }
     memcpy(vertex->data, data, G->data_size);
-    memcpy(G->adjacency_list + (sizeof (Vertex) * G->vertices), vertex, sizeof (Vertex));
+    memcpy(G->adjacency_list + (sizeof (GraphALVertex) * G->vertices), vertex, sizeof (GraphALVertex));
     G->vertices = G->vertices + 1;
     vertex->index = G->vertices;
     G->size = G->size + 1;
-    return true;
+    return 1;
 }
 
-// void graph_vertex_destinationroy(Vertex *vertex)
+// void graph_vertex_destinationroy(GraphALVertex *vertex)
 // {
 
 // }
@@ -112,7 +112,7 @@ bool GraphAL_vertex_insert(GraphAL* G, void* data)
 
 // }
 
-// bool GraphAL_edge_insert(GraphAL* G, Vertex *vertex_source, Vertex *vertex_destination, unsigned long weight)
+// int GraphAL_edge_insert(GraphAL* G, GraphALVertex *vertex_source, GraphALVertex *vertex_destination, unsigned long weight)
 // {
     
 // }

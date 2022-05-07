@@ -3,8 +3,8 @@
 CircularQueue* CircularQueue_create(size_t data_size, size_t capacity);
 void CircularQueue_destroy(CircularQueue *CQ);
 
-bool CircularQueue_enqueue(CircularQueue* CQ, void* data);
-bool CircularQueue_dequeue(CircularQueue* CQ);
+void CircularQueue_enqueue(CircularQueue* CQ, void* data);
+void CircularQueue_dequeue(CircularQueue* CQ);
 
 void* CircularQueue_front(CircularQueue* CQ);
 void* CircularQueue_back(CircularQueue* CQ);
@@ -37,36 +37,25 @@ void CircularQueue_destroy(CircularQueue *CQ)
     CQ = NULL;
 }
 
-bool CircularQueue_enqueue(CircularQueue* CQ, void* data)
+void CircularQueue_enqueue(CircularQueue* CQ, void* data)
 {
     memcpy((char*)CQ->array + (CQ->data_size * CQ->back), data, CQ->data_size);
     CQ->back = (CQ->back + 1) % CQ->capacity;
     CQ->size = CQ->size + 1;
-    return true;
 }
 
-bool CircularQueue_dequeue(CircularQueue* CQ)
+void CircularQueue_dequeue(CircularQueue* CQ)
 {
-    if(!CQ->size) {
-        return false;
-    }
     CQ->front = (CQ->front + 1) % CQ->capacity;
     CQ->size = CQ->size - 1;
-    return true;
 }
 
 void* CircularQueue_front(CircularQueue* CQ)
 {
-    if(!CQ->size) {
-        return NULL;
-    }
     return (char*)CQ->array + (CQ->data_size * CQ->front);
 }
 
 void* CircularQueue_back(CircularQueue* CQ)
 {
-    if(!CQ->size) {
-        return NULL;
-    }
     return (char*)CQ->array + (CQ->data_size * (CQ->back - 1));
 }
