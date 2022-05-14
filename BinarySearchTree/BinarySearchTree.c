@@ -5,7 +5,7 @@ BinarySearchTree* BinarySearchTree_create(size_t data_size,
 void BinarySearchTree_destroy(BinarySearchTree* BST);
 
 static BinarySearchTreeNode* BinarySearchTreeNode_create(size_t data_size);
-static void BInarySearchTreeNode_destroy(BinarySearchTreeNode* node);
+static void BinarySearchTreeNode_destroy(BinarySearchTreeNode* node);
 
 int BinarySearchTree_insert(BinarySearchTree* BST, void* data);
 int BinarySearchTree_remove(BinarySearchTree* BST, void* data);
@@ -33,7 +33,7 @@ BinarySearchTree* BinarySearchTree_create(size_t data_size,
 
 // }
 
-static BinarySearchTreeNode* BInarySearchTreeNode_create(size_t data_size)
+static BinarySearchTreeNode* BinarySearchTreeNode_create(size_t data_size)
 {
     BinarySearchTreeNode* node = malloc(sizeof (BinarySearchTreeNode));
     if(!node) {
@@ -50,7 +50,7 @@ static BinarySearchTreeNode* BInarySearchTreeNode_create(size_t data_size)
     return node;
 }
 
-static void BInarySearchTreeNode_destroy(BinarySearchTreeNode* node)
+static void BinarySearchTreeNode_destroy(BinarySearchTreeNode* node)
 {
     free(node->data);
     node->data = NULL;
@@ -61,7 +61,7 @@ static void BInarySearchTreeNode_destroy(BinarySearchTreeNode* node)
 int BinarySearchTree_insert(BinarySearchTree* BST, void* data)
 {
     if(!BST->root) {
-        BST->root = BInarySearchTreeNode_create(BST->data_size);
+        BST->root = BinarySearchTreeNode_create(BST->data_size);
         if(!BST->root) {
             return 0;
         }
@@ -85,7 +85,7 @@ int BinarySearchTree_insert(BinarySearchTree* BST, void* data)
             node = node->right;
         }
     }
-    node = BInarySearchTreeNode_create(BST->data_size);
+    node = BinarySearchTreeNode_create(BST->data_size);
     if(!node) {
         return 0;
     }
@@ -105,67 +105,67 @@ int BinarySearchTree_remove(BinarySearchTree* BST, void* data)
     if(!BST->root) {
         return 0;
     }
-    BinarySearchTreeNode* pointer = BST->root;
-    BinarySearchTreeNode* pointer_parent = NULL; 
+    BinarySearchTreeNode* node = BST->root;
+    BinarySearchTreeNode* node_parent = NULL; 
     int compare;
-    while(pointer) {
-        compare = BST->compare(data, pointer->data);
+    while(node) {
+        compare = BST->compare(data, node->data);
         if(compare == 0) {
             break;
         }
-        pointer_parent = pointer;
+        node_parent = node;
         if(compare < 0) {
-            pointer = pointer->left;
+            node = node->left;
         }
         else {
-            pointer = pointer->right;
+            node = node->right;
         }
     }
-    if(!pointer) {   
+    if(!node) {   
         return 0;
     }
-    if(!pointer->left && !pointer->right) {
-        if(pointer_parent->left == pointer) {
-            pointer_parent->left = NULL;
+    if(!node->left && !node->right) {
+        if(node_parent->left == node) {
+            node_parent->left = NULL;
         }
         else {
-            pointer_parent->right = NULL;
+            node_parent->right = NULL;
         }
-        BInarySearchTreeNode_destroy(pointer);
+        BinarySearchTreeNode_destroy(node);
     }
-    else if(!pointer->left) {
-        if(pointer_parent->right == pointer) {
-            pointer_parent->right = pointer->right;
+    else if(!node->left) {
+        if(node_parent->right == node) {
+            node_parent->right = node->right;
         }
         else {
-            pointer_parent->left = pointer->right;
+            node_parent->left = node->right;
         }
-        BInarySearchTreeNode_destroy(pointer);
+        BinarySearchTreeNode_destroy(node);
     }
-    else if(!pointer->right) {
-        if(pointer_parent->left == pointer) {
-            pointer_parent->left = pointer->left;
+    else if(!node->right) {
+        if(node_parent->left == node) {
+            node_parent->left = node->left;
         }
         else {
-            pointer_parent->right = pointer->left;
+            node_parent->right = node->left;
         }
-        BInarySearchTreeNode_destroy(pointer);
+        BinarySearchTreeNode_destroy(node);
     }
     else {
-        BinarySearchTreeNode* node_inorder_successor = pointer->right;
-        BinarySearchTreeNode* node_inorder_successor_parent = pointer;
-        while(node_inorder_successor->left) {
-            node_inorder_successor_parent = node_inorder_successor;
-            node_inorder_successor = node_inorder_successor->left;
+        BinarySearchTreeNode* node_successor = node->right;
+        BinarySearchTreeNode* node_successor_parent = node;
+        while(node_successor->left) {
+            node_successor_parent = node_successor;
+            node_successor = node_successor->left;
         }
-        if(node_inorder_successor_parent == pointer) {
-            node_inorder_successor_parent->right = node_inorder_successor->right;
+        if(node_successor_parent == node) {
+            node_successor_parent->right = node_successor->right;
         }
         else {
-            node_inorder_successor_parent->left = node_inorder_successor->right;
+            node_successor_parent->left = node_successor->right;
         }
-        memcpy(pointer->data, node_inorder_successor->data, BST->data_size);
-        BInarySearchTreeNode_destroy(node_inorder_successor);
+        memcpy(node->data, node_successor->data, BST->data_size);
+        BinarySearchTreeNode_destroy(node_successor);
     }
     BST->size = BST->size - 1;
     return 1;
@@ -173,17 +173,17 @@ int BinarySearchTree_remove(BinarySearchTree* BST, void* data)
 
 BinarySearchTreeNode* BinarySearchTree_search(BinarySearchTree* BST, void* data)
 {
-    BinarySearchTreeNode* pointer = BST->root;
-    while(pointer) {
-        int compare = BST->compare(data, pointer->data);
+    BinarySearchTreeNode* node = BST->root;
+    while(node) {
+        int compare = BST->compare(data, node->data);
         if(compare == 0) {
-            return pointer;
+            return node;
         }
         if(compare < 0) {
-            pointer = pointer->left;
+            node = node->left;
         }
         else {
-            pointer = pointer->right;
+            node = node->right;
         }
     }
     return NULL;
@@ -191,8 +191,5 @@ BinarySearchTreeNode* BinarySearchTree_search(BinarySearchTree* BST, void* data)
 
 void* BinarySearchTree_root(BinarySearchTree* BST)
 {
-    if(!BST->root) {
-        return NULL;
-    }
     return BST->root->data;
 }

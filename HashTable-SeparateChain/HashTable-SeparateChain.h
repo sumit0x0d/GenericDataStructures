@@ -8,6 +8,10 @@ typedef struct HashTableSCPair {
     void* key;
     void* value;
     struct HashTableSCPair* next;
+    // struct HashTableSCPair* left;
+    // struct HashTableSCPair* right;
+    // struct HashTableSCPair* parent;
+    // enum {RED, BLACK} color;
 } HashTableSCPair;
 
 typedef struct HashTableSC {

@@ -29,11 +29,11 @@ DequeLL* DequeLL_create(size_t data_size)
 
 void DequeLL_destroy(DequeLL* D)
 {
-    DequeLLNode* pointer = D->front;
-    while(pointer) {
-        if(pointer->next) {
+    DequeLLNode* node = D->front;
+    while(node) {
+        if(node->next) {
             DequeLL_pop_front(D);
-            pointer = D->front;
+            node = D->front;
         }
         else {
             DequeLL_pop_front(D);
@@ -111,23 +111,23 @@ int DequeLL_push_back(DequeLL* D, void* data)
 
 void DequeLL_pop_front(DequeLL* D)
 {
-    DequeLLNode* pointer = D->front;
+    DequeLLNode* node = D->front;
     D->front = D->front->next;
     if(!D->front) {
         D->back = NULL;
     }
-    DequeLLnode_destroy(pointer);
+    DequeLLnode_destroy(node);
     D->size = D->size - 1;
 }
 
 void DequeLL_pop_back(DequeLL* D)
 {
-    DequeLLNode* pointer = D->back;
+    DequeLLNode* node = D->back;
     D->back = D->back->previous;
     if(D->back) {
         D->back->next = NULL;
     }
-    DequeLLnode_destroy(pointer);
+    DequeLLnode_destroy(node);
     D->size = D->size - 1;
 }
 

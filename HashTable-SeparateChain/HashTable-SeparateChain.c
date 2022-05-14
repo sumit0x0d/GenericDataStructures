@@ -84,12 +84,12 @@ int HashTableSC_insert(HashTableSC* HT, void* key, void* value)
     memcpy(pair->value, value, HT->value_size);
     pair->next = NULL;
     size_t index = HT->hash(key, HT->buckets);
-    if(&HT->array[index]) {
-        HashTableSCPair* pointer = &HT->array[index];
-        while(pointer->next) {
-            pointer = pointer->next;
+    if(1) {
+        HashTableSCPair* temp = &HT->array[index];
+        while(temp->next) {
+            temp = temp->next;
         }
-        pointer->next = pair;
+        temp->next = pair;
     }
     else {
         memcpy(&HT->array[index], pair, sizeof (HashTableSCPair));

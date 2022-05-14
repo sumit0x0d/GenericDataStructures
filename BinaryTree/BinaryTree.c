@@ -49,8 +49,5 @@ BinaryTreeNode* BinaryTree_insert(BinaryTree* BT, void* data, size_t data_size)
 
 void* BinaryTree_root(BinaryTree* BT)
 {
-    if(!BT->root) {
-        return NULL;
-    }
     return BT->root->data;
 }

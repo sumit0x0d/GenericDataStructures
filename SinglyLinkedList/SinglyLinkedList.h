@@ -25,7 +25,7 @@ int SinglyLinkedList_push_head(SinglyLinkedList* SLL, void* data);
 int SinglyLinkedList_push_tail(SinglyLinkedList* SLL, void* data);
 int SinglyLinkedList_insert(SinglyLinkedList* SLL, size_t index, void* data);
 int SinglyLinkedList_sorted_insert(SinglyLinkedList* SLL, void* data);
-int SinglyLinkedList_pop_head(SinglyLinkedList* SLL);
+void SinglyLinkedList_pop_head(SinglyLinkedList* SLL);
 int SinglyLinkedList_pop_tail(SinglyLinkedList* SLL);
 int SinglyLinkedList_remove(SinglyLinkedList* SLL, void* data);
 int SinglyLinkedList_erase(SinglyLinkedList* SLL, size_t index);

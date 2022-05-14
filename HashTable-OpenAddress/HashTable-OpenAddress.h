@@ -7,8 +7,8 @@
 typedef struct HashTableOA {
     void* array;
     size_t data_size;
-    size_t size;
     size_t capacity;
+    size_t size;
 } HashTableOA;
 
 HashTableOA* HashTableOA_create(size_t data_size);

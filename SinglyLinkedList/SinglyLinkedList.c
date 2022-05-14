@@ -11,7 +11,7 @@ int SinglyLinkedList_push_head(SinglyLinkedList* SLL, void* data);
 int SinglyLinkedList_push_tail(SinglyLinkedList* SLL, void* data);
 int SinglyLinkedList_insert(SinglyLinkedList* SLL, size_t index, void* data);
 int SinglyLinkedList_sorted_insert(SinglyLinkedList* SLL, void* data);
-int SinglyLinkedList_pop_head(SinglyLinkedList* SLL);
+void SinglyLinkedList_pop_head(SinglyLinkedList* SLL);
 int SinglyLinkedList_pop_tail(SinglyLinkedList* SLL);
 int SinglyLinkedList_remove(SinglyLinkedList* SLL, void* data);
 int SinglyLinkedList_erase(SinglyLinkedList* SLL, size_t index);
@@ -119,17 +119,17 @@ int SinglyLinkedList_insert(SinglyLinkedList* SLL, size_t index, void* data)
     if(index > SLL->size) {
         return 0;
     }
-    SinglyLinkedListNode* pointer = SLL->head;
     SinglyLinkedListNode* node = SinglyLinkedListNode_create(SLL->data_size);
+    SinglyLinkedListNode* temp = SLL->head;
     if(!node) {
         return 0;
     }
     memcpy(node->data, data, SLL->data_size);
     for(size_t i = 0; i < index-1; i++) {
-        pointer = pointer->next;
+        temp = temp->next;
     }
-    node->next = pointer->next;
-    pointer->next = node;
+    node->next = temp->next;
+    temp->next = node;
     SLL->size = SLL->size + 1;
     return 1;
 }
@@ -144,53 +144,46 @@ int SinglyLinkedList_sorted_insert(SinglyLinkedList* SLL, void* data)
         SinglyLinkedList_push_tail(SLL, data);
         return 1;
     }
-    SinglyLinkedListNode* pointer = SLL->head;
     SinglyLinkedListNode* node = SinglyLinkedListNode_create(SLL->data_size);
+    SinglyLinkedListNode* temp = SLL->head;
     if(!node) {
         return 0;
     }
     memcpy(node->data, data, SLL->data_size);
-    while(pointer && data > pointer->next->data) {
-        pointer = pointer->next;
+    while(temp && temp->next->data < data) {
+        temp = temp->next;
     }
-    node->next = pointer->next;
-    pointer->next = node;
+    node->next = temp->next;
+    temp->next = node;
     SLL->size = SLL->size + 1;
     return 1;
 }
 
-int SinglyLinkedList_pop_head(SinglyLinkedList* SLL)
+void SinglyLinkedList_pop_head(SinglyLinkedList* SLL)
 {
-    if(!SLL->size) {
-        return 0;
-    }
-    SinglyLinkedListNode* pointer = SLL->head;
+    SinglyLinkedListNode* node = SLL->head;
     SLL->head = SLL->head->next;
     if(!SLL->size) {
         SLL->tail = NULL;
     }
-    SinglyLinkedListNode_destroy(pointer);
+    SinglyLinkedListNode_destroy(node);
     SLL->size = SLL->size - 1;
-    return 1;
 }
 
 int SinglyLinkedList_pop_tail(SinglyLinkedList* SLL)
 {
-    if(!SLL->size) {
-        return 0;
-    }
     if(SLL->head == SLL->tail) {
         free(SLL->head);
         SLL->head = NULL;
         return 0;
     }
-    SinglyLinkedListNode* pointer = SLL->head;
-    while(pointer->next != SLL->tail) {
-        pointer = pointer->next;
+    SinglyLinkedListNode* node = SLL->head;
+    while(node->next != SLL->tail) {
+        node = node->next;
     }
-    pointer->next = NULL;
+    node->next = NULL;
     free(SLL->tail);
-    SLL->tail = pointer;
+    SLL->tail = node;
     SLL->size = SLL->size - 1;
     return 1;
 }
@@ -204,14 +197,14 @@ int SinglyLinkedList_erase(SinglyLinkedList* SLL, size_t index)
     if(index > SLL->size) {
         return 0;
     }
-    SinglyLinkedListNode* pointer = SLL->head;
-    SinglyLinkedListNode* pointer_previous;
+    SinglyLinkedListNode* node = SLL->head;
+    SinglyLinkedListNode* node_previous;
     for(size_t i = 0; i < index-1; i++) {
-        pointer_previous = pointer;
-        pointer = pointer->next;
+        node_previous = node;
+        node = node->next;
     }
-    pointer_previous->next = pointer->next;
-    free(pointer);
+    node_previous->next = node->next;
+    free(node);
     SLL->size = SLL->size - 1;
     return 1;
 }
@@ -234,9 +227,6 @@ int SinglyLinkedList_erase(SinglyLinkedList* SLL, size_t index)
 
 SinglyLinkedListNode* search(SinglyLinkedList* SLL, void* data)
 {
-    if(!SLL->head) {
-        return NULL;
-    }
     SinglyLinkedListNode* node = malloc(sizeof (SinglyLinkedListNode));
     if(!node) {
         return NULL;
@@ -252,16 +242,10 @@ SinglyLinkedListNode* search(SinglyLinkedList* SLL, void* data)
 
 void* SinglyLinkedList_head(SinglyLinkedList* SLL)
 {
-    if(!SLL->head) {
-        return NULL;
-    }
     return SLL->head->data;
 }
 
 void* SinglyLinkedList_tail(SinglyLinkedList* SLL)
 {
-    if(!SLL->tail) {
-        return NULL;
-    }
     return SLL->tail->data;
 }

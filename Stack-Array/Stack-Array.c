@@ -56,7 +56,6 @@ void StackA_push(StackA* S, void* data)
 void StackA_pop(StackA* S)
 {
     S->size = S->size - 1;
-    return 1;
 }
 
 void* StackA_peek(StackA* S)

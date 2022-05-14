@@ -4,8 +4,8 @@ int GraphAM_adjacent(GraphAM *G, unsigned long vertex);
 int GraphAM_neighbors(GraphAM *G, unsigned long vertex);
 int GraphAM_insert_vertex(GraphAM *G, unsigned long vertex);
 int GraphAM_remove_vertex(GraphAM *G, unsigned long vertex);
-int GraphAM_insert_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_destination);
-int GraphAM_remove_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_destination);
+int GraphAM_insert_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_dest);
+int GraphAM_remove_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_dest);
 
 GraphAM *graphAM_create()
 {
@@ -29,7 +29,7 @@ GraphAM *graphAM_create()
 
 // }
 
-// int graph_insert_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_destination)
+// int graph_insert_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_dest)
 // {
     
 // }
