@@ -36,6 +36,8 @@ DynamicArray* DynamicArray_create(size_t data_size, size_t capacity, double grow
         return NULL;
     }
     DA->data_size = data_size;
+    DA->front = 0;
+    DA->back = 0;
     DA->capacity = capacity;
     DA->growth_factor = growth_factor;
     DA->compare = compare;
@@ -57,6 +59,11 @@ void* DynamicArray_at(DynamicArray* DA, size_t index)
     return (char*)DA->array + (DA->data_size * index);
 }
 
+void* DynamicArray_front(DynamicArray* DA)
+{
+    return (char*)DA->array + (DA->data_size * DA->front);
+}
+
 void* DynamicArray_back(DynamicArray* DA)
 {
     return (char*)DA->array + (DA->data_size * (DA->size - 1));
@@ -72,8 +79,21 @@ int DynamicArray_push_front(DynamicArray* DA, void* data)
         }
         DA->array = array;
     }
-    memmove((char*)DA->array + DA->data_size, DA->array, DA->data_size * DA->size);
-    memcpy(DA->array, data, DA->data_size);
+    if(DA->front) {
+        if(DA->back == DA->capacity) {
+            memmove((char*)DA->array + DA->data_size, DynamicArray_front(DA),
+                DA->data_size * DA->size);
+            DA->front = 0;
+            DA->back = DA->size;
+        }
+        else {
+            DA->front = DA->front - 1;
+        }
+    }
+    else {
+        memmove((char*)DA->array + DA->data_size, DA->array, DA->data_size * DA->size);
+    }
+    memcpy(DynamicArray_front(DA), data, DA->data_size);
     DA->size = DA->size + 1;
     return 1;
 }
@@ -88,7 +108,13 @@ int DynamicArray_push_back(DynamicArray* DA, void* data)
         }
         DA->array = array;
     }
+    if(DA->back == DA->capacity && DA->front) {
+        memmove(DA->array, DynamicArray_front(DA), DA->data_size * DA->size);
+        DA->front = 0;
+        DA->back = DA->size;
+    }
     memcpy((char*)DynamicArray_back(DA) + DA->data_size, data, DA->data_size);
+    DA->back = DA->back + 1;
     DA->size = DA->size + 1;
     return 1;
 }

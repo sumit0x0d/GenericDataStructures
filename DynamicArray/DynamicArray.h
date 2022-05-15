@@ -7,6 +7,8 @@
 typedef struct DynamicArray {
     void* array;
     size_t data_size;
+    size_t front;
+    size_t back;
     size_t capacity;
     double growth_factor;
     size_t size;

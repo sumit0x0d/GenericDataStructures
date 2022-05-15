@@ -65,7 +65,7 @@ void DequeA_push_front(DequeA* D, void* data)
         D->front = D->front - 1;
     }
     else {
-        memmove((char*)D->array + D->data_size, (char*)D->array, D->size);
+        memmove((char*)D->array + D->data_size, D->array, D->data_size * D->size);
     }
     memcpy(DequeA_front(D), data, D->data_size);
     D->size = D->size + 1;
