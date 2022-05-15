@@ -120,16 +120,16 @@ int SinglyLinkedList_insert(SinglyLinkedList* SLL, size_t index, void* data)
         return 0;
     }
     SinglyLinkedListNode* node = SinglyLinkedListNode_create(SLL->data_size);
-    SinglyLinkedListNode* temp = SLL->head;
+    SinglyLinkedListNode* node_previous = SLL->head;
     if(!node) {
         return 0;
     }
     memcpy(node->data, data, SLL->data_size);
     for(size_t i = 0; i < index-1; i++) {
-        temp = temp->next;
+        node_previous = node_previous->next;
     }
-    node->next = temp->next;
-    temp->next = node;
+    node->next = node_previous->next;
+    node_previous->next = node;
     SLL->size = SLL->size + 1;
     return 1;
 }
@@ -145,16 +145,16 @@ int SinglyLinkedList_sorted_insert(SinglyLinkedList* SLL, void* data)
         return 1;
     }
     SinglyLinkedListNode* node = SinglyLinkedListNode_create(SLL->data_size);
-    SinglyLinkedListNode* temp = SLL->head;
+    SinglyLinkedListNode* node_previous = SLL->head;
     if(!node) {
         return 0;
     }
     memcpy(node->data, data, SLL->data_size);
-    while(temp && temp->next->data < data) {
-        temp = temp->next;
+    while(node_previous && node_previous->next->data < data) {
+        node_previous = node_previous->next;
     }
-    node->next = temp->next;
-    temp->next = node;
+    node->next = node_previous->next;
+    node_previous->next = node;
     SLL->size = SLL->size + 1;
     return 1;
 }

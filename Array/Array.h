@@ -27,5 +27,7 @@ int Array_remove(Array* DA, void* data);
 int Array_erase(Array* DA, size_t index);
 
 size_t Array_search(Array* A, void* data);
+void* Array_front(Array* A);
+void* Array_back(Array* A);
 
 #endif

@@ -11,8 +11,10 @@ size_t GraphAL_size(GraphAL* G);
 
 int GraphAL_vertex_insert(GraphAL* G, void* data);
 int GraphAL_vertex_remove(GraphAL* G, void* data);
-int GraphAL_edge_insert(GraphAL* G, GraphALVertex *vertex_source, GraphALVertex *vertex_destination, unsigned long weight);
-int GraphAL_edge_remove(GraphAL* G, GraphALVertex *vertex_source, GraphALVertex *vertex_destination);
+int GraphAL_edge_insert(GraphAL* G, GraphALVertex *vertex_source,
+    GraphALVertex *vertex_destination, unsigned long weight);
+int GraphAL_edge_remove(GraphAL* G, GraphALVertex *vertex_source,
+    GraphALVertex *vertex_destination);
 
 GraphAL* GraphAL_create(size_t data_size)
 {

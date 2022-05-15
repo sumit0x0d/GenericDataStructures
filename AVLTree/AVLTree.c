@@ -21,9 +21,11 @@ static inline void CircularQueue_dequeue(CircularQueue* CQ);
 static size_t AVLTreeNode_height(AVLTreeNode* node, CircularQueue *CQ);
 static void AVLTreeNode_balance_factor(AVLTreeNode* node, CircularQueue *CQ);
 static AVLTreeNode* AVLTreeNode_rotate_right(AVLTreeNode* node, AVLTreeNode* node_right);
-static AVLTreeNode* AVLTreeNode_rotate_left_right(AVLTreeNode* node, AVLTreeNode* node_left, AVLTreeNode* node_left_right);
+static AVLTreeNode* AVLTreeNode_rotate_left_right(AVLTreeNode* node, AVLTreeNode* node_left,
+    AVLTreeNode* node_left_right);
 static AVLTreeNode* AVLTreeNode_rotate_left(AVLTreeNode* node, AVLTreeNode* node_left);
-static AVLTreeNode* AVLTreeNode_rotate_right_left(AVLTreeNode* node, AVLTreeNode* node_right, AVLTreeNode* node_right_left);
+static AVLTreeNode* AVLTreeNode_rotate_right_left(AVLTreeNode* node, AVLTreeNode* node_right,
+    AVLTreeNode* node_right_left);
 static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, CircularQueue* CQ);
 
 AVLTreeNode* AVLTreeNode_predecessor(AVLTreeNode* node);
@@ -168,7 +170,8 @@ static AVLTreeNode* AVLTreeNode_rotate_right(AVLTreeNode* node, AVLTreeNode* nod
     return node_left;
 }
 
-static AVLTreeNode* AVLTreeNode_rotate_left_right(AVLTreeNode* node, AVLTreeNode* node_left, AVLTreeNode* node_left_right)
+static AVLTreeNode* AVLTreeNode_rotate_left_right(AVLTreeNode* node, AVLTreeNode* node_left,
+    AVLTreeNode* node_left_right)
 {
     node_left->right = node_left_right->left;
     if(node_left->right) {
@@ -214,7 +217,8 @@ static AVLTreeNode* AVLTreeNode_rotate_left(AVLTreeNode* node, AVLTreeNode* node
     return node_right;
 }
 
-static AVLTreeNode* AVLTreeNode_rotate_right_left(AVLTreeNode* node, AVLTreeNode* node_right, AVLTreeNode* node_right_left)
+static AVLTreeNode* AVLTreeNode_rotate_right_left(AVLTreeNode* node, AVLTreeNode* node_right,
+    AVLTreeNode* node_right_left)
 {
     node_right->left = node_right_left->right;
     if(node_right->left) {

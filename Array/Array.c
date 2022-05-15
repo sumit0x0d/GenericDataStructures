@@ -88,3 +88,13 @@ int Array_reverse(Array* A, void* data)
 {
 
 }
+
+void* Array_front(Array* A)
+{
+    return A->array;
+}
+
+void* Array_back(Array* A)
+{
+    return (char*)A->array + (A->data_size * (A->size - 1));
+}

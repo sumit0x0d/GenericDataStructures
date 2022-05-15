@@ -28,5 +28,7 @@ int DynamicArray_erase(DynamicArray* DA, size_t index);
 
 size_t DynamicArray_search(DynamicArray* DA, void* data);
 void* DynamicArray_at(DynamicArray* DA, size_t index);
+void* DynamicArray_front(DynamicArray* DA);
+void* DynamicArray_back(DynamicArray* DA);
 
 #endif

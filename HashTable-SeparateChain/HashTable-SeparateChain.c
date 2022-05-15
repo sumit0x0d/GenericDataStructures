@@ -85,11 +85,11 @@ int HashTableSC_insert(HashTableSC* HT, void* key, void* value)
     pair->next = NULL;
     size_t index = HT->hash(key, HT->buckets);
     if(1) {
-        HashTableSCPair* temp = &HT->array[index];
-        while(temp->next) {
-            temp = temp->next;
+        HashTableSCPair* pair_previous = &HT->array[index];
+        while(pair_previous->next) {
+            pair_previous = pair_previous->next;
         }
-        temp->next = pair;
+        pair_previous->next = pair;
     }
     else {
         memcpy(&HT->array[index], pair, sizeof (HashTableSCPair));

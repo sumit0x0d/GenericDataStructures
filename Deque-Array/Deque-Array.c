@@ -63,7 +63,7 @@ void DequeA_push_front(DequeA* D, void* data)
 
 void DequeA_push_back(DequeA* D, void* data)
 {
-    if(D->back == D->capacity && D->front) {
+    if(D->back == D->capacity) {
         memmove(D->array, (char* )D->array + (D->data_size * D->front), D->size);
         D->front = 0;
         D->back = D->size;

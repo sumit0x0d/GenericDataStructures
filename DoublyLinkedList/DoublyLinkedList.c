@@ -123,7 +123,7 @@ int DoublyLinkedList_insert(DoublyLinkedList* DLL, size_t index, void* data)
         return 0;
     }
     DoublyLinkedListNode* node = DoublyLinkedListNode_create(DLL->data_size);
-    DoublyLinkedListNode* temp = DLL->head;
+    DoublyLinkedListNode* node_previous = DLL->head;
     if(!node) {
         return 0;
     }
@@ -136,12 +136,12 @@ int DoublyLinkedList_insert(DoublyLinkedList* DLL, size_t index, void* data)
     }
     else {
         for(size_t i = 0; i < index-1; ++i) {
-            temp = temp->next;
+            node_previous = node_previous->next;
         }
-        node->previous = temp;
-        node->next = temp->next;
+        node->previous = node_previous;
+        node->next = node_previous->next;
         node->next->previous = node;
-        temp->next = node;
+        node_previous->next = node;
     }
     DLL->size = DLL->size + 1;
     return 1;

@@ -6,10 +6,14 @@ RedBlackTree* RedBlackTree_create(size_t data_size,
 void* RedBlackTree_root(RedBlackTree* RBT);
 size_t RedBlackTree_size(RedBlackTree* RBT);
 
-static RedBlackTreeNode* RedBlackTreeNode_rotate_right(RedBlackTreeNode* node, RedBlackTreeNode* node_right);
-static RedBlackTreeNode* RedBlackTreeNode_rotate_left_right(RedBlackTreeNode* node, RedBlackTreeNode* node_left, RedBlackTreeNode* node_left_right);
-static RedBlackTreeNode* RedBlackTreeNode_rotate_left(RedBlackTreeNode* node, RedBlackTreeNode* node_left);
-static RedBlackTreeNode* RedBlackTreeNode_rotate_right_left(RedBlackTreeNode* node, RedBlackTreeNode* node_right, RedBlackTreeNode* node_right_left);
+static RedBlackTreeNode* RedBlackTreeNode_rotate_right(RedBlackTreeNode* node,
+    RedBlackTreeNode* node_right);
+static RedBlackTreeNode* RedBlackTreeNode_rotate_left_right(RedBlackTreeNode* node,
+    RedBlackTreeNode* node_left, RedBlackTreeNode* node_left_right);
+static RedBlackTreeNode* RedBlackTreeNode_rotate_left(RedBlackTreeNode* node,
+    RedBlackTreeNode* node_left);
+static RedBlackTreeNode* RedBlackTreeNode_rotate_right_left(RedBlackTreeNode* node,
+    RedBlackTreeNode* node_right, RedBlackTreeNode* node_right_left);
 static void RedBlackTree_rebalance(RedBlackTree* RBT, RedBlackTreeNode* node);
 
 int RedBlackTree_insert(RedBlackTree* RBT, void* data);
@@ -70,7 +74,8 @@ static RedBlackTreeNode* RedBlackTreeNode_rotate_right(RedBlackTreeNode* node, R
     return node_left;
 }
 
-static RedBlackTreeNode* RedBlackTreeNode_rotate_left_right(RedBlackTreeNode* node, RedBlackTreeNode* node_left, RedBlackTreeNode* node_left_right)
+static RedBlackTreeNode* RedBlackTreeNode_rotate_left_right(RedBlackTreeNode* node,
+    RedBlackTreeNode* node_left, RedBlackTreeNode* node_left_right)
 {
     node_left->right = node_left_right->left;
     if(node_left->right) {
@@ -96,7 +101,8 @@ static RedBlackTreeNode* RedBlackTreeNode_rotate_left_right(RedBlackTreeNode* no
     return node_left_right;
 }
 
-static RedBlackTreeNode* RedBlackTreeNode_rotate_left(RedBlackTreeNode* node, RedBlackTreeNode* node_right)
+static RedBlackTreeNode* RedBlackTreeNode_rotate_left(RedBlackTreeNode* node,
+    RedBlackTreeNode* node_right)
 {
     node->right = node_right->left;
     if(node->right) {
@@ -116,7 +122,8 @@ static RedBlackTreeNode* RedBlackTreeNode_rotate_left(RedBlackTreeNode* node, Re
     return node_right;
 }
 
-static RedBlackTreeNode* RedBlackTreeNode_rotate_right_left(RedBlackTreeNode* node, RedBlackTreeNode* node_right, RedBlackTreeNode* node_right_left)
+static RedBlackTreeNode* RedBlackTreeNode_rotate_right_left(RedBlackTreeNode* node,
+    RedBlackTreeNode* node_right, RedBlackTreeNode* node_right_left)
 {
     node_right->left = node_right_left->right;
     if(node_right->left) {
@@ -256,8 +263,5 @@ RedBlackTreeNode* RedBlackTree_search(RedBlackTree* RBT, void* data)
 
 void* RedBlackTree_root(RedBlackTree* RBT)
 {
-    if(!RBT->root) {
-        return NULL;
-    }
     return RBT->root->data;
 }

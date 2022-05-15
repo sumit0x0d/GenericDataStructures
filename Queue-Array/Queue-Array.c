@@ -53,7 +53,7 @@ void QueueA_destroy(QueueA* Q)
 
 void QueueA_enqueue(QueueA* Q, void* data)
 {
-    if(Q->back == Q->capacity && Q->front) {
+    if(Q->back == Q->capacity) {
         memmove(Q->array, (char*)Q->array + (Q->data_size * Q->front), Q->size);
         Q->front = 0;
         Q->back = Q->size;

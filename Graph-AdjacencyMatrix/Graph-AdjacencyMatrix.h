@@ -5,10 +5,11 @@
 
 typedef struct GraphAM {
     int *adjacency_matrix;
-    unsigned long vertex;
+    size_t data_size;
+    unsigned long vertices;
 } GraphAM;
 
-GraphAM *graphAM_create();
+GraphAM *graphAM_create(size_t data_size, unsigned long vertices);
 void GraphAM_destroy(GraphAM *G);
 
 int GraphAM_adjacent(GraphAM *G, unsigned long vertex);
