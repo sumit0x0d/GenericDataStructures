@@ -70,7 +70,7 @@ void Array_push_back(Array* A, void* data)
 
 void Array_pop_front(Array* A)
 {
-    memmove(A->array, (char* )A->array + A->data_size, (A->size - 1) * A->data_size);
+    memmove(A->array, (char*)A->array + A->data_size, (A->size - 1) * A->data_size);
     A->size = A->size - 1;
 }
 

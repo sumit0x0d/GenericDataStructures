@@ -21,6 +21,6 @@ void StackLL_destroy(StackLL* S);
 int StackLL_push(StackLL* S, void* data);
 void StackLL_pop(StackLL* S);
 
-void* StackLL_peek(StackLL* S);
+void* StackLL_top(StackLL* S);
 
 #endif

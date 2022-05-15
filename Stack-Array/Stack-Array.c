@@ -4,10 +4,11 @@ StackA* StackA_create(size_t data_size, size_t capacity);
 int StackA_change_capacity(StackA* S, size_t capacity);
 void StackA_destroy(StackA* S);
 
+void* StackA_top(StackA* S);
+
 void StackA_push(StackA* S, void* data);
 void StackA_pop(StackA* S);
 
-void* StackA_peek(StackA* S);
 
 StackA* StackA_create(size_t data_size, size_t capacity)
 {
@@ -47,18 +48,18 @@ void StackA_destroy(StackA* S)
     S = NULL;
 }
 
+void* StackA_top(StackA* S)
+{
+    return (char*)S->array + (S->data_size * (S->size - 1));
+}
+
 void StackA_push(StackA* S, void* data)
 {
-    memcpy((char* )S->array + (S->data_size * S->size), data, S->data_size);
+    memcpy((char*)StackA_top(S) + S->data_size, data, S->data_size);
     S->size = S->size + 1;
 }
 
 void StackA_pop(StackA* S)
 {
     S->size = S->size - 1;
-}
-
-void* StackA_peek(StackA* S)
-{
-    return (char*)S->array + (S->size - 1);
 }

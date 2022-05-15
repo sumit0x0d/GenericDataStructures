@@ -40,7 +40,7 @@ void inorder_traverse(AVLTree* AVLT)
             node = node->left;
         }
         else {
-            node = StackLL_peek(S);
+            node = StackLL_top(S);
             printf("%d(%d) ", *(int*)node->data, node->balance_factor);
             StackLL_pop(S);
             node = node->right;
@@ -52,13 +52,21 @@ int main()
 {
     // int a[24] = {10, 20, 30, 40, 50, 60, 70, 80, 930, 31100, 1010, 1024, 145, 25, 465, 1723, 536, 6404, 8013, 330, 9230, 31011, 1011, 12};
     // int a[24] = {10, 20, 15, 40, 50, 60, 70, 80, 930, 31100, 1010, 1024, 145, 25, 465, 1723, 536, 6404, 8013, 330, 9230, 31011, 1011, 12};
-    AVLTree *AVLT = AVLTree_create(sizeof (int), compare);
-    for(int i = 1; i <= 100; i++) {
-        if(!AVLTree_insert(AVLT, &i)) {
-            break;
-        }
-    }
-    // int a = 39;
+    // AVLTree *AVLT = AVLTree_create(sizeof (int), compare);
+    // for(int i = 1; i <= 100; i++) {
+    //     if(!AVLTree_insert(AVLT, &i)) {
+    //         break;
+    //     }
+    // }
+    StackA *S = StackA_create(sizeof (int), 10);
+    int a = 39;
+    int a1 = 32;
+    int a2 = 319;
+    
+    StackA_push(S, &a);
+    StackA_push(S, &a1);
+    StackA_push(S, &a2);
+    printf("%d", *(int*)StackA_top(S));
     // if(!avl_tree_insert(AVLT, &a)) {
     //     printf("error");
     // }
@@ -79,7 +87,7 @@ int main()
     // int* i = HashTableSC_search(HT, &a);
     // if(i)
     // printf("%d", *i);
-    inorder_traverse(AVLT);
+    // inorder_traverse(AVLT);
     // avl_tree_remove(AVLT, &a[3]);
 
 
