@@ -1,5 +1,5 @@
-#ifndef HASH_TABLE_SEPARATE_CHAIN_H
-#define HASH_TABLE_SEPARATE_CHAIN_H
+#ifndef HASH_TABLE_SEPARATE_CHAINING_H
+#define HASH_TABLE_SEPARATE_CHAINING_H
 
 #include <stdlib.h>
 #include <string.h>

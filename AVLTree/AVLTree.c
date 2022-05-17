@@ -57,6 +57,11 @@ void AVLTree_destroy(AVLTree* AVLT)
     AVLT = NULL;
 }
 
+void* AVLTree_root(AVLTree* AVLT)
+{
+    return AVLT->root->data;
+}
+
 static AVLTreeNode* AVLTreeNode_create(size_t data_size)
 {
     AVLTreeNode* node = malloc(sizeof (AVLTreeNode));
@@ -457,9 +462,4 @@ AVLTreeNode* AVLTree_search(AVLTree* AVLT, void* data)
         }
     }
     return NULL;
-}
-
-void* AVLTree_root(AVLTree* AVLT)
-{
-    return AVLT->root->data;
 }

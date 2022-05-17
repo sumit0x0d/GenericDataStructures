@@ -1,4 +1,4 @@
-#include "HashTable-SeparateChain.h"
+#include "HashTable-SeparateChaining.h"
 
 HashTableSC* HashTableSC_create(size_t key_size, size_t value_size, size_t buckets,
     size_t (*hash)(void* key, size_t buckets));

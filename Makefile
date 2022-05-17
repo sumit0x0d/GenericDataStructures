@@ -12,15 +12,17 @@ main1:
 	./CircularQueue/CircularQueue.c \
 	./Deque-Array/Deque-Array.c \
 	./Deque-LinkedList/Deque-LinkedList.c \
-	./DoublyLinkedList/DoublyLinkedList.c \
 	./DynamicArray/DynamicArray.c \
 	./Graph-AdjacencyList/Graph-AdjacencyList.c \
 	./Graph-AdjacencyMatrix/Graph-AdjacencyMatrix.c \
-	./HashTable-SeparateChain/HashTable-SeparateChain.c \
+	./HashTable-OpenAddressing/HashTable-OpenAddressing.c \
+	./HashTable-SeparateChaining/HashTable-SeparateChaining.c \
+	./LinkedList/LinkedList.c \
+	./PriorityQueue-Array/PriorityQueue-Array.c \
+	./PriorityQueue-LinkedList/PriorityQueue-LinkedList.c \
 	./Queue-Array/Queue-Array.c \
 	./Queue-LinkedList/Queue-LinkedList.c \
 	./RedBlackTree/RedBlackTree.c \
-	./SinglyLinkedList/SinglyLinkedList.c \
 	./Stack-Array/Stack-Array.c \
 	./Stack-LinkedList/Stack-LinkedList.c \
 	./main.c \

@@ -74,7 +74,8 @@ void PriorityQueueA_enqueue(PriorityQueueA* PQ, void* data, void* priority)
     }
     int compare = PQ->compare(priority, PriorityQueueA_back(PQ) + PQ->data_size);
     if(compare >= 0) {
-        memcpy(PriorityQueueA_back(PQ) + (PQ->data_size + PQ->priority_size), data, PQ->data_size);
+        memcpy(PriorityQueueA_back(PQ) + (PQ->data_size + PQ->priority_size),
+            data, PQ->data_size);
         memcpy(PriorityQueueA_back(PQ) + ((2 * PQ->data_size) + PQ->priority_size), priority,
             PQ->priority_size);
         PQ->back = PQ->back + 1;
@@ -84,10 +85,7 @@ void PriorityQueueA_enqueue(PriorityQueueA* PQ, void* data, void* priority)
     for(size_t i = PQ->front; i < PQ->back; i++) {
         int compare = PQ->compare(data, (char*)PQ->array + i);
         if(compare < 0) {
-            memmove((char*)DA->array + (DA->data_size * (i + 1)),
-                (char*)DA->array + (DA->data_size * i), DA->data_size * (DA->size - i - 1));
-            memcpy((char*)DA->array + (DA->data_size * i), data, DA->data_size);
-            DA->size = DA->size + 1;
+            
             return 1;
         }
     }
