@@ -5,11 +5,11 @@ PriorityQueueA* PriorityQueueA_create(size_t data_size, size_t priority_size, si
 int PriorityQueueA_change_capacity(PriorityQueueA* PQ, size_t capacity);
 void PriorityQueueA_destroy(PriorityQueueA* PQ);
 
+inline void* PriorityQueueA_back(PriorityQueueA* PQ);
+inline void* PriorityQueueA_front(PriorityQueueA* PQ);
+
 void PriorityQueueA_enqueue(PriorityQueueA* PQ, void* data, void* priority);
 void PriorityQueueA_dequeue(PriorityQueueA* PQ);
-
-void* PriorityQueueA_front(PriorityQueueA* PQ);
-void* PriorityQueueA_back(PriorityQueueA* PQ);
 
 PriorityQueueA* PriorityQueueA_create(size_t data_size, size_t priority_size, size_t capacity,
     int (*compare)(void* priority1, void* priority2))
@@ -55,12 +55,12 @@ void PriorityQueueA_destroy(PriorityQueueA* PQ)
     PQ = NULL;
 }
 
-void* PriorityQueueA_front(PriorityQueueA* PQ)
+inline void* PriorityQueueA_front(PriorityQueueA* PQ)
 {
     return (char*)PQ->array + ((PQ->data_size + PQ->priority_size) * PQ->front);
 }
 
-void* PriorityQueueA_back(PriorityQueueA* PQ)
+inline void* PriorityQueueA_back(PriorityQueueA* PQ)
 {
     return (char*)PQ->array + ((PQ->data_size + PQ->priority_size) * (PQ->back - 1));
 }
@@ -72,22 +72,14 @@ void PriorityQueueA_enqueue(PriorityQueueA* PQ, void* data, void* priority)
         PQ->front = 0;
         PQ->back = PQ->size;
     }
-    int compare = PQ->compare(priority, PriorityQueueA_back(PQ) + PQ->data_size);
+    int compare = PQ->compare(priority, (char*)PriorityQueueA_back(PQ) + PQ->data_size);
     if(compare >= 0) {
-        memcpy(PriorityQueueA_back(PQ) + (PQ->data_size + PQ->priority_size),
+        memcpy((char*)PriorityQueueA_back(PQ) + (PQ->data_size + PQ->priority_size),
             data, PQ->data_size);
-        memcpy(PriorityQueueA_back(PQ) + ((2 * PQ->data_size) + PQ->priority_size), priority,
-            PQ->priority_size);
+        memcpy((char*)PriorityQueueA_back(PQ) + ((2 * PQ->data_size) + PQ->priority_size),
+            priority, PQ->priority_size);
         PQ->back = PQ->back + 1;
         PQ->size = PQ->size + 1;
-        return;
-    }
-    for(size_t i = PQ->front; i < PQ->back; i++) {
-        int compare = PQ->compare(data, (char*)PQ->array + i);
-        if(compare < 0) {
-            
-            return 1;
-        }
     }
 }
 

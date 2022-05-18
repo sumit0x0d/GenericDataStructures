@@ -6,11 +6,11 @@ void QueueLL_destroy(QueueLL* Q);
 static QueueLLNode* QueueLLnode_create(size_t data_size);
 static void QueueLLnode_destroy(QueueLLNode* Q);
 
-int QueueLL_enqueue(QueueLL* Q, void* data);
-void QueueLL_dequeue(QueueLL* Q);
-
 void* QueueLL_front(QueueLL* Q);
 void* QueueLL_back(QueueLL* Q);
+
+int QueueLL_enqueue(QueueLL* Q, void* data);
+void QueueLL_dequeue(QueueLL* Q);
 
 QueueLL* QueueLL_create(size_t data_size)
 {
@@ -40,6 +40,16 @@ void QueueLL_destroy(QueueLL* Q)
     }
     free(Q);
     Q = NULL;
+}
+
+void* QueueLL_front(QueueLL* Q)
+{
+    return Q->front->data;
+}
+
+void* QueueLL_back(QueueLL* Q)
+{
+    return Q->back->data;
 }
 
 static QueueLLNode* QueueLLnode_create(size_t data_size)
@@ -93,14 +103,4 @@ void QueueLL_dequeue(QueueLL* Q)
     }
     QueueLLnode_destroy(node);
     Q->size = Q->size - 1;
-}
-
-void* QueueLL_front(QueueLL* Q)
-{
-    return Q->front->data;
-}
-
-void* QueueLL_back(QueueLL* Q)
-{
-    return Q->back->data;
 }

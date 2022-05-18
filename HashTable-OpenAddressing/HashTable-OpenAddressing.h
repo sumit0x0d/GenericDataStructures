@@ -17,8 +17,8 @@ HashTableOA* HashTableOA_create(size_t key_size, size_t value_size, size_t bucke
     size_t (*hash)(void* key, size_t buckets));
 void HashTableOA_destroy(HashTableOA* HT);
 
-int HashTableOA_insert(HashTableOA* HT, void* key, void* value);
-int HashTableOA_remove(HashTableOA* HT, void* key);
+void HashTableOA_insert(HashTableOA* HT, void* key, void* value);
+void HashTableOA_remove(HashTableOA* HT, void* key);
 
 void* HashTableOA_search(HashTableOA* HT, void* key);
 

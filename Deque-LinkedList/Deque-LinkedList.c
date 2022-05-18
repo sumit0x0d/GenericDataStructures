@@ -3,6 +3,9 @@
 DequeLL* DequeLL_create(size_t data_size);
 void DequeLL_destroy(DequeLL* D);
 
+void* DequeLL_front(DequeLL* Q);
+void* DequeLL_back(DequeLL* Q);
+
 static DequeLLNode* DequeLLnode_create(size_t data_size);
 static void DequeLLnode_destroy(DequeLLNode* D);
 
@@ -10,9 +13,6 @@ int DequeLL_push_front(DequeLL* D, void* data);
 int DequeLL_push_back(DequeLL* D, void* data);
 void DequeLL_pop_front(DequeLL* D);
 void DequeLL_pop_back(DequeLL* D);
-
-void* DequeLL_front(DequeLL* Q);
-void* DequeLL_back(DequeLL* Q);
 
 DequeLL* DequeLL_create(size_t data_size)
 {
@@ -42,6 +42,16 @@ void DequeLL_destroy(DequeLL* D)
     }
     free(D);
     D = NULL;
+}
+
+void* DequeLL_front(DequeLL* Q)
+{
+    return Q->front->data;
+}
+
+void* DequeLL_back(DequeLL* Q)
+{
+    return Q->back->data;
 }
 
 static DequeLLNode* DequeLLnode_create(size_t data_size)
@@ -129,14 +139,4 @@ void DequeLL_pop_back(DequeLL* D)
     }
     DequeLLnode_destroy(node);
     D->size = D->size - 1;
-}
-
-void* DequeLL_front(DequeLL* Q)
-{
-    return Q->front->data;
-}
-
-void* DequeLL_back(DequeLL* Q)
-{
-    return Q->back->data;
 }

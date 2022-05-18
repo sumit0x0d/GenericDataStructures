@@ -4,8 +4,8 @@ HashTableOA* HashTableOA_create(size_t key_size, size_t value_size, size_t bucke
     size_t (*hash)(void* key, size_t buckets));
 void HashTableOA_destroy(HashTableOA* HT);
 
-int HashTableOA_insert(HashTableOA* HT, void* key, void* value);
-int HashTableOA_remove(HashTableOA* HT, void* key);
+void HashTableOA_insert(HashTableOA* HT, void* key, void* value);
+void HashTableOA_remove(HashTableOA* HT, void* key);
 
 void* HashTableOA_search(HashTableOA* HT, void* key);
 
@@ -30,34 +30,32 @@ HashTableOA* HashTableOA_create(size_t key_size, size_t value_size, size_t bucke
     return HT;
 }
 
-void HashTableOA_destroy(HashTableOA* HT)
-{
+// void HashTableOA_destroy(HashTableOA* HT)
+// {
 
-}
+// }
 
-void* HashTableOA_at(HashTableOA* HT, size_t index)
+static void* HashTableOA_at(HashTableOA* HT, size_t index)
 {
     return (char*)HT->array + ((HT->key_size + HT->value_size) * index);
 }
 
-int HashTableOA_insert(HashTableOA* HT, void* key, void* value)
+void HashTableOA_insert(HashTableOA* HT, void* key, void* value)
 {
     size_t index = HT->hash(key, HT->buckets);
-    if(HashTableOA_at(HT, index)) {
-
+    while(*(size_t*)HashTableOA_at(HT, index)) {
+        index = (index + 1) % HT->buckets;
     }
-    memcpy((char*)HT->array + ((HT->key_size + HT->value_size) * index), key, HT->key_size);
-    memcpy((char*)HT->array + ((HT->key_size + HT->value_size) * index) + HT->key_size, value,
-        HT->value_size);
-    
+    memcpy(HashTableOA_at(HT, index), key, HT->key_size);
+    memcpy((char*)HashTableOA_at(HT, index) + HT->key_size, value, HT->value_size);
 }
 
-int HashTableOA_remove(HashTableOA* HT, void* data)
-{
+// int HashTableOA_remove(HashTableOA* HT, void* data)
+// {
 
-}
+// }
 
-void* HashTableOA_search(HashTableOA* HT, void* key)
-{
+// void* HashTableOA_search(HashTableOA* HT, void* key)
+// {
 
-}
+// }

@@ -20,5 +20,4 @@ void* StackA_top(StackA* S);
 void StackA_push(StackA* S, void* data);
 void StackA_pop(StackA* S);
 
-
 #endif

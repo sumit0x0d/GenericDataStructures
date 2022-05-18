@@ -14,9 +14,9 @@ void AVLTree_destroy(AVLTree* AVLT);
 static AVLTreeNode* AVLTreeNode_create(size_t data_size);
 static void AVLTreeNode_destroy(AVLTreeNode* node);
 
-static CircularQueue* CircularQueue_create(size_t capacity);
-static void CircularQueue_enqueue(CircularQueue* CQ, AVLTreeNode* data);
-static void CircularQueue_dequeue(CircularQueue* CQ);
+static inline CircularQueue* CircularQueue_create(size_t capacity);
+static inline void CircularQueue_enqueue(CircularQueue* CQ, AVLTreeNode* data);
+static inline void CircularQueue_dequeue(CircularQueue* CQ);
 
 static size_t AVLTreeNode_height(AVLTreeNode* node, CircularQueue *CQ);
 static void AVLTreeNode_balance_factor(AVLTreeNode* node, CircularQueue *CQ);
@@ -28,8 +28,8 @@ static AVLTreeNode* AVLTreeNode_rotate_right_left(AVLTreeNode* node, AVLTreeNode
     AVLTreeNode* node_right_left);
 static void AVLTree_rebalance(AVLTree* AVLT, AVLTreeNode* node, CircularQueue* CQ);
 
-AVLTreeNode* AVLTreeNode_predecessor(AVLTreeNode* node);
-AVLTreeNode* AVLTreeNode_successor(AVLTreeNode* node);
+static inline AVLTreeNode* AVLTreeNode_predecessor(AVLTreeNode* node);
+static inline AVLTreeNode* AVLTreeNode_successor(AVLTreeNode* node);
 
 int AVLTree_insert(AVLTree* AVLT, void* data);
 int AVLTree_remove(AVLTree* AVLT, void* data);
@@ -88,7 +88,7 @@ static void AVLTreeNode_destroy(AVLTreeNode* node)
     node = NULL;
 }
 
-static CircularQueue* CircularQueue_create(size_t capacity)
+static inline CircularQueue* CircularQueue_create(size_t capacity)
 {
     CircularQueue* CQ = malloc(sizeof (CircularQueue));
     if(!CQ) {
@@ -107,14 +107,14 @@ static CircularQueue* CircularQueue_create(size_t capacity)
     return CQ;
 }
 
-static void CircularQueue_enqueue(CircularQueue* CQ, AVLTreeNode* data)
+static inline void CircularQueue_enqueue(CircularQueue* CQ, AVLTreeNode* data)
 {
     CQ->array[CQ->back] = *data;
     CQ->back = (CQ->back + 1) % CQ->capacity;
     CQ->size = CQ->size + 1;
 }
 
-static void CircularQueue_dequeue(CircularQueue* CQ)
+static inline void CircularQueue_dequeue(CircularQueue* CQ)
 {
     CQ->front = (CQ->front + 1) % CQ->capacity;
     CQ->size = CQ->size - 1;
@@ -344,7 +344,7 @@ int AVLTree_insert(AVLTree* AVLT, void* data)
     return 1;
 }
 
-AVLTreeNode* AVLTreeNode_predecessor(AVLTreeNode* node)
+static inline AVLTreeNode* AVLTreeNode_predecessor(AVLTreeNode* node)
 {
     while(node->right) {
         node = node->right;
@@ -352,7 +352,7 @@ AVLTreeNode* AVLTreeNode_predecessor(AVLTreeNode* node)
     return node;
 }
 
-AVLTreeNode* AVLTreeNode_successor(AVLTreeNode* node)
+static inline AVLTreeNode* AVLTreeNode_successor(AVLTreeNode* node)
 {
     while(node->left) {
         node = node->left;
