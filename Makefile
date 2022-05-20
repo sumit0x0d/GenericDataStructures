@@ -18,6 +18,7 @@ main1:
 	./HashTable-OpenAddressing/HashTable-OpenAddressing.c \
 	./HashTable-SeparateChaining/HashTable-SeparateChaining.c \
 	./LinkedList/LinkedList.c \
+	./Matrix/Matrix.c \
 	./PriorityQueue-Array/PriorityQueue-Array.c \
 	./PriorityQueue-LinkedList/PriorityQueue-LinkedList.c \
 	./Queue-Array/Queue-Array.c \

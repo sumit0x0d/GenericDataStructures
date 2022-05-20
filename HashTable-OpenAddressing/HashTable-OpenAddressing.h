@@ -4,8 +4,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct HashTableOAPair {
+    void* key;
+    void* value;
+} HashTableOAPair;
+
 typedef struct HashTableOA {
-    void* array;
+    HashTableOAPair** array;
     size_t key_size;
     size_t value_size;
     size_t buckets;

@@ -4,8 +4,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct PriorityQueueAPair {
+    void* data;
+    void* priority;
+} PriorityQueueAPair;
+
 typedef struct PriorityQueueA {
-    void* array;
+    PriorityQueueAPair** array;
     size_t data_size;
     size_t priority_size;
     size_t front;

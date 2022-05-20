@@ -1,4 +1,4 @@
-#include "generic_data_structures.h"
+#include "gds.h"
 
 #include <stdio.h>
 
@@ -58,15 +58,15 @@ int main()
     //         break;
     //     }
     // }
-    StackA *S = StackA_create(sizeof (int), 10);
-    int a = 39;
-    int a1 = 32;
-    int a2 = 319;
+    // StackA *S = StackA_create(sizeof (int), 10);
+    // int a = 39;
+    // int a1 = 32;
+    // int a2 = 319;
     
-    StackA_push(S, &a);
-    StackA_push(S, &a1);
-    StackA_push(S, &a2);
-    printf("%d", *(int*)StackA_top(S));
+    // StackA_push(S, &a);
+    // StackA_push(S, &a1);
+    // StackA_push(S, &a2);
+    // printf("%d", *(int*)StackA_top(S));
     // if(!avl_tree_insert(AVLT, &a)) {
     //     printf("error");
     // }
@@ -75,8 +75,10 @@ int main()
     //         break;
     //     }
     // }
+    int b = 1;
+    Matrix* M = Matrix_create(sizeof (int), 10, 10);
+    Matrix_insert(M, 0, 1, &b);
     // char a = 'I';
-    // int b = 1;
     // char c = 'A';
     // int d = 2;
     // binary_search_tree_remove(BST, &b);

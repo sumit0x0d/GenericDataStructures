@@ -12,6 +12,7 @@
 #include "HashTable-OpenAddressing/HashTable-OpenAddressing.h"
 #include "HashTable-SeparateChaining/HashTable-SeparateChaining.h"
 #include "LinkedList/LinkedList.h"
+#include "Matrix/Matrix.h"
 #include "PriorityQueue-Array/PriorityQueue-Array.h"
 #include "PriorityQueue-LinkedList/PriorityQueue-LinkedList.h"
 #include "Queue-Array/Queue-Array.h"

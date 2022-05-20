@@ -20,6 +20,8 @@ DequeA* DequeA_create(size_t data_size, size_t capacity)
     }
     D->array = malloc(data_size * capacity);
     if(!D->array) {
+        free(D);
+        D = NULL;
         return NULL;
     }
     D->data_size = data_size;

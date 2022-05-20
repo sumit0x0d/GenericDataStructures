@@ -18,9 +18,25 @@ PriorityQueueA* PriorityQueueA_create(size_t data_size, size_t priority_size, si
     if(!PQ) {
         return NULL;
     }
-    PQ->array = malloc((data_size + priority_size) * capacity);
+    PQ->array = malloc(capacity * sizeof (PriorityQueueAPair*));
     if(!PQ->array) {
+        free(PQ);
+        PQ = NULL;
         return NULL;
+    }
+    for(size_t i = 0; i < capacity; i++) {
+        PQ->array[i] = malloc(sizeof (PriorityQueueAPair));
+        if(!PQ->array[i]) {
+            for(size_t j = 0; j < i; j++) {
+                free(PQ->array[j]);
+                PQ->array[j] = NULL;
+            }
+            free(PQ->array);
+            PQ->array = NULL;
+            free(PQ);
+            PQ = NULL;
+            return NULL;
+        }
     }
     PQ->data_size = data_size;
     PQ->priority_size = priority_size;
