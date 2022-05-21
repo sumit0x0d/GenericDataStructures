@@ -109,7 +109,7 @@ static inline CircularQueue* CircularQueue_create(size_t capacity)
 
 static inline void CircularQueue_enqueue(CircularQueue* CQ, AVLTreeNode* data)
 {
-    // memcpy(CQ->array[CQ->back].data, data, sizeof (AVLTreeNode));
+    // memcpy(&CQ->array[CQ->back], data, sizeof (AVLTreeNode));
     CQ->array[CQ->back] = *data;
     CQ->back = (CQ->back + 1) % CQ->capacity;
     CQ->size = CQ->size + 1;

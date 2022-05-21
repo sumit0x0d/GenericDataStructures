@@ -75,9 +75,9 @@ int main()
     //         break;
     //     }
     // }
-    char b = 'a';
-    char a = 'I';
-    char c = 'A';
+    // char b = 'a';
+    // char a = 'I';
+    // char c = 'A';
     // Matrix* M = Matrix_create(sizeof (char), 10, 10);
     // Matrix_insert(M, 0, 1, &b);
     QueueA* S = QueueA_create(sizeof (char), 10);

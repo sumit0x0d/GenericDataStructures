@@ -1,4 +1,4 @@
-#include "Stack-Array.h"
+#include "Stack-Array2.h"
 
 StackA* StackA_create(size_t data_size, size_t capacity);
 int StackA_change_capacity(StackA* S, size_t capacity);
@@ -15,11 +15,25 @@ StackA* StackA_create(size_t data_size, size_t capacity)
     if(!S) {
         return NULL;
     }
-    S->array = malloc(data_size * capacity);
+    S->array = malloc(sizeof (StackANode) * capacity);
     if(!S->array) {
         free(S);
         S = NULL;
         return NULL;
+    }
+    for(size_t i = 0; i < capacity; i++) {
+        S->array[i].data = malloc(data_size);
+        if(!S->array[i].data) {
+            for(size_t j = i; j < i; j++) {
+                free(S->array[j].data);
+                S->array[j].data = NULL;
+            }
+            free(S->array);
+            S->array = NULL;
+            free(S);
+            S = NULL;
+            return NULL;
+        }
     }
     S->data_size = data_size;
     S->capacity = capacity;
@@ -51,12 +65,12 @@ void StackA_destroy(StackA* S)
 
 void* StackA_top(StackA* S)
 {
-    return (char*)S->array + (S->data_size * (S->size - 1));
+    return S->array[S->size - 1].data;
 }
 
 void StackA_push(StackA* S, void* data)
 {
-    memcpy((char*)S->array + (S->data_size * S->size), data, S->data_size);
+    memcpy(S->array[S->size].data, data, S->data_size);
     S->size = S->size + 1;
 }
 

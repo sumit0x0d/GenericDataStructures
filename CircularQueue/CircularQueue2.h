@@ -4,8 +4,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct CircularQueueNode {
+    void* data;
+} CircularQueueNode;
+
 typedef struct CircularQueue {
-    void* array;
+    CircularQueueNode* array;
     size_t data_size;
     size_t front;
     size_t back;

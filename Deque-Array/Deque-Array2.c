@@ -1,4 +1,4 @@
-#include "Deque-Array.h"
+#include "Deque-Array2.h"
 
 DequeA* DequeA_create(size_t data_size, size_t capacity);
 int DequeA_change_capacity(DequeA* D, size_t capacity);
@@ -18,11 +18,25 @@ DequeA* DequeA_create(size_t data_size, size_t capacity)
     if(!D) {
         return NULL;
     }
-    D->array = malloc(data_size * capacity);
+    D->array = malloc(sizeof (DequeANode) * capacity);
     if(!D->array) {
         free(D);
         D = NULL;
         return NULL;
+    }
+    for(size_t i = 0; i < capacity; i++) {
+        D->array[i].data = malloc(data_size);
+        if(!D->array[i].data) {
+            for(size_t j = i; j < i; j++) {
+                free(D->array[j].data);
+                D->array[j].data = NULL;
+            }
+            free(D->array);
+            D->array = NULL;
+            free(D);
+            D = NULL;
+            return NULL;
+        }
     }
     D->data_size = data_size;
     D->front = 0;
@@ -53,12 +67,12 @@ void DequeA_destroy(DequeA* D)
 
 void* DequeA_front(DequeA* D)
 {
-    return (char*)D->array + (D->data_size * D->front);
+    return D->array[D->front].data;
 }
 
 void* DequeA_back(DequeA* D)
 {
-    return (char*)D->array + (D->data_size * (D->back - 1));
+    return D->array[D->back - 1].data;
 }
 
 void DequeA_push_front(DequeA* D, void* data)
@@ -67,21 +81,20 @@ void DequeA_push_front(DequeA* D, void* data)
         D->front = D->front - 1;
     }
     else {
-        memmove((char*)D->array + D->data_size, (char*)D->array + (D->data_size * D->front),
-            D->data_size * D->size);
+        memmove(D->array[D->front + 1].data, D->array[D->front].data, D->data_size * D->size);
     }
-    memcpy((char*)D->array + (D->data_size * D->front), data, D->data_size);
+    memcpy(D->array[D->front].data, data, D->data_size);
     D->size = D->size + 1;
 }
 
 void DequeA_push_back(DequeA* D, void* data)
 {
     if(D->back == D->capacity) {
-        memmove(D->array, (char*)D->array + (D->data_size * D->front), D->data_size * D->size);
+        memmove(D->array, D->array[D->front].data, D->data_size * D->size);
         D->front = 0;
         D->back = D->size;
     }
-    memcpy((char*)D->array + (D->data_size * D->back), data, D->data_size);
+    memcpy(D->array[D->back].data, data, D->data_size);
     D->back = D->back + 1;
     D->size = D->size + 1;
 }

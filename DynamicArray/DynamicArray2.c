@@ -1,4 +1,4 @@
-#include "DynamicArray.h"
+#include "DynamicArray2.h"
 
 DynamicArray* DynamicArray_create(size_t data_size, size_t capacity, double growth_factor,
     int (*compare)(void* data1, void* data2));
@@ -34,6 +34,20 @@ DynamicArray* DynamicArray_create(size_t data_size, size_t capacity, double grow
         free(DA);
         DA = NULL;
         return NULL;
+    }
+    for(size_t i = 0; i < capacity; i++) {
+        DA->array[i].data = malloc(data_size);
+        if(!DA->array[i].data) {
+            for(size_t j = i; j < i; j++) {
+                free(DA->array[j].data);
+                DA->array[j].data = NULL;
+            }
+            free(DA->array);
+            DA->array = NULL;
+            free(DA);
+            DA = NULL;
+            return NULL;
+        }
     }
     DA->data_size = data_size;
     DA->front = 0;

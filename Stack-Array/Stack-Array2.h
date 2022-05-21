@@ -4,8 +4,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct StackANode {
+    void* data;
+} StackANode;
+
 typedef struct StackA {
-    void* array;
+    StackANode* array;
     size_t data_size;
     size_t capacity;
     size_t size;
