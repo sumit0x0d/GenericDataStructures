@@ -4,8 +4,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct QueueANode {
+    void* data;
+} QueueANode;
+
 typedef struct QueueA {
-    void* array;
+    QueueANode* array;
     size_t data_size;
     size_t front;
     size_t back;

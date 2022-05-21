@@ -4,8 +4,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct DequeANode {
+    void* data
+} DequeANode;
+
 typedef struct DequeA {
-    void* array;
+    DequeANode* array;
     size_t data_size;
     size_t front;
     size_t back;

@@ -75,11 +75,13 @@ int main()
     //         break;
     //     }
     // }
-    int b = 1;
-    Matrix* M = Matrix_create(sizeof (int), 10, 10);
-    Matrix_insert(M, 0, 1, &b);
-    // char a = 'I';
-    // char c = 'A';
+    char b = 'a';
+    char a = 'I';
+    char c = 'A';
+    // Matrix* M = Matrix_create(sizeof (char), 10, 10);
+    // Matrix_insert(M, 0, 1, &b);
+    QueueA* S = QueueA_create(sizeof (char), 10);
+    printf("%c", *(char*)QueueA_front(S));
     // int d = 2;
     // binary_search_tree_remove(BST, &b);
     // binary_tree_preorder_traversal(AVLT);
