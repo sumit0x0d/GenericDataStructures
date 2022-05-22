@@ -1,7 +1,7 @@
 #include "HashTable-OpenAddressing.h"
 
 HashTableOA* HashTableOA_create(size_t key_size, size_t value_size, size_t buckets,
-    size_t (*hash)(void* key, size_t buckets));
+    size_t (*hash)(void* key, size_t buckets), int (*compare)(void* key1, void* key2));
 void HashTableOA_destroy(HashTableOA* HT);
 
 void HashTableOA_insert(HashTableOA* HT, void* key, void* value);
@@ -10,71 +10,77 @@ void HashTableOA_remove(HashTableOA* HT, void* key);
 void* HashTableOA_search(HashTableOA* HT, void* key);
 
 HashTableOA* HashTableOA_create(size_t key_size, size_t value_size, size_t buckets,
-    size_t (*hash)(void* key, size_t buckets))
+    size_t (*hash)(void* key, size_t buckets), int (*compare)(void* key1, void* key2))
 {
     HashTableOA* HT = malloc(sizeof (HashTableOA));
     if(!HT) {
         return NULL;
     }
-    HT->array = malloc(buckets * sizeof (HashTableOAPair*));
+    HT->array = calloc(buckets, (key_size + value_size));
     if(!HT->array) {
         free(HT);
         HT = NULL;
         return NULL;
-    }
-    for(size_t i = 0; i < buckets; i++) {
-        HT->array[i] = malloc(sizeof (HashTableOAPair));
-        if(!HT->array[i]) {
-            for(size_t j = 0; j < i; j++) {
-                free(HT->array[j]);
-                HT->array[j] = NULL;
-            }
-            free(HT->array);
-            HT->array = NULL;
-            free(HT);
-            HT = NULL;
-            return NULL;
-        }
     }
     HT->key_size = key_size;
     HT->value_size = value_size;
     HT->buckets = buckets;
     HT->size = 0;
     HT->hash = hash;
+    HT->compare = compare;
     return HT;
 }
 
-// void HashTableOA_destroy(HashTableOA* HT)
-// {
+void HashTableOA_destroy(HashTableOA* HT)
+{
+    free(HT->array);
+    HT->array = NULL;
+    free(HT);
+    HT = NULL;
+}
 
-// }
+static void* key_at(HashTableOA* HT, size_t index)
+{
+    return (char*)HT->array + ((HT->key_size + HT->value_size) * index);
+}
 
-// static void* HashTableOA_at(HashTableOA* HT, size_t index)
-// {
-//     return (char*)HT->array + ((HT->key_size + HT->value_size) * index);
-// }
+static void* value_at(HashTableOA* HT, size_t index)
+{
+    return (char*)HT->array + ((HT->key_size + HT->value_size) * index) + HT->key_size;
+}
 
 void HashTableOA_insert(HashTableOA* HT, void* key, void* value)
 {
     size_t index = HT->hash(key, HT->buckets);
-    // while(*(size_t*)HashTableOA_at(HT, index)) {
-    //     index = (index + 1) % HT->buckets;
-    // }
-    while(HT->array[index]->key) {
-        index = index + 1;
+    while(*(size_t*)key_at(HT, index)) {
+        index = (index + 1) % HT->buckets;
     }
-    memcpy(HT->array[index]->key, key, HT->key_size);
-    memcpy(HT->array[index]->value, value, HT->value_size);
-    // memcpy(HashTableOA_at(HT, index), key, HT->key_size);
-    // memcpy((char*)HashTableOA_at(HT, index) + HT->key_size, value, HT->value_size);
+    memcpy(key_at(HT, index), key, HT->key_size);
+    memcpy(value_at(HT, index), value, HT->value_size);
 }
 
-// int HashTableOA_remove(HashTableOA* HT, void* data)
-// {
+void HashTableOA_remove(HashTableOA* HT, void* key)
+{
+    size_t index = HT->hash(key, HT->buckets);
+    while(*(size_t*)key_at(HT, index)) {
+        int compare = HT->compare(key, key_at(HT, index));
+        if(!compare) {
+            memset(key_at(HT, index), 0, HT->key_size);
+            break;
+        }
+        index = (index + 1) % HT->buckets;
+    }
+}
 
-// }
-
-// void* HashTableOA_search(HashTableOA* HT, void* key)
-// {
-
-// }
+void* HashTableOA_search(HashTableOA* HT, void* key)
+{
+    size_t index = HT->hash(key, HT->buckets);
+    while(*(size_t*)key_at(HT, index)) {
+        int compare = HT->compare(key, key_at(HT, index));
+        if(!compare) {
+            return key_at(HT, index);
+        }
+        index = (index + 1) % HT->buckets;
+    }
+    return NULL;
+}

@@ -3,11 +3,13 @@
 CircularQueue* CircularQueue_create(size_t data_size, size_t capacity);
 void CircularQueue_destroy(CircularQueue *CQ);
 
-void CircularQueue_enqueue(CircularQueue* CQ, void* data);
-void CircularQueue_dequeue(CircularQueue* CQ);
+static inline void* data_at(CircularQueue* CQ, size_t index);
 
 void* CircularQueue_front(CircularQueue* CQ);
 void* CircularQueue_back(CircularQueue* CQ);
+
+void CircularQueue_enqueue(CircularQueue* CQ, void* data);
+void CircularQueue_dequeue(CircularQueue* CQ);
 
 CircularQueue* CircularQueue_create(size_t data_size, size_t capacity)
 {
@@ -37,19 +39,24 @@ void CircularQueue_destroy(CircularQueue *CQ)
     CQ = NULL;
 }
 
+static inline void* data_at(CircularQueue* CQ, size_t index)
+{
+    return (char*)CQ->array + (CQ->data_size * index);
+}
+
 void* CircularQueue_front(CircularQueue* CQ)
 {
-    return (char*)CQ->array + (CQ->data_size * CQ->front);
+    return data_at(CQ, CQ->front);
 }
 
 void* CircularQueue_back(CircularQueue* CQ)
 {
-    return (char*)CQ->array + (CQ->data_size * (CQ->back - 1));
+    return data_at(CQ, CQ->back - 1);
 }
 
 void CircularQueue_enqueue(CircularQueue* CQ, void* data)
 {
-    memcpy((char*)CQ->array + (CQ->data_size * CQ->back), data, CQ->data_size);
+    memcpy(data_at(CQ, CQ->back), data, CQ->data_size);
     CQ->back = (CQ->back + 1) % CQ->capacity;
     CQ->size = CQ->size + 1;
 }

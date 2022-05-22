@@ -1,9 +1,10 @@
 #include "Array.h"
 
-Array* Array_create(size_t data_size, size_t capacity,
-    int (*compare)(void* data1, void* data2));
+Array* Array_create(size_t data_size, size_t capacity, int (*compare)(void* data1, void* data2));
 int Array_change_capacity(Array* A, size_t capacity);
 void Array_destroy(Array* A);
+
+static inline void* data_at(Array* A, size_t index);
 
 void Array_push_front(Array* DA, void* data);
 void Array_push_back(Array* DA, void* data);
@@ -16,8 +17,7 @@ int Array_erase(Array* DA, size_t index);
 
 size_t Array_search(Array* A, void* data);
 
-Array* Array_create(size_t data_size, size_t capacity,
-    int (*compare)(void* data1, void* data2))
+Array* Array_create(size_t data_size, size_t capacity, int (*compare)(void* data1, void* data2))
 {
     Array* A = malloc(sizeof (Array));
     if(!A) {
@@ -55,22 +55,27 @@ void Array_destroy(Array* A)
     A = NULL;
 }
 
+static inline void* data_at(Array* A, size_t index)
+{
+    return (char*)A->array + (A->data_size + index);
+}
+
 void Array_push_front(Array* A, void* data)
 {
-    memmove((char*)A->array + A->data_size, A->array, A->data_size * A->size);
-    memcpy(A->array, data, A->data_size);
+    memmove(data_at(A, 1), data_at(A, 0), A->data_size * A->size);
+    memcpy(data_at(A, 0), data, A->data_size);
     A->size = A->size + 1;
 }
 
 void Array_push_back(Array* A, void* data)
 {
-    memcpy((char*)A->array + (A->data_size * A->size), data, A->data_size);
+    memcpy(data_at(A, A->size), data, A->data_size);
     A->size = A->size + 1;
 }
 
 void Array_pop_front(Array* A)
 {
-    memmove(A->array, (char*)A->array + A->data_size, (A->size - 1) * A->data_size);
+    memmove(data_at(A, 0), data_at(A, 1), A->data_size * (A->size - 1));
     A->size = A->size - 1;
 }
 
@@ -91,10 +96,10 @@ int Array_reverse(Array* A, void* data)
 
 void* Array_front(Array* A)
 {
-    return A->array;
+    return data_at(A, 0);
 }
 
 void* Array_back(Array* A)
 {
-    return (char*)A->array + (A->data_size * (A->size - 1));
+    return data_at(A, A->size - 1);
 }

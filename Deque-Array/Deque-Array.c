@@ -4,6 +4,8 @@ DequeA* DequeA_create(size_t data_size, size_t capacity);
 int DequeA_change_capacity(DequeA* D, size_t capacity);
 void DequeA_destroy(DequeA* D);
 
+static inline void* data_at(DequeA* Q, size_t index);
+
 void* DequeA_front(DequeA* Q);
 void* DequeA_back(DequeA* Q);
 
@@ -51,14 +53,19 @@ void DequeA_destroy(DequeA* D)
     D = NULL;
 }
 
+static inline void* data_at(DequeA* D, size_t index)
+{
+    return (char*)D->array + (D->data_size * index);
+}
+
 void* DequeA_front(DequeA* D)
 {
-    return (char*)D->array + (D->data_size * D->front);
+    return data_at(D, D->front);
 }
 
 void* DequeA_back(DequeA* D)
 {
-    return (char*)D->array + (D->data_size * (D->back - 1));
+    return data_at(D, D->back - 1);
 }
 
 void DequeA_push_front(DequeA* D, void* data)
@@ -67,21 +74,20 @@ void DequeA_push_front(DequeA* D, void* data)
         D->front = D->front - 1;
     }
     else {
-        memmove((char*)D->array + D->data_size, (char*)D->array + (D->data_size * D->front),
-            D->data_size * D->size);
+        memmove(data_at(D, 1), data_at(D, D->front), D->data_size * D->size);
     }
-    memcpy((char*)D->array + (D->data_size * D->front), data, D->data_size);
+    memcpy(data_at(D, D->front), data, D->data_size);
     D->size = D->size + 1;
 }
 
 void DequeA_push_back(DequeA* D, void* data)
 {
     if(D->back == D->capacity) {
-        memmove(D->array, (char*)D->array + (D->data_size * D->front), D->data_size * D->size);
+        memmove(data_at(D, 0), data_at(D, D->front), D->data_size * D->size);
         D->front = 0;
         D->back = D->size;
     }
-    memcpy((char*)D->array + (D->data_size * D->back), data, D->data_size);
+    memcpy(data_at(D, D->back), data, D->data_size);
     D->back = D->back + 1;
     D->size = D->size + 1;
 }

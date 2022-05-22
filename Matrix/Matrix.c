@@ -52,10 +52,10 @@ void Matrix_destroy(Matrix* M)
 
 void Matrix_insert(Matrix* M, size_t rows, size_t columns, void* data)
 {
-    memcpy((char*)M->array[rows] + columns, data, M->data_size);
+    memcpy(M->array[rows] + columns, data, M->data_size);
 }
 
 void Matrix_remove(Matrix* M, size_t rows, size_t columns)
 {
-    memset((char*)M->array[rows] + columns, 0, M->data_size);
+    memset(M->array[rows] + columns, 0, M->data_size);
 }

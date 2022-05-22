@@ -4,6 +4,8 @@ QueueA* QueueA_create(size_t data_size, size_t capacity);
 int QueueA_change_capacity(QueueA* Q, size_t capacity);
 void QueueA_destroy(QueueA* Q);
 
+static inline void* data_at(QueueA* Q, size_t index);
+
 void* QueueA_front(QueueA* Q);
 void* QueueA_back(QueueA* Q);
 
@@ -53,24 +55,29 @@ void QueueA_destroy(QueueA* Q)
     Q = NULL;
 }
 
+static inline void* data_at(QueueA* Q, size_t index)
+{
+    return (char*)Q->array + (Q->data_size * index);
+}
+
 void* QueueA_front(QueueA* Q)
 {
-    return (char*)Q->array + (Q->data_size * Q->front);
+    return data_at(Q, Q->front);
 }
 
 void* QueueA_back(QueueA* Q)
 {
-    return (char*)Q->array + (Q->data_size * (Q->back - 1));
+    return data_at(Q, Q->back - 1);
 }
 
 void QueueA_enqueue(QueueA* Q, void* data)
 {
     if(Q->back == Q->capacity) {
-        memmove(Q->array, (char*)Q->array + (Q->data_size * Q->front), Q->size);
+        memmove(Q->array, data_at(Q, Q->front), Q->size);
         Q->front = 0;
         Q->back = Q->size;
     }
-    memcpy((char*)Q->array + (Q->data_size * Q->back), data, Q->data_size);
+    memcpy(data_at(Q, Q->back), data, Q->data_size);
     Q->back = Q->back + 1;
     Q->size = Q->size + 1;
 }

@@ -4,22 +4,18 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct HashTableOAPair {
-    void* key;
-    void* value;
-} HashTableOAPair;
-
 typedef struct HashTableOA {
-    HashTableOAPair** array;
+    void* array;
     size_t key_size;
     size_t value_size;
     size_t buckets;
     size_t size;
     size_t (*hash)(void* key, size_t buckets);
+    int (*compare)(void* key1, void* key2);
 } HashTableOA;
 
 HashTableOA* HashTableOA_create(size_t key_size, size_t value_size, size_t buckets,
-    size_t (*hash)(void* key, size_t buckets));
+    size_t (*hash)(void* key, size_t buckets), int (*compare)(void* key1, void* key2));
 void HashTableOA_destroy(HashTableOA* HT);
 
 void HashTableOA_insert(HashTableOA* HT, void* key, void* value);

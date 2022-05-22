@@ -20,10 +20,10 @@ PriorityQueueA* PriorityQueueA_create(size_t data_size, size_t priority_size, si
 int PriorityQueueA_change_capacity(PriorityQueueA* Q, size_t capacity);
 void PriorityQueueA_destroy(PriorityQueueA* Q);
 
-void PriorityQueueA_enqueue(PriorityQueueA* Q, void* data, void* priority);
-void PriorityQueueA_dequeue(PriorityQueueA* Q);
-
 void* PriorityQueueA_front(PriorityQueueA* Q);
 void* PriorityQueueA_back(PriorityQueueA* Q);
+
+void PriorityQueueA_enqueue(PriorityQueueA* Q, void* data, void* priority);
+void PriorityQueueA_dequeue(PriorityQueueA* Q);
 
 #endif

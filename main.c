@@ -75,17 +75,18 @@ int main()
     //         break;
     //     }
     // }
-    // char b = 'a';
-    // char a = 'I';
-    // char c = 'A';
+    int b = 20;
+    // int a = 21;
+    int c = 11;
     // Matrix* M = Matrix_create(sizeof (char), 10, 10);
     // Matrix_insert(M, 0, 1, &b);
-    QueueA* S = QueueA_create(sizeof (char), 10);
-    printf("%c", *(char*)QueueA_front(S));
+    // QueueA_dequeue(S);
+    HashTableOA *HT = HashTableOA_create(sizeof (char), sizeof (int), 10, hash, compare);
+    HashTableOA_insert(HT, &b, &c);
+    // printf("%d", *(int*)QueueA_front(S));
     // int d = 2;
     // binary_search_tree_remove(BST, &b);
     // binary_tree_preorder_traversal(AVLT);
-    // HashTableSC *HT = HashTableSC_create(sizeof (char), sizeof (int), 10, hash, compare);
     // HashTableSC_insert(HT, &a, &b);
     // HashTableSC_insert(HT, &c, &d);
     // int* i = HashTableSC_search(HT, &a);
