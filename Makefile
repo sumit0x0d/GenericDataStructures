@@ -7,6 +7,7 @@ CFLAGS = -std=c99 -O0 -g -Wall -Wpedantic -Wextra -Werror
 
 main1:
 	$(CC) $(CFLAGS) \
+	./Array/Array.c \
 	./AVLTree/AVLTree.c \
 	./BinarySearchTree/BinarySearchTree.c \
 	./CircularQueue/CircularQueue.c \

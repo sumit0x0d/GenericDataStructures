@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 typedef struct GraphAM {
-    int *adjacency_matrix;
+    void** array;
     size_t data_size;
     unsigned long vertices;
 } GraphAM;

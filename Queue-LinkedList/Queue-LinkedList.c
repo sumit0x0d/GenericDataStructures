@@ -1,16 +1,7 @@
 #include "Queue-LinkedList.h"
 
-QueueLL* QueueLL_create(size_t data_size);
-void QueueLL_destroy(QueueLL* Q);
-
-static QueueLLNode* QueueLLnode_create(size_t data_size);
-static void QueueLLnode_destroy(QueueLLNode* Q);
-
-void* QueueLL_front(QueueLL* Q);
-void* QueueLL_back(QueueLL* Q);
-
-int QueueLL_enqueue(QueueLL* Q, void* data);
-void QueueLL_dequeue(QueueLL* Q);
+static QueueLLNode* node_create(size_t data_size);
+static void node_destroy(QueueLLNode* Q);
 
 QueueLL* QueueLL_create(size_t data_size)
 {
@@ -52,7 +43,7 @@ void* QueueLL_back(QueueLL* Q)
     return Q->back->data;
 }
 
-static QueueLLNode* QueueLLnode_create(size_t data_size)
+static QueueLLNode* node_create(size_t data_size)
 {
     QueueLLNode* node = malloc(sizeof (QueueLLNode));
     if(!node) {
@@ -68,7 +59,7 @@ static QueueLLNode* QueueLLnode_create(size_t data_size)
     return node;
 }
 
-static void QueueLLnode_destroy(QueueLLNode* node)
+static void node_destroy(QueueLLNode* node)
 {
     free(node->data);
     node->data = NULL;
@@ -78,7 +69,7 @@ static void QueueLLnode_destroy(QueueLLNode* node)
 
 int QueueLL_enqueue(QueueLL* Q, void* data)
 {
-    QueueLLNode* node = QueueLLnode_create(Q->data_size);
+    QueueLLNode* node = node_create(Q->data_size);
     if(!node) {
         return 0;
     }
@@ -101,6 +92,6 @@ void QueueLL_dequeue(QueueLL* Q)
     if(!Q->front) {
         Q->back = NULL;
     }
-    QueueLLnode_destroy(node);
+    node_destroy(node);
     Q->size = Q->size - 1;
 }

@@ -1,6 +1,7 @@
 #ifndef GENERIC_DATA_STRUCTURES_H
 #define GENERIC_DATA_STRUCTURES_H
 
+#include "Array/Array.h"
 #include "AVLTree/AVLTree.h"
 #include "BinarySearchTree/BinarySearchTree.h"
 #include "CircularQueue/CircularQueue.h"

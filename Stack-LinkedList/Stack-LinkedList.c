@@ -1,15 +1,7 @@
 #include "Stack-LinkedList.h"
 
-StackLL* StackLL_create(size_t data_size);
-void StackLL_destroy(StackLL* S);
-
-static StackLLNode* StackLLnode_create(size_t data_size);
-static void StackLLnode_destroy(StackLLNode* S);
-
-void* StackLL_top(StackLL* S);
-
-int StackLL_push(StackLL* S, void* data);
-void StackLL_pop(StackLL* S);
+static StackLLNode* node_create(size_t data_size);
+static void node_destroy(StackLLNode* S);
 
 StackLL* StackLL_create(size_t data_size)
 {
@@ -45,7 +37,7 @@ void* StackLL_top(StackLL* S)
     return S->top->data;
 }
 
-static StackLLNode* StackLLnode_create(size_t data_size)
+static StackLLNode* node_create(size_t data_size)
 {
     StackLLNode* node = malloc(sizeof (StackLLNode));
     if(!node) {
@@ -60,7 +52,7 @@ static StackLLNode* StackLLnode_create(size_t data_size)
     return node;
 }
 
-static void StackLLnode_destroy(StackLLNode* node)
+static void node_destroy(StackLLNode* node)
 {
     free(node->data);
     node->data = NULL;
@@ -70,7 +62,7 @@ static void StackLLnode_destroy(StackLLNode* node)
 
 int StackLL_push(StackLL* S, void* data)
 {
-    StackLLNode* node = StackLLnode_create(S->data_size);
+    StackLLNode* node = node_create(S->data_size);
     if(!node) {
         return 0;
     }
@@ -85,6 +77,6 @@ void StackLL_pop(StackLL* S)
 {
     StackLLNode* node = S->top;
     S->top = S->top->next;
-    StackLLnode_destroy(node);
+    node_destroy(node);
     S->size = S->size - 1;
 }

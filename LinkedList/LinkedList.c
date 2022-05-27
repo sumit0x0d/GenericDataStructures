@@ -1,26 +1,7 @@
 #include "LinkedList.h"
 
-LinkedList* LinkedList_create(size_t data_size, int (*compare)(void* data1, void* data2));
-void LinkedList_destroy(LinkedList* LL);
-
-void* LinkedList_head(LinkedList* LL);
-void* LinkedList_tail(LinkedList* LL);
-
-static LinkedListNode* LinkedListNode_create(size_t data_size);
-static void LinkedListNode_destroy(LinkedListNode* node);
-
-int LinkedList_push_head(LinkedList* LL, void* data);
-int LinkedList_push_tail(LinkedList* LL, void* data);
-int LinkedList_insert(LinkedList* LL, size_t index, void* data);
-int LinkedList_sorted_insert(LinkedList* LL, void* data);
-int LinkedList_pop_head(LinkedList* LL);
-int LinkedList_pop_tail(LinkedList* LL);
-int LinkedList_remove(LinkedList* LL, void* data);
-int LinkedList_erase(LinkedList* LL, size_t index);
-int LinkedList_update(LinkedList* LL, size_t index, void* data);
-
-LinkedListNode* LinkedList_search(LinkedList* LL, void* data);
-LinkedListNode* LinkedList_at(LinkedList* LL, size_t index);
+static LinkedListNode* node_create(size_t data_size);
+static void node_destroy(LinkedListNode* node);
 
 LinkedList* LinkedList_create(size_t data_size, int (*compare)(void* data1, void* data2))
 {
@@ -46,7 +27,7 @@ void* LinkedList_back(LinkedList* LL)
     return LL->tail->data;
 }
 
-static LinkedListNode* LinkedListNode_create(size_t data_size)
+static LinkedListNode* node_create(size_t data_size)
 {
     LinkedListNode* node = malloc(sizeof (LinkedListNode));
     if(!node) {
@@ -61,7 +42,7 @@ static LinkedListNode* LinkedListNode_create(size_t data_size)
     return node;
 }
 
-static void LinkedListNode_destroy(LinkedListNode* node)
+static void node_destroy(LinkedListNode* node)
 {
     free(node->data);
     node->data = NULL;
@@ -86,7 +67,7 @@ LinkedListNode* LinkedList_search(LinkedList* LL, void* data)
 
 int LinkedList_push_head(LinkedList* LL, void* data)
 {
-    LinkedListNode* node = LinkedListNode_create(LL->data_size);
+    LinkedListNode* node = node_create(LL->data_size);
     if(!node) {
         return 0;
     }
@@ -107,7 +88,7 @@ int LinkedList_push_head(LinkedList* LL, void* data)
 
 int LinkedList_push_tail(LinkedList* LL, void* data)
 {
-    LinkedListNode* node = LinkedListNode_create(LL->data_size);
+    LinkedListNode* node = node_create(LL->data_size);
     if(!node) {
         return 0;
     }
@@ -131,7 +112,7 @@ int LinkedList_insert(LinkedList* LL, size_t index, void* data)
     if(index > LL->size) {
         return 0;
     }
-    LinkedListNode* node = LinkedListNode_create(LL->data_size);
+    LinkedListNode* node = node_create(LL->data_size);
     LinkedListNode* node_previous = LL->head;
     if(!node) {
         return 0;
@@ -171,7 +152,7 @@ int LinkedList_pop_head(LinkedList* LL)
     if(!LL->head) {
         LL->tail = NULL;
     }
-    LinkedListNode_destroy(node);
+    node_destroy(node);
     LL->size = LL->size - 1;
     return 1;
 }
@@ -186,7 +167,7 @@ int LinkedList_pop_tail(LinkedList* LL)
     if(LL->tail) {
         LL->tail->next = NULL;
     }
-    LinkedListNode_destroy(node);
+    node_destroy(node);
     LL->size = LL->size - 1;
     return 1;
 }

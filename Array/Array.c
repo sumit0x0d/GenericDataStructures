@@ -1,21 +1,6 @@
 #include "Array.h"
 
-Array* Array_create(size_t data_size, size_t capacity, int (*compare)(void* data1, void* data2));
-int Array_change_capacity(Array* A, size_t capacity);
-void Array_destroy(Array* A);
-
 static inline void* data_at(Array* A, size_t index);
-
-void Array_push_front(Array* DA, void* data);
-void Array_push_back(Array* DA, void* data);
-int Array_insert(Array* DA, size_t index, void* data);
-int Array_sorted_insert(Array* DA, void* data);
-void Array_pop_front(Array* DA);
-void Array_pop_back(Array* DA);
-int Array_remove(Array* DA, void* data);
-int Array_erase(Array* DA, size_t index);
-
-size_t Array_search(Array* A, void* data);
 
 Array* Array_create(size_t data_size, size_t capacity, int (*compare)(void* data1, void* data2))
 {
@@ -25,6 +10,14 @@ Array* Array_create(size_t data_size, size_t capacity, int (*compare)(void* data
     }
     A->array = malloc(data_size * capacity);
     if(!A->array) {
+        free(A);
+        A = NULL;
+        return NULL;
+    }
+    A->data = malloc(data_size);
+    if(!A->data) {
+        free(A->array);
+        A->array = NULL;
         free(A);
         A = NULL;
         return NULL;
@@ -57,7 +50,22 @@ void Array_destroy(Array* A)
 
 static inline void* data_at(Array* A, size_t index)
 {
-    return (char*)A->array + (A->data_size + index);
+    return (char*)A->array + (A->data_size * index);
+}
+
+void* Array_front(Array* A)
+{
+    return data_at(A, 0);
+}
+
+void* Array_back(Array* A)
+{
+    return data_at(A, A->size - 1);
+}
+
+void* Array_at(Array* A, size_t index)
+{
+    return data_at(A, index);
 }
 
 void Array_push_front(Array* A, void* data)
@@ -84,22 +92,20 @@ void Array_pop_back(Array* A)
     A->size = A->size - 1;
 }
 
-int Array_remove(Array* A, void* data)
+// int Array_remove(Array* A, void* data)
+// {
+
+// }
+
+void Array_reverse(Array* A)
 {
-
-}
-
-int Array_reverse(Array* A, void* data)
-{
-
-}
-
-void* Array_front(Array* A)
-{
-    return data_at(A, 0);
-}
-
-void* Array_back(Array* A)
-{
-    return data_at(A, A->size - 1);
+    char* front = data_at(A, 0);
+    char* back = data_at(A, A->size - 1);
+    while(front < back) {
+        memcpy(A->data, front, A->data_size);
+        memcpy(front, back, A->data_size);
+        memcpy(back, A->data, A->data_size);
+        front = front + A->data_size;
+        back = back - A->data_size;
+    }
 }

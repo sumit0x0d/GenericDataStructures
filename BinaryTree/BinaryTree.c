@@ -1,12 +1,6 @@
 #include "BinaryTree.h"
 
-BinaryTree* BinaryTree_create();
-
-static BinaryTreeNode* BinaryTreeNode_create(size_t data_size);
-
-BinaryTreeNode* BinaryTree_insert(BinaryTree* BT, void* data, size_t data_size);
-
-void* BinaryTree_root(BinaryTree* BT);
+static BinaryTreeNode* node_create(size_t data_size);
 
 BinaryTree* BinaryTree_create()
 {
@@ -19,7 +13,7 @@ BinaryTree* BinaryTree_create()
     return BT;
 }
 
-static BinaryTreeNode* BinaryTreeNode_create(size_t data_size)
+static BinaryTreeNode* node_create(size_t data_size)
 {
     BinaryTreeNode* node = malloc(sizeof (BinaryTreeNode));
     if(!node) {
@@ -38,7 +32,7 @@ static BinaryTreeNode* BinaryTreeNode_create(size_t data_size)
 
 BinaryTreeNode* BinaryTree_insert(BinaryTree* BT, void* data, size_t data_size)
 {
-    BinaryTreeNode* node = BinaryTreeNode_create(data_size);
+    BinaryTreeNode* node = node_create(data_size);
     if(!node) {
         return NULL;
     }

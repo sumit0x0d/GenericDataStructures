@@ -1,13 +1,7 @@
 #include "HashTable-OpenAddressing.h"
 
-HashTableOA* HashTableOA_create(size_t key_size, size_t value_size, size_t buckets,
-    size_t (*hash)(void* key, size_t buckets), int (*compare)(void* key1, void* key2));
-void HashTableOA_destroy(HashTableOA* HT);
-
-void HashTableOA_insert(HashTableOA* HT, void* key, void* value);
-void HashTableOA_remove(HashTableOA* HT, void* key);
-
-void* HashTableOA_search(HashTableOA* HT, void* key);
+static inline void* key_at(HashTableOA* HT, size_t index);
+static inline void* value_at(HashTableOA* HT, size_t index);
 
 HashTableOA* HashTableOA_create(size_t key_size, size_t value_size, size_t buckets,
     size_t (*hash)(void* key, size_t buckets), int (*compare)(void* key1, void* key2))
@@ -39,12 +33,12 @@ void HashTableOA_destroy(HashTableOA* HT)
     HT = NULL;
 }
 
-static void* key_at(HashTableOA* HT, size_t index)
+static inline void* key_at(HashTableOA* HT, size_t index)
 {
     return (char*)HT->array + ((HT->key_size + HT->value_size) * index);
 }
 
-static void* value_at(HashTableOA* HT, size_t index)
+static inline void* value_at(HashTableOA* HT, size_t index)
 {
     return (char*)HT->array + ((HT->key_size + HT->value_size) * index) + HT->key_size;
 }

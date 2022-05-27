@@ -5,7 +5,7 @@
 #include <string.h>
 
 typedef struct Matrix {
-    char** array;
+    void** array;
     size_t data_size;
     size_t rows;
     size_t columns;

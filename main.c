@@ -48,6 +48,13 @@ void inorder_traverse(AVLTree* AVLT)
     }
 }
 
+void array_print(Array* A)
+{
+    for(size_t i = 0; i < A->size; i++) {
+        printf("%d ", *(int*)Array_at(A, i));
+    }
+}
+
 int main()
 {
     // int a[24] = {10, 20, 30, 40, 50, 60, 70, 80, 930, 31100, 1010, 1024, 145, 25, 465, 1723, 536, 6404, 8013, 330, 9230, 31011, 1011, 12};
@@ -78,11 +85,20 @@ int main()
     int b = 20;
     // int a = 21;
     int c = 11;
+    int c1 = 12;
+    int c2 = 13;
     // Matrix* M = Matrix_create(sizeof (char), 10, 10);
     // Matrix_insert(M, 0, 1, &b);
     // QueueA_dequeue(S);
-    HashTableOA *HT = HashTableOA_create(sizeof (char), sizeof (int), 10, hash, compare);
-    HashTableOA_insert(HT, &b, &c);
+    // HashTableOA *HT = HashTableOA_create(sizeof (char), sizeof (int), 10, hash, compare);
+    // HashTableOA_insert(HT, &b, &c);
+    Array* A = Array_create(sizeof (int), 10, compare);
+    Array_push_back(A, &b);
+    Array_push_back(A, &c);
+    Array_push_back(A, &c1);
+    Array_push_back(A, &c2);
+    Array_reverse(A);
+    array_print(A);
     // printf("%d", *(int*)QueueA_front(S));
     // int d = 2;
     // binary_search_tree_remove(BST, &b);

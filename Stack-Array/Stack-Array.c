@@ -1,15 +1,6 @@
 #include "Stack-Array.h"
 
-StackA* StackA_create(size_t data_size, size_t capacity);
-int StackA_change_capacity(StackA* S, size_t capacity);
-void StackA_destroy(StackA* S);
-
 static inline void* data_at(StackA* S, size_t index);
-
-void* StackA_top(StackA* S);
-
-void StackA_push(StackA* S, void* data);
-void StackA_pop(StackA* S);
 
 StackA* StackA_create(size_t data_size, size_t capacity)
 {

@@ -1,11 +1,5 @@
 #include "Matrix.h"
 
-Matrix* Matrix_create(size_t data_size, size_t rows, size_t columns);
-void Matrix_destroy(Matrix* M);
-
-void Matrix_insert(Matrix* M, size_t rows, size_t columns, void* data);
-void Matrix_remove(Matrix* M, size_t rows, size_t columns);
-
 Matrix* Matrix_create(size_t data_size, size_t rows, size_t columns)
 {
     Matrix* M = malloc(sizeof (Matrix));
@@ -50,12 +44,17 @@ void Matrix_destroy(Matrix* M)
     M = NULL;
 }
 
+static inline void* data_at(Matrix* M, size_t rows, size_t columns)
+{
+    return (char*)M->array[rows] + columns;
+}
+
 void Matrix_insert(Matrix* M, size_t rows, size_t columns, void* data)
 {
-    memcpy(M->array[rows] + columns, data, M->data_size);
+    memcpy(data_at(M, rows, columns), data, M->data_size);
 }
 
 void Matrix_remove(Matrix* M, size_t rows, size_t columns)
 {
-    memset(M->array[rows] + columns, 0, M->data_size);
+    memset(data_at(M, rows, columns), 0, M->data_size);
 }

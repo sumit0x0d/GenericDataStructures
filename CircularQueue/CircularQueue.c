@@ -1,15 +1,6 @@
 #include "CircularQueue.h"
 
-CircularQueue* CircularQueue_create(size_t data_size, size_t capacity);
-void CircularQueue_destroy(CircularQueue *CQ);
-
 static inline void* data_at(CircularQueue* CQ, size_t index);
-
-void* CircularQueue_front(CircularQueue* CQ);
-void* CircularQueue_back(CircularQueue* CQ);
-
-void CircularQueue_enqueue(CircularQueue* CQ, void* data);
-void CircularQueue_dequeue(CircularQueue* CQ);
 
 CircularQueue* CircularQueue_create(size_t data_size, size_t capacity)
 {

@@ -1,18 +1,7 @@
 #include "Deque-LinkedList.h"
 
-DequeLL* DequeLL_create(size_t data_size);
-void DequeLL_destroy(DequeLL* D);
-
-void* DequeLL_front(DequeLL* Q);
-void* DequeLL_back(DequeLL* Q);
-
-static DequeLLNode* DequeLLnode_create(size_t data_size);
-static void DequeLLnode_destroy(DequeLLNode* D);
-
-int DequeLL_push_front(DequeLL* D, void* data);
-int DequeLL_push_back(DequeLL* D, void* data);
-void DequeLL_pop_front(DequeLL* D);
-void DequeLL_pop_back(DequeLL* D);
+static DequeLLNode* node_create(size_t data_size);
+static void node_destroy(DequeLLNode* D);
 
 DequeLL* DequeLL_create(size_t data_size)
 {
@@ -54,7 +43,7 @@ void* DequeLL_back(DequeLL* Q)
     return Q->back->data;
 }
 
-static DequeLLNode* DequeLLnode_create(size_t data_size)
+static DequeLLNode* node_create(size_t data_size)
 {
     DequeLLNode* node = malloc(sizeof (DequeLLNode));
     if(!node) {
@@ -69,7 +58,7 @@ static DequeLLNode* DequeLLnode_create(size_t data_size)
     return node;
 }
 
-static void DequeLLnode_destroy(DequeLLNode* node)
+static void node_destroy(DequeLLNode* node)
 {
     free(node->data);
     node->data = NULL;
@@ -79,7 +68,7 @@ static void DequeLLnode_destroy(DequeLLNode* node)
 
 int DequeLL_push_front(DequeLL* D, void* data)
 {
-    DequeLLNode* node = DequeLLnode_create(D->data_size);
+    DequeLLNode* node = node_create(D->data_size);
     if(!node) {
         return 0;
     }
@@ -100,7 +89,7 @@ int DequeLL_push_front(DequeLL* D, void* data)
 
 int DequeLL_push_back(DequeLL* D, void* data)
 {
-    DequeLLNode* node = DequeLLnode_create(D->data_size);
+    DequeLLNode* node = node_create(D->data_size);
     if(!node) {
         return 0; 
     }
@@ -126,7 +115,7 @@ void DequeLL_pop_front(DequeLL* D)
     if(!D->front) {
         D->back = NULL;
     }
-    DequeLLnode_destroy(node);
+    node_destroy(node);
     D->size = D->size - 1;
 }
 
@@ -137,6 +126,6 @@ void DequeLL_pop_back(DequeLL* D)
     if(D->back) {
         D->back->next = NULL;
     }
-    DequeLLnode_destroy(node);
+    node_destroy(node);
     D->size = D->size - 1;
 }
