@@ -17,10 +17,10 @@ DynamicArray* DynamicArray_create(size_t data_size, size_t capacity, double grow
     int (*compare)(void* data1, void* data2));
 void DynamicArray_destroy(DynamicArray* DA);
 
-size_t DynamicArray_search(DynamicArray* DA, void* data);
 void* DynamicArray_front(DynamicArray* DA);
 void* DynamicArray_back(DynamicArray* DA);
 void* DynamicArray_at(DynamicArray* DA, size_t index);
+void* DynamicArray_search(DynamicArray* DA, void* data);
 
 int DynamicArray_push_front(DynamicArray* DA, void* data);
 int DynamicArray_push_back(DynamicArray* DA, void* data);

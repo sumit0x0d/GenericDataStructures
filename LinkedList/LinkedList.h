@@ -32,7 +32,7 @@ int LinkedList_pop_front(LinkedList* LL);
 int LinkedList_pop_back(LinkedList* LL);
 int LinkedList_remove(LinkedList* LL, void* data);
 int LinkedList_erase(LinkedList* LL, size_t index);
-int LinkedList_update(LinkedList* SLL, size_t index, void* data);
+int LinkedList_update(LinkedList* LL, size_t index, void* data);
 
 LinkedListNode* LinkedList_search(LinkedList* LL, void* data);
 LinkedListNode* LinkedList_at(LinkedList* LL, size_t index);

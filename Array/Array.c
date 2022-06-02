@@ -14,14 +14,6 @@ Array* Array_create(size_t data_size, size_t capacity, int (*compare)(void* data
         A = NULL;
         return NULL;
     }
-    A->data = malloc(data_size);
-    if(!A->data) {
-        free(A->array);
-        A->array = NULL;
-        free(A);
-        A = NULL;
-        return NULL;
-    }
     A->data_size = data_size;
     A->capacity = capacity;
     A->size = 0;
@@ -48,9 +40,14 @@ void Array_destroy(Array* A)
     A = NULL;
 }
 
+static inline size_t size(Array* A, size_t index)
+{
+    return A->data_size * index;
+}
+
 static inline void* data_at(Array* A, size_t index)
 {
-    return (char*)A->array + (A->data_size * index);
+    return (char*)A->array + size(A, index);
 }
 
 void* Array_front(Array* A)
@@ -68,9 +65,29 @@ void* Array_at(Array* A, size_t index)
     return data_at(A, index);
 }
 
+void* Array_search(Array* A, void* data)
+{
+    size_t left = 0;
+    size_t right = A->size;
+    while(left <= right) {
+        size_t middle = left + ((right - left)/2);
+        int compare = A->compare(data, data_at(A, middle));
+        if(!compare) {
+            return data_at(A, middle);
+        }
+        else if(compare < 0) {
+            right = middle - 1;
+        }
+        else {
+            left = middle + 1;
+        }
+    }
+    return NULL;
+}
+
 void Array_push_front(Array* A, void* data)
 {
-    memmove(data_at(A, 1), data_at(A, 0), A->data_size * A->size);
+    memmove(data_at(A, 1), data_at(A, 0), size(A, A->size));
     memcpy(data_at(A, 0), data, A->data_size);
     A->size = A->size + 1;
 }
@@ -81,9 +98,57 @@ void Array_push_back(Array* A, void* data)
     A->size = A->size + 1;
 }
 
+void Array_insert(Array* A, size_t index, void* data)
+{
+    memmove(data_at(A, index), data_at(A, index + 1), size(A, A->size - index - 1));
+    memcpy(data_at(A, index), data, A->data_size);
+    A->size = A->size + 1;
+}
+
+void Array_sorted_insert(Array* A, void* data)
+{
+    if(!A->size) {
+        memcpy(data_at(A, 0), data, A->data_size);
+        A->size = A->size + 1;
+        return;
+    }
+    if(A->compare(data, data_at(A, 0)) < 0) {
+        memmove(data_at(A, 1), data_at(A, 0), size(A, A->size));
+        memcpy(data_at(A, 0), data, A->data_size);
+        A->size = A->size + 1;
+        return;
+    }
+    if(A->compare(data, data_at(A, A->size - 1)) > 0) {
+        memcpy(data_at(A, A->size), data, A->data_size);
+        A->size = A->size + 1;
+        return;
+    }
+    size_t left = 0;
+    size_t right = A->size - 1;
+    while(left <= right) {
+        size_t middle = left + ((right - left)/2);
+        int compare = A->compare(data, data_at(A, middle));
+        if(!compare) {
+            memmove(data_at(A, middle + 2), data_at(A, middle + 1), size(A, A->size - middle - 1));
+            memcpy(data_at(A, middle + 1), data, A->data_size);
+            A->size = A->size + 1;
+            return;
+        }
+        else if(compare < 0) {
+            right = middle - 1;
+        }
+        else {
+            left = middle + 1;
+        }   
+    }
+    memmove(data_at(A, left + 1), data_at(A, left), size(A, A->size - left + 1));
+    memcpy(data_at(A, left), data, A->data_size);
+    A->size = A->size + 1;
+}
+
 void Array_pop_front(Array* A)
 {
-    memmove(data_at(A, 0), data_at(A, 1), A->data_size * (A->size - 1));
+    memmove(data_at(A, 0), data_at(A, 1), size(A, A->size - 1));
     A->size = A->size - 1;
 }
 
@@ -92,20 +157,29 @@ void Array_pop_back(Array* A)
     A->size = A->size - 1;
 }
 
-// int Array_remove(Array* A, void* data)
-// {
-
-// }
-
-void Array_reverse(Array* A)
+void Array_remove(Array* A, void* data)
 {
-    char* front = data_at(A, 0);
-    char* back = data_at(A, A->size - 1);
-    while(front < back) {
-        memcpy(A->data, front, A->data_size);
-        memcpy(front, back, A->data_size);
-        memcpy(back, A->data, A->data_size);
-        front = front + A->data_size;
-        back = back - A->data_size;
+    size_t left = 0;
+    size_t right = A->size;
+    while(left <= right) {
+        size_t middle = left + ((right - left)/2);
+        int compare = A->compare(data, data_at(A, middle));
+        if(!compare) {
+            memmove(data_at(A, middle), data_at(A, middle + 1), size(A, A->size - middle + 1));
+            A->size = A->size - 1;
+            break;
+        }
+        else if(compare < 0) {
+            right = middle - 1;
+        }
+        else {
+            left = middle + 1;
+        }
     }
+}
+
+void Array_erase(Array* A, size_t index)
+{
+    memmove(data_at(A, index), data_at(A, index + 1), size(A, A->size - index + 1));
+    A->size = A->size - 1;
 }

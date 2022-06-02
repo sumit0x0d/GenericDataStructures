@@ -137,10 +137,31 @@ int LinkedList_insert(LinkedList* LL, size_t index, void* data)
     return 1;
 }
 
-// int LinkedList_sorted_insert(LinkedList* LL, void* data)
-// {
-
-// }
+int LinkedList_sorted_insert(LinkedList* LL, void* data)
+{
+    if(LL->size || LL->compare(data, LL->head->data) < 0) {
+        return LinkedList_push_head(LL, data);
+    }
+    if(LL->compare(data, LL->tail->data) > 0) {
+        return LinkedList_push_tail(LL, data);
+    }
+    LinkedListNode* node_previous = LL->head;
+    LinkedListNode* node = node_create(LL->data_size);
+    if(!node) {
+        return 0;
+    }
+    while(LL->compare(data, node_previous->data) < 0) {
+        node_previous = node_previous->next;
+    }
+    node->next = node_previous->next;
+    node_previous->next = node;
+    node->previous = node_previous;
+    if(node->next) {
+        node->next->previous = node;
+    }
+    LL->size = LL->size + 1;
+    return 1;
+}
 
 int LinkedList_pop_head(LinkedList* LL)
 {

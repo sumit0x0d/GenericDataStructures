@@ -83,21 +83,24 @@ int main()
     //     }
     // }
     int b = 20;
-    // int a = 21;
+    int a = 21;
     int c = 11;
     int c1 = 12;
     int c2 = 13;
+    int c5 = 1000;
     // Matrix* M = Matrix_create(sizeof (char), 10, 10);
     // Matrix_insert(M, 0, 1, &b);
     // QueueA_dequeue(S);
     // HashTableOA *HT = HashTableOA_create(sizeof (char), sizeof (int), 10, hash, compare);
     // HashTableOA_insert(HT, &b, &c);
     Array* A = Array_create(sizeof (int), 10, compare);
-    Array_push_back(A, &b);
-    Array_push_back(A, &c);
-    Array_push_back(A, &c1);
-    Array_push_back(A, &c2);
-    Array_reverse(A);
+    Array_sorted_insert(A, &b);
+    Array_sorted_insert(A, &a);
+    Array_sorted_insert(A, &c1);
+    Array_sorted_insert(A, &c2);
+    Array_sorted_insert(A, &c);
+    Array_sorted_insert(A, &c);
+    Array_sorted_insert(A, &c5);
     array_print(A);
     // printf("%d", *(int*)QueueA_front(S));
     // int d = 2;
