@@ -23,5 +23,4 @@ void* StackLL_top(StackLL* S);
 int StackLL_push(StackLL* S, void* data);
 void StackLL_pop(StackLL* S);
 
-
 #endif

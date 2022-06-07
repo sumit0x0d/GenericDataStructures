@@ -9,7 +9,6 @@ Matrix* Matrix_create(size_t data_size, size_t rows, size_t columns)
     M->array = malloc(rows * sizeof (void*));
     if(!M->array) {
         free(M);
-        M = NULL;
         return NULL;
     }
     for(size_t i = 0; i < rows; i++) {
@@ -17,12 +16,9 @@ Matrix* Matrix_create(size_t data_size, size_t rows, size_t columns)
         if(!M->array[i]) {
             for(size_t j = 0; j < i; j++) {
                 free(M->array[j]);
-                M->array[j] = NULL;
             }
             free(M->array);
-            M->array = NULL;
             free(M);
-            M = NULL;
             return NULL;
         }
     }

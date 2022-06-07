@@ -1,6 +1,5 @@
 #include "DynamicArray.h"
 
-static inline size_t size(DynamicArray* DA, size_t index);
 static inline void* data_at(DynamicArray* DA, size_t index);
 
 DynamicArray* DynamicArray_create(size_t data_size, size_t capacity, double growth_factor,
@@ -47,14 +46,9 @@ static int DynamicArray_change_capacity(DynamicArray* DA, size_t capacity)
     return 1;
 }
 
-static inline size_t size(DynamicArray* DA, size_t index)
-{
-    return DA->data_size * index;
-}
-
 static inline void* data_at(DynamicArray* DA, size_t index)
 {
-    return (char*)DA->array + size(DA, index);
+    return (char*)DA->array + (DA->data_size * index);
 }
 
 void* DynamicArray_front(DynamicArray* DA)
@@ -77,7 +71,7 @@ void* DynamicArray_search(DynamicArray* DA, void* data)
     size_t left = 0;
     size_t right = DA->size;
     while(left <= right) {
-        size_t middle = left + ((right - left)/2);
+        size_t middle = left + ((right - left) / 2);
         int compare = DA->compare(data, data_at(DA, middle));
         if(!compare) {
             return data_at(DA, middle);
@@ -99,7 +93,7 @@ int DynamicArray_push_front(DynamicArray* DA, void* data)
             return 0;
         }
     }
-    memmove(data_at(DA, 1), data_at(DA, 0), size(DA, DA->size - 1));
+    memmove(data_at(DA, 1), data_at(DA, 0), DA->data_size * (DA->size - 1));
     memcpy(data_at(DA, 0), data, DA->data_size);
     DA->size = DA->size + 1;
     return 1;
@@ -124,7 +118,7 @@ int DynamicArray_insert(DynamicArray* DA, size_t index, void* data)
             return 0;
         }
     }
-    memmove(data_at(DA, index + 1), data_at(DA, index), size(DA, DA->size - index - 1));
+    memmove(data_at(DA, index + 1), data_at(DA, index), DA->data_size * (DA->size - index - 1));
     memcpy(data_at(DA, index), data, DA->data_size);
     DA->size = DA->size + 1;
     return 1;
@@ -143,7 +137,7 @@ int DynamicArray_sorted_insert(DynamicArray* DA, void* data)
         }
     }
     if(DA->compare(data, data_at(DA, 0)) < 0) {
-        memmove(data_at(DA, 1), data_at(DA, 0), size(DA, DA->size));
+        memmove(data_at(DA, 1), data_at(DA, 0), DA->data_size * DA->size);
         memcpy(data_at(DA, 0), data, DA->data_size);
         DA->size = DA->size + 1;
         return 1;
@@ -156,13 +150,14 @@ int DynamicArray_sorted_insert(DynamicArray* DA, void* data)
     size_t left = 0;
     size_t right = DA->size - 1;
     while(left <= right) {
-        size_t middle = left + ((right - left)/2);
+        size_t middle = left + ((right - left) / 2);
         int compare = DA->compare(data, data_at(DA, middle));
         if(!compare) {
-            memmove(data_at(DA, middle + 2), data_at(DA, middle + 1), size(DA, DA->size - middle - 1));
+            memmove(data_at(DA, middle + 2), data_at(DA, middle + 1),
+                DA->data_size * (DA->size - middle - 1));
             memcpy(data_at(DA, middle + 1), data, DA->data_size);
             DA->size = DA->size + 1;
-            return;
+            return 1;
         }
         else if(compare < 0) {
             right = middle - 1;
@@ -171,7 +166,7 @@ int DynamicArray_sorted_insert(DynamicArray* DA, void* data)
             left = middle + 1;
         }   
     }
-    memmove(data_at(DA, left + 1), data_at(DA, left), size(DA, DA->size - left + 1));
+    memmove(data_at(DA, left + 1), data_at(DA, left), DA->data_size * (DA->size - left + 1));
     memcpy(data_at(DA, left), data, DA->data_size);
     DA->size = DA->size + 1;
     return 1;
@@ -184,7 +179,7 @@ int DynamicArray_pop_front(DynamicArray* DA)
             return 0;
         }
     }
-    memmove(data_at(DA, 0), data_at(DA, 1), size(DA, DA->size - 1));
+    memmove(data_at(DA, 0), data_at(DA, 1), DA->data_size * (DA->size - 1));
     DA->size = DA->size - 1;
     return 1;
 }
@@ -210,10 +205,11 @@ int DynamicArray_remove(DynamicArray* DA, void* data)
     size_t left = 0;
     size_t right = DA->size;
     while(left <= right) {
-        size_t middle = left + ((right - left)/2);
+        size_t middle = left + ((right - left) / 2);
         int compare = DA->compare(data, data_at(DA, middle));
         if(!compare) {
-            memmove(data_at(DA, middle), data_at(DA, middle + 1), size(DA, DA->size - middle + 1));
+            memmove(data_at(DA, middle), data_at(DA, middle + 1),
+                DA->data_size * (DA->size - middle + 1));
             DA->size = DA->size - 1;
             break;
         }
@@ -234,7 +230,7 @@ int DynamicArray_erase(DynamicArray* DA, size_t index)
             return 0;
         }
     }
-    memmove(data_at(DA, index), data_at(DA, index + 1), size(DA, DA->size - index + 1));
+    memmove(data_at(DA, index), data_at(DA, index + 1), DA->data_size * (DA->size - index + 1));
     DA->size = DA->size - 1;
     return 1;
 }

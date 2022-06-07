@@ -40,14 +40,9 @@ void Array_destroy(Array* A)
     A = NULL;
 }
 
-static inline size_t size(Array* A, size_t index)
-{
-    return A->data_size * index;
-}
-
 static inline void* data_at(Array* A, size_t index)
 {
-    return (char*)A->array + size(A, index);
+    return (char*)A->array + (A->data_size * index);
 }
 
 void* Array_front(Array* A)
@@ -70,7 +65,7 @@ void* Array_search(Array* A, void* data)
     size_t left = 0;
     size_t right = A->size;
     while(left <= right) {
-        size_t middle = left + ((right - left)/2);
+        size_t middle = left + ((right - left) / 2);
         int compare = A->compare(data, data_at(A, middle));
         if(!compare) {
             return data_at(A, middle);
@@ -87,7 +82,7 @@ void* Array_search(Array* A, void* data)
 
 void Array_push_front(Array* A, void* data)
 {
-    memmove(data_at(A, 1), data_at(A, 0), size(A, A->size));
+    memmove(data_at(A, 1), data_at(A, 0), A->data_size * A->size);
     memcpy(data_at(A, 0), data, A->data_size);
     A->size = A->size + 1;
 }
@@ -100,7 +95,7 @@ void Array_push_back(Array* A, void* data)
 
 void Array_insert(Array* A, size_t index, void* data)
 {
-    memmove(data_at(A, index), data_at(A, index + 1), size(A, A->size - index - 1));
+    memmove(data_at(A, index), data_at(A, index + 1), A->data_size * (A->size - index - 1));
     memcpy(data_at(A, index), data, A->data_size);
     A->size = A->size + 1;
 }
@@ -113,7 +108,7 @@ void Array_sorted_insert(Array* A, void* data)
         return;
     }
     if(A->compare(data, data_at(A, 0)) < 0) {
-        memmove(data_at(A, 1), data_at(A, 0), size(A, A->size));
+        memmove(data_at(A, 1), data_at(A, 0), A->data_size * A->size);
         memcpy(data_at(A, 0), data, A->data_size);
         A->size = A->size + 1;
         return;
@@ -126,10 +121,11 @@ void Array_sorted_insert(Array* A, void* data)
     size_t left = 0;
     size_t right = A->size - 1;
     while(left <= right) {
-        size_t middle = left + ((right - left)/2);
+        size_t middle = left + ((right - left) / 2);
         int compare = A->compare(data, data_at(A, middle));
         if(!compare) {
-            memmove(data_at(A, middle + 2), data_at(A, middle + 1), size(A, A->size - middle - 1));
+            memmove(data_at(A, middle + 2), data_at(A, middle + 1),
+                A->data_size * (A->size - middle - 1));
             memcpy(data_at(A, middle + 1), data, A->data_size);
             A->size = A->size + 1;
             return;
@@ -141,14 +137,14 @@ void Array_sorted_insert(Array* A, void* data)
             left = middle + 1;
         }   
     }
-    memmove(data_at(A, left + 1), data_at(A, left), size(A, A->size - left + 1));
+    memmove(data_at(A, left + 1), data_at(A, left), A->data_size * (A->size - left + 1));
     memcpy(data_at(A, left), data, A->data_size);
     A->size = A->size + 1;
 }
 
 void Array_pop_front(Array* A)
 {
-    memmove(data_at(A, 0), data_at(A, 1), size(A, A->size - 1));
+    memmove(data_at(A, 0), data_at(A, 1), A->data_size * (A->size - 1));
     A->size = A->size - 1;
 }
 
@@ -162,10 +158,11 @@ void Array_remove(Array* A, void* data)
     size_t left = 0;
     size_t right = A->size;
     while(left <= right) {
-        size_t middle = left + ((right - left)/2);
+        size_t middle = left + ((right - left) / 2);
         int compare = A->compare(data, data_at(A, middle));
         if(!compare) {
-            memmove(data_at(A, middle), data_at(A, middle + 1), size(A, A->size - middle + 1));
+            memmove(data_at(A, middle), data_at(A, middle + 1),
+                A->data_size * (A->size - middle + 1));
             A->size = A->size - 1;
             break;
         }
@@ -180,6 +177,6 @@ void Array_remove(Array* A, void* data)
 
 void Array_erase(Array* A, size_t index)
 {
-    memmove(data_at(A, index), data_at(A, index + 1), size(A, A->size - index + 1));
+    memmove(data_at(A, index), data_at(A, index + 1), A->data_size * (A->size - index + 1));
     A->size = A->size - 1;
 }

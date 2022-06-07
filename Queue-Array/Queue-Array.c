@@ -11,7 +11,6 @@ QueueA* QueueA_create(size_t data_size, size_t capacity)
     Q->array = malloc(data_size * capacity);
     if(!Q->array) {
         free(Q);
-        Q = NULL;
         return NULL;
     }
     Q->data_size = data_size;

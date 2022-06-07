@@ -18,9 +18,11 @@ static void* CircularQueue_dequeue(CircularQueue* CQ);
 static size_t node_height(AVLTreeNode* node, CircularQueue *CQ);
 static void node_balance_factor(AVLTreeNode* node, CircularQueue *CQ);
 static AVLTreeNode* node_rotate_right(AVLTreeNode* node, AVLTreeNode* node_right);
-static AVLTreeNode* node_rotate_left_right(AVLTreeNode* node, AVLTreeNode* node_left, AVLTreeNode* node_left_right);
+static AVLTreeNode* node_rotate_left_right(AVLTreeNode* node, AVLTreeNode* node_left,
+    AVLTreeNode* node_left_right);
 static AVLTreeNode* node_rotate_left(AVLTreeNode* node, AVLTreeNode* node_left);
-static AVLTreeNode* node_rotate_right_left(AVLTreeNode* node, AVLTreeNode* node_right,AVLTreeNode* node_right_left);
+static AVLTreeNode* node_rotate_right_left(AVLTreeNode* node, AVLTreeNode* node_right,
+    AVLTreeNode* node_right_left);
 static void tree_rebalance(AVLTree* AVLT, AVLTreeNode* node, CircularQueue* CQ);
 
 static AVLTreeNode* node_predecessor(AVLTreeNode* node, AVLTreeNode* node_left);
@@ -163,7 +165,8 @@ static AVLTreeNode* node_rotate_right(AVLTreeNode* node, AVLTreeNode* node_left)
     return node_left;
 }
 
-static AVLTreeNode* node_rotate_left_right(AVLTreeNode* node, AVLTreeNode* node_left, AVLTreeNode* node_left_right)
+static AVLTreeNode* node_rotate_left_right(AVLTreeNode* node, AVLTreeNode* node_left,
+    AVLTreeNode* node_left_right)
 {
     node_left->right = node_left_right->left;
     if(node_left->right) {
@@ -209,7 +212,8 @@ static AVLTreeNode* node_rotate_left(AVLTreeNode* node, AVLTreeNode* node_right)
     return node_right;
 }
 
-static AVLTreeNode* node_rotate_right_left(AVLTreeNode* node, AVLTreeNode* node_right, AVLTreeNode* node_right_left)
+static AVLTreeNode* node_rotate_right_left(AVLTreeNode* node, AVLTreeNode* node_right,
+    AVLTreeNode* node_right_left)
 {
     node_right->left = node_right_left->right;
     if(node_right->left) {
@@ -309,7 +313,7 @@ int AVLTree_insert(AVLTree* AVLT, void* data)
             node = node->right;
         }
     }
-    CircularQueue *CQ = CircularQueue_create((AVLT->size + 2)/2);
+    CircularQueue *CQ = CircularQueue_create((AVLT->size + 2) / 2);
     if(!CQ) {
         return 0;
     }

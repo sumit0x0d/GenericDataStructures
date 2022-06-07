@@ -47,19 +47,14 @@ void PriorityQueueA_destroy(PriorityQueueA* PQ)
     PQ = NULL;
 }
 
-static inline size_t size(PriorityQueueA* PQ, size_t index)
-{
-    return (PQ->data_size + PQ->priority_size) * index;
-}
-
 static inline void* data_at(PriorityQueueA* PQ, size_t index)
 {
-    return (char*)PQ->array + size(PQ, index);
+    return (char*)PQ->array + (PQ->data_size + PQ->priority_size) * index;
 }
 
 static inline void* priority_at(PriorityQueueA* PQ, size_t index)
 {
-    return (char*)PQ->array + size(PQ, index) + PQ->data_size;
+    return (char*)PQ->array + ((PQ->data_size + PQ->priority_size) * index) + PQ->data_size;
 }
 
 void* PriorityQueueA_front(PriorityQueueA* PQ)
@@ -75,18 +70,21 @@ void* PriorityQueueA_back(PriorityQueueA* PQ)
 void PriorityQueueA_enqueue(PriorityQueueA* PQ, void* data, void* priority)
 {
     if(PQ->back == PQ->capacity) {
-        memmove(data_at(PQ, 0), data_at(PQ, PQ->front), PQ->size);
+        memmove(data_at(PQ, 0), data_at(PQ, PQ->front),
+            (PQ->data_size + PQ->priority_size) * PQ->size);
         PQ->front = 0;
         PQ->back = PQ->size;
     }
-    if(PQ->compare(data, data_at(PQ, PQ->front)) < 0) {
-        memmove(data_at(PQ, 1), data_at(PQ, 0), size(PQ, PQ->size));
+    if(PQ->compare(data, priority_at(PQ, PQ->front)) < 0) {
+        memmove(data_at(PQ, 1), data_at(PQ, 0), (PQ->data_size + PQ->priority_size) * PQ->size);
         memcpy(data_at(PQ, 0), data, PQ->data_size);
+        memcpy(priority_at(PQ, 0), priority, PQ->priority_size);
         PQ->size = PQ->size + 1;
         return;
     }
-    if(PQ->compare(data, data_at(PQ, PQ->back - 1)) > 0) {
+    if(PQ->compare(data, priority_at(PQ, PQ->back - 1)) > 0) {
         memcpy(data_at(PQ, PQ->back), data, PQ->data_size);
+        memcpy(priority_at(PQ, PQ->back), priority, PQ->priority_size);
         PQ->back = PQ->back + 1;
         PQ->size = PQ->size + 1;
         return;
@@ -94,11 +92,13 @@ void PriorityQueueA_enqueue(PriorityQueueA* PQ, void* data, void* priority)
     size_t left = PQ->front;
     size_t right = PQ->back - 1;
     while(left <= right) {
-        size_t middle = left + ((right - left)/2);
-        int compare = PQ->compare(data, data_at(PQ, middle));
+        size_t middle = left + ((right - left) / 2);
+        int compare = PQ->compare(data, priority_at(PQ, middle));
         if(!compare) {
-            memmove(data_at(PQ, middle + 2), data_at(PQ, middle + 1), size(PQ , PQ->back - middle - 1));
+            memmove(data_at(PQ, middle + 2), data_at(PQ, middle + 1),
+                (PQ->data_size + PQ->priority_size) * (PQ->back - middle - 1));
             memcpy(data_at(PQ, middle + 1), data, PQ->data_size);
+            memcpy(priority_at(PQ, middle + 1), priority, PQ->priority_size);
             PQ->back = PQ->back + 1;
             PQ->size = PQ->size + 1;
             return;
@@ -110,8 +110,10 @@ void PriorityQueueA_enqueue(PriorityQueueA* PQ, void* data, void* priority)
             left = middle + 1;
         }   
     }
-    memmove(data_at(PQ, left + 1), data_at(PQ, left), size(PQ, PQ->back - left + 1));
+    memmove(data_at(PQ, left + 1), data_at(PQ, left),
+        (PQ->data_size + PQ->priority_size) * (PQ->back - left + 1));
     memcpy(data_at(PQ, left), data, PQ->data_size);
+    memcpy(priority_at(PQ, left), priority, PQ->priority_size);
     PQ->back = PQ->back + 1;
     PQ->size = PQ->size + 1;
 }

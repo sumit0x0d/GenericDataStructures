@@ -36,7 +36,6 @@ static XORLinkedListNode* node_create(size_t data_size)
     node->data = malloc(data_size);
     if(!node->data) {
         free(node);
-        node = NULL;  
         return NULL;
     }
     return node;

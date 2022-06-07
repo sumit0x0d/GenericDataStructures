@@ -4,9 +4,11 @@ static RedBlackTreeNode* node_create(size_t data_size);
 void node_destroy(RedBlackTree* RBT);
 
 static RedBlackTreeNode* node_rotate_right(RedBlackTreeNode* node, RedBlackTreeNode* node_right);
-static RedBlackTreeNode* node_rotate_left_right(RedBlackTreeNode* node, RedBlackTreeNode* node_left, RedBlackTreeNode* node_left_right);
+static RedBlackTreeNode* node_rotate_left_right(RedBlackTreeNode* node,
+    RedBlackTreeNode* node_left, RedBlackTreeNode* node_left_right);
 static RedBlackTreeNode* node_rotate_left(RedBlackTreeNode* node, RedBlackTreeNode* node_left);
-static RedBlackTreeNode* node_rotate_right_left(RedBlackTreeNode* node, RedBlackTreeNode* node_right, RedBlackTreeNode* node_right_left);
+static RedBlackTreeNode* node_rotate_right_left(RedBlackTreeNode* node,
+    RedBlackTreeNode* node_right, RedBlackTreeNode* node_right_left);
 static void tree_rebalance(RedBlackTree* RBT, RedBlackTreeNode* node);
 
 RedBlackTree* RedBlackTree_create(size_t data_size,

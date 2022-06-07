@@ -52,7 +52,6 @@ static QueueLLNode* node_create(size_t data_size)
     node->data = malloc(data_size);
     if(!node->data) {
         free(node);
-        node = NULL;
         return NULL;
     }
     node->next = NULL;

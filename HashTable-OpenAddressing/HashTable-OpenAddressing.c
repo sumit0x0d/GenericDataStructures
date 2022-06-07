@@ -13,7 +13,6 @@ HashTableOA* HashTableOA_create(size_t key_size, size_t value_size, size_t bucke
     HT->array = calloc(buckets, (key_size + value_size));
     if(!HT->array) {
         free(HT);
-        HT = NULL;
         return NULL;
     }
     HT->key_size = key_size;
