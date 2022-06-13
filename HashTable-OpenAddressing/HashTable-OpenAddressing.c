@@ -6,7 +6,7 @@ static inline void* value_at(HashTableOA* HT, size_t index);
 HashTableOA* HashTableOA_create(size_t key_size, size_t value_size, size_t buckets,
     size_t (*hash)(void* key, size_t buckets), int (*compare)(void* key1, void* key2))
 {
-    HashTableOA* HT = malloc(sizeof (HashTableOA));
+    HashTableOA* HT = (HashTableOA*)malloc(sizeof (HashTableOA));
     if(!HT) {
         return NULL;
     }

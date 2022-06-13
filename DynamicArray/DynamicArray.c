@@ -8,7 +8,7 @@ DynamicArray* DynamicArray_create(size_t data_size, size_t capacity, double grow
     if((size_t)(capacity * growth_factor) <= capacity) {
         return NULL;
     }
-    DynamicArray* DA = malloc(sizeof (DynamicArray));
+    DynamicArray* DA = (DynamicArray*)malloc(sizeof (DynamicArray));
     if(!DA) {
         return NULL;
     }
@@ -37,7 +37,7 @@ void DynamicArray_destroy(DynamicArray* DA)
 
 static int DynamicArray_change_capacity(DynamicArray* DA, size_t capacity)
 {
-    char* array = realloc(DA->array, DA->data_size * DA->capacity);
+    void* array = realloc(DA->array, DA->data_size * DA->capacity);
     if(!array) {
         return 0;
     }

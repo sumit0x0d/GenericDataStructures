@@ -4,7 +4,7 @@ static inline void* data_at(DequeA* Q, size_t index);
 
 DequeA* DequeA_create(size_t data_size, size_t capacity)
 {
-    DequeA* D = malloc(sizeof (DequeA));
+    DequeA* D = (DequeA*)malloc(sizeof (DequeA));
     if(!D) {
         return NULL;
     }

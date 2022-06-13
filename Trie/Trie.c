@@ -18,7 +18,7 @@ int trie_remove(Trie *T, char* string);
 
 Trie *trie_create()
 {
-    Trie *trie = malloc(sizeof (Trie));
+    Trie* trie = (Trie*)malloc(sizeof (Trie));
     if(!trie) {
         return NULL;
     }

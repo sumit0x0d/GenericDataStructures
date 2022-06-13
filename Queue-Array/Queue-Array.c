@@ -4,7 +4,7 @@ static inline void* data_at(QueueA* Q, size_t index);
 
 QueueA* QueueA_create(size_t data_size, size_t capacity)
 {
-    QueueA* Q = malloc(sizeof (QueueA));
+    QueueA* Q = (QueueA*)malloc(sizeof (QueueA));
     if(!Q) {
         return NULL;
     }

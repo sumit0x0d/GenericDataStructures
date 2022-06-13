@@ -4,7 +4,7 @@ static inline void* data_at(StackA* S, size_t index);
 
 StackA* StackA_create(size_t data_size, size_t capacity)
 {
-    StackA* S = malloc(sizeof (StackA));
+    StackA* S = (StackA*)malloc(sizeof (StackA));
     if(!S) {
         return NULL;
     }

@@ -65,14 +65,8 @@ int main()
     //         break;
     //     }
     // }
-    StackLL *S = StackLL_create(sizeof (int));
-    QueueLL *Q = QueueLL_create(sizeof (int));
-    int a = 39;
     // int a1 = 32;
     // int a2 = 319;
-    
-    StackLL_push(S, &a);
-    QueueLL_enqueue(Q, &a);
     // StackA_push(S, &a1);
     // StackA_push(S, &a2);
     // printf("%d", *(int*)StackA_top(S));
@@ -84,6 +78,16 @@ int main()
     //         break;
     //     }
     // }
+    // int da = 10;
+    // int pa = 0;
+    // int db = 15;
+    // int pb = 15;
+    // PriorityQueueA* PQ = PriorityQueueA_create(sizeof (int), sizeof (int), 10, compare);
+    // PriorityQueueA_enqueue(PQ, &da, &pa);
+    // PriorityQueueA_enqueue(PQ, &db, &pb);
+    // PriorityQueueA_dequeue(PQ);
+    // printf("%d", *(int *)PriorityQueueA_front(PQ));
+    BloomFilter* BF = BloomFilter_create()
     // int b = 20;
     // int a = 21;
     // int c = 11;

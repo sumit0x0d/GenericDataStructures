@@ -8,14 +8,13 @@ void* HashTableSC_search(HashTableSC* HT, void* key);
 HashTableSC* HashTableSC_create(size_t key_size, size_t value_size, size_t buckets,
     size_t (*hash)(void* key, size_t buckets))
 {
-    HashTableSC* HT = malloc(sizeof (HashTableSC));
+    HashTableSC* HT = (HashTableSC*)malloc(sizeof (HashTableSC));
     if(!HT) {
         return NULL;
     }
-    HT->array = malloc(sizeof (HashTableSCPair) * buckets);
+    HT->array = (HashTableSCPair*)malloc(sizeof (HashTableSCPair) * buckets);
     if(!HT->array) {
         free(HT);
-        HT = NULL;
         return NULL;
     }
     HT->key_size = key_size;
@@ -36,22 +35,19 @@ void HashTableSC_destroy(HashTableSC* HT)
 
 HashTableSCPair* pair_create(size_t key_size, size_t value_size)
 {
-    HashTableSCPair* pair = malloc(sizeof (HashTableSCPair));
+    HashTableSCPair* pair = (HashTableSCPair*)malloc(sizeof (HashTableSCPair));
     if(!pair) {
         return NULL;
     }
     pair->key = malloc(key_size);
     if(!pair->key) {
         free(pair);
-        pair = NULL;
         return NULL;
     }
     pair->value = malloc(value_size);
     if(!pair->value) {
-        free(pair);
-        pair = NULL;
         free(pair->key);
-        pair->key = NULL;
+        free(pair);
         return NULL;
     }
     return pair;
@@ -78,14 +74,14 @@ int HashTableSC_insert(HashTableSC* HT, void* key, void* value)
     pair->next = NULL;
     size_t index = HT->hash(key, HT->buckets);
     if(1) {
-        HashTableSCPair* pair_previous = &HT->array[index];
+        HashTableSCPair* pair_previous = HT->array + index;
         while(pair_previous->next) {
             pair_previous = pair_previous->next;
         }
         pair_previous->next = pair;
     }
     else {
-        memcpy(&HT->array[index], pair, sizeof (HashTableSCPair));
+        memcpy(HT->array + index, pair, sizeof (HashTableSCPair));
     }
     HT->size = HT->size + 1;
     return 1;

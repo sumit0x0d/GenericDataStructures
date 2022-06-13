@@ -4,7 +4,7 @@ static inline void* data_at(CircularQueue* CQ, size_t index);
 
 CircularQueue* CircularQueue_create(size_t data_size, size_t capacity)
 {
-    CircularQueue* CQ = malloc(sizeof (CircularQueue));
+    CircularQueue* CQ = (CircularQueue*)malloc(sizeof (CircularQueue));
     if(!CQ) {
         return NULL;
     }

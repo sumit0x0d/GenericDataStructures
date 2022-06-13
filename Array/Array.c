@@ -4,7 +4,7 @@ static inline void* data_at(Array* A, size_t index);
 
 Array* Array_create(size_t data_size, size_t capacity, int (*compare)(void* data1, void* data2))
 {
-    Array* A = malloc(sizeof (Array));
+    Array* A = (Array*)malloc(sizeof (Array));
     if(!A) {
         return NULL;
     }

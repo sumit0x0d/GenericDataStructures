@@ -9,12 +9,12 @@ static RedBlackTreeNode* node_rotate_left_right(RedBlackTreeNode* node,
 static RedBlackTreeNode* node_rotate_left(RedBlackTreeNode* node, RedBlackTreeNode* node_left);
 static RedBlackTreeNode* node_rotate_right_left(RedBlackTreeNode* node,
     RedBlackTreeNode* node_right, RedBlackTreeNode* node_right_left);
-static void tree_rebalance(RedBlackTree* RBT, RedBlackTreeNode* node);
+static void rebalance(RedBlackTree* RBT, RedBlackTreeNode* node);
 
 RedBlackTree* RedBlackTree_create(size_t data_size,
     int (*compare)(void* data1, void* data2))
 {
-    RedBlackTree* RBT = malloc(sizeof (RedBlackTree));
+    RedBlackTree* RBT = (RedBlackTree*)malloc(sizeof (RedBlackTree));
     if(!RBT) {
         return NULL;
     }
@@ -27,14 +27,13 @@ RedBlackTree* RedBlackTree_create(size_t data_size,
 
 static RedBlackTreeNode* node_create(size_t data_size)
 {
-    RedBlackTreeNode* node = malloc(sizeof (RedBlackTreeNode));
+    RedBlackTreeNode* node = (RedBlackTreeNode*)malloc(sizeof (RedBlackTreeNode));
     if(!node) {
         return NULL;
     }
     node->data = malloc(data_size);
     if(!node->data) {
         free(node);
-        node = NULL;
         return NULL;
     }
     node->left = NULL;
@@ -89,8 +88,7 @@ static RedBlackTreeNode* node_rotate_left_right(RedBlackTreeNode* node,
     return node_left_right;
 }
 
-static RedBlackTreeNode* node_rotate_left(RedBlackTreeNode* node,
-    RedBlackTreeNode* node_right)
+static RedBlackTreeNode* node_rotate_left(RedBlackTreeNode* node, RedBlackTreeNode* node_right)
 {
     node->right = node_right->left;
     if(node->right) {
@@ -142,36 +140,36 @@ static RedBlackTreeNode* node_rotate_right_left(RedBlackTreeNode* node,
 
 // }
 
-static void tree_rebalance(RedBlackTree* RBT, RedBlackTreeNode* node)
+static void rebalance(RedBlackTree* RBT, RedBlackTreeNode* node)
 {
     while(node) {
-        if(node->color == RED) {
+        if(node->color == 0) {
             if(node->parent->left == node) {
-                if(!node->parent->right || node->parent->right->color == BLACK) {
+                if(!node->parent->right || node->parent->right->color == 1) {
                     node = node_rotate_right(node, node->left);
                 }
-                else if(node->parent->right || node->parent->right->color == RED) {
+                else if(node->parent->right || node->parent->right->color == 0) {
 
                 }
             }
         }
         if(node->parent->left == node) {
-            if(node->color == RED && (!node->parent->right || node->parent->right->color == BLACK)) {
+            if(node->color == 0 && (!node->parent->right || node->parent->right->color == 1)) {
                 
             }
-            if(node->color == RED && (node->parent->right && node->parent->right->color == RED)) {
-                node->parent->color = BLACK;
+            if(node->color == 0 && (node->parent->right && node->parent->right->color == 0)) {
+                node->parent->color = 1;
             }
         }
         else {
-            if(node->color == RED && (!node->parent->left || node->parent->left->color == BLACK)) {
+            if(node->color == 0 && (!node->parent->left || node->parent->left->color == 1)) {
                 node = node_rotate_left(node, node->right);
                 node = node_rotate_right_left(node, node->right, node->right->left);
                 node = node_rotate_left_right(node, node->left, node->left->right);
                 node = node_rotate_right(node, node->left);
             }
-            if(node->color == RED && (node->parent->left && node->parent->left->color == RED)) {
-                node->parent->color = BLACK;
+            if(node->color == 0 && (node->parent->left && node->parent->left->color == 0)) {
+                node->parent->color = 1;
             }
         }
         RBT->root = node->parent;
@@ -187,7 +185,7 @@ int RedBlackTree_insert(RedBlackTree* RBT, void* data)
         }
         memcpy(RBT->root->data, data, RBT->data_size);
         RBT->root->parent = NULL;
-        RBT->root->color = BLACK;
+        RBT->root->color = 1;
         RBT->size = RBT->size + 1;
         return 1;
     }
@@ -213,14 +211,14 @@ int RedBlackTree_insert(RedBlackTree* RBT, void* data)
     }
     memcpy(node->data, data, RBT->data_size);
     node->parent = node_parent;
-    node->color = RED;
+    node->color = 0;
     if(node->data < node_parent->data) {
         node_parent->left = node;
     }
     else {
         node_parent->right = node;
     }
-    tree_rebalance(RBT, node_parent);
+    rebalance(RBT, node_parent);
     RBT->size = RBT->size + 1;
     return 1;
 }

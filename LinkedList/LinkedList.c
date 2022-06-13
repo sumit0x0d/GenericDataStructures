@@ -5,7 +5,7 @@ static void node_destroy(LinkedListNode* node);
 
 LinkedList* LinkedList_create(size_t data_size, int (*compare)(void* data1, void* data2))
 {
-    LinkedList* LL = malloc(sizeof (LinkedList));
+    LinkedList* LL = (LinkedList*)malloc(sizeof (LinkedList));
     if(!LL) {
         return NULL;
     }
@@ -29,14 +29,13 @@ void* LinkedList_back(LinkedList* LL)
 
 static LinkedListNode* node_create(size_t data_size)
 {
-    LinkedListNode* node = malloc(sizeof (LinkedListNode));
+    LinkedListNode* node = (LinkedListNode*)malloc(sizeof (LinkedListNode));
     if(!node) {
         return NULL;
     }
     node->data = malloc(data_size);
     if(!node->data) {
         free(node);
-        node = NULL;  
         return NULL;
     }
     return node;
@@ -55,7 +54,7 @@ LinkedListNode* LinkedList_search(LinkedList* LL, void* data)
     if(!LL->size) {
         return NULL;
     }
-    LinkedListNode* node = malloc(sizeof (LinkedListNode));
+    LinkedListNode* node = (LinkedListNode*)malloc(sizeof (LinkedListNode));
     while(node) {
         if(!LL->compare(data, node->data)) {
             return node;
@@ -219,7 +218,7 @@ int LinkedList_remove(LinkedList* LL, void* data)
         if(!LL->compare(data, node->data)) {
             break;
         }
-        count++;
+        count = count + 1;
         node = node->next;
     }
     LinkedList_erase(LL, count);

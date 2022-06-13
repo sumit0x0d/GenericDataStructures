@@ -5,7 +5,7 @@ static void node_destroy(XORLinkedListNode* node);
 
 XORLinkedList* XORLinkedList_create(size_t data_size, int (*compare)(void* data1, void* data2))
 {
-    XORLinkedList* XORLL = malloc(sizeof (XORLinkedList));
+    XORLinkedList* XORLL = (XORLinkedList*)malloc(sizeof (XORLinkedList));
     if(!XORLL) {
         return NULL;
     }
@@ -29,7 +29,7 @@ void* XORLinkedList_back(XORLinkedList* XORLL)
 
 static XORLinkedListNode* node_create(size_t data_size)
 {
-    XORLinkedListNode* node = malloc(sizeof (XORLinkedListNode));
+    XORLinkedListNode* node = (XORLinkedListNode*)malloc(sizeof (XORLinkedListNode));
     if(!node) {
         return NULL;
     }

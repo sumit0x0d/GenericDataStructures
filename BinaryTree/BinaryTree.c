@@ -4,7 +4,7 @@ static BinaryTreeNode* node_create(size_t data_size);
 
 BinaryTree* BinaryTree_create()
 {
-    BinaryTree* BT = malloc(sizeof (BinaryTree));
+    BinaryTree* BT = (BinaryTree*)malloc(sizeof (BinaryTree));
     if(!BT) {
         return NULL;
     }
@@ -15,14 +15,13 @@ BinaryTree* BinaryTree_create()
 
 static BinaryTreeNode* node_create(size_t data_size)
 {
-    BinaryTreeNode* node = malloc(sizeof (BinaryTreeNode));
+    BinaryTreeNode* node = (BinaryTreeNode*)malloc(sizeof (BinaryTreeNode));
     if(!node) {
         return NULL;
     }
     node->data = malloc(data_size);
     if(!node->data) {
         free(node);
-        node = NULL;
         return NULL;
     }
     node->left = NULL;

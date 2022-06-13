@@ -2,11 +2,11 @@
 
 Matrix* Matrix_create(size_t data_size, size_t rows, size_t columns)
 {
-    Matrix* M = malloc(sizeof (Matrix));
+    Matrix* M = (Matrix*)malloc(sizeof (Matrix));
     if(!M) {
         return NULL;
     }
-    M->array = malloc(rows * sizeof (void*));
+    M->array = (void**)malloc(rows * sizeof (void*));
     if(!M->array) {
         free(M);
         return NULL;

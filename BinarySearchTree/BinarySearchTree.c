@@ -6,7 +6,7 @@ static void node_destroy(BinarySearchTreeNode* node);
 BinarySearchTree* BinarySearchTree_create(size_t data_size,
     int (*compare)(void* data1, void* data2))
 {
-    BinarySearchTree* BST = malloc(sizeof (BinarySearchTree));
+    BinarySearchTree* BST = (BinarySearchTree*)malloc(sizeof (BinarySearchTree));
     if(!BST) {
         return NULL;
     }
@@ -24,14 +24,13 @@ BinarySearchTree* BinarySearchTree_create(size_t data_size,
 
 static BinarySearchTreeNode* node_create(size_t data_size)
 {
-    BinarySearchTreeNode* node = malloc(sizeof (BinarySearchTreeNode));
+    BinarySearchTreeNode* node = (BinarySearchTreeNode*)malloc(sizeof (BinarySearchTreeNode));
     if(!node) {
         return NULL;
     }
     node->data = malloc(data_size);
     if(!node->data) {
         free(node);
-        node = NULL;
         return NULL;
     }
     node->left = NULL;

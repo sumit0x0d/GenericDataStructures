@@ -5,7 +5,7 @@ static void node_destroy(StackLLNode* S);
 
 StackLL* StackLL_create(size_t data_size)
 {
-    StackLL* S = malloc(sizeof (StackLL));
+    StackLL* S = (StackLL*)malloc(sizeof (StackLL));
     if(!S) {
         return NULL;
     }
@@ -39,7 +39,7 @@ void* StackLL_top(StackLL* S)
 
 static StackLLNode* node_create(size_t data_size)
 {
-    StackLLNode* node = malloc(sizeof (StackLLNode));
+    StackLLNode* node = (StackLLNode*)malloc(sizeof (StackLLNode));
     if(!node) {
         return NULL;
     }

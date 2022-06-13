@@ -2,11 +2,11 @@
 
 GraphAM *graphAM_create(size_t data_size, unsigned long vertices)
 {
-    GraphAM *G = malloc(sizeof (GraphAM));
+    GraphAM* G = (GraphAM*)malloc(sizeof (GraphAM));
     if(!G) {
         return NULL;
     }
-    G->array = malloc(vertices * sizeof (void*));
+    G->array = (void**)malloc(vertices * sizeof (void*));
     if(!G->array) {
         free(G);
         G = NULL;

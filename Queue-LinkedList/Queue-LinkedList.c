@@ -5,7 +5,7 @@ static void node_destroy(QueueLLNode* Q);
 
 QueueLL* QueueLL_create(size_t data_size)
 {
-    QueueLL* Q = malloc(sizeof (QueueLL));
+    QueueLL* Q = (QueueLL*)malloc(sizeof (QueueLL));
     if(!Q) {
         return NULL;
     }
@@ -45,7 +45,7 @@ void* QueueLL_back(QueueLL* Q)
 
 static QueueLLNode* node_create(size_t data_size)
 {
-    QueueLLNode* node = malloc(sizeof (QueueLLNode));
+    QueueLLNode* node = (QueueLLNode*)malloc(sizeof (QueueLLNode));
     if(!node) {
         return NULL;
     }

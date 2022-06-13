@@ -4,6 +4,7 @@
 #include "Array/Array.h"
 #include "AVLTree/AVLTree.h"
 #include "BinarySearchTree/BinarySearchTree.h"
+#include "BloomFilter/BloomFilter.h"
 #include "CircularQueue/CircularQueue.h"
 #include "Deque-Array/Deque-Array.h"
 #include "Deque-LinkedList/Deque-LinkedList.h"

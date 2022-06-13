@@ -4,7 +4,7 @@ static ThreadedBinaryTreeNode* node_create(size_t data_size);
 
 ThreadedBinaryTree* ThreadedBinaryTree_create(size_t data_size)
 {
-    ThreadedBinaryTree* BT = malloc(sizeof (ThreadedBinaryTree));
+    ThreadedBinaryTree* BT = (ThreadedBinaryTree*)malloc(sizeof (ThreadedBinaryTree));
     if(!BT) {
         return NULL;
     }
@@ -16,14 +16,13 @@ ThreadedBinaryTree* ThreadedBinaryTree_create(size_t data_size)
 
 static ThreadedBinaryTreeNode* node_create(size_t data_size)
 {
-    ThreadedBinaryTreeNode* node = malloc(sizeof (ThreadedBinaryTreeNode));
+    ThreadedBinaryTreeNode* node = (ThreadedBinaryTreeNode*)malloc(sizeof (ThreadedBinaryTreeNode));
     if(!node) {
         return NULL;
     }
     node->data = malloc(data_size);
     if(!node->data) {
         free(node);
-        node = NULL;
         return NULL;
     }
     node->left = NULL;

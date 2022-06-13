@@ -5,7 +5,7 @@ static void node_destroy(PriorityQueueLLNode* PQ);
 
 PriorityQueueLL* PriorityQueueLL_create(size_t data_size)
 {
-    PriorityQueueLL* PQ = malloc(sizeof (PriorityQueueLL));
+    PriorityQueueLL* PQ = (PriorityQueueLL*)malloc(sizeof (PriorityQueueLL));
     if(!PQ) {
         return NULL;
     }
@@ -35,22 +35,19 @@ void PriorityQueueLL_destroy(PriorityQueueLL* PQ)
 
 static PriorityQueueLLNode* node_create(size_t data_size, size_t priority_size)
 {
-    PriorityQueueLLNode* node = malloc(sizeof (PriorityQueueLLNode));
+    PriorityQueueLLNode* node = (PriorityQueueLLNode*)malloc(sizeof (PriorityQueueLLNode));
     if(!node) {
         return NULL;
     }
     node->data = malloc(data_size);
     if(!node->data) {
         free(node);
-        node = NULL;
         return NULL;
     }
     node->priority = malloc(priority_size);
     if(!node->priority) {
         free(node->data);
-        node->data = NULL;
         free(node);
-        node = NULL;
         return NULL;
     }
     return node;

@@ -10,6 +10,7 @@ main1:
 	./Array/Array.c \
 	./AVLTree/AVLTree.c \
 	./BinarySearchTree/BinarySearchTree.c \
+	./BloomFilter/BloomFilter.c \
 	./CircularQueue/CircularQueue.c \
 	./Deque-Array/Deque-Array.c \
 	./Deque-LinkedList/Deque-LinkedList.c \

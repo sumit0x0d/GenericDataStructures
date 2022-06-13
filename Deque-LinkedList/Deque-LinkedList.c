@@ -5,7 +5,7 @@ static void node_destroy(DequeLLNode* D);
 
 DequeLL* DequeLL_create(size_t data_size)
 {
-    DequeLL* D = malloc(sizeof (DequeLL));
+    DequeLL* D = (DequeLL*)malloc(sizeof (DequeLL));
     if(!D) {
         return NULL;
     }
@@ -45,14 +45,13 @@ void* DequeLL_back(DequeLL* Q)
 
 static DequeLLNode* node_create(size_t data_size)
 {
-    DequeLLNode* node = malloc(sizeof (DequeLLNode));
+    DequeLLNode* node = (DequeLLNode*)malloc(sizeof (DequeLLNode));
     if(!node) {
         return NULL;
     }
     node->data = malloc(data_size);
     if(!node->data) {
         free(node);
-        node = NULL;  
         return NULL;
     }
     return node;

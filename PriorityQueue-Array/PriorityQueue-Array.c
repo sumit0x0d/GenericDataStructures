@@ -6,7 +6,7 @@ static inline void* priority_at(PriorityQueueA* PQ, size_t index);
 PriorityQueueA* PriorityQueueA_create(size_t data_size, size_t priority_size, size_t capacity,
     int (*compare)(void* priority1, void* priority2))
 {
-    PriorityQueueA* PQ = malloc(sizeof (PriorityQueueA));
+    PriorityQueueA* PQ = (PriorityQueueA*)malloc(sizeof (PriorityQueueA));
     if(!PQ) {
         return NULL;
     }
