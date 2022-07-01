@@ -1,6 +1,7 @@
 #ifndef BINARY_HEAP_ARRAY_H
 #define BINARY_HEAP_ARRAY_H
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -17,5 +18,6 @@ BinaryHeapA* BinaryHeapA_create(size_t data_size, size_t capacity,
 
 void BinaryHeapA_insert(BinaryHeapA* BH, void* data);
 void BinaryHeapA_remove(BinaryHeapA* BH, void* data);
+void BinaryHeapA_extract(BinaryHeapA* BH);
 
 #endif

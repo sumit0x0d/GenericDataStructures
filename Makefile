@@ -1,11 +1,11 @@
-CC = gcc
+CC = clang
 
 TARGET = main
 
 CFLAGS = -std=c99 -O0 -g -Wall -Wpedantic -Wextra -Werror
 # CFLAGS = -std=c99 -O0 -g -Wall -Wpedantic -Wextra -Werror -fsanitize=address 
 
-main1:
+all:
 	$(CC) $(CFLAGS) \
 	./Array/Array.c \
 	./AVLTree/AVLTree.c \

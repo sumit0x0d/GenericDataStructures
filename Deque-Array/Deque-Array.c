@@ -1,7 +1,5 @@
 #include "Deque-Array.h"
 
-static inline void* data_at(DequeA* Q, size_t index);
-
 DequeA* DequeA_create(size_t data_size, size_t capacity)
 {
     DequeA* D = (DequeA*)malloc(sizeof (DequeA));
@@ -22,15 +20,15 @@ DequeA* DequeA_create(size_t data_size, size_t capacity)
     return D;
 }
 
-int DequeA_change_capacity(DequeA* D, size_t capacity)
+bool DequeA_change_capacity(DequeA* D, size_t capacity)
 {
     void* array = realloc(D->array, D->data_size * capacity);
     if(!array) {
-        return 0;
+        return false;
     }
     D->array = array;
     D->capacity = capacity;
-    return 1;
+    return true;
 }
 
 void DequeA_destroy(DequeA* D)

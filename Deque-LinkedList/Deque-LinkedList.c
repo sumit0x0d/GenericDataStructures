@@ -1,7 +1,10 @@
 #include "Deque-LinkedList.h"
 
-static DequeLLNode* node_create(size_t data_size);
-static void node_destroy(DequeLLNode* D);
+typedef struct Node {
+    void* data;
+    struct Node* previous;
+    struct Node* next;
+} Node;
 
 DequeLL* DequeLL_create(size_t data_size)
 {
@@ -18,7 +21,7 @@ DequeLL* DequeLL_create(size_t data_size)
 
 void DequeLL_destroy(DequeLL* D)
 {
-    DequeLLNode* node = D->front;
+    Node* node = D->front;
     while(node) {
         if(node->next) {
             DequeLL_pop_front(D);
@@ -43,9 +46,9 @@ void* DequeLL_back(DequeLL* Q)
     return Q->back->data;
 }
 
-static DequeLLNode* node_create(size_t data_size)
+static Node* node_create(size_t data_size)
 {
-    DequeLLNode* node = (DequeLLNode*)malloc(sizeof (DequeLLNode));
+    Node* node = (Node*)malloc(sizeof (Node));
     if(!node) {
         return NULL;
     }
@@ -57,7 +60,7 @@ static DequeLLNode* node_create(size_t data_size)
     return node;
 }
 
-static void node_destroy(DequeLLNode* node)
+static void node_destroy(Node* node)
 {
     free(node->data);
     node->data = NULL;
@@ -65,11 +68,11 @@ static void node_destroy(DequeLLNode* node)
     node = NULL;
 }
 
-int DequeLL_push_front(DequeLL* D, void* data)
+bool DequeLL_push_front(DequeLL* D, void* data)
 {
-    DequeLLNode* node = node_create(D->data_size);
+    Node* node = node_create(D->data_size);
     if(!node) {
-        return 0;
+        return false;
     }
     memcpy(node->data, data, D->data_size);
     node->previous = NULL;
@@ -83,14 +86,14 @@ int DequeLL_push_front(DequeLL* D, void* data)
     }
     D->front = node;
     D->size = D->size + 1;
-    return 1;
+    return true;
 }
 
-int DequeLL_push_back(DequeLL* D, void* data)
+bool DequeLL_push_back(DequeLL* D, void* data)
 {
-    DequeLLNode* node = node_create(D->data_size);
+    Node* node = node_create(D->data_size);
     if(!node) {
-        return 0; 
+        return false; 
     }
     memcpy(node->data, data, D->data_size);
     node->next = NULL;
@@ -104,12 +107,12 @@ int DequeLL_push_back(DequeLL* D, void* data)
     }
     D->back = node;
     D->size = D->size + 1;
-    return 1;
+    return true;
 }
 
 void DequeLL_pop_front(DequeLL* D)
 {
-    DequeLLNode* node = D->front;
+    Node* node = D->front;
     D->front = D->front->next;
     if(!D->front) {
         D->back = NULL;
@@ -120,7 +123,7 @@ void DequeLL_pop_front(DequeLL* D)
 
 void DequeLL_pop_back(DequeLL* D)
 {
-    DequeLLNode* node = D->back;
+    Node* node = D->back;
     D->back = D->back->previous;
     if(D->back) {
         D->back->next = NULL;

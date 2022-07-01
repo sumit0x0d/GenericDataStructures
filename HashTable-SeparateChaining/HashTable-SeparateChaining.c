@@ -1,25 +1,26 @@
 #include "HashTable-SeparateChaining.h"
 
-HashTableSCPair* pair_create(size_t key_size, size_t value_size);
-void pair_destroy(HashTableSCPair *pair);
+typedef struct Pair {
+    void* key;
+    void* value;
+    struct Pair* next;
+} Pair;
 
-void* HashTableSC_search(HashTableSC* HT, void* key);
-
-HashTableSC* HashTableSC_create(size_t key_size, size_t value_size, size_t buckets,
-    size_t (*hash)(void* key, size_t buckets))
+HashTableSC* HashTableSC_create(size_t key_size, size_t value_size, size_t bucket_count,
+    size_t (*hash)(void* key, size_t key_size, size_t bucket_count))
 {
     HashTableSC* HT = (HashTableSC*)malloc(sizeof (HashTableSC));
     if(!HT) {
         return NULL;
     }
-    HT->array = (HashTableSCPair*)malloc(sizeof (HashTableSCPair) * buckets);
+    HT->array = (Pair*)malloc(sizeof (Pair) * bucket_count);
     if(!HT->array) {
         free(HT);
         return NULL;
     }
     HT->key_size = key_size;
     HT->value_size = value_size;
-    HT->buckets = buckets;
+    HT->bucket_count = bucket_count;
     HT->size = 0;
     HT->hash = hash;
     return HT;
@@ -33,9 +34,9 @@ void HashTableSC_destroy(HashTableSC* HT)
     HT = NULL;
 }
 
-HashTableSCPair* pair_create(size_t key_size, size_t value_size)
+Pair* pair_create(size_t key_size, size_t value_size)
 {
-    HashTableSCPair* pair = (HashTableSCPair*)malloc(sizeof (HashTableSCPair));
+    Pair* pair = (Pair*)malloc(sizeof (Pair));
     if(!pair) {
         return NULL;
     }
@@ -53,7 +54,7 @@ HashTableSCPair* pair_create(size_t key_size, size_t value_size)
     return pair;
 }
 
-void pair_destroy(HashTableSCPair *pair)
+void pair_destroy(Pair *pair)
 {
     free(pair->key);
     pair->key = NULL;
@@ -63,38 +64,38 @@ void pair_destroy(HashTableSCPair *pair)
     pair = NULL;
 }
 
-int HashTableSC_insert(HashTableSC* HT, void* key, void* value)
+bool HashTableSC_insert(HashTableSC* HT, void* key, void* value)
 {
-    HashTableSCPair* pair = pair_create(HT->key_size, HT->value_size);
+    Pair* pair = pair_create(HT->key_size, HT->value_size);
     if(!pair) {
-        return 0;
+        return false;
     }
     memcpy(pair->key, key, HT->key_size);
     memcpy(pair->value, value, HT->value_size);
     pair->next = NULL;
-    size_t index = HT->hash(key, HT->buckets);
+    size_t index = HT->hash(key, HT->key_size, HT->bucket_count);
     if(1) {
-        HashTableSCPair* pair_previous = HT->array + index;
+        Pair* pair_previous = HT->array + index;
         while(pair_previous->next) {
             pair_previous = pair_previous->next;
         }
         pair_previous->next = pair;
     }
     else {
-        memcpy(HT->array + index, pair, sizeof (HashTableSCPair));
+        memcpy(HT->array + index, pair, sizeof (Pair));
     }
     HT->size = HT->size + 1;
-    return 1;
+    return true;
 }
 
 // int HashTableSC_remove(HashTableSC* HT, void* key)
 // {
-//     size_t index = HT->hash(key, HT->buckets);
+//     size_t index = HT->hash(key, HT->bucket_count);
 // }
 
 void* HashTableSC_search(HashTableSC* HT, void* key)
 {
-    size_t index = HT->hash(key, HT->buckets);
+    size_t index = HT->hash(key, HT->key_size, HT->bucket_count);
     if(!HT->array[index].key) {
         return NULL;
     }

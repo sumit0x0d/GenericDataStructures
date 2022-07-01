@@ -1,7 +1,11 @@
 #include "BinaryHeap-BinaryTree.h"
 
-static BinaryHeapBTNode* node_create(size_t data_size);
-static void node_destroy(BinaryHeapBTNode* node);
+typedef struct Node {
+    void* data;
+    struct Node* left;
+    struct Node* right;
+    struct Node* parent;
+} Node;
 
 BinaryHeapBT* BinaryHeapBT_create(size_t data_size, int (*compare)(void* data1, void* data2))
 {
@@ -25,9 +29,9 @@ void* BinaryHeapBT_root(BinaryHeapBT* BH)
     return BH->root->data;
 }
 
-static BinaryHeapBTNode* node_create(size_t data_size)
+static Node* node_create(size_t data_size)
 {
-    BinaryHeapBTNode* node = (BinaryHeapBTNode*)malloc(sizeof (BinaryHeapBTNode));
+    Node* node = (Node*)malloc(sizeof (Node));
     if(!node) {
         return NULL;
     }
@@ -41,9 +45,9 @@ static BinaryHeapBTNode* node_create(size_t data_size)
     return node;
 }
 
-int BinaryHeapBT_insert(BinaryHeapBT* BH, void* data)
+bool BinaryHeapBT_insert(BinaryHeapBT* BH, void* data)
 {
-
+    return true;
 }
 
 void BinaryHeapBT_remove(BinaryHeapBT* BH)

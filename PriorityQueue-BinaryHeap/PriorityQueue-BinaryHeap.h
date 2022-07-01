@@ -1,6 +1,7 @@
 #ifndef PRIORITY_QUEUE_BINARY_HEAP_H
 #define PRIORITY_QUEUE_BINARY_HEAP_H
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -26,7 +27,7 @@ void PriorityQueueBH_destroy(PriorityQueueBH* PQ);
 
 void* PriorityQueueBH_root(PriorityQueueBH* PQ);
 
-int PriorityQueueBH_enqueue(PriorityQueueBH* PQ, void* data, void* priority);
+bool PriorityQueueBH_enqueue(PriorityQueueBH* PQ, void* data, void* priority);
 void PriorityQueueBH_dequeue(PriorityQueueBH* PQ);
 
 #endif

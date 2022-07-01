@@ -1,8 +1,5 @@
 #include "PriorityQueue-BinaryHeap.h"
 
-static PriorityQueueBHNode* node_create(size_t data_size, size_t priority_size);
-static void node_destroy(PriorityQueueBHNode* node);
-
 PriorityQueueBH* PriorityQueueBH_create(size_t data_size, size_t priority_size,
     int (*compare)(void* priority1, void* priority2))
 {
@@ -18,10 +15,10 @@ PriorityQueueBH* PriorityQueueBH_create(size_t data_size, size_t priority_size,
     return PQ;
 }
 
-void PriorityQueueBH_destroy(PriorityQueueBH* PQ)
-{
+// void PriorityQueueBH_destroy(PriorityQueueBH* PQ)
+// {
 
-}
+// }
 
 void* PriorityQueueBH_root(PriorityQueueBH* PQ)
 {
@@ -50,22 +47,23 @@ static PriorityQueueBHNode* node_create(size_t data_size, size_t priority_size)
     return node;
 }
 
-static void node_destroy(PriorityQueueBHNode* node)
-{
+// static void node_destroy(PriorityQueueBHNode* node)
+// {
     
-}
+// }
 
-int PriorityQueueBH_enqueue(PriorityQueueBH* PQ, void* data, void* priority)
+bool PriorityQueueBH_enqueue(PriorityQueueBH* PQ, void* data, void* priority)
 {
     PriorityQueueBHNode* node = node_create(PQ->data_size, PQ->priority_size);
     if(!node) {
-        return 0;
+        return false;
     }
     memcpy(node->data, data, PQ->data_size);
     memcpy(node->priority, priority, PQ->priority_size);
+    return true;
 }
 
-void PriorityQueueBH_dequeue(PriorityQueueBH* PQ)
-{
+// void PriorityQueueBH_dequeue(PriorityQueueBH* PQ)
+// {
 
-}
+// }

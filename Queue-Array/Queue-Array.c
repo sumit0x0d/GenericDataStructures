@@ -1,7 +1,5 @@
 #include "Queue-Array.h"
 
-static inline void* data_at(QueueA* Q, size_t index);
-
 QueueA* QueueA_create(size_t data_size, size_t capacity)
 {
     QueueA* Q = (QueueA*)malloc(sizeof (QueueA));
@@ -21,11 +19,11 @@ QueueA* QueueA_create(size_t data_size, size_t capacity)
     return Q;
 }
 
-int QueueA_change_capacity(QueueA* Q, size_t capacity)
+bool QueueA_change_capacity(QueueA* Q, size_t capacity)
 {
     void* array = realloc(Q->array, Q->data_size * capacity);
     if(!array) {
-        return 0;
+        return false;
     }
     Q->array = array;
     Q->capacity = capacity;
@@ -33,7 +31,7 @@ int QueueA_change_capacity(QueueA* Q, size_t capacity)
         Q->back = Q->capacity;
         Q->size = Q->capacity;
     }
-    return 1;
+    return true;
 }
 
 void QueueA_destroy(QueueA* Q)

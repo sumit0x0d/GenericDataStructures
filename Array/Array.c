@@ -1,7 +1,5 @@
 #include "Array.h"
 
-static inline void* data_at(Array* A, size_t index);
-
 Array* Array_create(size_t data_size, size_t capacity, int (*compare)(void* data1, void* data2))
 {
     Array* A = (Array*)malloc(sizeof (Array));
@@ -21,15 +19,15 @@ Array* Array_create(size_t data_size, size_t capacity, int (*compare)(void* data
     return A;
 }
 
-int Array_change_capacity(Array* A, size_t capacity)
+bool Array_change_capacity(Array* A, size_t capacity)
 {
     void* array = realloc(A->array, A->data_size * capacity);
     if(!array) {
-        return 0;
+        return false;
     }
     A->array = array;
     A->capacity = capacity;
-    return 1;
+    return true;
 }
 
 void Array_destroy(Array* A)

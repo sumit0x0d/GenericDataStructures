@@ -1,16 +1,12 @@
 #ifndef STACK_LINKED_LIST_H
 #define STACK_LINKED_LIST_H
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct StackLLNode {
-    void* data;
-    struct StackLLNode* next;
-} StackLLNode;
-
 typedef struct StackLL {
-    StackLLNode* top;
+    struct Node* top;
     size_t data_size;
     size_t size;
 } StackLL;
@@ -20,7 +16,7 @@ void StackLL_destroy(StackLL* S);
 
 void* StackLL_top(StackLL* S);
 
-int StackLL_push(StackLL* S, void* data);
+bool StackLL_push(StackLL* S, void* data);
 void StackLL_pop(StackLL* S);
 
 #endif

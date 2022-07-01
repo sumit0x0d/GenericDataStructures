@@ -1,7 +1,9 @@
 #include "Stack-LinkedList.h"
 
-static StackLLNode* node_create(size_t data_size);
-static void node_destroy(StackLLNode* S);
+typedef struct Node {
+    void* data;
+    struct Node* next;
+} Node;
 
 StackLL* StackLL_create(size_t data_size)
 {
@@ -17,7 +19,7 @@ StackLL* StackLL_create(size_t data_size)
 
 void StackLL_destroy(StackLL* S)
 {
-    StackLLNode* node = S->top;
+    Node* node = S->top;
     while(node) {
         if(node->next) {
             StackLL_pop(S);
@@ -37,9 +39,9 @@ void* StackLL_top(StackLL* S)
     return S->top->data;
 }
 
-static StackLLNode* node_create(size_t data_size)
+static Node* node_create(size_t data_size)
 {
-    StackLLNode* node = (StackLLNode*)malloc(sizeof (StackLLNode));
+    Node* node = (Node*)malloc(sizeof (Node));
     if(!node) {
         return NULL;
     }
@@ -51,7 +53,7 @@ static StackLLNode* node_create(size_t data_size)
     return node;
 }
 
-static void node_destroy(StackLLNode* node)
+static void node_destroy(Node* node)
 {
     free(node->data);
     node->data = NULL;
@@ -59,22 +61,22 @@ static void node_destroy(StackLLNode* node)
     node = NULL;
 }
 
-int StackLL_push(StackLL* S, void* data)
+bool StackLL_push(StackLL* S, void* data)
 {
-    StackLLNode* node = node_create(S->data_size);
+    Node* node = node_create(S->data_size);
     if(!node) {
-        return 0;
+        return false;
     }
     memcpy(node->data, data, S->data_size);
     node->next = S->top;
     S->top = node;
     S->size = S->size + 1;
-    return 1;
+    return true;
 }
 
 void StackLL_pop(StackLL* S)
 {
-    StackLLNode* node = S->top;
+    Node* node = S->top;
     S->top = S->top->next;
     node_destroy(node);
     S->size = S->size - 1;

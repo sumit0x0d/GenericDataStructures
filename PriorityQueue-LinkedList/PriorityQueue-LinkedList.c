@@ -1,7 +1,10 @@
 #include "PriorityQueue-LinkedList.h"
 
-static PriorityQueueLLNode* node_create(size_t data_size, size_t priority_size);
-static void node_destroy(PriorityQueueLLNode* PQ);
+typedef struct Node {
+    void* data;
+    void* priority;
+    struct Node* next;
+} Node;
 
 PriorityQueueLL* PriorityQueueLL_create(size_t data_size)
 {
@@ -18,7 +21,7 @@ PriorityQueueLL* PriorityQueueLL_create(size_t data_size)
 
 void PriorityQueueLL_destroy(PriorityQueueLL* PQ)
 {
-    PriorityQueueLLNode* node = PQ->front;
+    Node* node = PQ->front;
     while(node) {
         if(node->next) {
             PriorityQueueLL_dequeue(PQ);
@@ -33,9 +36,9 @@ void PriorityQueueLL_destroy(PriorityQueueLL* PQ)
     PQ = NULL;
 }
 
-static PriorityQueueLLNode* node_create(size_t data_size, size_t priority_size)
+static Node* node_create(size_t data_size, size_t priority_size)
 {
-    PriorityQueueLLNode* node = (PriorityQueueLLNode*)malloc(sizeof (PriorityQueueLLNode));
+    Node* node = (Node*)malloc(sizeof (Node));
     if(!node) {
         return NULL;
     }
@@ -53,7 +56,7 @@ static PriorityQueueLLNode* node_create(size_t data_size, size_t priority_size)
     return node;
 }
 
-static void node_destroy(PriorityQueueLLNode* node)
+static void node_destroy(Node* node)
 {
     free(node->data);
     node->data = NULL;
@@ -71,11 +74,11 @@ void* PriorityQueueLL_back(PriorityQueueLL* PQ)
     return PQ->back->data;
 }
 
-int PriorityQueueLL_enqueue(PriorityQueueLL* PQ, void* data, void* priority)
+bool PriorityQueueLL_enqueue(PriorityQueueLL* PQ, void* data, void* priority)
 {
-    PriorityQueueLLNode* node = node_create(PQ->data_size, PQ->priority_size);
+    Node* node = node_create(PQ->data_size, PQ->priority_size);
     if(!node) {
-        return 0;
+        return false;
     }
     memcpy(node->data, data, PQ->data_size);
     memcpy(node->priority, priority, PQ->priority_size);
@@ -88,12 +91,12 @@ int PriorityQueueLL_enqueue(PriorityQueueLL* PQ, void* data, void* priority)
     }
     PQ->back = node;
     PQ->size = PQ->size + 1;
-    return 1;
+    return true;
 }
 
 void PriorityQueueLL_dequeue(PriorityQueueLL* PQ)
 {
-    PriorityQueueLLNode* node = PQ->front;
+    Node* node = PQ->front;
     PQ->front = PQ->front->next;
     if(!PQ->front) {
         PQ->back = NULL;

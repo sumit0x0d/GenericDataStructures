@@ -1,6 +1,7 @@
 #ifndef BINARY_TREE_H
 #define BINARY_TREE_H
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -16,9 +17,9 @@ typedef struct BinaryTree {
 } BinaryTree;
 
 BinaryTree* BinaryTree_create();
-void BinaryTree_destroy(BinaryTree* bt);
+void BinaryTree_destroy(BinaryTree* BT);
 
-BinaryTreeNode* BinaryTree_insert(BinaryTree* bt, void* data, size_t data_size);
+BinaryTreeNode* BinaryTree_insert(BinaryTree* BT, void* data, size_t data_size);
 
 void* BinaryTree_root(BinaryTree* BT);
 

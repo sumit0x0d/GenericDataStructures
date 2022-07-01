@@ -1,7 +1,5 @@
 #include "BinaryTree.h"
 
-static BinaryTreeNode* node_create(size_t data_size);
-
 BinaryTree* BinaryTree_create()
 {
     BinaryTree* BT = (BinaryTree*)malloc(sizeof (BinaryTree));

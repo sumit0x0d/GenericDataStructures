@@ -1,6 +1,7 @@
 #ifndef PRIORITY_QUEUE_ARRAY_H
 #define PRIORITY_QUEUE_ARRAY_H
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -17,7 +18,7 @@ typedef struct PriorityQueueA {
 
 PriorityQueueA* PriorityQueueA_create(size_t data_size, size_t priority_size, size_t capacity,
     int (*compare)(void* priority1, void* priority2));
-int PriorityQueueA_change_capacity(PriorityQueueA* PQ, size_t capacity);
+bool PriorityQueueA_change_capacity(PriorityQueueA* PQ, size_t capacity);
 void PriorityQueueA_destroy(PriorityQueueA* PQ);
 
 void* PriorityQueueA_front(PriorityQueueA* PQ);

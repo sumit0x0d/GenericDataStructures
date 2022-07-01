@@ -1,3 +1,5 @@
+#include "Queue-LinkedList/Queue-LinkedList.h"
+#include "Stack-Array/Stack-Array.h"
 #include "gds.h"
 
 #include <stdio.h>
@@ -6,13 +8,13 @@ int compare(void* data1, void* data2) {
     if(*(int*)data1 < *(int*)data2)
         return -1;
     if(*(int *)data1 > *(int *)data2)
-        return 1;
-    return 0;
+        return true;
+    return false;
 }
 
-size_t hash(void* key, size_t buckets)
+size_t hash(void* key, size_t bucket_count)
 {
-    return *(size_t *)key % buckets;
+    return *(size_t *)key % bucket_count;
 }
 
 // void linked_list_print(void* begin, void* end)
@@ -65,11 +67,16 @@ int main()
     //         break;
     //     }
     // }
-    // int a1 = 32;
-    // int a2 = 319;
-    // StackA_push(S, &a1);
-    // StackA_push(S, &a2);
-    // printf("%d", *(int*)StackA_top(S));
+    int a1 = 32;
+    int a2 = 319;
+    StackLL* S = StackLL_create(sizeof (int));
+    StackLL_push(S, &a1);
+    StackLL_push(S, &a2);
+    printf("%d", *(int*)StackLL_top(S));
+    QueueLL* Q = QueueLL_create(sizeof (int));
+    QueueLL_enqueue(Q, &a1);
+    QueueLL_enqueue(Q, &a2);
+    printf("%d", *(int*)QueueLL_front(Q));
     // if(!avl_tree_insert(AVLT, &a)) {
     //     printf("error");
     // }
@@ -87,7 +94,7 @@ int main()
     // PriorityQueueA_enqueue(PQ, &db, &pb);
     // PriorityQueueA_dequeue(PQ);
     // printf("%d", *(int *)PriorityQueueA_front(PQ));
-    BloomFilter* BF = BloomFilter_create()
+    // BloomFilter* BF = BloomFilter_create();
     // int b = 20;
     // int a = 21;
     // int c = 11;

@@ -1,21 +1,15 @@
 #ifndef BINARY_HEAP_BINARY_TREE_H
 #define BINARY_HEAP_BINARY_TREE_H
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct BinaryHeapBTNode {
-    void* data;
-    struct BinaryHeapBTNode* left;
-    struct BinaryHeapBTNode* right;
-    struct BinaryHeapBTNode* parent;
-} BinaryHeapBTNode;
-
 typedef struct BinaryHeapBT {
-    BinaryHeapBTNode* root;
+    struct Node* root;
     size_t data_size;
-    BinaryHeapBTNode* leftmost_node;
-    BinaryHeapBTNode* rightmost_node;
+    struct Node* leftmost_node;
+    struct Node* rightmost_node;
     size_t size;
     int (*compare)(void* data1, void* data2);
 } BinaryHeapBT;
@@ -25,7 +19,8 @@ void BinaryHeapBT_destroy(BinaryHeapBT* BH);
 
 void* BinaryHeapBT_root(BinaryHeapBT* BH);
 
-int BinaryHeapBT_insert(BinaryHeapBT* BH, void* data);
+bool BinaryHeapBT_insert(BinaryHeapBT* BH, void* data);
 void BinaryHeapBT_remove(BinaryHeapBT* BH);
+void* BinaryHeapBT_extract(BinaryHeapBT* BH);
 
 #endif

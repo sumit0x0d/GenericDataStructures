@@ -1,7 +1,5 @@
 #include "Stack-Array.h"
 
-static inline void* data_at(StackA* S, size_t index);
-
 StackA* StackA_create(size_t data_size, size_t capacity)
 {
     StackA* S = (StackA*)malloc(sizeof (StackA));
@@ -19,18 +17,18 @@ StackA* StackA_create(size_t data_size, size_t capacity)
     return S;
 }
 
-int StackA_change_capacity(StackA* S, size_t capacity)
+bool StackA_change_capacity(StackA* S, size_t capacity)
 {
     void* array = realloc(S->array, S->data_size * capacity);
     if(!array) {
-        return 0;
+        return false;
     }
     S->array = array;
     S->capacity = capacity;
     if(S->capacity < S->size) {
         S->size = capacity;
     }
-    return 1;
+    return true;
 }
 
 void StackA_destroy(StackA* S)

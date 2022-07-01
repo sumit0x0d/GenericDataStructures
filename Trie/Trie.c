@@ -52,7 +52,7 @@ int trie_insert(Trie *T, char* string)
     if(!T->root) {
         T->root = node_create();
         if(!T->root) {
-            return 0;
+            return false;
         }
     }
     TrieNode* node = T->root; 
@@ -69,13 +69,13 @@ int trie_insert(Trie *T, char* string)
     //         node->children[(size_t)string[i]] = node_create(string[i]);
     // }
     if(node->terminal) {
-        return 0;
+        return false;
     }
     else {
         node->terminal = 1;
     }
     T->size = T->size + 1;
-    return 1;
+    return true;
 }
 
 // void node_destroy(Trie *T, char character)

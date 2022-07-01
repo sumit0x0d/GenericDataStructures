@@ -1,6 +1,7 @@
 #ifndef QUEUE_ARRAY_H
 #define QUEUE_ARRAY_H
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -14,7 +15,7 @@ typedef struct QueueA {
 } QueueA;
 
 QueueA* QueueA_create(size_t data_size, size_t capacity);
-int QueueA_change_capacity(QueueA* Q, size_t capacity);
+bool QueueA_change_capacity(QueueA* Q, size_t capacity);
 void QueueA_destroy(QueueA* Q);
 
 void* QueueA_front(QueueA* Q);

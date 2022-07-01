@@ -1,8 +1,5 @@
 #include "PriorityQueue-Array.h"
 
-static inline void* data_at(PriorityQueueA* PQ, size_t index);
-static inline void* priority_at(PriorityQueueA* PQ, size_t index);
-
 PriorityQueueA* PriorityQueueA_create(size_t data_size, size_t priority_size, size_t capacity,
     int (*compare)(void* priority1, void* priority2))
 {
@@ -24,11 +21,11 @@ PriorityQueueA* PriorityQueueA_create(size_t data_size, size_t priority_size, si
     return PQ;
 }
 
-int PriorityQueueA_change_capacity(PriorityQueueA* PQ, size_t capacity)
+bool PriorityQueueA_change_capacity(PriorityQueueA* PQ, size_t capacity)
 {
     void* array = realloc(PQ->array, PQ->data_size * capacity);
     if(!array) {
-        return 0;
+        return false;
     }
     PQ->array = array;
     PQ->capacity = capacity;
@@ -36,7 +33,7 @@ int PriorityQueueA_change_capacity(PriorityQueueA* PQ, size_t capacity)
         PQ->back = PQ->capacity;
         PQ->size = PQ->capacity;
     }
-    return 1;
+    return true;
 }
 
 void PriorityQueueA_destroy(PriorityQueueA* PQ)

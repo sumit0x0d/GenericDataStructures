@@ -1,6 +1,12 @@
 #include "ThreadedBinaryTree.h"
 
-static ThreadedBinaryTreeNode* node_create(size_t data_size);
+typedef struct Node {
+    void* data;
+    struct Node* left;
+    struct Node* right;
+} Node;
+
+static Node* node_create(size_t data_size);
 
 ThreadedBinaryTree* ThreadedBinaryTree_create(size_t data_size)
 {
@@ -14,9 +20,9 @@ ThreadedBinaryTree* ThreadedBinaryTree_create(size_t data_size)
     return BT;
 }
 
-static ThreadedBinaryTreeNode* node_create(size_t data_size)
+static Node* node_create(size_t data_size)
 {
-    ThreadedBinaryTreeNode* node = (ThreadedBinaryTreeNode*)malloc(sizeof (ThreadedBinaryTreeNode));
+    Node* node = (Node*)malloc(sizeof (Node));
     if(!node) {
         return NULL;
     }
@@ -30,9 +36,9 @@ static ThreadedBinaryTreeNode* node_create(size_t data_size)
     return node;
 }
 
-ThreadedBinaryTreeNode* ThreadedBinaryTree_insert(ThreadedBinaryTree* BT, void* data)
+Node* ThreadedBinaryTree_insert(ThreadedBinaryTree* BT, void* data)
 {
-    ThreadedBinaryTreeNode* node = node_create(BT->data_size);
+    Node* node = node_create(BT->data_size);
     if(!node) {
         return NULL;
     }

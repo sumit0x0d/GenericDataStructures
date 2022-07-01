@@ -1,6 +1,7 @@
 #ifndef CIRCULAR_QUEUE_H
 #define CIRCULAR_QUEUE_H
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 

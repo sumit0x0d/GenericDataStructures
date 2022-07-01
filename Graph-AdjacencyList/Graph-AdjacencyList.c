@@ -1,5 +1,12 @@
 #include "Graph-AdjacencyList.h"
 
+typedef struct Vertex {
+    void* data;
+    size_t index;
+    unsigned long weight;
+    struct Vertex *edge;
+} Vertex;
+
 GraphAL* GraphAL_create(size_t data_size)
 {
     GraphAL* G = (GraphAL*)malloc(sizeof (GraphAL));
@@ -21,17 +28,17 @@ void GraphAL_destroy(GraphAL* G)
     G->size = 0;
 }
 
-// void adjacency_list_create(GraphALVertex *adjacency_list)
+// void adjacency_list_create(Vertex *adjacency_list)
 // {
 //     if(!adjacency_list) {
-//         adjacency_list = malloc(sizeof (GraphALVertex));
+//         adjacency_list = malloc(sizeof (Vertex));
 //         if(!adjacency_list) return;
 //     }
 // }
 
-// GraphALVertex *GraphAL_vertex_search(GraphAL* G, void* data)
+// Vertex *GraphAL_vertex_search(GraphAL* G, void* data)
 // {
-//     GraphALVertex *vertex = G->adjacency_list;
+//     Vertex *vertex = G->adjacency_list;
 
 //     for(unsigned long i = 0; i < G->vertices; i++) {
 //         if(vertex->data == )
@@ -39,9 +46,9 @@ void GraphAL_destroy(GraphAL* G)
 //     }
 // }
 
-GraphALVertex *GraphALVertex_create(size_t data_size)
+Vertex *Vertex_create(size_t data_size)
 {
-    GraphALVertex* vertex = (GraphALVertex*)malloc(sizeof (GraphALVertex));
+    Vertex* vertex = (Vertex*)malloc(sizeof (Vertex));
     if(!vertex) {
         return NULL;
     }
@@ -56,7 +63,7 @@ GraphALVertex *GraphALVertex_create(size_t data_size)
     return vertex;
 }
 
-// void vertex_destroy(GraphALVertex *vertex)
+// void vertex_destroy(Vertex *vertex)
 // {
 
 // }
@@ -64,33 +71,33 @@ GraphALVertex *GraphALVertex_create(size_t data_size)
 int GraphAL_vertex_insert(GraphAL* G, void* data)
 {
     if(!G->adjacency_list) {
-        G->adjacency_list = (GraphALVertex*)malloc(sizeof (GraphALVertex));
+        G->adjacency_list = (Vertex*)malloc(sizeof (Vertex));
         if(!G->adjacency_list) {
-            return 0;
+            return false;
         }
     }
     else {
-        GraphALVertex* adjacency_list = (GraphALVertex*)realloc(G->adjacency_list,
-            sizeof (GraphALVertex) * (G->vertices + 1));
+        Vertex* adjacency_list = (Vertex*)realloc(G->adjacency_list,
+            sizeof (Vertex) * (G->vertices + 1));
         if(!adjacency_list) {
-            return 0;
+            return false;
         }
         G->adjacency_list = adjacency_list;
     }
-    GraphALVertex *vertex = GraphALVertex_create(G->data_size);
+    Vertex *vertex = Vertex_create(G->data_size);
     if(!vertex) {
-        return 0;
+        return false;
     }
     memcpy(vertex->data, data, G->data_size);
-    memcpy(G->adjacency_list + (sizeof (GraphALVertex) * G->vertices), vertex,
-        sizeof (GraphALVertex));
+    memcpy(G->adjacency_list + (sizeof (Vertex) * G->vertices), vertex,
+        sizeof (Vertex));
     G->vertices = G->vertices + 1;
     vertex->index = G->vertices;
     G->size = G->size + 1;
-    return 1;
+    return true;
 }
 
-// void graph_vertex_destroy(GraphALVertex *vertex)
+// void graph_vertex_destroy(Vertex *vertex)
 // {
 
 // }
@@ -100,7 +107,7 @@ int GraphAL_vertex_insert(GraphAL* G, void* data)
 
 // }
 
-// int GraphAL_edge_insert(GraphAL* G, GraphALVertex *vertex_source, GraphALVertex *vertex_destination, unsigned long weight)
+// int GraphAL_edge_insert(GraphAL* G, Vertex *vertex_source, Vertex *vertex_destination, unsigned long weight)
 // {
     
 // }
