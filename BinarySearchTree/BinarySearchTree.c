@@ -1,10 +1,4 @@
-#include "BinarySearchTree.h"
-
-typedef struct Node {
-    void* data;
-    struct Node* left;
-    struct Node* right;
-} Node;
+#include "Node.h"
 
 BinarySearchTree* BinarySearchTree_create(size_t data_size,
     int (*compare)(void* data1, void* data2))
@@ -25,34 +19,10 @@ BinarySearchTree* BinarySearchTree_create(size_t data_size,
 
 // }
 
-static Node* node_create(size_t data_size)
-{
-    Node* node = (Node*)malloc(sizeof (Node));
-    if(!node) {
-        return NULL;
-    }
-    node->data = malloc(data_size);
-    if(!node->data) {
-        free(node);
-        return NULL;
-    }
-    node->left = NULL;
-    node->right = NULL;
-    return node;
-}
-
-static void node_destroy(Node* node)
-{
-    free(node->data);
-    node->data = NULL;
-    free(node);
-    node = NULL;
-}
-
 bool BinarySearchTree_insert(BinarySearchTree* BST, void* data)
 {
     if(!BST->root) {
-        BST->root = node_create(BST->data_size);
+        BST->root = Node_create(BST->data_size);
         if(!BST->root) {
             return false;
         }
@@ -76,7 +46,7 @@ bool BinarySearchTree_insert(BinarySearchTree* BST, void* data)
             node = node->right;
         }
     }
-    node = node_create(BST->data_size);
+    node = Node_create(BST->data_size);
     if(!node) {
         return false;
     }
@@ -122,7 +92,7 @@ bool BinarySearchTree_remove(BinarySearchTree* BST, void* data)
         else {
             node_parent->right = NULL;
         }
-        node_destroy(node);
+        Node_destroy(node);
     }
     else if(!node->left) {
         if(node_parent->right == node) {
@@ -131,7 +101,7 @@ bool BinarySearchTree_remove(BinarySearchTree* BST, void* data)
         else {
             node_parent->left = node->right;
         }
-        node_destroy(node);
+        Node_destroy(node);
     }
     else if(!node->right) {
         if(node_parent->left == node) {
@@ -140,7 +110,7 @@ bool BinarySearchTree_remove(BinarySearchTree* BST, void* data)
         else {
             node_parent->right = node->left;
         }
-        node_destroy(node);
+        Node_destroy(node);
     }
     else {
         Node* node_successor = node->right;
@@ -156,7 +126,7 @@ bool BinarySearchTree_remove(BinarySearchTree* BST, void* data)
             node_successor_parent->left = node_successor->right;
         }
         memcpy(node->data, node_successor->data, BST->data_size);
-        node_destroy(node_successor);
+        Node_destroy(node_successor);
     }
     BST->size = BST->size - 1;
     return true;

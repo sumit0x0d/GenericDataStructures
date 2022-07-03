@@ -1,10 +1,4 @@
-#include "HashTable-SeparateChaining.h"
-
-typedef struct Pair {
-    void* key;
-    void* value;
-    struct Pair* next;
-} Pair;
+#include "Pair.h"
 
 HashTableSC* HashTableSC_create(size_t key_size, size_t value_size, size_t bucket_count,
     size_t (*hash)(void* key, size_t key_size, size_t bucket_count))
@@ -34,39 +28,9 @@ void HashTableSC_destroy(HashTableSC* HT)
     HT = NULL;
 }
 
-Pair* pair_create(size_t key_size, size_t value_size)
-{
-    Pair* pair = (Pair*)malloc(sizeof (Pair));
-    if(!pair) {
-        return NULL;
-    }
-    pair->key = malloc(key_size);
-    if(!pair->key) {
-        free(pair);
-        return NULL;
-    }
-    pair->value = malloc(value_size);
-    if(!pair->value) {
-        free(pair->key);
-        free(pair);
-        return NULL;
-    }
-    return pair;
-}
-
-void pair_destroy(Pair *pair)
-{
-    free(pair->key);
-    pair->key = NULL;
-    free(pair->value);
-    pair->value = NULL;
-    free(pair);
-    pair = NULL;
-}
-
 bool HashTableSC_insert(HashTableSC* HT, void* key, void* value)
 {
-    Pair* pair = pair_create(HT->key_size, HT->value_size);
+    Pair* pair = Pair_create(HT->key_size, HT->value_size);
     if(!pair) {
         return false;
     }

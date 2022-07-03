@@ -1,10 +1,4 @@
-#include "Deque-LinkedList.h"
-
-typedef struct Node {
-    void* data;
-    struct Node* previous;
-    struct Node* next;
-} Node;
+#include "Node.h"
 
 DequeLL* DequeLL_create(size_t data_size)
 {
@@ -46,31 +40,9 @@ void* DequeLL_back(DequeLL* Q)
     return Q->back->data;
 }
 
-static Node* node_create(size_t data_size)
-{
-    Node* node = (Node*)malloc(sizeof (Node));
-    if(!node) {
-        return NULL;
-    }
-    node->data = malloc(data_size);
-    if(!node->data) {
-        free(node);
-        return NULL;
-    }
-    return node;
-}
-
-static void node_destroy(Node* node)
-{
-    free(node->data);
-    node->data = NULL;
-    free(node);
-    node = NULL;
-}
-
 bool DequeLL_push_front(DequeLL* D, void* data)
 {
-    Node* node = node_create(D->data_size);
+    Node* node = Node_create(D->data_size);
     if(!node) {
         return false;
     }
@@ -91,7 +63,7 @@ bool DequeLL_push_front(DequeLL* D, void* data)
 
 bool DequeLL_push_back(DequeLL* D, void* data)
 {
-    Node* node = node_create(D->data_size);
+    Node* node = Node_create(D->data_size);
     if(!node) {
         return false; 
     }
@@ -117,7 +89,7 @@ void DequeLL_pop_front(DequeLL* D)
     if(!D->front) {
         D->back = NULL;
     }
-    node_destroy(node);
+    Node_destroy(node);
     D->size = D->size - 1;
 }
 
@@ -128,6 +100,6 @@ void DequeLL_pop_back(DequeLL* D)
     if(D->back) {
         D->back->next = NULL;
     }
-    node_destroy(node);
+    Node_destroy(node);
     D->size = D->size - 1;
 }

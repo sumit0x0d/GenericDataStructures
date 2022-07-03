@@ -1,9 +1,4 @@
-#include "XORLinkedList.h"
-
-typedef struct Node {
-    void* data;
-    struct Node* XOR;
-} Node;
+#include "Node.h"
 
 XORLinkedList* XORLinkedList_create(size_t data_size, int (*compare)(void* data1, void* data2))
 {
@@ -29,28 +24,6 @@ void* XORLinkedList_back(XORLinkedList* XORLL)
     return XORLL->tail->data;
 }
 
-static Node* node_create(size_t data_size)
-{
-    Node* node = (Node*)malloc(sizeof (Node));
-    if(!node) {
-        return NULL;
-    }
-    node->data = malloc(data_size);
-    if(!node->data) {
-        free(node);
-        return NULL;
-    }
-    return node;
-}
-
-static void node_destroy(Node* node)
-{
-    free(node->data);
-    node->data = NULL;
-    free(node);
-    node = NULL;
-}
-
 void* XORLinkedList_search(XORLinkedList* XORLL, void* data)
 {
     if(!XORLL->size) {
@@ -70,7 +43,7 @@ void* XORLinkedList_search(XORLinkedList* XORLL, void* data)
 
 bool XORLinkedList_push_head(XORLinkedList* XORLL, void* data)
 {
-    Node* node = node_create(XORLL->data_size);
+    Node* node = Node_create(XORLL->data_size);
     if(!node) {
         return false;
     }
@@ -86,7 +59,7 @@ bool XORLinkedList_push_head(XORLinkedList* XORLL, void* data)
 
 bool XORLinkedList_push_tail(XORLinkedList* XORLL, void* data)
 {
-    Node* node = node_create(XORLL->data_size);
+    Node* node = Node_create(XORLL->data_size);
     if(!node) {
         return false;
     }

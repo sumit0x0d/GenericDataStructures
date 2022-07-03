@@ -1,10 +1,4 @@
-#include "LinkedList.h"
-
-typedef struct Node {
-    void* data;
-    struct Node* previous;
-    struct Node* next;
-} Node;
+#include "Node.h"
 
 LinkedList* LinkedList_create(size_t data_size, int (*compare)(void* data1, void* data2))
 {
@@ -30,28 +24,6 @@ void* LinkedList_back(LinkedList* LL)
     return LL->tail->data;
 }
 
-static Node* node_create(size_t data_size)
-{
-    Node* node = (Node*)malloc(sizeof (Node));
-    if(!node) {
-        return NULL;
-    }
-    node->data = malloc(data_size);
-    if(!node->data) {
-        free(node);
-        return NULL;
-    }
-    return node;
-}
-
-static void node_destroy(Node* node)
-{
-    free(node->data);
-    node->data = NULL;
-    free(node);
-    node = NULL;
-}
-
 void* LinkedList_search(LinkedList* LL, void* data)
 {
     if(!LL->size) {
@@ -69,7 +41,7 @@ void* LinkedList_search(LinkedList* LL, void* data)
 
 int LinkedList_push_head(LinkedList* LL, void* data)
 {
-    Node* node = node_create(LL->data_size);
+    Node* node = Node_create(LL->data_size);
     if(!node) {
         return false;
     }
@@ -90,7 +62,7 @@ int LinkedList_push_head(LinkedList* LL, void* data)
 
 bool LinkedList_push_tail(LinkedList* LL, void* data)
 {
-    Node* node = node_create(LL->data_size);
+    Node* node = Node_create(LL->data_size);
     if(!node) {
         return false;
     }
@@ -114,7 +86,7 @@ bool LinkedList_insert(LinkedList* LL, size_t index, void* data)
     if(index > LL->size) {
         return false;
     }
-    Node* node = node_create(LL->data_size);
+    Node* node = Node_create(LL->data_size);
     Node* node_previous = LL->head;
     if(!node) {
         return false;
@@ -148,7 +120,7 @@ bool LinkedList_sorted_insert(LinkedList* LL, void* data)
         return LinkedList_push_tail(LL, data);
     }
     Node* node_previous = LL->head;
-    Node* node = node_create(LL->data_size);
+    Node* node = Node_create(LL->data_size);
     if(!node) {
         return false;
     }
@@ -175,7 +147,7 @@ bool LinkedList_pop_head(LinkedList* LL)
     if(!LL->head) {
         LL->tail = NULL;
     }
-    node_destroy(node);
+    Node_destroy(node);
     LL->size = LL->size - 1;
     return true;
 }
@@ -190,7 +162,7 @@ bool LinkedList_pop_tail(LinkedList* LL)
     if(LL->tail) {
         LL->tail->next = NULL;
     }
-    node_destroy(node);
+    Node_destroy(node);
     LL->size = LL->size - 1;
     return true;
 }

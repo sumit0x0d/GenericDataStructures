@@ -1,9 +1,4 @@
-#include "Stack-LinkedList.h"
-
-typedef struct Node {
-    void* data;
-    struct Node* next;
-} Node;
+#include "Node.h"
 
 StackLL* StackLL_create(size_t data_size)
 {
@@ -39,31 +34,9 @@ void* StackLL_top(StackLL* S)
     return S->top->data;
 }
 
-static Node* node_create(size_t data_size)
-{
-    Node* node = (Node*)malloc(sizeof (Node));
-    if(!node) {
-        return NULL;
-    }
-    node->data = malloc(data_size);
-    if(!node->data) {
-        free(node);
-        return NULL;
-    }
-    return node;
-}
-
-static void node_destroy(Node* node)
-{
-    free(node->data);
-    node->data = NULL;
-    free(node);
-    node = NULL;
-}
-
 bool StackLL_push(StackLL* S, void* data)
 {
-    Node* node = node_create(S->data_size);
+    Node* node = Node_create(S->data_size);
     if(!node) {
         return false;
     }

@@ -1,15 +1,7 @@
 #ifndef CIRCULAR_QUEUE_H
 #define CIRCULAR_QUEUE_H
 
-#include "AVLTree.h"
-
-typedef struct Node {
-    void* data;
-    struct Node* left;
-    struct Node* right;
-    struct Node* parent;
-    int balance_factor;
-} Node;
+#include "Node.h"
 
 typedef struct CircularQueue {
     Node* array;

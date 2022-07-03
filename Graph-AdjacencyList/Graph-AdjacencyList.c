@@ -1,11 +1,4 @@
-#include "Graph-AdjacencyList.h"
-
-typedef struct Vertex {
-    void* data;
-    size_t index;
-    unsigned long weight;
-    struct Vertex *edge;
-} Vertex;
+#include "Vertex.h"
 
 GraphAL* GraphAL_create(size_t data_size)
 {
@@ -46,22 +39,6 @@ void GraphAL_destroy(GraphAL* G)
 //     }
 // }
 
-Vertex *Vertex_create(size_t data_size)
-{
-    Vertex* vertex = (Vertex*)malloc(sizeof (Vertex));
-    if(!vertex) {
-        return NULL;
-    }
-    vertex->data = malloc(data_size);
-    if(!vertex->data) {
-        free(vertex);
-        vertex = NULL;
-        return NULL;
-    }
-    vertex->weight = 0;
-    vertex->edge = NULL;
-    return vertex;
-}
 
 // void vertex_destroy(Vertex *vertex)
 // {
