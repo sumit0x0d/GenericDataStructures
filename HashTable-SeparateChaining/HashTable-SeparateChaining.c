@@ -42,6 +42,11 @@ void HashTableSC_destroy(HashTableSC* HT)
     HT = NULL;
 }
 
+size_t HashTableSC_size(HashTableSC* HT)
+{
+    return HT->size;
+}
+
 bool HashTableSC_empty(HashTableSC* HT)
 {
     if(HT->size) {
@@ -50,11 +55,14 @@ bool HashTableSC_empty(HashTableSC* HT)
     return true;
 }
 
-size_t HashTableSC_size(HashTableSC* HT)
+void* HashTableSC_search(HashTableSC* HT, void* key)
 {
-    return HT->size;
+    size_t index = HT->hash(key, HT->key_size, HT->bucket_count);
+    if(!HT->array[index].key) {
+        return NULL;
+    }
+    return HT->array[index].value;
 }
-
 
 bool HashTableSC_insert(HashTableSC* HT, void* key, void* value)
 {
@@ -84,12 +92,3 @@ bool HashTableSC_insert(HashTableSC* HT, void* key, void* value)
 // {
 //     size_t index = HT->hash(key, HT->bucket_count);
 // }
-
-void* HashTableSC_search(HashTableSC* HT, void* key)
-{
-    size_t index = HT->hash(key, HT->key_size, HT->bucket_count);
-    if(!HT->array[index].key) {
-        return NULL;
-    }
-    return HT->array[index].value;
-}

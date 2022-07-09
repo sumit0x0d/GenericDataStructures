@@ -8,7 +8,6 @@ typedef struct GraphAM GraphAM;
 
 GraphAM *graphAM_create(size_t data_size, unsigned long vertices);
 void GraphAM_destroy(GraphAM *G);
-
 bool GraphAM_adjacent(GraphAM *G, unsigned long vertex);
 bool GraphAM_neighbors(GraphAM *G, unsigned long vertex);
 bool GraphAM_insert_vertex(GraphAM *G, unsigned long vertex);

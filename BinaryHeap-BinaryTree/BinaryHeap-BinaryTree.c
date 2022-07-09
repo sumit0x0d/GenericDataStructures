@@ -2,6 +2,7 @@
 #include "Node.h"
 
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -29,6 +30,11 @@ BinaryHeapBT* BinaryHeapBT_create(size_t data_size, int (*compare)(void* data1, 
 void BinaryHeapBT_destroy(BinaryHeapBT* BH)
 {
 
+}
+
+size_t BinaryHeapBT_size(BinaryHeapBT* BH)
+{
+    return BH->size;
 }
 
 void* BinaryHeapBT_root(BinaryHeapBT* BH)

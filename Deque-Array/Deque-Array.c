@@ -1,5 +1,6 @@
 #include "Deque-Array.h"
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -49,6 +50,27 @@ void DequeA_destroy(DequeA* D)
     D->array = NULL;
     free(D);
     D = NULL;
+}
+
+size_t DequeA_size(DequeA* D)
+{
+    return D->size;
+}
+
+bool DequeA_empty(DequeA* D)
+{
+    if(D->size) {
+        return false;
+    }
+    return true;
+}
+
+bool DequeA_full(DequeA* D)
+{
+    if(D->size != D->capacity) {
+        return false;
+    }
+    return true;
 }
 
 static inline void* data_at(DequeA* D, size_t index)

@@ -31,6 +31,11 @@ RedBlackTree* RedBlackTree_create(size_t data_size,
 
 // }
 
+size_t RedBlackTree_size(RedBlackTree* RBT)
+{
+    return RBT->size;
+}
+
 bool RedBlackTree_empty(RedBlackTree* RBT)
 {
     if(RBT->size) {
@@ -39,9 +44,28 @@ bool RedBlackTree_empty(RedBlackTree* RBT)
     return true;
 }
 
-size_t RedBlackTree_size(RedBlackTree* RBT)
+void* RedBlackTree_root(RedBlackTree* RBT)
 {
-    return RBT->size;
+    return RBT->root->data;
+}
+
+void* RedBlackTree_search(RedBlackTree* RBT, void* data)
+{
+    Node* node = RBT->root;
+    int compare;
+    while(node) {
+        compare = RBT->compare(data, node->data);
+        if(compare == 0) {
+            return node;
+        }
+        else if(compare < 0) {
+            node = node->left;
+        }
+        else {
+            node = node->right;
+        }
+    }
+    return NULL;
 }
 
 // void node_recolor(Node* node)
@@ -136,27 +160,3 @@ bool RedBlackTree_insert(RedBlackTree* RBT, void* data)
 // {
 
 // }
-
-void* RedBlackTree_search(RedBlackTree* RBT, void* data)
-{
-    Node* node = RBT->root;
-    int compare;
-    while(node) {
-        compare = RBT->compare(data, node->data);
-        if(compare == 0) {
-            return node;
-        }
-        else if(compare < 0) {
-            node = node->left;
-        }
-        else {
-            node = node->right;
-        }
-    }
-    return NULL;
-}
-
-void* RedBlackTree_root(RedBlackTree* RBT)
-{
-    return RBT->root->data;
-}

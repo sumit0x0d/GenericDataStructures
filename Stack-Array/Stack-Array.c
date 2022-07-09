@@ -49,6 +49,11 @@ void StackA_destroy(StackA* S)
     S = NULL;
 }
 
+size_t StackA_size(StackA* S)
+{
+    return S->size;
+}
+
 bool StackA_empty(StackA* S)
 {
     if(S->size) {
@@ -63,11 +68,6 @@ bool StackA_full(StackA* S)
         return false;
     }
     return true;
-}
-
-size_t StackA_size(StackA* S)
-{
-    return S->size;
 }
 
 static inline void* data_at(StackA* S, size_t index)

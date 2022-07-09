@@ -2,6 +2,7 @@
 #include "Node.h"
 
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -33,11 +34,15 @@ PriorityQueueBH* PriorityQueueBH_create(size_t data_size, size_t priority_size,
 
 // }
 
+size_t PriorityQueueBH_size(PriorityQueueBH* PQ)
+{
+    return PQ->size;
+}
+
 void* PriorityQueueBH_root(PriorityQueueBH* PQ)
 {
     return PQ->root->data;
 }
-
 
 bool PriorityQueueBH_enqueue(PriorityQueueBH* PQ, void* data, void* priority)
 {

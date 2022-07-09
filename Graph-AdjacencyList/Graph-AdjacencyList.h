@@ -8,9 +8,7 @@ typedef struct GraphAL GraphAL;
 
 GraphAL* GraphAL_create(size_t data_size);
 void GraphAL_destroy(GraphAL* G);
-
 void* GraphAL_vertices(GraphAL* G);
-
 int GraphAL_vertex_insert(GraphAL* G, void* data);
 int GraphAL_vertex_remove(GraphAL* G, void* data);
 // int GraphAL_edge_insert(GraphAL* G, GraphALVertex *vertex_source,

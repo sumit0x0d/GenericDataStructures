@@ -55,6 +55,11 @@ void QueueA_destroy(QueueA* Q)
     Q = NULL;
 }
 
+size_t QueueA_size(QueueA* Q)
+{
+    return Q->size;
+}
+
 bool QueueA_empty(QueueA* Q)
 {
     if(Q->size) {
@@ -69,11 +74,6 @@ bool QueueA_full(QueueA* Q)
         return false;
     }
     return true;
-}
-
-size_t QueueA_size(QueueA* Q)
-{
-    return Q->size;
 }
 
 static inline void* data_at(QueueA* Q, size_t index)

@@ -8,12 +8,10 @@ typedef struct LinkedList LinkedList;
 
 LinkedList* LinkedList_create(size_t data_size, int (*compare)(void* data1, void* data2));
 void LinkedList_destroy(LinkedList* LL);
-bool LinkedList_empty(LinkedList* LL);
 size_t LinkedList_size(LinkedList* LL);
-
+bool LinkedList_empty(LinkedList* LL);
 void* LinkedList_head(LinkedList* LL);
 void* LinkedList_tail(LinkedList* LL);
-
 bool LinkedList_push_front(LinkedList* LL, void* data);
 bool LinkedList_push_back(LinkedList* LL, void* data);
 bool LinkedList_insert(LinkedList* LL, size_t index, void* data);
@@ -23,7 +21,6 @@ bool LinkedList_pop_back(LinkedList* LL);
 bool LinkedList_remove(LinkedList* LL, void* data);
 bool LinkedList_erase(LinkedList* LL, size_t index);
 bool LinkedList_update(LinkedList* LL, size_t index, void* data);
-
 void* LinkedList_search(LinkedList* LL, void* data);
 void* LinkedList_at(LinkedList* LL, size_t index);
 

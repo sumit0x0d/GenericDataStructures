@@ -59,17 +59,17 @@ void PriorityQueueA_destroy(PriorityQueueA* PQ)
     PQ = NULL;
 }
 
+size_t PriorityQueueA_size(PriorityQueueA* PQ)
+{
+    return PQ->size;
+}
+
 bool PriorityQueueA_empty(PriorityQueueA* PQ)
 {
     if(PQ->size) {
         return false;
     }
     return true;
-}
-
-size_t PriorityQueueA_size(PriorityQueueA* PQ)
-{
-    return PQ->size;
 }
 
 static inline void* data_at(PriorityQueueA* PQ, size_t index)

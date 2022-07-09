@@ -42,17 +42,17 @@ void DequeLL_destroy(DequeLL* D)
     D = NULL;
 }
 
+size_t DequeLL_size(DequeLL* D)
+{
+    return D->size;
+}
+
 bool DequeLL_empty(DequeLL* D)
 {
     if(D->size) {
         return false;
     }
     return true;
-}
-
-size_t DequeLL_size(DequeLL* D)
-{
-    return D->size;
 }
 
 void* DequeLL_front(DequeLL* Q)

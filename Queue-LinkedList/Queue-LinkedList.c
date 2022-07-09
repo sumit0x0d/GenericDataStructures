@@ -42,14 +42,6 @@ void QueueLL_destroy(QueueLL* Q)
     Q = NULL;
 }
 
-bool QueueLL_empty(QueueLL* Q)
-{
-    if(Q->size) {
-        return false;
-    }
-    return true;
-}
-
 size_t QueueLL_size(QueueLL* Q)
 {
     return Q->size;
@@ -63,6 +55,14 @@ void* QueueLL_front(QueueLL* Q)
 void* QueueLL_back(QueueLL* Q)
 {
     return Q->back->data;
+}
+
+bool QueueLL_empty(QueueLL* Q)
+{
+    if(Q->size) {
+        return false;
+    }
+    return true;
 }
 
 bool QueueLL_enqueue(QueueLL* Q, void* data)

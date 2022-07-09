@@ -27,6 +27,19 @@ XORLinkedList* XORLinkedList_create(size_t data_size, int (*compare)(void* data1
     return XORLL;
 }
 
+size_t XORLinkedList_size(XORLinkedList* XORLL)
+{
+    return XORLL->size;
+}
+
+bool XORLinkedList_empty(XORLinkedList* XORLL)
+{
+    if(XORLL->size) {
+        return false;
+    }
+    return false;
+}
+
 void* XORLinkedList_head(XORLinkedList* XORLL)
 {
     return XORLL->head->data;

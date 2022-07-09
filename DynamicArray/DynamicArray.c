@@ -37,6 +37,17 @@ DynamicArray* DynamicArray_create(size_t data_size, size_t capacity, double grow
     return DA;
 }
 
+static bool DynamicArray_change_capacity(DynamicArray* DA, size_t capacity)
+{
+    void* array = realloc(DA->array, DA->data_size * DA->capacity);
+    if(!array) {
+        return false;
+    }
+    DA->array = array;
+    DA->capacity = capacity;
+    return true;
+}
+
 void DynamicArray_destroy(DynamicArray* DA)
 {
     free(DA->array);
@@ -46,14 +57,16 @@ void DynamicArray_destroy(DynamicArray* DA)
     DA = NULL;
 }
 
-static bool DynamicArray_change_capacity(DynamicArray* DA, size_t capacity)
+size_t DynamicArray_size(DynamicArray* DA)
 {
-    void* array = realloc(DA->array, DA->data_size * DA->capacity);
-    if(!array) {
+    return DA->size;
+}
+
+bool DynamicArray_empty(DynamicArray* DA)
+{
+    if(DA->size) {
         return false;
     }
-    DA->array = array;
-    DA->capacity = capacity;
     return true;
 }
 

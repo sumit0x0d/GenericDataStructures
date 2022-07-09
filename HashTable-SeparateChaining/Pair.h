@@ -9,7 +9,7 @@ typedef struct Pair {
     struct Pair* next;
 } Pair;
 
-static inline Pair* Pair_create(size_t key_size, size_t value_size)
+static Pair* Pair_create(size_t key_size, size_t value_size)
 {
     Pair* P = (Pair*)malloc(sizeof (Pair));
     if(!P) {
@@ -29,14 +29,14 @@ static inline Pair* Pair_create(size_t key_size, size_t value_size)
     return P;
 }
 
-// static inline void Pair_destroy(Pair *P)
-// {
-//     free(P->key);
-//     P->key = NULL;
-//     free(P->value);
-//     P->value = NULL;
-//     free(P);
-//     P = NULL;
-// }
+static void Pair_destroy(Pair *P)
+{
+    free(P->key);
+    P->key = NULL;
+    free(P->value);
+    P->value = NULL;
+    free(P);
+    P = NULL;
+}
 
 #endif

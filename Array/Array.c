@@ -50,6 +50,27 @@ void Array_destroy(Array* A)
     A = NULL;
 }
 
+size_t Array_size(Array* A)
+{
+    return A->size;
+}
+
+bool Array_empty(Array* A)
+{
+    if(A->size) {
+        return false;
+    }
+    return true;
+}
+
+bool Array_full(Array* A)
+{
+    if(A->size != A->capacity) {
+        return false;
+    }
+    return true;
+}
+
 static inline void* data_at(Array* A, size_t index)
 {
     return (char*)A->array + (A->data_size * index);

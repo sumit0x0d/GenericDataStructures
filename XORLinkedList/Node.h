@@ -30,5 +30,4 @@ static void Node_destroy(Node* N)
     N = NULL;
 }
 
-
 #endif

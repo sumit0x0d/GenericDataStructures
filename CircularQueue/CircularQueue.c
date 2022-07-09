@@ -41,6 +41,11 @@ void CircularQueue_destroy(CircularQueue *CQ)
     CQ = NULL;
 }
 
+size_t CircularQueue_size(CircularQueue *CQ)
+{
+    return CQ->size;
+}
+
 bool CircularQueue_empty(CircularQueue *CQ)
 {
     if(CQ->size) {
@@ -55,11 +60,6 @@ bool CircularQueue_full(CircularQueue *CQ)
         return false;
     }
     return true;
-}
-
-size_t CircularQueue_size(CircularQueue *CQ)
-{
-    return CQ->size;
 }
 
 static inline void* data_at(CircularQueue* CQ, size_t index)

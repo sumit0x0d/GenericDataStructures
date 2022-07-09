@@ -19,6 +19,11 @@ BinaryHeapA* BinaryHeapA_create(size_t data_size, size_t capacity,
     return BH;
 }
 
+size_t BinaryHeapBT_size(BinaryHeapA* BH)
+{
+    return BH->size;
+}
+
 void BinaryHeapA_insert(BinaryHeapA* BH, void* data)
 {
 
