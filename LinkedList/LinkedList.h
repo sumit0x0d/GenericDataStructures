@@ -2,19 +2,14 @@
 #define LINKED_LIST_H
 
 #include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
+#include <stddef.h>
 
-typedef struct LinkedList {
-    struct Node* head;
-    struct Node* tail;
-    size_t data_size;
-    size_t size;
-    int (*compare)(void* data1, void* data2);
-} LinkedList;
+typedef struct LinkedList LinkedList;
 
 LinkedList* LinkedList_create(size_t data_size, int (*compare)(void* data1, void* data2));
 void LinkedList_destroy(LinkedList* LL);
+bool LinkedList_empty(LinkedList* LL);
+size_t LinkedList_size(LinkedList* LL);
 
 void* LinkedList_head(LinkedList* LL);
 void* LinkedList_tail(LinkedList* LL);

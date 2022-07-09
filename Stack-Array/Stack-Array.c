@@ -1,5 +1,15 @@
 #include "Stack-Array.h"
 
+#include <stdlib.h>
+#include <string.h>
+
+struct StackA {
+    void* array;
+    size_t data_size;
+    size_t capacity;
+    size_t size;
+};
+
 StackA* StackA_create(size_t data_size, size_t capacity)
 {
     StackA* S = (StackA*)malloc(sizeof (StackA));
@@ -37,6 +47,27 @@ void StackA_destroy(StackA* S)
     S->array = NULL;
     free(S);
     S = NULL;
+}
+
+bool StackA_empty(StackA* S)
+{
+    if(S->size) {
+        return false;
+    }
+    return true;
+}
+
+bool StackA_full(StackA* S)
+{
+    if(S->size != S->capacity) {
+        return false;
+    }
+    return true;
+}
+
+size_t StackA_size(StackA* S)
+{
+    return S->size;
 }
 
 static inline void* data_at(StackA* S, size_t index)

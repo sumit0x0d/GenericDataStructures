@@ -3,6 +3,8 @@
 
 #include "Node.h"
 
+#include <string.h>
+
 typedef struct CircularQueue {
     Node* array;
     size_t front;

@@ -2,16 +2,9 @@
 #define ARRAY_H
 
 #include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
+#include <stddef.h>
 
-typedef struct Array {
-    void* array;
-    size_t data_size;
-    size_t capacity;
-    size_t size;
-    int (*compare)(void* data1, void* data2);
-} Array;
+typedef struct Array Array;
 
 Array* Array_create(size_t data_size, size_t capacity, int (*compare)(void* data1, void* data2));
 bool Array_change_capacity(Array* A, size_t capacity);

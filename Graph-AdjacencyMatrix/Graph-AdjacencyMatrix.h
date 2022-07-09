@@ -2,13 +2,9 @@
 #define GRAPH_ADJACENCY_MATRIX_H
 
 #include <stdbool.h>
-#include <stdlib.h>
+#include <stddef.h>
 
-typedef struct GraphAM {
-    void** array;
-    size_t data_size;
-    unsigned long vertices;
-} GraphAM;
+typedef struct GraphAM GraphAM;
 
 GraphAM *graphAM_create(size_t data_size, unsigned long vertices);
 void GraphAM_destroy(GraphAM *G);

@@ -1,4 +1,16 @@
+#include "RedBlackTree.h"
 #include "Node.h"
+
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct RedBlackTree {
+    Node* root;
+    size_t data_size;
+    size_t size;
+    int (*compare)(void* data1, void* data2);
+};
 
 RedBlackTree* RedBlackTree_create(size_t data_size,
     int (*compare)(void* data1, void* data2))
@@ -12,6 +24,24 @@ RedBlackTree* RedBlackTree_create(size_t data_size,
     RBT->data_size = data_size;
     RBT->compare = compare;
     return RBT;
+}
+
+// void RedBlackTree_destroy(RedBlackTree* RBT)
+// {
+
+// }
+
+bool RedBlackTree_empty(RedBlackTree* RBT)
+{
+    if(RBT->size) {
+        return false;
+    }
+    return true;
+}
+
+size_t RedBlackTree_size(RedBlackTree* RBT)
+{
+    return RBT->size;
 }
 
 // void node_recolor(Node* node)

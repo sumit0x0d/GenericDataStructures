@@ -1,4 +1,16 @@
+#include "Queue-LinkedList.h"
 #include "Node.h"
+
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct QueueLL {
+    Node* front;
+    Node* back;
+    size_t data_size;
+    size_t size;
+};
 
 QueueLL* QueueLL_create(size_t data_size)
 {
@@ -28,6 +40,19 @@ void QueueLL_destroy(QueueLL* Q)
     }
     free(Q);
     Q = NULL;
+}
+
+bool QueueLL_empty(QueueLL* Q)
+{
+    if(Q->size) {
+        return false;
+    }
+    return true;
+}
+
+size_t QueueLL_size(QueueLL* Q)
+{
+    return Q->size;
 }
 
 void* QueueLL_front(QueueLL* Q)

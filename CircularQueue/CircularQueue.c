@@ -1,5 +1,18 @@
 #include "CircularQueue.h"
 
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct CircularQueue {
+    void* array;
+    size_t data_size;
+    size_t front;
+    size_t back;
+    size_t capacity;
+    size_t size;
+};
+
 CircularQueue* CircularQueue_create(size_t data_size, size_t capacity)
 {
     CircularQueue* CQ = (CircularQueue*)malloc(sizeof (CircularQueue));
@@ -26,6 +39,27 @@ void CircularQueue_destroy(CircularQueue *CQ)
     CQ->array = NULL;
     free(CQ);
     CQ = NULL;
+}
+
+bool CircularQueue_empty(CircularQueue *CQ)
+{
+    if(CQ->size) {
+        return false;
+    }
+    return true;
+}
+
+bool CircularQueue_full(CircularQueue *CQ)
+{
+    if(CQ->size != CQ->capacity) {
+        return false;
+    }
+    return true;
+}
+
+size_t CircularQueue_size(CircularQueue *CQ)
+{
+    return CQ->size;
 }
 
 static inline void* data_at(CircularQueue* CQ, size_t index)

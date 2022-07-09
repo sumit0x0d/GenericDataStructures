@@ -1,4 +1,17 @@
 #include "PriorityQueue-BinaryHeap.h"
+#include "Node.h"
+
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct PriorityQueueBH {
+    Node* root;
+    size_t data_size;
+    size_t priority_size;
+    size_t size;
+    int (*compare)(void* priority1, void* priority2);
+};
 
 PriorityQueueBH* PriorityQueueBH_create(size_t data_size, size_t priority_size,
     int (*compare)(void* priority1, void* priority2))
@@ -25,36 +38,10 @@ void* PriorityQueueBH_root(PriorityQueueBH* PQ)
     return PQ->root->data;
 }
 
-static PriorityQueueBHNode* node_create(size_t data_size, size_t priority_size)
-{
-    PriorityQueueBHNode* node = (PriorityQueueBHNode*)malloc(sizeof (PriorityQueueBHNode));
-    if(!node) {
-        return NULL;
-    }
-    node->data = malloc(data_size);
-    if(!node->data) {
-        free(node);
-        return NULL;
-    }
-    node->priority = malloc(priority_size);
-    if(!node->priority) {
-        free(node->data);
-        free(node);
-        return NULL;
-    }
-    node->left = NULL;
-    node->right = NULL;
-    return node;
-}
-
-// static void node_destroy(PriorityQueueBHNode* node)
-// {
-    
-// }
 
 bool PriorityQueueBH_enqueue(PriorityQueueBH* PQ, void* data, void* priority)
 {
-    PriorityQueueBHNode* node = node_create(PQ->data_size, PQ->priority_size);
+    Node* node = Node_create(PQ->data_size, PQ->priority_size);
     if(!node) {
         return false;
     }

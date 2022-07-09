@@ -1,4 +1,16 @@
+#include "Deque-LinkedList.h"
 #include "Node.h"
+
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct DequeLL {
+    Node* front;
+    Node* back;
+    size_t data_size;
+    size_t size;
+};
 
 DequeLL* DequeLL_create(size_t data_size)
 {
@@ -28,6 +40,19 @@ void DequeLL_destroy(DequeLL* D)
     }
     free(D);
     D = NULL;
+}
+
+bool DequeLL_empty(DequeLL* D)
+{
+    if(D->size) {
+        return false;
+    }
+    return true;
+}
+
+size_t DequeLL_size(DequeLL* D)
+{
+    return D->size;
 }
 
 void* DequeLL_front(DequeLL* Q)

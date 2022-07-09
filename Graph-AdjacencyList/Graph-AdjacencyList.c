@@ -1,4 +1,16 @@
+#include "Graph-AdjacencyList.h"
 #include "Vertex.h"
+
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct GraphAL {
+    struct Vertex* adjacency_list;
+    size_t data_size;
+    unsigned long vertices;
+    size_t size;
+};
 
 GraphAL* GraphAL_create(size_t data_size)
 {

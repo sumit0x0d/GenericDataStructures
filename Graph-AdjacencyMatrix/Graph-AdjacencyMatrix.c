@@ -1,5 +1,14 @@
 #include "Graph-AdjacencyMatrix.h"
 
+#include <stdbool.h>
+#include <stdlib.h>
+
+struct GraphAM {
+    void** array;
+    size_t data_size;
+    unsigned long vertices;
+};
+
 GraphAM *graphAM_create(size_t data_size, unsigned long vertices)
 {
     GraphAM* G = (GraphAM*)malloc(sizeof (GraphAM));

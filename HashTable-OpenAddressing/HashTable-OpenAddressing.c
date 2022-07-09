@@ -1,5 +1,19 @@
 #include "HashTable-OpenAddressing.h"
 
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct HashTableOA {
+    void* array;
+    size_t key_size;
+    size_t value_size;
+    size_t bucket_count;
+    size_t size;
+    size_t (*hash)(void* key, size_t key_size, size_t bucket_count);
+    int (*compare)(void* key1, void* key2);
+};
+
 HashTableOA* HashTableOA_create(size_t key_size, size_t value_size, size_t bucket_count,
     size_t (*hash)(void* key, size_t key_size, size_t bucket_count),
     int (*compare)(void* key1, void* key2))
@@ -28,6 +42,27 @@ void HashTableOA_destroy(HashTableOA* HT)
     HT->array = NULL;
     free(HT);
     HT = NULL;
+}
+
+bool HashTableOA_empty(HashTableOA* HT)
+{
+    if(HT->size) {
+        return false;
+    }
+    return true;
+}
+
+bool HashTableOA_full(HashTableOA* HT)
+{
+    if(HT->size != HT->bucket_count) {
+        return false;
+    }
+    return true;
+}
+
+size_t HashTableOA_size(HashTableOA* HT)
+{
+    return HT->size;
 }
 
 static inline void* key_at(HashTableOA* HT, size_t index)

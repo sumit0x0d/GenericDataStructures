@@ -2,18 +2,14 @@
 #define AVL_TREE_H
 
 #include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
+#include <stddef.h>
 
-typedef struct AVLTree {
-    struct Node* root;
-    size_t data_size;
-    size_t size;
-    int (*compare)(void* data1, void* data2);
-} AVLTree;
+typedef struct AVLTree AVLTree;
 
 AVLTree* AVLTree_create(size_t data_size, int (*compare)(void* data1, void* data2));
 void AVLTree_destroy(AVLTree* AVLT);
+bool AVLTree_empty(AVLTree* AVLT);
+size_t AVLTree_size(AVLTree* AVLT);
 
 bool AVLTree_insert(AVLTree* AVLT, void* data);
 bool AVLTree_remove(AVLTree* AVLT, void* data);

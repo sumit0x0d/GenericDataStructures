@@ -1,5 +1,16 @@
 #include "Matrix.h"
 
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct Matrix {
+    void** array;
+    size_t data_size;
+    size_t rows;
+    size_t columns;
+};
+
 Matrix* Matrix_create(size_t data_size, size_t rows, size_t columns)
 {
     Matrix* M = (Matrix*)malloc(sizeof (Matrix));

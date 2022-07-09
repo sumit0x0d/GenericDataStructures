@@ -1,4 +1,18 @@
+#include "HashTable-SeparateChaining.h"
 #include "Pair.h"
+
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct HashTableSC {
+    Pair* array;
+    size_t key_size;
+    size_t value_size;
+    size_t bucket_count;
+    size_t size;
+    size_t (*hash)(void* key, size_t key_size, size_t bucket_count);
+};
 
 HashTableSC* HashTableSC_create(size_t key_size, size_t value_size, size_t bucket_count,
     size_t (*hash)(void* key, size_t key_size, size_t bucket_count))
@@ -27,6 +41,20 @@ void HashTableSC_destroy(HashTableSC* HT)
     free(HT);
     HT = NULL;
 }
+
+bool HashTableSC_empty(HashTableSC* HT)
+{
+    if(HT->size) {
+        return false;
+    }
+    return true;
+}
+
+size_t HashTableSC_size(HashTableSC* HT)
+{
+    return HT->size;
+}
+
 
 bool HashTableSC_insert(HashTableSC* HT, void* key, void* value)
 {

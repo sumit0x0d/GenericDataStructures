@@ -2,15 +2,9 @@
 #define GRAPH_ADJACENCY_LIST_H
 
 #include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
+#include <stddef.h>
 
-typedef struct GraphAL {
-    struct Vertex* adjacency_list;
-    size_t data_size;
-    unsigned long vertices;
-    size_t size;
-} GraphAL;
+typedef struct GraphAL GraphAL;
 
 GraphAL* GraphAL_create(size_t data_size);
 void GraphAL_destroy(GraphAL* G);

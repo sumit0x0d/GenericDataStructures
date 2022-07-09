@@ -1,5 +1,20 @@
 #include "PriorityQueue-Array.h"
 
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct PriorityQueueA {
+    void* array;
+    size_t data_size;
+    size_t priority_size;
+    size_t front;
+    size_t back;
+    size_t capacity;
+    size_t size;
+    int (*compare)(void* priority1, void* priority2);
+};
+
 PriorityQueueA* PriorityQueueA_create(size_t data_size, size_t priority_size, size_t capacity,
     int (*compare)(void* priority1, void* priority2))
 {
@@ -42,6 +57,19 @@ void PriorityQueueA_destroy(PriorityQueueA* PQ)
     PQ->array = NULL;
     free(PQ);
     PQ = NULL;
+}
+
+bool PriorityQueueA_empty(PriorityQueueA* PQ)
+{
+    if(PQ->size) {
+        return false;
+    }
+    return true;
+}
+
+size_t PriorityQueueA_size(PriorityQueueA* PQ)
+{
+    return PQ->size;
 }
 
 static inline void* data_at(PriorityQueueA* PQ, size_t index)

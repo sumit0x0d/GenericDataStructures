@@ -2,16 +2,9 @@
 #define XOR_LINKED_LIST_H
 
 #include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
+#include <stddef.h>
 
-typedef struct XORLinkedList {
-    struct Node* head;
-    struct Node* tail;
-    size_t data_size;
-    size_t size;
-    int (*compare)(void* data1, void* data2);
-} XORLinkedList;
+typedef struct XORLinkedList XORLinkedList;
 
 XORLinkedList* XORLinkedList_create(size_t data_size, int (*compare)(void* data1, void* data2));
 void XORLinkedList_destroy(XORLinkedList* XORLL);

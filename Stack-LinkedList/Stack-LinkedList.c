@@ -1,4 +1,15 @@
+#include "Stack-LinkedList.h"
 #include "Node.h"
+
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct StackLL {
+    Node* top;
+    size_t data_size;
+    size_t size;
+};
 
 StackLL* StackLL_create(size_t data_size)
 {
@@ -29,6 +40,19 @@ void StackLL_destroy(StackLL* S)
     S = NULL;
 }
 
+size_t StackLL_size(StackLL* S)
+{
+    return S->size;
+}
+
+bool StackLL_empty(StackLL* S)
+{
+    if(S->size) {
+        return false;
+    }
+    return true;
+}
+
 void* StackLL_top(StackLL* S)
 {
     return S->top->data;
@@ -51,6 +75,6 @@ void StackLL_pop(StackLL* S)
 {
     Node* node = S->top;
     S->top = S->top->next;
-    node_destroy(node);
+    Node_destroy(node);
     S->size = S->size - 1;
 }

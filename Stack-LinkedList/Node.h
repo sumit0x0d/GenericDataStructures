@@ -1,14 +1,14 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include "Stack-LinkedList.h"
+#include <stdlib.h>
 
 typedef struct Node {
     void* data;
     struct Node* next;
 } Node;
 
-static inline Node* Node_create(size_t data_size)
+static Node* Node_create(size_t data_size)
 {
     Node* N = (Node*)malloc(sizeof (Node));
     if(!N) {
@@ -22,7 +22,7 @@ static inline Node* Node_create(size_t data_size)
     return N;
 }
 
-static inline void node_destroy(Node* N)
+static void Node_destroy(Node* N)
 {
     free(N->data);
     N->data = NULL;

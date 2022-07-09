@@ -1,7 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include "RedBlackTree.h"
+#include <stdlib.h>
 
 typedef struct Node {
     void* data;
@@ -9,9 +9,8 @@ typedef struct Node {
     struct Node* right;
     struct Node* parent;
     // int color; // RED = 0 BLACK = 1
-    enum {RED, BLAC} color;
+    enum {RED, BLACK} color;
 } Node;
-
 
 static Node* Node_create(size_t data_size)
 {

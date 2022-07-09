@@ -1,7 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include "ThreadedBinaryTree.h"
+#include <stdlib.h>
 
 typedef struct Node {
     void* data;

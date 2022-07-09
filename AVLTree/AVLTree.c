@@ -1,4 +1,16 @@
+#include "AVLTree.h"
 #include "CircularQueue.h"
+
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct AVLTree {
+    Node* root;
+    size_t data_size;
+    size_t size;
+    int (*compare)(void* data1, void* data2);
+};
 
 AVLTree* AVLTree_create(size_t data_size, int (*compare)(void* data1, void* data2))
 {
@@ -17,6 +29,19 @@ void AVLTree_destroy(AVLTree* AVLT)
 {
     free(AVLT);
     AVLT = NULL;
+}
+
+bool AVLTree_empty(AVLTree* AVLT)
+{
+    if(AVLT->size) {
+        return false;
+    }
+    return true;
+}
+
+size_t AVLTree_size(AVLTree* AVLT)
+{
+    return AVLT->size;
 }
 
 void* AVLTree_root(AVLTree* AVLT)

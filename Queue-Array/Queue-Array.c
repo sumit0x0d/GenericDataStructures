@@ -1,5 +1,18 @@
 #include "Queue-Array.h"
 
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct QueueA {
+    void* array;
+    size_t data_size;
+    size_t front;
+    size_t back;
+    size_t capacity;
+    size_t size;
+};
+
 QueueA* QueueA_create(size_t data_size, size_t capacity)
 {
     QueueA* Q = (QueueA*)malloc(sizeof (QueueA));
@@ -40,6 +53,27 @@ void QueueA_destroy(QueueA* Q)
     Q->array = NULL;
     free(Q);
     Q = NULL;
+}
+
+bool QueueA_empty(QueueA* Q)
+{
+    if(Q->size) {
+        return false;
+    }
+    return true;
+}
+
+bool QueueA_full(QueueA* Q)
+{
+    if(Q->size != Q->capacity) {
+        return false;
+    }
+    return true;
+}
+
+size_t QueueA_size(QueueA* Q)
+{
+    return Q->size;
 }
 
 static inline void* data_at(QueueA* Q, size_t index)

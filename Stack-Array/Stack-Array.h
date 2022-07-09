@@ -2,19 +2,16 @@
 #define STACK_ARRAY_H
 
 #include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
+#include <stddef.h>
 
-typedef struct StackA {
-    void* array;
-    size_t data_size;
-    size_t capacity;
-    size_t size;
-} StackA;
+typedef struct StackA StackA;
 
 StackA* StackA_create(size_t data_size, size_t capacity);
 bool StackA_change_capacity(StackA* S, size_t capacity);
 void StackA_destroy(StackA* S);
+bool StackA_empty(StackA* S);
+bool StackA_full(StackA* S);
+size_t StackA_size(StackA* S);
 
 void* StackA_top(StackA* S);
 

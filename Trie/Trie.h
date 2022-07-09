@@ -1,16 +1,13 @@
 #ifndef TRIE_H
 #define TRIE_H
 
-
 #include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
+#include <stddef.h>
 
-typedef struct TrieNode TrieNode;
 typedef struct Trie Trie;
 
 Trie *trie_create();
-TrieNode* trie_search(Trie *trie, char* string);
+char* trie_search(Trie *trie, char* string);
 int trie_insert(Trie *trie, char* string);
 int trie_remove(Trie *trie, char* string);
 

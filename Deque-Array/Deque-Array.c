@@ -1,5 +1,17 @@
 #include "Deque-Array.h"
 
+#include <stdlib.h>
+#include <string.h>
+
+struct DequeA {
+    void* array;
+    size_t data_size;
+    size_t front;
+    size_t back;
+    size_t capacity;
+    size_t size;
+};
+
 DequeA* DequeA_create(size_t data_size, size_t capacity)
 {
     DequeA* D = (DequeA*)malloc(sizeof (DequeA));

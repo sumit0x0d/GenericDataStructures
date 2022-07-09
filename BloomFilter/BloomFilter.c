@@ -1,5 +1,17 @@
 #include "BloomFilter.h"
 
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct BloomFilter {
+    char* array;
+    size_t data_size;
+    size_t bucket_count;
+    size_t size;
+    size_t (*hash)(void* data, size_t data_size, size_t bucket_count);
+};
+
 BloomFilter* BloomFilter_create(size_t data_size, size_t bucket_count,
     size_t (*hash)(void* data, size_t data_size, size_t bucket_count))
 {

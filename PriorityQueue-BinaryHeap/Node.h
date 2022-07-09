@@ -6,7 +6,9 @@
 typedef struct Node {
     void* data;
     void* priority;
-    struct Node* next;
+    struct Node* left;
+    struct Node* right;
+    struct Node* parent;
 } Node;
 
 static Node* Node_create(size_t data_size, size_t priority_size)
@@ -26,15 +28,14 @@ static Node* Node_create(size_t data_size, size_t priority_size)
         free(node);
         return NULL;
     }
+    node->left = NULL;
+    node->right = NULL;
     return node;
 }
 
-static void Node_destroy(Node* node)
-{
-    free(node->data);
-    node->data = NULL;
-    free(node);
-    node = NULL;
-}
+// static void node_destroy(Node* node)
+// {
+    
+// }
 
 #endif

@@ -1,6 +1,15 @@
+#include "ThreadedBinaryTree.h"
 #include "Node.h"
 
-static Node* node_create(size_t data_size);
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct ThreadedBinaryTree {
+    struct Node* root;
+    size_t data_size;
+    size_t size;
+};
 
 ThreadedBinaryTree* ThreadedBinaryTree_create(size_t data_size)
 {

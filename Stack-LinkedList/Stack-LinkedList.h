@@ -2,17 +2,14 @@
 #define STACK_LINKED_LIST_H
 
 #include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
+#include <stddef.h>
 
-typedef struct StackLL {
-    struct Node* top;
-    size_t data_size;
-    size_t size;
-} StackLL;
+typedef struct StackLL StackLL;
 
 StackLL* StackLL_create(size_t data_size);
 void StackLL_destroy(StackLL* S);
+size_t StackLL_size(StackLL* S);
+bool StackLL_empty(StackLL* S);
 
 void* StackLL_top(StackLL* S);
 

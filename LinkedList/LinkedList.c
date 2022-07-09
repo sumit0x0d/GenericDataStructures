@@ -1,4 +1,17 @@
+#include "LinkedList.h"
 #include "Node.h"
+
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct LinkedList {
+    Node* head;
+    Node* tail;
+    size_t data_size;
+    size_t size;
+    int (*compare)(void* data1, void* data2);
+};
 
 LinkedList* LinkedList_create(size_t data_size, int (*compare)(void* data1, void* data2))
 {
@@ -12,6 +25,19 @@ LinkedList* LinkedList_create(size_t data_size, int (*compare)(void* data1, void
     LL->size = 0;
     LL->compare = compare;
     return LL;
+}
+
+bool LinkedList_empty(LinkedList* LL)
+{
+    if(LL->size) {
+        return false;
+    }
+    return true;
+}
+
+size_t LinkedList_size(LinkedList* LL)
+{
+    return LL->size;
 }
 
 void* LinkedList_head(LinkedList* LL)

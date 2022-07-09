@@ -2,18 +2,14 @@
 #define DEQUE_LINKED_LIST_H
 
 #include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
+#include <stddef.h>
 
-typedef struct DequeLL {
-    struct Node* front;
-    struct Node* back;
-    size_t data_size;
-    size_t size;
-} DequeLL;
+typedef struct DequeLL DequeLL;
 
 DequeLL* DequeLL_create(size_t data_size);
 void DequeLL_destroy(DequeLL* D);
+bool DequeLL_empty(DequeLL* D);
+size_t DequeLL_size(DequeLL* D);
 
 bool DequeLL_push_front(DequeLL* D, void* data);
 bool DequeLL_push_back(DequeLL* D, void* data);

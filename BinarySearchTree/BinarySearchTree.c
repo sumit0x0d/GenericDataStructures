@@ -1,4 +1,16 @@
+#include "BinarySearchTree.h"
 #include "Node.h"
+
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct BinarySearchTree {
+    struct Node* root;
+    size_t data_size;
+    size_t size;
+    int (*compare)(void* data1, void* data2);
+};
 
 BinarySearchTree* BinarySearchTree_create(size_t data_size,
     int (*compare)(void* data1, void* data2))
@@ -18,6 +30,19 @@ BinarySearchTree* BinarySearchTree_create(size_t data_size,
 // {
 
 // }
+
+bool BinarySearchTree_empty(BinarySearchTree* BST)
+{
+    if(BST->size) {
+        return false;
+    }
+    return true;
+}
+
+size_t BinarySearchTree_size(BinarySearchTree* BST)
+{
+    return BST->size;
+}
 
 bool BinarySearchTree_insert(BinarySearchTree* BST, void* data)
 {

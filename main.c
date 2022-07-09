@@ -1,5 +1,3 @@
-#include "Queue-LinkedList/Queue-LinkedList.h"
-#include "Stack-Array/Stack-Array.h"
 #include "gds.h"
 
 #include <stdio.h>
@@ -50,12 +48,12 @@ size_t hash(void* key, size_t bucket_count)
 //     }
 // }
 
-void array_print(Array* A)
-{
-    for(size_t i = 0; i < A->size; i++) {
-        printf("%d ", *(int*)Array_at(A, i));
-    }
-}
+// void array_print(Array* A)
+// {
+//     for(size_t i = 0; i < A->size; i++) {
+//         printf("%d ", *(int*)Array_at(A, i));
+//     }
+// }
 
 int main()
 {

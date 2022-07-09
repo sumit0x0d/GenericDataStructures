@@ -1,7 +1,7 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
-#include "Graph-AdjacencyList.h"
+#include <stdlib.h>
 
 typedef struct Vertex {
     void* data;
