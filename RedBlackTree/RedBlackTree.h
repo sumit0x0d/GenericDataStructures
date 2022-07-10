@@ -14,5 +14,9 @@ void* RedBlackTree_root(RedBlackTree* RBT);
 void* RedBlackTree_search(RedBlackTree* RBT, void* data);
 bool RedBlackTree_insert(RedBlackTree* RBT, void* data);
 bool RedBlackTree_remove(RedBlackTree* RBT, void* data);
+void RedBlackTree_traverse_preorder(RedBlackTree* RBT, void (*function)(void* data));
+void RedBlackTree_traverse_inorder(RedBlackTree* RBT, void (*function)(void* data));
+void RedBlackTree_traverse_postorder(RedBlackTree* RBT, void (*function)(void* data));
+void RedBlackTree_traverse_levelorder(RedBlackTree* RBT, void (*function)(void* data));
 
 #endif

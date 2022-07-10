@@ -1,7 +1,7 @@
 #include "AVLTree.h"
 #include "CircularQueue.h"
+#include "Stack.h"
 #include "Node.h"
-#include "AVLTreeTraversal.h"
 
 #include <stdbool.h>
 #include <stdlib.h>
@@ -12,11 +12,9 @@ struct AVLTree {
     size_t data_size;
     size_t size;
     int (*compare)(void* data1, void* data2);
-    void (*function)(void* data);
 };
 
-AVLTree* AVLTree_create(size_t data_size,
-    int (*compare)(void* data1, void* data2), void (*function)(void* data))
+AVLTree* AVLTree_create(size_t data_size, int (*compare)(void* data1, void* data2))
 {
     AVLTree* AVLT = (AVLTree*)malloc(sizeof (AVLTree));
     if(!AVLT) {
@@ -26,7 +24,6 @@ AVLTree* AVLTree_create(size_t data_size,
     AVLT->data_size = data_size;
     AVLT->size = 0;
     AVLT->compare = compare;
-    AVLT->function = function;
     return AVLT;
 }
 
@@ -127,6 +124,7 @@ static void AVLTree_rebalance(AVLTree* AVLT, Node* node, CircularQueue* circular
         }
         node = node->parent;
     }
+    CircularQueue_destroy(circular_queue);
 }
 
 void* AVLTree_search(AVLTree* AVLT, void* data)
@@ -265,7 +263,82 @@ bool AVLTree_remove(AVLTree* AVLT, void* data)
     return true;
 }
 
-void AVLTree_traversal(AVLTree* AVLT)
+void AVLTree_traverse_preorder(AVLTree* AVLT, void (*function)(void* data))
 {
-    inorder_traverse(AVLT, AVLT->root, AVLT->function);
+    Node* node = AVLT->root;
+    Stack* stack = Stack_create(AVLT->size);
+    while(node || stack->size) {
+        if(node) {
+            Stack_push(stack, node);
+            function(node->data);
+            node = node->left;
+        }
+        else {
+            node = Stack_top(stack);
+            Stack_pop(stack);
+            node = node->right;
+        }
+    }
+    Stack_destroy(stack);
+}
+
+void AVLTree_traverse_inorder(AVLTree* AVLT, void (*function)(void* data))
+{
+    Node* node = AVLT->root;
+    Stack* stack = Stack_create(AVLT->size);
+    while(node || stack->size) {
+        if(node) {
+            Stack_push(stack, node);
+            node = node->left;
+        }
+        else {
+            node = Stack_top(stack);
+            Stack_pop(stack);
+            function(node->data);
+            node = node->right;
+        }
+    }
+    Stack_destroy(stack);
+}
+
+// static void preorder_traverse(AVLTree* AVLT)
+// {
+//     if(AVLTree_empty(AVLT)) {
+//         return;
+//     }
+//     Node* node = AVLT->root;
+//     StackLL* S = StackLL_create(sizeof (AVLTreeNode));
+//     while(node || S->size) {
+//         if(node) {
+//             StackLL_push(S, node);
+//             printf("%d(%d) ", *(int*)node->data, node->balance_factor);
+//             node = node->left;
+//         }
+//         else {
+//             node = S->top->data;
+//             StackLL_pop(S);
+//             node = node->right;
+//         }
+//     }
+// }
+
+void AVLTree_traverse_levelorder(AVLTree* AVLT, void (*function)(void* data))
+{
+    CircularQueue* circular_queue = CircularQueue_create(AVLT->size);
+    Node* node = (Node*)AVLTree_root(AVLT);
+    function(node->data);
+    CircularQueue_enqueue(circular_queue, node);
+    while(circular_queue->size) {
+        node = CircularQueue_front(circular_queue);
+        CircularQueue_dequeue(circular_queue);
+        if(node->left) {
+            function(node->data);
+            CircularQueue_enqueue(circular_queue, node->left);
+        }
+        if( node->right) {
+            function(node->data);
+            CircularQueue_enqueue(circular_queue, node->right);
+        }
+    }
+    CircularQueue_destroy(circular_queue);
 }

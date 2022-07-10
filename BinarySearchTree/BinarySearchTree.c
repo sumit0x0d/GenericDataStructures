@@ -1,4 +1,6 @@
 #include "BinarySearchTree.h"
+#include "CircularQueue.h"
+#include "Stack.h"
 #include "Node.h"
 
 #include <stdbool.h>
@@ -178,4 +180,84 @@ bool BinarySearchTree_remove(BinarySearchTree* BST, void* data)
     }
     BST->size = BST->size - 1;
     return true;
+}
+
+void BinarySearchTree_traverse_preorder(BinarySearchTree* BST, void (*function)(void* data))
+{
+    Node* node = BST->root;
+    Stack* stack = Stack_create(BST->size);
+    while(node || stack->size) {
+        if(node) {
+            Stack_push(stack, node);
+            function(node->data);
+            node = node->left;
+        }
+        else {
+            node = Stack_top(stack);
+            Stack_pop(stack);
+            node = node->right;
+        }
+    }
+    Stack_destroy(stack);
+}
+
+void BinarySearchTree_traverse_inorder(BinarySearchTree* BST, void (*function)(void* data))
+{
+    Node* node = BST->root;
+    Stack* stack = Stack_create(BST->size);
+    while(node || stack->size) {
+        if(node) {
+            Stack_push(stack, node);
+            node = node->left;
+        }
+        else {
+            node = Stack_top(stack);
+            Stack_pop(stack);
+            function(node->data);
+            node = node->right;
+        }
+    }
+    Stack_destroy(stack);
+}
+
+// static void preorder_traverse(BinarySearchTree* BST)
+// {
+//     if(BinarySearchTree_empty(BST)) {
+//         return;
+//     }
+//     Node* node = BST->root;
+//     StackLL* S = StackLL_create(sizeof (BinarySearchTreeNode));
+//     while(node || S->size) {
+//         if(node) {
+//             StackLL_push(S, node);
+//             printf("%d(%d) ", *(int*)node->data, node->balance_factor);
+//             node = node->left;
+//         }
+//         else {
+//             node = S->top->data;
+//             StackLL_pop(S);
+//             node = node->right;
+//         }
+//     }
+// }
+
+void BinarySearchTree_traverse_levelorder(BinarySearchTree* BST, void (*function)(void* data))
+{
+    CircularQueue* circular_queue = CircularQueue_create(BST->size);
+    Node* node = (Node*)BinarySearchTree_root(BST);
+    function(node->data);
+    CircularQueue_enqueue(circular_queue, node);
+    while(circular_queue->size) {
+        node = CircularQueue_front(circular_queue);
+        CircularQueue_dequeue(circular_queue);
+        if(node->left) {
+            function(node->data);
+            CircularQueue_enqueue(circular_queue, node->left);
+        }
+        if( node->right) {
+            function(node->data);
+            CircularQueue_enqueue(circular_queue, node->right);
+        }
+    }
+    CircularQueue_destroy(circular_queue);
 }

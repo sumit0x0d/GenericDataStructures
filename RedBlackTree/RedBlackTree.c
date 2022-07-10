@@ -1,4 +1,6 @@
 #include "RedBlackTree.h"
+#include "CircularQueue.h"
+#include "Stack.h"
 #include "Node.h"
 
 #include <stdbool.h>
@@ -160,3 +162,84 @@ bool RedBlackTree_insert(RedBlackTree* RBT, void* data)
 // {
 
 // }
+
+
+void RedBlackTree_traverse_preorder(RedBlackTree* RBT, void (*function)(void* data))
+{
+    Node* node = RBT->root;
+    Stack* stack = Stack_create(RBT->size);
+    while(node || stack->size) {
+        if(node) {
+            Stack_push(stack, node);
+            function(node->data);
+            node = node->left;
+        }
+        else {
+            node = Stack_top(stack);
+            Stack_pop(stack);
+            node = node->right;
+        }
+    }
+    Stack_destroy(stack);
+}
+
+void RedBlackTree_traverse_inorder(RedBlackTree* RBT, void (*function)(void* data))
+{
+    Node* node = RBT->root;
+    Stack* stack = Stack_create(RBT->size);
+    while(node || stack->size) {
+        if(node) {
+            Stack_push(stack, node);
+            node = node->left;
+        }
+        else {
+            node = Stack_top(stack);
+            Stack_pop(stack);
+            function(node->data);
+            node = node->right;
+        }
+    }
+    Stack_destroy(stack);
+}
+
+// static void preorder_traverse(RedBlackTree* RBT)
+// {
+//     if(RedBlackTree_empty(RBT)) {
+//         return;
+//     }
+//     Node* node = RBT->root;
+//     StackLL* S = StackLL_create(sizeof (RedBlackTreeNode));
+//     while(node || S->size) {
+//         if(node) {
+//             StackLL_push(S, node);
+//             printf("%d(%d) ", *(int*)node->data, node->balance_factor);
+//             node = node->left;
+//         }
+//         else {
+//             node = S->top->data;
+//             StackLL_pop(S);
+//             node = node->right;
+//         }
+//     }
+// }
+
+void RedBlackTree_traverse_levelorder(RedBlackTree* RBT, void (*function)(void* data))
+{
+    CircularQueue* circular_queue = CircularQueue_create(RBT->size);
+    Node* node = (Node*)RedBlackTree_root(RBT);
+    function(node->data);
+    CircularQueue_enqueue(circular_queue, node);
+    while(circular_queue->size) {
+        node = CircularQueue_front(circular_queue);
+        CircularQueue_dequeue(circular_queue);
+        if(node->left) {
+            function(node->data);
+            CircularQueue_enqueue(circular_queue, node->left);
+        }
+        if( node->right) {
+            function(node->data);
+            CircularQueue_enqueue(circular_queue, node->right);
+        }
+    }
+    CircularQueue_destroy(circular_queue);
+}
