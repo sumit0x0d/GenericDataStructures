@@ -43,17 +43,17 @@ void PriorityQueueLL_destroy(PriorityQueueLL* PQ)
     PQ = NULL;
 }
 
+size_t PriorityQueueLL_size(PriorityQueueLL* PQ)
+{
+    return PQ->size;
+}
+
 bool PriorityQueueLL_empty(PriorityQueueLL* PQ)
 {
     if(PQ->size) {
         return false;
     }
     return true;
-}
-
-size_t PriorityQueueLL_size(PriorityQueueLL* PQ)
-{
-    return PQ->size;
 }
 
 void* PriorityQueueLL_front(PriorityQueueLL* PQ)

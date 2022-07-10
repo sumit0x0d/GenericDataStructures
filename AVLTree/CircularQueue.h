@@ -31,6 +31,11 @@ static CircularQueue* CircularQueue_create(size_t capacity)
     return CQ;
 }
 
+static Node* CircularQueue_front(CircularQueue* CQ)
+{
+    return CQ->array + CQ->front;
+}
+
 static void CircularQueue_enqueue(CircularQueue* CQ, Node* data)
 {
     memcpy(CQ->array + CQ->back, data, sizeof (Node));
@@ -38,11 +43,10 @@ static void CircularQueue_enqueue(CircularQueue* CQ, Node* data)
     CQ->size = CQ->size + 1;
 }
 
-static Node* CircularQueue_dequeue(CircularQueue* CQ)
+static void CircularQueue_dequeue(CircularQueue* CQ)
 {
     CQ->front = (CQ->front + 1) % CQ->capacity;
     CQ->size = CQ->size - 1;
-    return CQ->array + CQ->front;
 }
 
 #endif

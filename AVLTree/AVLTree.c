@@ -1,5 +1,7 @@
 #include "AVLTree.h"
 #include "CircularQueue.h"
+#include "Node.h"
+#include "AVLTreeTraversal.h"
 
 #include <stdbool.h>
 #include <stdlib.h>
@@ -10,9 +12,11 @@ struct AVLTree {
     size_t data_size;
     size_t size;
     int (*compare)(void* data1, void* data2);
+    void (*function)(void* data);
 };
 
-AVLTree* AVLTree_create(size_t data_size, int (*compare)(void* data1, void* data2))
+AVLTree* AVLTree_create(size_t data_size,
+    int (*compare)(void* data1, void* data2), void (*function)(void* data))
 {
     AVLTree* AVLT = (AVLTree*)malloc(sizeof (AVLTree));
     if(!AVLT) {
@@ -22,6 +26,7 @@ AVLTree* AVLTree_create(size_t data_size, int (*compare)(void* data1, void* data
     AVLT->data_size = data_size;
     AVLT->size = 0;
     AVLT->compare = compare;
+    AVLT->function = function;
     return AVLT;
 }
 
@@ -59,7 +64,8 @@ static size_t AVLTree_height_at(Node* node, CircularQueue *circular_queue)
     while(circular_queue->size) {
         size_t queue_size = circular_queue->size;
         while(queue_size) {
-            node = CircularQueue_dequeue(circular_queue);
+            node = CircularQueue_front(circular_queue);
+            CircularQueue_dequeue(circular_queue);
             if(node->left) {
                 CircularQueue_enqueue(circular_queue, node->left);
             }
@@ -257,4 +263,9 @@ bool AVLTree_remove(AVLTree* AVLT, void* data)
     }
     AVLT->size = AVLT->size - 1;
     return true;
+}
+
+void AVLTree_traversal(AVLTree* AVLT)
+{
+    inorder_traverse(AVLT, AVLT->root, AVLT->function);
 }

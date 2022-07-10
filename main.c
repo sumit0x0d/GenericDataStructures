@@ -1,4 +1,4 @@
-#include "gds.h"
+#include "GenericDataStructures.h"
 
 #include <stdio.h>
 

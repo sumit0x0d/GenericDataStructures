@@ -52,9 +52,6 @@ void* LinkedList_back(LinkedList* LL)
 
 void* LinkedList_search(LinkedList* LL, void* data)
 {
-    if(!LL->size) {
-        return NULL;
-    }
     Node* node = (Node*)malloc(sizeof (Node));
     while(node) {
         if(!LL->compare(data, node->data)) {
@@ -65,7 +62,7 @@ void* LinkedList_search(LinkedList* LL, void* data)
     return NULL;
 }
 
-int LinkedList_push_head(LinkedList* LL, void* data)
+bool LinkedList_push_head(LinkedList* LL, void* data)
 {
     Node* node = Node_create(LL->data_size);
     if(!node) {
@@ -109,9 +106,6 @@ bool LinkedList_push_tail(LinkedList* LL, void* data)
 
 bool LinkedList_insert(LinkedList* LL, size_t index, void* data)
 {
-    if(index > LL->size) {
-        return false;
-    }
     Node* node = Node_create(LL->data_size);
     Node* node_previous = LL->head;
     if(!node) {
@@ -163,11 +157,8 @@ bool LinkedList_sorted_insert(LinkedList* LL, void* data)
     return true;
 }
 
-bool LinkedList_pop_head(LinkedList* LL)
+void LinkedList_pop_head(LinkedList* LL)
 {
-    if(!LL->size) {
-        return false;
-    }
     Node* node = LL->head;
     LL->head = LL->head->next;
     if(!LL->head) {
@@ -175,14 +166,10 @@ bool LinkedList_pop_head(LinkedList* LL)
     }
     Node_destroy(node);
     LL->size = LL->size - 1;
-    return true;
 }
 
 bool LinkedList_pop_tail(LinkedList* LL)
 {
-    if(!LL->size) {
-        return false;
-    }
     Node* node = LL->tail;
     LL->tail = LL->tail->previous;
     if(LL->tail) {
@@ -190,28 +177,23 @@ bool LinkedList_pop_tail(LinkedList* LL)
     }
     Node_destroy(node);
     LL->size = LL->size - 1;
-    return true;
 }
 
-bool LinkedList_erase(LinkedList* LL, size_t index)
+void LinkedList_erase(LinkedList* LL, size_t index)
 {
-    if(index == 0 || index > LL->size) {
-        return false;
-    }
     if(index == 1) {
         LinkedList_pop_head(LL);
     }
     Node* node = LL->head;
-    for(size_t i = 0; i < index-1; ++i) {
+    for(size_t i = 0; i < index-1; i++) {
         node->previous = node;
         node = node->next;
     }
     node->previous->next = node->next;
     free(node);
-    return true;
 }
 
-bool LinkedList_remove(LinkedList* LL, void* data)
+void LinkedList_remove(LinkedList* LL, void* data)
 {
     Node* node = LL->head;
     size_t count = 0;
@@ -223,6 +205,5 @@ bool LinkedList_remove(LinkedList* LL, void* data)
         node = node->next;
     }
     LinkedList_erase(LL, count);
-    return true;
 }
 
