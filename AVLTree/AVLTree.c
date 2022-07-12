@@ -325,7 +325,7 @@ void AVLTree_traverse_inorder(AVLTree* AVLT, void (*function)(void* data))
 void AVLTree_traverse_levelorder(AVLTree* AVLT, void (*function)(void* data))
 {
     CircularQueue* circular_queue = CircularQueue_create(AVLT->size);
-    Node* node = (Node*)AVLTree_root(AVLT);
+    Node* node = AVLT->root;
     function(node->data);
     CircularQueue_enqueue(circular_queue, node);
     while(circular_queue->size) {

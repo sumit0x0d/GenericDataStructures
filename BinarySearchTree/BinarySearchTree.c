@@ -244,7 +244,7 @@ void BinarySearchTree_traverse_inorder(BinarySearchTree* BST, void (*function)(v
 void BinarySearchTree_traverse_levelorder(BinarySearchTree* BST, void (*function)(void* data))
 {
     CircularQueue* circular_queue = CircularQueue_create(BST->size);
-    Node* node = (Node*)BinarySearchTree_root(BST);
+    Node* node = BST->root;
     function(node->data);
     CircularQueue_enqueue(circular_queue, node);
     while(circular_queue->size) {

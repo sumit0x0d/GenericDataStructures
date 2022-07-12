@@ -16,5 +16,6 @@ bool DequeLL_push_front(DequeLL* D, void* data);
 bool DequeLL_push_back(DequeLL* D, void* data);
 void DequeLL_pop_front(DequeLL* D);
 void DequeLL_pop_back(DequeLL* D);
+void DequeLL_traverse(DequeLL* D, void (*function)(void* data));
 
 #endif

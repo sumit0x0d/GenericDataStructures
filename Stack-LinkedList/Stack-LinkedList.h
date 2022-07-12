@@ -13,5 +13,6 @@ bool StackLL_empty(StackLL* S);
 void* StackLL_top(StackLL* S);
 bool StackLL_push(StackLL* S, void* data);
 void StackLL_pop(StackLL* S);
+void StackLL_traverse(StackLL* S, void (*function)(void* data));
 
 #endif

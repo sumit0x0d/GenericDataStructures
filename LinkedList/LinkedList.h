@@ -23,5 +23,6 @@ void LinkedList_pop_back(LinkedList* LL);
 void LinkedList_remove(LinkedList* LL, void* data);
 void LinkedList_erase(LinkedList* LL, size_t index);
 bool LinkedList_update(LinkedList* LL, size_t index, void* data);
+void LinkedList_traverse(LinkedList* LL, void (*function)(void *));
 
 #endif

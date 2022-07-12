@@ -16,10 +16,9 @@ static inline Vertex *Vertex_create(size_t data_size)
     if(!V) {
         return NULL;
     }
-    V->data = malloc(data_size);
+    V->data = (void*)malloc(data_size);
     if(!V->data) {
         free(V);
-        V = NULL;
         return NULL;
     }
     V->weight = 0;

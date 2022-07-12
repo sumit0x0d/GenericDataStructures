@@ -78,3 +78,12 @@ void StackLL_pop(StackLL* S)
     Node_destroy(node);
     S->size = S->size - 1;
 }
+
+void StackLL_traverse(StackLL* S, void (*function)(void* data))
+{
+    Node* node = S->top;
+    while(node) {
+        function(node->data);
+        node = node->next;
+    }
+}

@@ -72,6 +72,14 @@ bool PriorityQueueA_empty(PriorityQueueA* PQ)
     return true;
 }
 
+bool PriorityQueueA_full(PriorityQueueA *PQ)
+{
+    if(PQ->size != PQ->capacity) {
+        return false;
+    }
+    return true;
+}
+
 static inline void* data_at(PriorityQueueA* PQ, size_t index)
 {
     return (char*)PQ->array + (PQ->data_size + PQ->priority_size) * index;

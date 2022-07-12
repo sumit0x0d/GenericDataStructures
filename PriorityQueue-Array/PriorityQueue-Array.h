@@ -12,6 +12,7 @@ bool PriorityQueueA_change_capacity(PriorityQueueA* PQ, size_t capacity);
 void PriorityQueueA_destroy(PriorityQueueA* PQ);
 size_t PriorityQueueA_size(PriorityQueueA* PQ);
 bool PriorityQueueA_empty(PriorityQueueA* PQ);
+bool PriorityQueueA_full(PriorityQueueA *PQ);
 void* PriorityQueueA_front(PriorityQueueA* PQ);
 void* PriorityQueueA_back(PriorityQueueA* PQ);
 void PriorityQueueA_enqueue(PriorityQueueA* PQ, void* data, void* priority);

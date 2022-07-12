@@ -93,3 +93,12 @@ void QueueLL_dequeue(QueueLL* Q)
     Node_destroy(node);
     Q->size = Q->size - 1;
 }
+
+void QueueLL_traverse(QueueLL* Q, void (*function)(void* data))
+{
+    Node* node = Q->front;
+    while(node) {
+        function(node->data);
+        node = node->next;
+    }
+}

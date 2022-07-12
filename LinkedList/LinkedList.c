@@ -207,3 +207,11 @@ void LinkedList_remove(LinkedList* LL, void* data)
     LinkedList_erase(LL, count);
 }
 
+void LinkedList_traverse(LinkedList* LL, void (*function)(void *))
+{
+    Node* node = LL->head;
+    while(node) {
+        function(node->data);
+        node = node->next;
+    }
+}

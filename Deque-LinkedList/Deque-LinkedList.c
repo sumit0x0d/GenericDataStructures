@@ -128,3 +128,12 @@ void DequeLL_pop_back(DequeLL* D)
     Node_destroy(node);
     D->size = D->size - 1;
 }
+
+void DequeLL_traverse(DequeLL* D, void (*function)(void* data))
+{
+    Node* node = D->front;
+    while(node) {
+        function(node->data);
+        node = node->next;
+    }
+}

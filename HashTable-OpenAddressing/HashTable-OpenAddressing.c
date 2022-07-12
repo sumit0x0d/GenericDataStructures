@@ -22,7 +22,7 @@ HashTableOA* HashTableOA_create(size_t key_size, size_t value_size, size_t bucke
     if(!HT) {
         return NULL;
     }
-    HT->array = calloc(bucket_count, (key_size + value_size));
+    HT->array = (void*)calloc(bucket_count, (key_size + value_size));
     if(!HT->array) {
         free(HT);
         return NULL;

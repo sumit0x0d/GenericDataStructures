@@ -3,6 +3,7 @@
 
 #include "Node.h"
 
+#include <stdlib.h>
 #include <string.h>
 
 typedef struct CircularQueue {
