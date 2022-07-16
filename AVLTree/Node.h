@@ -36,7 +36,6 @@ static void Node_destroy(Node* N)
     N = NULL;
 }
 
-
 static Node* Node_rotate_right(Node* N, Node* NL)
 {
     N->left = NL->right;

@@ -236,7 +236,7 @@ void RedBlackTree_traverse_levelorder(RedBlackTree* RBT, void (*function)(void* 
             function(node->data);
             CircularQueue_enqueue(circular_queue, node->left);
         }
-        if( node->right) {
+        if(node->right) {
             function(node->data);
             CircularQueue_enqueue(circular_queue, node->right);
         }

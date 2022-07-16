@@ -8,7 +8,7 @@
 #include <string.h>
 
 struct BinarySearchTree {
-    struct Node* root;
+    Node* root;
     size_t data_size;
     size_t size;
     int (*compare)(void* data1, void* data2);
@@ -254,7 +254,7 @@ void BinarySearchTree_traverse_levelorder(BinarySearchTree* BST, void (*function
             function(node->data);
             CircularQueue_enqueue(circular_queue, node->left);
         }
-        if( node->right) {
+        if(node->right) {
             function(node->data);
             CircularQueue_enqueue(circular_queue, node->right);
         }
