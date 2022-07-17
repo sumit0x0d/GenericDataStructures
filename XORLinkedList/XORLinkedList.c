@@ -10,10 +10,10 @@ struct XORLinkedList {
     struct Node* tail;
     size_t data_size;
     size_t size;
-    int (*compare)(void* data1, void* data2);
+    int (*compare_function)(void* data1, void* data2);
 };
 
-XORLinkedList* XORLinkedList_create(size_t data_size, int (*compare)(void* data1, void* data2))
+XORLinkedList* XORLinkedListCreate(size_t data_size, int (*compare_function)(void* data1, void* data2))
 {
     XORLinkedList* XORLL = (XORLinkedList*)malloc(sizeof (XORLinkedList));
     if(!XORLL) {
@@ -23,16 +23,16 @@ XORLinkedList* XORLinkedList_create(size_t data_size, int (*compare)(void* data1
     XORLL->tail = NULL;
     XORLL->data_size = data_size;
     XORLL->size = 0;
-    XORLL->compare = compare;
+    XORLL->compare_function = compare_function;
     return XORLL;
 }
 
-size_t XORLinkedList_size(XORLinkedList* XORLL)
+size_t XORLinkedListSize(XORLinkedList* XORLL)
 {
     return XORLL->size;
 }
 
-bool XORLinkedList_empty(XORLinkedList* XORLL)
+bool XORLinkedListEmpty(XORLinkedList* XORLL)
 {
     if(XORLL->size) {
         return false;
@@ -40,17 +40,17 @@ bool XORLinkedList_empty(XORLinkedList* XORLL)
     return false;
 }
 
-void* XORLinkedList_head(XORLinkedList* XORLL)
+void* XORLinkedListHead(XORLinkedList* XORLL)
 {
     return XORLL->head->data;
 }
 
-void* XORLinkedList_back(XORLinkedList* XORLL)
+void* XORLinkedListBack(XORLinkedList* XORLL)
 {
     return XORLL->tail->data;
 }
 
-void* XORLinkedList_search(XORLinkedList* XORLL, void* data)
+void* XORLinkedListSearch(XORLinkedList* XORLL, void* data)
 {
     if(!XORLL->size) {
         return NULL;
@@ -58,7 +58,7 @@ void* XORLinkedList_search(XORLinkedList* XORLL, void* data)
     Node* node = XORLL->head;
     Node* node_previous = NULL;
     while(node) {
-        if(!XORLL->compare(data, node->data)) {
+        if(!XORLL->compare_function(data, node->data)) {
             return node;
         }
         node_previous = node;
@@ -67,9 +67,9 @@ void* XORLinkedList_search(XORLinkedList* XORLL, void* data)
     return NULL;
 }
 
-bool XORLinkedList_push_head(XORLinkedList* XORLL, void* data)
+bool XORLinkedListPushHead(XORLinkedList* XORLL, void* data)
 {
-    Node* node = Node_create(XORLL->data_size);
+    Node* node = NodeCreate(XORLL->data_size);
     if(!node) {
         return false;
     }
@@ -83,9 +83,9 @@ bool XORLinkedList_push_head(XORLinkedList* XORLL, void* data)
     return true;
 }
 
-bool XORLinkedList_push_tail(XORLinkedList* XORLL, void* data)
+bool XORLinkedListPushTail(XORLinkedList* XORLL, void* data)
 {
-    Node* node = Node_create(XORLL->data_size);
+    Node* node = NodeCreate(XORLL->data_size);
     if(!node) {
         return false;
     }
@@ -99,32 +99,32 @@ bool XORLinkedList_push_tail(XORLinkedList* XORLL, void* data)
     return true;
 }
 
-// bool XORLinkedList_insert(XORLinkedList* XORLL, size_t index, void* data)
+// bool XORLinkedListInsert(XORLinkedList* XORLL, size_t index, void* data)
 // {
 
 // }
 
-// bool XORLinkedList_sorted_insert(XORLinkedList* XORLL, void* data)
+// bool XORLinkedListSortedInsert(XORLinkedList* XORLL, void* data)
 // {
 
 // }
 
-// bool XORLinkedList_pop_head(XORLinkedList* XORLL)
+// bool XORLinkedListPopHead(XORLinkedList* XORLL)
 // {
 
 // }
 
-// bool XORLinkedList_pop_tail(XORLinkedList* XORLL)
+// bool XORLinkedListPopTail(XORLinkedList* XORLL)
 // {
 
 // }
 
-// bool XORLinkedList_erase(XORLinkedList* XORLL, size_t index)
+// bool XORLinkedListErase(XORLinkedList* XORLL, size_t index)
 // {
 
 // }
 
-// bool XORLinkedList_remove(XORLinkedList* XORLL, void* data)
+// bool XORLinkedListRemove(XORLinkedList* XORLL, void* data)
 // {
 
 // }

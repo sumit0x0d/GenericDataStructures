@@ -11,11 +11,11 @@ struct BinarySearchTree {
     Node* root;
     size_t data_size;
     size_t size;
-    int (*compare)(void* data1, void* data2);
+    int (*compare_function)(void* data1, void* data2);
 };
 
-BinarySearchTree* BinarySearchTree_create(size_t data_size,
-    int (*compare)(void* data1, void* data2))
+BinarySearchTree* BinarySearchTreeCreate(size_t data_size,
+    int (*compare_function)(void* data1, void* data2))
 {
     BinarySearchTree* BST = (BinarySearchTree*)malloc(sizeof (BinarySearchTree));
     if(!BST) {
@@ -24,21 +24,21 @@ BinarySearchTree* BinarySearchTree_create(size_t data_size,
     BST->root = NULL;
     BST->data_size = data_size;
     BST->size = 0;
-    BST->compare = compare;
+    BST->compare_function = compare_function;
     return BST;
 }
 
-// void BinarySearchTree_destroy(BinarySearchTree* BST)
+// void BinarySearchTreeDestroy(BinarySearchTree* BST)
 // {
 
 // }
 
-size_t BinarySearchTree_size(BinarySearchTree* BST)
+size_t BinarySearchTreeSize(BinarySearchTree* BST)
 {
     return BST->size;
 }
 
-bool BinarySearchTree_empty(BinarySearchTree* BST)
+bool BinarySearchTreeEmpty(BinarySearchTree* BST)
 {
     if(BST->size) {
         return false;
@@ -51,15 +51,15 @@ void* BinarySearchTree_root(BinarySearchTree* BST)
     return BST->root->data;
 }
 
-void* BinarySearchTree_search(BinarySearchTree* BST, void* data)
+void* BinarySearchTreeSearch(BinarySearchTree* BST, void* data)
 {
     Node* node = BST->root;
     while(node) {
-        int compare = BST->compare(data, node->data);
-        if(compare == 0) {
+        int compare_function = BST->compare_function(data, node->data);
+        if(compare_function == 0) {
             return node;
         }
-        if(compare < 0) {
+        if(compare_function < 0) {
             node = node->left;
         }
         else {
@@ -69,10 +69,10 @@ void* BinarySearchTree_search(BinarySearchTree* BST, void* data)
     return NULL;
 }
 
-bool BinarySearchTree_insert(BinarySearchTree* BST, void* data)
+bool BinarySearchTreeInsert(BinarySearchTree* BST, void* data)
 {
     if(!BST->root) {
-        BST->root = Node_create(BST->data_size);
+        BST->root = NodeCreate(BST->data_size);
         if(!BST->root) {
             return false;
         }
@@ -82,26 +82,26 @@ bool BinarySearchTree_insert(BinarySearchTree* BST, void* data)
     }
     Node* node = BST->root;
     Node* node_parent = NULL;
-    int compare;
+    int compare_function;
     while(node) {
-        compare = BST->compare(data, node->data);
-        if(compare == 0) {
+        compare_function = BST->compare_function(data, node->data);
+        if(compare_function == 0) {
             return false;
         }
         node_parent = node;
-        if(compare < 0) {
+        if(compare_function < 0) {
             node = node->left;
         }
         else {
             node = node->right;
         }
     }
-    node = Node_create(BST->data_size);
+    node = NodeCreate(BST->data_size);
     if(!node) {
         return false;
     }
     memcpy(node->data, data, BST->data_size);
-    if(compare < 0) {
+    if(compare_function < 0) {
         node_parent->left = node;
     }
     else {
@@ -111,21 +111,21 @@ bool BinarySearchTree_insert(BinarySearchTree* BST, void* data)
     return true;
 }
 
-bool BinarySearchTree_remove(BinarySearchTree* BST, void* data)
+bool BinarySearchTreeRemove(BinarySearchTree* BST, void* data)
 {
     if(!BST->root) {
         return false;
     }
     Node* node = BST->root;
     Node* node_parent = NULL; 
-    int compare;
+    int compare_function;
     while(node) {
-        compare = BST->compare(data, node->data);
-        if(compare == 0) {
+        compare_function = BST->compare_function(data, node->data);
+        if(compare_function == 0) {
             break;
         }
         node_parent = node;
-        if(compare < 0) {
+        if(compare_function < 0) {
             node = node->left;
         }
         else {
@@ -142,7 +142,7 @@ bool BinarySearchTree_remove(BinarySearchTree* BST, void* data)
         else {
             node_parent->right = NULL;
         }
-        Node_destroy(node);
+        NodeDestroy(node);
     }
     else if(!node->left) {
         if(node_parent->right == node) {
@@ -151,7 +151,7 @@ bool BinarySearchTree_remove(BinarySearchTree* BST, void* data)
         else {
             node_parent->left = node->right;
         }
-        Node_destroy(node);
+        NodeDestroy(node);
     }
     else if(!node->right) {
         if(node_parent->left == node) {
@@ -160,7 +160,7 @@ bool BinarySearchTree_remove(BinarySearchTree* BST, void* data)
         else {
             node_parent->right = node->left;
         }
-        Node_destroy(node);
+        NodeDestroy(node);
     }
     else {
         Node* node_successor = node->right;
@@ -176,88 +176,88 @@ bool BinarySearchTree_remove(BinarySearchTree* BST, void* data)
             node_successor_parent->left = node_successor->right;
         }
         memcpy(node->data, node_successor->data, BST->data_size);
-        Node_destroy(node_successor);
+        NodeDestroy(node_successor);
     }
     BST->size = BST->size - 1;
     return true;
 }
 
-void BinarySearchTree_traverse_preorder(BinarySearchTree* BST, void (*function)(void* data))
+void BinarySearchTreeTraverse_preorder(BinarySearchTree* BST, void (*function)(void* data))
 {
     Node* node = BST->root;
-    Stack* stack = Stack_create(BST->size);
+    Stack* stack = StackCreate(BST->size);
     while(node || stack->size) {
         if(node) {
-            Stack_push(stack, node);
+            StackPush(stack, node);
             function(node->data);
             node = node->left;
         }
         else {
             node = Stack_top(stack);
-            Stack_pop(stack);
+            StackPop(stack);
             node = node->right;
         }
     }
-    Stack_destroy(stack);
+    StackDestroy(stack);
 }
 
-void BinarySearchTree_traverse_inorder(BinarySearchTree* BST, void (*function)(void* data))
+void BinarySearchTreeTraverse_inorder(BinarySearchTree* BST, void (*function)(void* data))
 {
     Node* node = BST->root;
-    Stack* stack = Stack_create(BST->size);
+    Stack* stack = StackCreate(BST->size);
     while(node || stack->size) {
         if(node) {
-            Stack_push(stack, node);
+            StackPush(stack, node);
             node = node->left;
         }
         else {
             node = Stack_top(stack);
-            Stack_pop(stack);
+            StackPop(stack);
             function(node->data);
             node = node->right;
         }
     }
-    Stack_destroy(stack);
+    StackDestroy(stack);
 }
 
-// static void preorder_traverse(BinarySearchTree* BST)
+// static void preorderTraverse(BinarySearchTree* BST)
 // {
-//     if(BinarySearchTree_empty(BST)) {
+//     if(BinarySearchTreeEmpty(BST)) {
 //         return;
 //     }
 //     Node* node = BST->root;
-//     StackLL* S = StackLL_create(sizeof (BinarySearchTreeNode));
+//     StackLL* S = StackLLCreate(sizeof (BinarySearchTreeNode));
 //     while(node || S->size) {
 //         if(node) {
-//             StackLL_push(S, node);
+//             StackLLPush(S, node);
 //             printf("%d(%d) ", *(int*)node->data, node->balance_factor);
 //             node = node->left;
 //         }
 //         else {
 //             node = S->top->data;
-//             StackLL_pop(S);
+//             StackLLPop(S);
 //             node = node->right;
 //         }
 //     }
 // }
 
-void BinarySearchTree_traverse_levelorder(BinarySearchTree* BST, void (*function)(void* data))
+void BinarySearchTreeTraverse_levelorder(BinarySearchTree* BST, void (*function)(void* data))
 {
-    CircularQueue* circular_queue = CircularQueue_create(BST->size);
+    CircularQueue* circular_queue = CircularQueueCreate(BST->size);
     Node* node = BST->root;
     function(node->data);
-    CircularQueue_enqueue(circular_queue, node);
+    CircularQueueEnqueue(circular_queue, node);
     while(circular_queue->size) {
-        node = CircularQueue_front(circular_queue);
-        CircularQueue_dequeue(circular_queue);
+        node = CircularQueueFront(circular_queue);
+        CircularQueueDequeue(circular_queue);
         if(node->left) {
             function(node->data);
-            CircularQueue_enqueue(circular_queue, node->left);
+            CircularQueueEnqueue(circular_queue, node->left);
         }
         if(node->right) {
             function(node->data);
-            CircularQueue_enqueue(circular_queue, node->right);
+            CircularQueueEnqueue(circular_queue, node->right);
         }
     }
-    CircularQueue_destroy(circular_queue);
+    CircularQueueDestroy(circular_queue);
 }

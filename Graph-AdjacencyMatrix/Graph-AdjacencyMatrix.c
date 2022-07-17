@@ -6,23 +6,23 @@
 struct GraphAM {
     void** array;
     size_t data_size;
-    unsigned long vertices;
+    unsigned long vertex_count;
 };
 
-GraphAM *graphAM_create(size_t data_size, unsigned long vertices)
+GraphAM *graphAMCreate(size_t data_size, unsigned long vertex_count)
 {
     GraphAM* G = (GraphAM*)malloc(sizeof (GraphAM));
     if(!G) {
         return NULL;
     }
-    G->array = (void**)malloc(vertices * sizeof (void*));
+    G->array = (void**)malloc(vertex_count * sizeof (void*));
     if(!G->array) {
         free(G);
         G = NULL;
         return NULL;
     }
-    for(size_t i = 0; i < vertices; i++) {
-        G->array[i] = malloc(data_size * vertices);
+    for(size_t i = 0; i < vertex_count; i++) {
+        G->array[i] = malloc(data_size * vertex_count);
         if(!G->array[i]) {
             for(size_t j = 0; j < i; j++) {
                 free(G->array[j]);
@@ -36,21 +36,21 @@ GraphAM *graphAM_create(size_t data_size, unsigned long vertices)
         }
     }
     G->data_size = data_size;
-    G->vertices = 0;
+    G->vertex_count = 0;
     return G;
 }
 
-// void graph_destroy(GraphAM *G)
+// void graphDestroy(GraphAM *G)
 // {
     
 // }
 
-// int graph_insert_vertex(GraphAM *G, unsigned long vertex)
+// int graphInsert_vertex(GraphAM *G, unsigned long vertex)
 // {
 
 // }
 
-// int graph_insert_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_dest)
+// int graphInsert_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_dest)
 // {
     
 // }

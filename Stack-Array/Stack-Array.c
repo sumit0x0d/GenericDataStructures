@@ -10,7 +10,7 @@ struct StackA {
     size_t size;
 };
 
-StackA* StackA_create(size_t data_size, size_t capacity)
+StackA* StackACreate(size_t data_size, size_t capacity)
 {
     StackA* S = (StackA*)malloc(sizeof (StackA));
     if(!S) {
@@ -27,7 +27,7 @@ StackA* StackA_create(size_t data_size, size_t capacity)
     return S;
 }
 
-bool StackA_change_capacity(StackA* S, size_t capacity)
+bool StackAChangeCapacity(StackA* S, size_t capacity)
 {
     void* array = realloc(S->array, S->data_size * capacity);
     if(!array) {
@@ -41,7 +41,7 @@ bool StackA_change_capacity(StackA* S, size_t capacity)
     return true;
 }
 
-void StackA_destroy(StackA* S)
+void StackADestroy(StackA* S)
 {
     free(S->array);
     S->array = NULL;
@@ -49,12 +49,12 @@ void StackA_destroy(StackA* S)
     S = NULL;
 }
 
-size_t StackA_size(StackA* S)
+size_t StackASize(StackA* S)
 {
     return S->size;
 }
 
-bool StackA_empty(StackA* S)
+bool StackAEmpty(StackA* S)
 {
     if(S->size) {
         return false;
@@ -62,7 +62,7 @@ bool StackA_empty(StackA* S)
     return true;
 }
 
-bool StackA_full(StackA* S)
+bool StackAFull(StackA* S)
 {
     if(S->size != S->capacity) {
         return false;
@@ -70,23 +70,23 @@ bool StackA_full(StackA* S)
     return true;
 }
 
-static inline void* data_at(StackA* S, size_t index)
+static inline void* DataAt(StackA* S, size_t index)
 {
     return (char*)S->array + (S->data_size * index);
 }
 
-void* StackA_top(StackA* S)
+void* StackATop(StackA* S)
 {
-    return data_at(S, S->size - 1);
+    return DataAt(S, S->size - 1);
 }
 
-void StackA_push(StackA* S, void* data)
+void StackAPush(StackA* S, void* data)
 {
-    memcpy(data_at(S, S->size), data, S->data_size);
+    memcpy(DataAt(S, S->size), data, S->data_size);
     S->size = S->size + 1;
 }
 
-void StackA_pop(StackA* S)
+void StackAPop(StackA* S)
 {
     S->size = S->size - 1;
 }

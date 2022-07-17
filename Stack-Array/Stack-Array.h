@@ -6,14 +6,14 @@
 
 typedef struct StackA StackA;
 
-StackA* StackA_create(size_t data_size, size_t capacity);
-bool StackA_change_capacity(StackA* S, size_t capacity);
-void StackA_destroy(StackA* S);
-size_t StackA_size(StackA* S);
-bool StackA_empty(StackA* S);
-bool StackA_full(StackA* S);
-void* StackA_top(StackA* S);
-void StackA_push(StackA* S, void* data);
-void StackA_pop(StackA* S);
+StackA* StackACreate(size_t data_size, size_t capacity);
+bool StackAChangeCapacity(StackA* S, size_t capacity);
+void StackADestroy(StackA* S);
+size_t StackASize(StackA* S);
+bool StackAEmpty(StackA* S);
+bool StackAFull(StackA* S);
+void* StackATop(StackA* S);
+void StackAPush(StackA* S, void* data);
+void StackAPop(StackA* S);
 
 #endif

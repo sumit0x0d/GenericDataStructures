@@ -6,12 +6,12 @@
 
 typedef struct PriorityQueueBH PriorityQueueBH;
 
-PriorityQueueBH* PriorityQueueBH_create(size_t data_size, size_t priority_size,
-    int (*compare)(void* priority1, void* priority2));
-void PriorityQueueBH_destroy(PriorityQueueBH* PQ);
-size_t PriorityQueueBH_size(PriorityQueueBH* PQ);
+PriorityQueueBH* PriorityQueueBHCreate(size_t data_size, size_t priority_size,
+    int (*compare_function)(void* priority1, void* priority2));
+void PriorityQueueBHDestroy(PriorityQueueBH* PQ);
+size_t PriorityQueueBHSize(PriorityQueueBH* PQ);
 void* PriorityQueueBH_root(PriorityQueueBH* PQ);
-bool PriorityQueueBH_enqueue(PriorityQueueBH* PQ, void* data, void* priority);
-void PriorityQueueBH_dequeue(PriorityQueueBH* PQ);
+bool PriorityQueueBHEnqueue(PriorityQueueBH* PQ, void* data, void* priority);
+void PriorityQueueBHDequeue(PriorityQueueBH* PQ);
 
 #endif

@@ -13,7 +13,7 @@ struct QueueA {
     size_t size;
 };
 
-QueueA* QueueA_create(size_t data_size, size_t capacity)
+QueueA* QueueACreate(size_t data_size, size_t capacity)
 {
     QueueA* Q = (QueueA*)malloc(sizeof (QueueA));
     if(!Q) {
@@ -32,7 +32,7 @@ QueueA* QueueA_create(size_t data_size, size_t capacity)
     return Q;
 }
 
-bool QueueA_change_capacity(QueueA* Q, size_t capacity)
+bool QueueAChangeCapacity(QueueA* Q, size_t capacity)
 {
     void* array = realloc(Q->array, Q->data_size * capacity);
     if(!array) {
@@ -47,7 +47,7 @@ bool QueueA_change_capacity(QueueA* Q, size_t capacity)
     return true;
 }
 
-void QueueA_destroy(QueueA* Q)
+void QueueADestroy(QueueA* Q)
 {
     free(Q->array);
     Q->array = NULL;
@@ -55,12 +55,12 @@ void QueueA_destroy(QueueA* Q)
     Q = NULL;
 }
 
-size_t QueueA_size(QueueA* Q)
+size_t QueueASize(QueueA* Q)
 {
     return Q->size;
 }
 
-bool QueueA_empty(QueueA* Q)
+bool QueueAEmpty(QueueA* Q)
 {
     if(Q->size) {
         return false;
@@ -68,7 +68,7 @@ bool QueueA_empty(QueueA* Q)
     return true;
 }
 
-bool QueueA_full(QueueA* Q)
+bool QueueAFull(QueueA* Q)
 {
     if(Q->size != Q->capacity) {
         return false;
@@ -76,34 +76,34 @@ bool QueueA_full(QueueA* Q)
     return true;
 }
 
-static inline void* data_at(QueueA* Q, size_t index)
+static inline void* DataAt(QueueA* Q, size_t index)
 {
     return (char*)Q->array + (Q->data_size * index);
 }
 
-void* QueueA_front(QueueA* Q)
+void* QueueAFront(QueueA* Q)
 {
-    return data_at(Q, Q->front);
+    return DataAt(Q, Q->front);
 }
 
-void* QueueA_back(QueueA* Q)
+void* QueueABack(QueueA* Q)
 {
-    return data_at(Q, Q->back - 1);
+    return DataAt(Q, Q->back - 1);
 }
 
-void QueueA_enqueue(QueueA* Q, void* data)
+void QueueAEnqueue(QueueA* Q, void* data)
 {
     if(Q->back == Q->capacity) {
-        memmove(data_at(Q, 0), data_at(Q, Q->front), Q->size);
+        memmove(DataAt(Q, 0), DataAt(Q, Q->front), Q->size);
         Q->front = 0;
         Q->back = Q->size;
     }
-    memcpy(data_at(Q, Q->back), data, Q->data_size);
+    memcpy(DataAt(Q, Q->back), data, Q->data_size);
     Q->back = Q->back + 1;
     Q->size = Q->size + 1;
 }
 
-void QueueA_dequeue(QueueA* Q)
+void QueueADequeue(QueueA* Q)
 {
     Q->front = Q->front + 1;
     Q->size = Q->size - 1;

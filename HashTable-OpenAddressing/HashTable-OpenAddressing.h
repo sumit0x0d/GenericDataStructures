@@ -6,15 +6,15 @@
 
 typedef struct HashTableOA HashTableOA;
 
-HashTableOA* HashTableOA_create(size_t key_size, size_t value_size, size_t bucket_count,
-    size_t (*hash)(void* key, size_t key_size, size_t bucket_count),
-    int (*compare)(void* key1, void* key2));
-void HashTableOA_destroy(HashTableOA* HT);
-size_t HashTableOA_size(HashTableOA* HT);
-bool HashTableOA_empty(HashTableOA* HT);
-bool HashTableOA_full(HashTableOA* HT);
-void* HashTableOA_search(HashTableOA* HT, void* key);
-void HashTableOA_insert(HashTableOA* HT, void* key, void* value);
-void HashTableOA_remove(HashTableOA* HT, void* key);
+HashTableOA* HashTableOACreate(size_t key_size, size_t value_size, size_t bucket_count,
+    size_t (*hash_function)(void* key, size_t key_size, size_t bucket_count),
+    int (*compare_function)(void* key1, void* key2));
+void HashTableOADestroy(HashTableOA* HT);
+size_t HashTableOASize(HashTableOA* HT);
+bool HashTableOAEmpty(HashTableOA* HT);
+bool HashTableOAFull(HashTableOA* HT);
+void* HashTableOASearch(HashTableOA* HT, void* key);
+void HashTableOAInsert(HashTableOA* HT, void* key, void* value);
+void HashTableOARemove(HashTableOA* HT, void* key);
 
 #endif

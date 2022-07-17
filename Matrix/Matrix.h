@@ -6,10 +6,10 @@
 
 typedef struct Matrix Matrix;
 
-Matrix* Matrix_create(size_t data_size, size_t rows, size_t columns);
-void Matrix_destroy(Matrix* M);
+Matrix* MatrixCreate(size_t data_size, size_t row_count, size_t column_count);
+void MatrixDestroy(Matrix* M);
 
-void Matrix_insert(Matrix* M, size_t rows, size_t columns, void* data);
-void Matrix_remove(Matrix* M, size_t rows, size_t columns);
+void MatrixInsert(Matrix* M, size_t row_count, size_t column_count, void* data);
+void MatrixRemove(Matrix* M, size_t row_count, size_t column_count);
 
 #endif

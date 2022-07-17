@@ -11,7 +11,7 @@ struct StackLL {
     size_t size;
 };
 
-StackLL* StackLL_create(size_t data_size)
+StackLL* StackLLCreate(size_t data_size)
 {
     StackLL* S = (StackLL*)malloc(sizeof (StackLL));
     if(!S) {
@@ -23,16 +23,16 @@ StackLL* StackLL_create(size_t data_size)
     return S;
 }
 
-void StackLL_destroy(StackLL* S)
+void StackLLDestroy(StackLL* S)
 {
     Node* node = S->top;
     while(node) {
         if(node->next) {
-            StackLL_pop(S);
+            StackLLPop(S);
             node = S->top;   
         }
         else {
-            StackLL_pop(S);
+            StackLLPop(S);
             break;
         }
     }
@@ -40,12 +40,12 @@ void StackLL_destroy(StackLL* S)
     S = NULL;
 }
 
-size_t StackLL_size(StackLL* S)
+size_t StackLLSize(StackLL* S)
 {
     return S->size;
 }
 
-bool StackLL_empty(StackLL* S)
+bool StackLLEmpty(StackLL* S)
 {
     if(S->size) {
         return false;
@@ -53,14 +53,14 @@ bool StackLL_empty(StackLL* S)
     return true;
 }
 
-void* StackLL_top(StackLL* S)
+void* StackLLTop(StackLL* S)
 {
     return S->top->data;
 }
 
-bool StackLL_push(StackLL* S, void* data)
+bool StackLLPush(StackLL* S, void* data)
 {
-    Node* node = Node_create(S->data_size);
+    Node* node = NodeCreate(S->data_size);
     if(!node) {
         return false;
     }
@@ -71,15 +71,15 @@ bool StackLL_push(StackLL* S, void* data)
     return true;
 }
 
-void StackLL_pop(StackLL* S)
+void StackLLPop(StackLL* S)
 {
     Node* node = S->top;
     S->top = S->top->next;
-    Node_destroy(node);
+    NodeDestroy(node);
     S->size = S->size - 1;
 }
 
-void StackLL_traverse(StackLL* S, void (*function)(void* data))
+void StackLLTraverse(StackLL* S, void (*function)(void* data))
 {
     Node* node = S->top;
     while(node) {

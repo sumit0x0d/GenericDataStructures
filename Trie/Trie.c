@@ -10,13 +10,13 @@ struct Trie {
     size_t size;
 };
 
-Trie *trie_create();
+Trie *trieCreate();
 
-char* trie_search(Trie *T, char* string);
-int trie_insert(Trie *T, char* string);
-int trie_remove(Trie *T, char* string);
+char* trieSearch(Trie *T, char* string);
+int trieInsert(Trie *T, char* string);
+int trieRemove(Trie *T, char* string);
 
-Trie *trie_create()
+Trie *trieCreate()
 {
     Trie* trie = (Trie*)malloc(sizeof (Trie));
     if(!trie) {
@@ -33,10 +33,10 @@ Trie *trie_create()
 //     return node;
 // }
 
-int trie_insert(Trie *T, char* string)
+int trieInsert(Trie *T, char* string)
 {
     if(!T->root) {
-        T->root = Node_create();
+        T->root = NodeCreate();
         if(!T->root) {
             return false;
         }
@@ -44,7 +44,7 @@ int trie_insert(Trie *T, char* string)
     Node* node = T->root; 
     while(*string != '\0') {
         if(node->children[(size_t)*string] == NULL) {
-            node->children[(size_t)*string] = Node_create();
+            node->children[(size_t)*string] = NodeCreate();
         }
         node = node->children[(size_t)*string];
         string++;
@@ -52,7 +52,7 @@ int trie_insert(Trie *T, char* string)
     // size_t length = strlen(string);
     // for(size_t i = 0; i < length; i++) {
     //     if(node->children[(int)string[i]] == 0)
-    //         node->children[(size_t)string[i]] = node_create(string[i]);
+    //         node->children[(size_t)string[i]] = nodeCreate(string[i]);
     // }
     if(node->terminal) {
         return false;
@@ -64,7 +64,7 @@ int trie_insert(Trie *T, char* string)
     return true;
 }
 
-// void node_destroy(Trie *T, char character)
+// void nodeDestroy(Trie *T, char character)
 // {
 //     Node* node = T->root;
 //     free(node);

@@ -12,7 +12,7 @@ typedef struct Stack {
     size_t size;
 } Stack;
 
-static Stack* Stack_create(size_t capacity)
+static Stack* StackCreate(size_t capacity)
 {
     Stack* S = (Stack*)malloc(sizeof (Stack));
     if(!S) {
@@ -28,7 +28,7 @@ static Stack* Stack_create(size_t capacity)
     return S;
 }
 
-static void Stack_destroy(Stack* S)
+static void StackDestroy(Stack* S)
 {
     free(S->array);
     S->array = NULL;
@@ -41,13 +41,13 @@ static Node* Stack_top(Stack* S)
     return S->array + S->size;
 }
 
-static void Stack_push(Stack* S, Node* data)
+static void StackPush(Stack* S, Node* data)
 {
     memcpy(S->array + S->size, data, sizeof (Node));
     S->size = S->size + 1;
 }
 
-static void Stack_pop(Stack* S)
+static void StackPop(Stack* S)
 {
     S->size = S->size - 1;
 }

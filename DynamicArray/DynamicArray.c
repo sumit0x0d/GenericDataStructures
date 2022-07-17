@@ -10,11 +10,11 @@ struct DynamicArray {
     size_t capacity;
     double growth_factor;
     size_t size;
-    int (*compare)(void* data1, void* data2);
+    int (*compare_function)(void* data1, void* data2);
 };
 
-DynamicArray* DynamicArray_create(size_t data_size, size_t capacity, double growth_factor,
-    int (*compare)(void* data1, void* data2))
+DynamicArray* DynamicArrayCreate(size_t data_size, size_t capacity, double growth_factor,
+    int (*compare_function)(void* data1, void* data2))
 {
     if((size_t)(capacity * growth_factor) <= capacity) {
         return NULL;
@@ -32,12 +32,12 @@ DynamicArray* DynamicArray_create(size_t data_size, size_t capacity, double grow
     DA->data_size = data_size;
     DA->capacity = capacity;
     DA->growth_factor = growth_factor;
-    DA->compare = compare;
+    DA->compare_function = compare_function;
     DA->size = 0;
     return DA;
 }
 
-static bool DynamicArray_change_capacity(DynamicArray* DA, size_t capacity)
+static bool DynamicArrayChangeCapacity(DynamicArray* DA, size_t capacity)
 {
     void* array = realloc(DA->array, DA->data_size * DA->capacity);
     if(!array) {
@@ -48,7 +48,7 @@ static bool DynamicArray_change_capacity(DynamicArray* DA, size_t capacity)
     return true;
 }
 
-void DynamicArray_destroy(DynamicArray* DA)
+void DynamicArrayDestroy(DynamicArray* DA)
 {
     free(DA->array);
     DA->array = NULL;
@@ -57,12 +57,12 @@ void DynamicArray_destroy(DynamicArray* DA)
     DA = NULL;
 }
 
-size_t DynamicArray_size(DynamicArray* DA)
+size_t DynamicArraySize(DynamicArray* DA)
 {
     return DA->size;
 }
 
-bool DynamicArray_empty(DynamicArray* DA)
+bool DynamicArrayEmpty(DynamicArray* DA)
 {
     if(DA->size) {
         return false;
@@ -70,37 +70,37 @@ bool DynamicArray_empty(DynamicArray* DA)
     return true;
 }
 
-static inline void* data_at(DynamicArray* DA, size_t index)
+static inline void* DataAt(DynamicArray* DA, size_t index)
 {
     return (char*)DA->array + (DA->data_size * index);
 }
 
-void* DynamicArray_front(DynamicArray* DA)
+void* DynamicArrayFront(DynamicArray* DA)
 {
-    return data_at(DA, 0);
+    return DataAt(DA, 0);
 }
 
-void* DynamicArray_back(DynamicArray* DA)
+void* DynamicArrayBack(DynamicArray* DA)
 {
-    return data_at(DA, DA->size - 1);
+    return DataAt(DA, DA->size - 1);
 }
 
-void* DynamicArray_at(DynamicArray* DA, size_t index)
+void* DynamicArrayAt(DynamicArray* DA, size_t index)
 {
-    return data_at(DA, index);
+    return DataAt(DA, index);
 }
 
-void* DynamicArray_search(DynamicArray* DA, void* data)
+void* DynamicArraySearch(DynamicArray* DA, void* data)
 {
     size_t left = 0;
     size_t right = DA->size;
     while(left <= right) {
         size_t middle = left + ((right - left) / 2);
-        int compare = DA->compare(data, data_at(DA, middle));
-        if(!compare) {
-            return data_at(DA, middle);
+        int compare_function = DA->compare_function(data, DataAt(DA, middle));
+        if(!compare_function) {
+            return DataAt(DA, middle);
         }
-        else if(compare < 0) {
+        else if(compare_function < 0) {
             right = middle - 1;
         }
         else {
@@ -110,64 +110,64 @@ void* DynamicArray_search(DynamicArray* DA, void* data)
     return NULL;
 }
 
-bool DynamicArray_push_front(DynamicArray* DA, void* data)
+bool DynamicArrayPushFront(DynamicArray* DA, void* data)
 {
     if(DA->size == DA->capacity) {
-        if(!DynamicArray_change_capacity(DA, DA->capacity * DA->growth_factor)) {
+        if(!DynamicArrayChangeCapacity(DA, DA->capacity * DA->growth_factor)) {
             return false;
         }
     }
-    memmove(data_at(DA, 1), data_at(DA, 0), DA->data_size * (DA->size - 1));
-    memcpy(data_at(DA, 0), data, DA->data_size);
+    memmove(DataAt(DA, 1), DataAt(DA, 0), DA->data_size * (DA->size - 1));
+    memcpy(DataAt(DA, 0), data, DA->data_size);
     DA->size = DA->size + 1;
     return true;
 }
 
-bool DynamicArray_push_back(DynamicArray* DA, void* data)
+bool DynamicArrayPushBack(DynamicArray* DA, void* data)
 {
     if(DA->size == DA->capacity) {
-        if(!DynamicArray_change_capacity(DA, DA->capacity * DA->growth_factor)) {
+        if(!DynamicArrayChangeCapacity(DA, DA->capacity * DA->growth_factor)) {
             return false;
         }
     }
-    memcpy(data_at(DA, DA->size), data, DA->data_size);
+    memcpy(DataAt(DA, DA->size), data, DA->data_size);
     DA->size = DA->size + 1;
     return true;
 }
 
-bool DynamicArray_insert(DynamicArray* DA, size_t index, void* data)
+bool DynamicArrayInsert(DynamicArray* DA, size_t index, void* data)
 {
     if(DA->size == DA->capacity) {
-        if(!DynamicArray_change_capacity(DA, DA->capacity * DA->growth_factor)) {
+        if(!DynamicArrayChangeCapacity(DA, DA->capacity * DA->growth_factor)) {
             return false;
         }
     }
-    memmove(data_at(DA, index + 1), data_at(DA, index), DA->data_size * (DA->size - index - 1));
-    memcpy(data_at(DA, index), data, DA->data_size);
+    memmove(DataAt(DA, index + 1), DataAt(DA, index), DA->data_size * (DA->size - index - 1));
+    memcpy(DataAt(DA, index), data, DA->data_size);
     DA->size = DA->size + 1;
     return true;
 }
 
-bool DynamicArray_sorted_insert(DynamicArray* DA, void* data)
+bool DynamicArraySortedInsert(DynamicArray* DA, void* data)
 {
     if(!DA->size) {
-        memcpy(data_at(DA, 0), data, DA->data_size);
+        memcpy(DataAt(DA, 0), data, DA->data_size);
         DA->size = DA->size + 1;
         return true;
     }
     if(DA->size == DA->capacity) {
-        if(!DynamicArray_change_capacity(DA, DA->capacity * DA->growth_factor)) {
+        if(!DynamicArrayChangeCapacity(DA, DA->capacity * DA->growth_factor)) {
             return false;
         }
     }
-    if(DA->compare(data, data_at(DA, 0)) < 0) {
-        memmove(data_at(DA, 1), data_at(DA, 0), DA->data_size * DA->size);
-        memcpy(data_at(DA, 0), data, DA->data_size);
+    if(DA->compare_function(data, DataAt(DA, 0)) < 0) {
+        memmove(DataAt(DA, 1), DataAt(DA, 0), DA->data_size * DA->size);
+        memcpy(DataAt(DA, 0), data, DA->data_size);
         DA->size = DA->size + 1;
         return true;
     }
-    if(DA->compare(data, data_at(DA, DA->size - 1)) > 0) {
-        memcpy(data_at(DA, DA->size), data, DA->data_size);
+    if(DA->compare_function(data, DataAt(DA, DA->size - 1)) > 0) {
+        memcpy(DataAt(DA, DA->size), data, DA->data_size);
         DA->size = DA->size + 1;
         return true;
     }
@@ -175,43 +175,43 @@ bool DynamicArray_sorted_insert(DynamicArray* DA, void* data)
     size_t right = DA->size - 1;
     while(left <= right) {
         size_t middle = left + ((right - left) / 2);
-        int compare = DA->compare(data, data_at(DA, middle));
-        if(!compare) {
-            memmove(data_at(DA, middle + 2), data_at(DA, middle + 1),
+        int compare_function = DA->compare_function(data, DataAt(DA, middle));
+        if(!compare_function) {
+            memmove(DataAt(DA, middle + 2), DataAt(DA, middle + 1),
                 DA->data_size * (DA->size - middle - 1));
-            memcpy(data_at(DA, middle + 1), data, DA->data_size);
+            memcpy(DataAt(DA, middle + 1), data, DA->data_size);
             DA->size = DA->size + 1;
             return true;
         }
-        else if(compare < 0) {
+        else if(compare_function < 0) {
             right = middle - 1;
         }
         else {
             left = middle + 1;
         }   
     }
-    memmove(data_at(DA, left + 1), data_at(DA, left), DA->data_size * (DA->size - left + 1));
-    memcpy(data_at(DA, left), data, DA->data_size);
+    memmove(DataAt(DA, left + 1), DataAt(DA, left), DA->data_size * (DA->size - left + 1));
+    memcpy(DataAt(DA, left), data, DA->data_size);
     DA->size = DA->size + 1;
     return true;
 }
 
-bool DynamicArray_pop_front(DynamicArray* DA)
+bool DynamicArrayPopFront(DynamicArray* DA)
 {
     if(DA->size == DA->capacity / DA->growth_factor) {
-        if(!DynamicArray_change_capacity(DA, DA->capacity / DA->growth_factor)) {
+        if(!DynamicArrayChangeCapacity(DA, DA->capacity / DA->growth_factor)) {
             return false;
         }
     }
-    memmove(data_at(DA, 0), data_at(DA, 1), DA->data_size * (DA->size - 1));
+    memmove(DataAt(DA, 0), DataAt(DA, 1), DA->data_size * (DA->size - 1));
     DA->size = DA->size - 1;
     return true;
 }
 
-bool DynamicArray_pop_back(DynamicArray* DA)
+bool DynamicArrayPopBack(DynamicArray* DA)
 {
     if(DA->size == DA->capacity / DA->growth_factor) {
-        if(!DynamicArray_change_capacity(DA, DA->capacity / DA->growth_factor)) {
+        if(!DynamicArrayChangeCapacity(DA, DA->capacity / DA->growth_factor)) {
             return false;
         }
     }
@@ -219,10 +219,10 @@ bool DynamicArray_pop_back(DynamicArray* DA)
     return true;
 }
 
-bool DynamicArray_remove(DynamicArray* DA, void* data)
+bool DynamicArrayRemove(DynamicArray* DA, void* data)
 {
     if(DA->size == DA->capacity / DA->growth_factor) {
-        if(!DynamicArray_change_capacity(DA, DA->capacity / DA->growth_factor)) {
+        if(!DynamicArrayChangeCapacity(DA, DA->capacity / DA->growth_factor)) {
             return false;
         }
     }
@@ -230,14 +230,14 @@ bool DynamicArray_remove(DynamicArray* DA, void* data)
     size_t right = DA->size;
     while(left <= right) {
         size_t middle = left + ((right - left) / 2);
-        int compare = DA->compare(data, data_at(DA, middle));
-        if(!compare) {
-            memmove(data_at(DA, middle), data_at(DA, middle + 1),
+        int compare_function = DA->compare_function(data, DataAt(DA, middle));
+        if(!compare_function) {
+            memmove(DataAt(DA, middle), DataAt(DA, middle + 1),
                 DA->data_size * (DA->size - middle + 1));
             DA->size = DA->size - 1;
             break;
         }
-        else if(compare < 0) {
+        else if(compare_function < 0) {
             right = middle - 1;
         }
         else {
@@ -247,14 +247,14 @@ bool DynamicArray_remove(DynamicArray* DA, void* data)
     return true;
 }
 
-bool DynamicArray_erase(DynamicArray* DA, size_t index)
+bool DynamicArrayErase(DynamicArray* DA, size_t index)
 {
     if(DA->size == DA->capacity / DA->growth_factor) {
-        if(!DynamicArray_change_capacity(DA, DA->capacity / DA->growth_factor)) {
+        if(!DynamicArrayChangeCapacity(DA, DA->capacity / DA->growth_factor)) {
             return false;
         }
     }
-    memmove(data_at(DA, index), data_at(DA, index + 1), DA->data_size * (DA->size - index + 1));
+    memmove(DataAt(DA, index), DataAt(DA, index + 1), DA->data_size * (DA->size - index + 1));
     DA->size = DA->size - 1;
     return true;
 }

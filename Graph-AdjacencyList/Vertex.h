@@ -10,7 +10,7 @@ typedef struct Vertex {
     struct Vertex *edge;
 } Vertex;
 
-static inline Vertex *Vertex_create(size_t data_size)
+static inline Vertex *VertexCreate(size_t data_size)
 {
     Vertex* V = (Vertex*)malloc(sizeof (Vertex));
     if(!V) {

@@ -11,11 +11,11 @@ struct PriorityQueueBH {
     size_t data_size;
     size_t priority_size;
     size_t size;
-    int (*compare)(void* priority1, void* priority2);
+    int (*compare_function)(void* priority1, void* priority2);
 };
 
-PriorityQueueBH* PriorityQueueBH_create(size_t data_size, size_t priority_size,
-    int (*compare)(void* priority1, void* priority2))
+PriorityQueueBH* PriorityQueueBHCreate(size_t data_size, size_t priority_size,
+    int (*compare_function)(void* priority1, void* priority2))
 {
     PriorityQueueBH* PQ = (PriorityQueueBH*)malloc(sizeof (PriorityQueueBH));
     if(!PQ) {
@@ -25,16 +25,16 @@ PriorityQueueBH* PriorityQueueBH_create(size_t data_size, size_t priority_size,
     PQ->data_size = data_size;
     PQ->priority_size = priority_size;
     PQ->size = 0;
-    PQ->compare = compare;
+    PQ->compare_function = compare_function;
     return PQ;
 }
 
-// void PriorityQueueBH_destroy(PriorityQueueBH* PQ)
+// void PriorityQueueBHDestroy(PriorityQueueBH* PQ)
 // {
 
 // }
 
-size_t PriorityQueueBH_size(PriorityQueueBH* PQ)
+size_t PriorityQueueBHSize(PriorityQueueBH* PQ)
 {
     return PQ->size;
 }
@@ -44,9 +44,9 @@ void* PriorityQueueBH_root(PriorityQueueBH* PQ)
     return PQ->root->data;
 }
 
-bool PriorityQueueBH_enqueue(PriorityQueueBH* PQ, void* data, void* priority)
+bool PriorityQueueBHEnqueue(PriorityQueueBH* PQ, void* data, void* priority)
 {
-    Node* node = Node_create(PQ->data_size, PQ->priority_size);
+    Node* node = NodeCreate(PQ->data_size, PQ->priority_size);
     if(!node) {
         return false;
     }
@@ -55,7 +55,7 @@ bool PriorityQueueBH_enqueue(PriorityQueueBH* PQ, void* data, void* priority)
     return true;
 }
 
-// void PriorityQueueBH_dequeue(PriorityQueueBH* PQ)
+// void PriorityQueueBHDequeue(PriorityQueueBH* PQ)
 // {
 
 // }

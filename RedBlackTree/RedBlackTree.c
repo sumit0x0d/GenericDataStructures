@@ -11,11 +11,10 @@ struct RedBlackTree {
     Node* root;
     size_t data_size;
     size_t size;
-    int (*compare)(void* data1, void* data2);
+    int (*compare_function)(void* data1, void* data2);
 };
 
-RedBlackTree* RedBlackTree_create(size_t data_size,
-    int (*compare)(void* data1, void* data2))
+RedBlackTree* RedBlackTreeCreate(size_t data_size, int (*compare_function)(void* data1, void* data2))
 {
     RedBlackTree* RBT = (RedBlackTree*)malloc(sizeof (RedBlackTree));
     if(!RBT) {
@@ -24,21 +23,21 @@ RedBlackTree* RedBlackTree_create(size_t data_size,
     RBT->root = NULL;
     RBT->size = 0;
     RBT->data_size = data_size;
-    RBT->compare = compare;
+    RBT->compare_function = compare_function;
     return RBT;
 }
 
-// void RedBlackTree_destroy(RedBlackTree* RBT)
+// void RedBlackTreeDestroy(RedBlackTree* RBT)
 // {
 
 // }
 
-size_t RedBlackTree_size(RedBlackTree* RBT)
+size_t RedBlackTreeSize(RedBlackTree* RBT)
 {
     return RBT->size;
 }
 
-bool RedBlackTree_empty(RedBlackTree* RBT)
+bool RedBlackTreeEmpty(RedBlackTree* RBT)
 {
     if(RBT->size) {
         return false;
@@ -51,16 +50,16 @@ void* RedBlackTree_root(RedBlackTree* RBT)
     return RBT->root->data;
 }
 
-void* RedBlackTree_search(RedBlackTree* RBT, void* data)
+void* RedBlackTreeSearch(RedBlackTree* RBT, void* data)
 {
     Node* node = RBT->root;
-    int compare;
+    int compare_function;
     while(node) {
-        compare = RBT->compare(data, node->data);
-        if(compare == 0) {
+        compare_function = RBT->compare_function(data, node->data);
+        if(compare_function == 0) {
             return node;
         }
-        else if(compare < 0) {
+        else if(compare_function < 0) {
             node = node->left;
         }
         else {
@@ -111,10 +110,10 @@ static void RedBlackTree_rebalance(RedBlackTree* RBT, Node* node)
     }
 }
 
-bool RedBlackTree_insert(RedBlackTree* RBT, void* data)
+bool RedBlackTreeInsert(RedBlackTree* RBT, void* data)
 {
     if(!RBT->size) {
-        RBT->root = Node_create(RBT->data_size);
+        RBT->root = NodeCreate(RBT->data_size);
         if(!RBT->root) {
             return false;
         }
@@ -126,21 +125,21 @@ bool RedBlackTree_insert(RedBlackTree* RBT, void* data)
     }
     Node* node = RBT->root;
     Node* node_parent = NULL;
-    int compare;
+    int compare_function;
     while(node) {
-        compare = RBT->compare(data, node->data);
-        if(compare == 0) {
+        compare_function = RBT->compare_function(data, node->data);
+        if(compare_function == 0) {
             return true;
         }
         node_parent = node;
-        if(compare < 0) {
+        if(compare_function < 0) {
             node = node->left;
         }
         else {
             node = node->right;
         }
     }
-    node = Node_create(RBT->data_size);
+    node = NodeCreate(RBT->data_size);
     if(!node) {
         return false;
     }
@@ -158,88 +157,88 @@ bool RedBlackTree_insert(RedBlackTree* RBT, void* data)
     return true;
 }
 
-// void RedBlackTree_remove(RedBlackTree* RBT, int data)
+// void RedBlackTreeRemove(RedBlackTree* RBT, int data)
 // {
 
 // }
 
 
-void RedBlackTree_traverse_preorder(RedBlackTree* RBT, void (*function)(void* data))
+void RedBlackTreeTraverse_preorder(RedBlackTree* RBT, void (*function)(void* data))
 {
     Node* node = RBT->root;
-    Stack* stack = Stack_create(RBT->size);
+    Stack* stack = StackCreate(RBT->size);
     while(node || stack->size) {
         if(node) {
-            Stack_push(stack, node);
+            StackPush(stack, node);
             function(node->data);
             node = node->left;
         }
         else {
             node = Stack_top(stack);
-            Stack_pop(stack);
+            StackPop(stack);
             node = node->right;
         }
     }
-    Stack_destroy(stack);
+    StackDestroy(stack);
 }
 
-void RedBlackTree_traverse_inorder(RedBlackTree* RBT, void (*function)(void* data))
+void RedBlackTreeTraverse_inorder(RedBlackTree* RBT, void (*function)(void* data))
 {
     Node* node = RBT->root;
-    Stack* stack = Stack_create(RBT->size);
+    Stack* stack = StackCreate(RBT->size);
     while(node || stack->size) {
         if(node) {
-            Stack_push(stack, node);
+            StackPush(stack, node);
             node = node->left;
         }
         else {
             node = Stack_top(stack);
-            Stack_pop(stack);
+            StackPop(stack);
             function(node->data);
             node = node->right;
         }
     }
-    Stack_destroy(stack);
+    StackDestroy(stack);
 }
 
-// static void preorder_traverse(RedBlackTree* RBT)
+// static void preorderTraverse(RedBlackTree* RBT)
 // {
-//     if(RedBlackTree_empty(RBT)) {
+//     if(RedBlackTreeEmpty(RBT)) {
 //         return;
 //     }
 //     Node* node = RBT->root;
-//     StackLL* S = StackLL_create(sizeof (RedBlackTreeNode));
+//     StackLL* S = StackLLCreate(sizeof (RedBlackTreeNode));
 //     while(node || S->size) {
 //         if(node) {
-//             StackLL_push(S, node);
+//             StackLLPush(S, node);
 //             printf("%d(%d) ", *(int*)node->data, node->balance_factor);
 //             node = node->left;
 //         }
 //         else {
 //             node = S->top->data;
-//             StackLL_pop(S);
+//             StackLLPop(S);
 //             node = node->right;
 //         }
 //     }
 // }
 
-void RedBlackTree_traverse_levelorder(RedBlackTree* RBT, void (*function)(void* data))
+void RedBlackTreeTraverse_levelorder(RedBlackTree* RBT, void (*function)(void* data))
 {
-    CircularQueue* circular_queue = CircularQueue_create(RBT->size);
+    CircularQueue* circular_queue = CircularQueueCreate(RBT->size);
     Node* node = RBT->root;
     function(node->data);
-    CircularQueue_enqueue(circular_queue, node);
+    CircularQueueEnqueue(circular_queue, node);
     while(circular_queue->size) {
-        node = CircularQueue_front(circular_queue);
-        CircularQueue_dequeue(circular_queue);
+        node = CircularQueueFront(circular_queue);
+        CircularQueueDequeue(circular_queue);
         if(node->left) {
             function(node->data);
-            CircularQueue_enqueue(circular_queue, node->left);
+            CircularQueueEnqueue(circular_queue, node->left);
         }
         if(node->right) {
             function(node->data);
-            CircularQueue_enqueue(circular_queue, node->right);
+            CircularQueueEnqueue(circular_queue, node->right);
         }
     }
-    CircularQueue_destroy(circular_queue);
+    CircularQueueDestroy(circular_queue);
 }

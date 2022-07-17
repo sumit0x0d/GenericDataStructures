@@ -6,10 +6,10 @@
 
 typedef struct BloomFilter BloomFilter;
 
-BloomFilter* BloomFilter_create(size_t data_size, size_t bucket_count,
-    size_t (*hash)(void* data, size_t data_size, size_t bucket_count));
-void BloomFilter_destroy(BloomFilter* BF);
-bool BloomFilter_search(BloomFilter* BF, void* data);
-void BloomFilter_insert(BloomFilter* BF, void* data);
+BloomFilter* BloomFilterCreate(size_t data_size, size_t bucket_count,
+    size_t (*hash_function)(void* data, size_t data_size, size_t bucket_count));
+void BloomFilterDestroy(BloomFilter* BF);
+bool BloomFilterSearch(BloomFilter* BF, void* data);
+void BloomFilterInsert(BloomFilter* BF, void* data);
 
 #endif

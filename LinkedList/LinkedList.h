@@ -6,23 +6,23 @@
 
 typedef struct LinkedList LinkedList;
 
-LinkedList* LinkedList_create(size_t data_size, int (*compare)(void* data1, void* data2));
-void LinkedList_destroy(LinkedList* LL);
-size_t LinkedList_size(LinkedList* LL);
-bool LinkedList_empty(LinkedList* LL);
-void* LinkedList_head(LinkedList* LL);
-void* LinkedList_tail(LinkedList* LL);
-void* LinkedList_at(LinkedList* LL, size_t index);
-void* LinkedList_search(LinkedList* LL, void* data);
-bool LinkedList_push_front(LinkedList* LL, void* data);
-bool LinkedList_push_back(LinkedList* LL, void* data);
-bool LinkedList_insert(LinkedList* LL, size_t index, void* data);
-bool LinkedList_sorted_insert(LinkedList* LL, void* data);
-void LinkedList_pop_front(LinkedList* LL);
-void LinkedList_pop_back(LinkedList* LL);
-void LinkedList_remove(LinkedList* LL, void* data);
-void LinkedList_erase(LinkedList* LL, size_t index);
-bool LinkedList_update(LinkedList* LL, size_t index, void* data);
-void LinkedList_traverse(LinkedList* LL, void (*function)(void *));
+LinkedList* LinkedListCreate(size_t data_size, int (*compare_function)(void* data1, void* data2));
+void LinkedListDestroy(LinkedList* LL);
+size_t LinkedListSize(LinkedList* LL);
+bool LinkedListEmpty(LinkedList* LL);
+void* LinkedListHead(LinkedList* LL);
+void* LinkedListTail(LinkedList* LL);
+void* LinkedListAt(LinkedList* LL, size_t index);
+void* LinkedListSearch(LinkedList* LL, void* data);
+bool LinkedListPushFront(LinkedList* LL, void* data);
+bool LinkedListPushBack(LinkedList* LL, void* data);
+bool LinkedListInsert(LinkedList* LL, size_t index, void* data);
+bool LinkedListSortedInsert(LinkedList* LL, void* data);
+void LinkedListPopFront(LinkedList* LL);
+void LinkedListPopBack(LinkedList* LL);
+void LinkedListRemove(LinkedList* LL, void* data);
+void LinkedListErase(LinkedList* LL, size_t index);
+bool LinkedListUpdate(LinkedList* LL, size_t index, void* data);
+void LinkedListTraverse(LinkedList* LL, void (*function)(void *));
 
 #endif

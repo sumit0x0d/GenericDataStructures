@@ -12,10 +12,10 @@ struct BinaryHeapBT {
     struct Node* leftmost_node;
     struct Node* rightmost_node;
     size_t size;
-    int (*compare)(void* data1, void* data2);
+    int (*compare_function)(void* data1, void* data2);
 };
 
-BinaryHeapBT* BinaryHeapBT_create(size_t data_size, int (*compare)(void* data1, void* data2))
+BinaryHeapBT* BinaryHeapBTCreate(size_t data_size, int (*compare_function)(void* data1, void* data2))
 {
     BinaryHeapBT* BH = (BinaryHeapBT*)malloc(sizeof (BinaryHeapBT));
     if(!BH) {
@@ -27,12 +27,12 @@ BinaryHeapBT* BinaryHeapBT_create(size_t data_size, int (*compare)(void* data1, 
     return BH;
 }
 
-void BinaryHeapBT_destroy(BinaryHeapBT* BH)
+void BinaryHeapBTDestroy(BinaryHeapBT* BH)
 {
 
 }
 
-size_t BinaryHeapBT_size(BinaryHeapBT* BH)
+size_t BinaryHeapBTSize(BinaryHeapBT* BH)
 {
     return BH->size;
 }
@@ -42,12 +42,12 @@ void* BinaryHeapBT_root(BinaryHeapBT* BH)
     return BH->root->data;
 }
 
-bool BinaryHeapBT_insert(BinaryHeapBT* BH, void* data)
+bool BinaryHeapBTInsert(BinaryHeapBT* BH, void* data)
 {
     return true;
 }
 
-void BinaryHeapBT_remove(BinaryHeapBT* BH)
+void BinaryHeapBTRemove(BinaryHeapBT* BH)
 {
 
 }

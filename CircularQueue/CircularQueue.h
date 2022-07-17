@@ -6,14 +6,14 @@
 
 typedef struct CircularQueue CircularQueue;
 
-CircularQueue* CircularQueue_create(size_t data_size, size_t capacity);
-void CircularQueue_destroy(CircularQueue *CQ);
-size_t CircularQueue_size(CircularQueue *CQ);
-bool CircularQueue_empty(CircularQueue *CQ);
-bool CircularQueue_full(CircularQueue *CQ);
-void* CircularQueue_front(CircularQueue* CQ);
-void* CircularQueue_back(CircularQueue* CQ);
-void CircularQueue_enqueue(CircularQueue* CQ, void* data);
-void CircularQueue_dequeue(CircularQueue* CQ);
+CircularQueue* CircularQueueCreate(size_t data_size, size_t capacity);
+void CircularQueueDestroy(CircularQueue *CQ);
+size_t CircularQueueSize(CircularQueue *CQ);
+bool CircularQueueEmpty(CircularQueue *CQ);
+bool CircularQueueFull(CircularQueue *CQ);
+void* CircularQueueFront(CircularQueue* CQ);
+void* CircularQueueBack(CircularQueue* CQ);
+void CircularQueueEnqueue(CircularQueue* CQ, void* data);
+void CircularQueueDequeue(CircularQueue* CQ);
 
 #endif

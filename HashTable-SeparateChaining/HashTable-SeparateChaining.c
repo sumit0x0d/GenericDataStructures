@@ -11,11 +11,11 @@ struct HashTableSC {
     size_t value_size;
     size_t bucket_count;
     size_t size;
-    size_t (*hash)(void* key, size_t key_size, size_t bucket_count);
+    size_t (*hash_function)(void* key, size_t key_size, size_t bucket_count);
 };
 
-HashTableSC* HashTableSC_create(size_t key_size, size_t value_size, size_t bucket_count,
-    size_t (*hash)(void* key, size_t key_size, size_t bucket_count))
+HashTableSC* HashTableSCCreate(size_t key_size, size_t value_size, size_t bucket_count,
+    size_t (*hash_function)(void* key, size_t key_size, size_t bucket_count))
 {
     HashTableSC* HT = (HashTableSC*)malloc(sizeof (HashTableSC));
     if(!HT) {
@@ -30,11 +30,11 @@ HashTableSC* HashTableSC_create(size_t key_size, size_t value_size, size_t bucke
     HT->value_size = value_size;
     HT->bucket_count = bucket_count;
     HT->size = 0;
-    HT->hash = hash;
+    HT->hash_function = hash_function;
     return HT;
 }
 
-void HashTableSC_destroy(HashTableSC* HT)
+void HashTableSCDestroy(HashTableSC* HT)
 {
     free(HT->array);
     HT->array = NULL;
@@ -42,12 +42,12 @@ void HashTableSC_destroy(HashTableSC* HT)
     HT = NULL;
 }
 
-size_t HashTableSC_size(HashTableSC* HT)
+size_t HashTableSCSize(HashTableSC* HT)
 {
     return HT->size;
 }
 
-bool HashTableSC_empty(HashTableSC* HT)
+bool HashTableSCEmpty(HashTableSC* HT)
 {
     if(HT->size) {
         return false;
@@ -55,25 +55,25 @@ bool HashTableSC_empty(HashTableSC* HT)
     return true;
 }
 
-void* HashTableSC_search(HashTableSC* HT, void* key)
+void* HashTableSCSearch(HashTableSC* HT, void* key)
 {
-    size_t index = HT->hash(key, HT->key_size, HT->bucket_count);
+    size_t index = HT->hash_function(key, HT->key_size, HT->bucket_count);
     if(!HT->array[index].key) {
         return NULL;
     }
     return HT->array[index].value;
 }
 
-bool HashTableSC_insert(HashTableSC* HT, void* key, void* value)
+bool HashTableSCInsert(HashTableSC* HT, void* key, void* value)
 {
-    Pair* pair = Pair_create(HT->key_size, HT->value_size);
+    Pair* pair = PairCreate(HT->key_size, HT->value_size);
     if(!pair) {
         return false;
     }
     memcpy(pair->key, key, HT->key_size);
     memcpy(pair->value, value, HT->value_size);
     pair->next = NULL;
-    size_t index = HT->hash(key, HT->key_size, HT->bucket_count);
+    size_t index = HT->hash_function(key, HT->key_size, HT->bucket_count);
     if(1) {
         Pair* pair_previous = HT->array + index;
         while(pair_previous->next) {
@@ -88,7 +88,7 @@ bool HashTableSC_insert(HashTableSC* HT, void* key, void* value)
     return true;
 }
 
-// int HashTableSC_remove(HashTableSC* HT, void* key)
+// int HashTableSCRemove(HashTableSC* HT, void* key)
 // {
-//     size_t index = HT->hash(key, HT->bucket_count);
+//     size_t index = HT->hash_function(key, HT->bucket_count);
 // }

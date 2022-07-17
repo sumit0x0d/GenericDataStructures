@@ -10,7 +10,7 @@ typedef struct Node {
     struct Node* parent;
 } Node;
 
-static Node* Node_create(size_t data_size)
+static Node* NodeCreate(size_t data_size)
 {
     Node* N = (Node*)malloc(sizeof (Node));
     if(!N) {

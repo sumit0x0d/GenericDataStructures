@@ -14,7 +14,7 @@ typedef struct CircularQueue {
     size_t size;
 } CircularQueue;
 
-static CircularQueue* CircularQueue_create(size_t capacity)
+static CircularQueue* CircularQueueCreate(size_t capacity)
 {
     CircularQueue* CQ = (CircularQueue*)malloc(sizeof (CircularQueue));
     if(!CQ) {
@@ -32,7 +32,7 @@ static CircularQueue* CircularQueue_create(size_t capacity)
     return CQ;
 }
 
-static void CircularQueue_destroy(CircularQueue* CQ)
+static void CircularQueueDestroy(CircularQueue* CQ)
 {
     free(CQ->array);
     CQ->array = NULL;
@@ -40,19 +40,19 @@ static void CircularQueue_destroy(CircularQueue* CQ)
     CQ = NULL;
 }
 
-static Node* CircularQueue_front(CircularQueue* CQ)
+static Node* CircularQueueFront(CircularQueue* CQ)
 {
     return CQ->array + CQ->front;
 }
 
-static void CircularQueue_enqueue(CircularQueue* CQ, Node* data)
+static void CircularQueueEnqueue(CircularQueue* CQ, Node* data)
 {
     memcpy(CQ->array + CQ->back, data, sizeof (Node));
     CQ->back = (CQ->back + 1) % CQ->capacity;
     CQ->size = CQ->size + 1;
 }
 
-static void CircularQueue_dequeue(CircularQueue* CQ)
+static void CircularQueueDequeue(CircularQueue* CQ)
 {
     CQ->front = (CQ->front + 1) % CQ->capacity;
     CQ->size = CQ->size - 1;
