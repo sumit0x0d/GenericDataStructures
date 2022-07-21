@@ -6,13 +6,13 @@
 
 typedef struct HashTableSC HashTableSC;
 
-HashTableSC* HashTableSCCreate(size_t key_size, size_t value_size, size_t bucket_count,
+HashTableSC* HashTableSC_Create(size_t key_size, size_t value_size, size_t bucket_count,
     size_t (*hash_function)(void* key, size_t key_size, size_t bucket_count));
-void HashTableSCDestroy(HashTableSC* HT);
-size_t HashTableSCSize(HashTableSC* HT);
-bool HashTableSCEmpty(HashTableSC* HT);
-void* HashTableSCSearch(HashTableSC* HT, void* key);
-bool HashTableSCInsert(HashTableSC* HT, void* key, void* value);
-bool HashTableSCRemove(HashTableSC* HT, void* key);
+void HashTableSC_Destroy(HashTableSC* HT);
+size_t HashTableSC_Size(HashTableSC* HT);
+bool HashTableSC_Empty(HashTableSC* HT);
+void* HashTableSC_Search(HashTableSC* HT, void* key);
+bool HashTableSC_Insert(HashTableSC* HT, void* key, void* value);
+bool HashTableSC_Remove(HashTableSC* HT, void* key);
 
 #endif

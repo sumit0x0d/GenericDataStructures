@@ -11,7 +11,7 @@ struct BinaryTree {
     size_t size;
 };
 
-BTree* BTreeCreate(size_t data_size)
+BTree* BTree_Create(size_t data_size)
 {
     BTree* BT = (BTree*)malloc(sizeof (BTree));
     if(!BT) {
@@ -20,17 +20,17 @@ BTree* BTreeCreate(size_t data_size)
     return BT;
 }
 
-void BTreeDestroy(BTree* BT)
+void BTree_Destroy(BTree* BT)
 {
 
 }
 
-// BTreeNode* BTreeInsert(BTree* BT, void* data, size_t data_size)
+// BTreeNode* BTree_Insert(BTree* BT, void* data, size_t data_size)
 // {
 
 // }
 
-void* BTree_root(BTree* BT)
+void* BTree_Root(BTree* BT)
 {
     return BT->root;
 }

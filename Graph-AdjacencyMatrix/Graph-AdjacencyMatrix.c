@@ -9,7 +9,7 @@ struct GraphAM {
     unsigned long vertex_count;
 };
 
-GraphAM *graphAMCreate(size_t data_size, unsigned long vertex_count)
+GraphAM *graphAM_Create(size_t data_size, unsigned long vertex_count)
 {
     GraphAM* G = (GraphAM*)malloc(sizeof (GraphAM));
     if(!G) {
@@ -40,17 +40,17 @@ GraphAM *graphAMCreate(size_t data_size, unsigned long vertex_count)
     return G;
 }
 
-// void graphDestroy(GraphAM *G)
+// void graph_Destroy(GraphAM *G)
 // {
     
 // }
 
-// int graphInsert_vertex(GraphAM *G, unsigned long vertex)
+// int graph_Insert_vertex(GraphAM *G, unsigned long vertex)
 // {
 
 // }
 
-// int graphInsert_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_dest)
+// int graph_Insert_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_dest)
 // {
     
 // }

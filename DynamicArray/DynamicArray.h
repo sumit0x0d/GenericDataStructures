@@ -6,22 +6,22 @@
 
 typedef struct DynamicArray DynamicArray;
 
-DynamicArray* DynamicArrayCreate(size_t data_size, size_t capacity, double growth_factor,
+DynamicArray* DynamicArray_Create(size_t data_size, size_t capacity, double growth_factor,
     int (*compare_function)(void* data1, void* data2));
-void DynamicArrayDestroy(DynamicArray* DA);
-size_t DynamicArraySize(DynamicArray* DA);
-bool DynamicArrayEmpty(DynamicArray* DA);
+void DynamicArray_Destroy(DynamicArray* DA);
+size_t DynamicArray_Size(DynamicArray* DA);
+bool DynamicArray_Empty(DynamicArray* DA);
 void* DynamicArrayFront(DynamicArray* DA);
 void* DynamicArrayBack(DynamicArray* DA);
-void* DynamicArrayAt(DynamicArray* DA, size_t index);
-void* DynamicArraySearch(DynamicArray* DA, void* data);
-bool DynamicArrayPushFront(DynamicArray* DA, void* data);
-bool DynamicArrayPushBack(DynamicArray* DA, void* data);
-bool DynamicArrayInsert(DynamicArray* DA, size_t index, void* data);
-bool DynamicArraySortedInsert(DynamicArray* DA, void* data);
-bool DynamicArrayPopFront(DynamicArray* DA);
-bool DynamicArrayPopBack(DynamicArray* DA);
-bool DynamicArrayRemove(DynamicArray* DA, void* data);
-bool DynamicArrayErase(DynamicArray* DA, size_t index);
+void* DynamicArray_At(DynamicArray* DA, size_t index);
+void* DynamicArray_Search(DynamicArray* DA, void* data);
+bool DynamicArray_PushFront(DynamicArray* DA, void* data);
+bool DynamicArray_PushBack(DynamicArray* DA, void* data);
+bool DynamicArray_Insert(DynamicArray* DA, size_t index, void* data);
+bool DynamicArray_SortedInsert(DynamicArray* DA, void* data);
+bool DynamicArray_PopFront(DynamicArray* DA);
+bool DynamicArray_PopBack(DynamicArray* DA);
+bool DynamicArray_Remove(DynamicArray* DA, void* data);
+bool DynamicArray_Erase(DynamicArray* DA, size_t index);
 
 #endif

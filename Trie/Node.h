@@ -8,7 +8,7 @@ typedef struct Node {
     struct TrieNode* children[128];
 } Node;
 
-static Node* NodeCreate()
+static Node* Node_Create()
 {
     Node* N = (Node*)malloc(sizeof (Node));
     if(!N) {

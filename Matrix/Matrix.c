@@ -11,7 +11,7 @@ struct Matrix {
     size_t column_count;
 };
 
-Matrix* MatrixCreate(size_t data_size, size_t row_count, size_t column_count)
+Matrix* Matrix_Create(size_t data_size, size_t row_count, size_t column_count)
 {
     Matrix* M = (Matrix*)malloc(sizeof (Matrix));
     if(!M) {
@@ -39,7 +39,7 @@ Matrix* MatrixCreate(size_t data_size, size_t row_count, size_t column_count)
     return M;
 }
 
-void MatrixDestroy(Matrix* M)
+void Matrix_Destroy(Matrix* M)
 {
     for(size_t i = 0; i < M->row_count; i++) {
         free(M->array[i]);
@@ -56,12 +56,12 @@ static inline void* DataAt(Matrix* M, size_t row_count, size_t column_count)
     return (char*)M->array[row_count] + column_count;
 }
 
-void MatrixInsert(Matrix* M, size_t row_count, size_t column_count, void* data)
+void Matrix_Insert(Matrix* M, size_t row_count, size_t column_count, void* data)
 {
     memcpy(DataAt(M, row_count, column_count), data, M->data_size);
 }
 
-void MatrixRemove(Matrix* M, size_t row_count, size_t column_count)
+void Matrix_Remove(Matrix* M, size_t row_count, size_t column_count)
 {
     memset(DataAt(M, row_count, column_count), 0, M->data_size);
 }

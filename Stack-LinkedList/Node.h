@@ -8,7 +8,7 @@ typedef struct Node {
     struct Node* next;
 } Node;
 
-static Node* NodeCreate(size_t data_size)
+static Node* Node_Create(size_t data_size)
 {
     Node* N = (Node*)malloc(sizeof (Node));
     if(!N) {
@@ -22,7 +22,7 @@ static Node* NodeCreate(size_t data_size)
     return N;
 }
 
-static void NodeDestroy(Node* N)
+static void Node_Destroy(Node* N)
 {
     free(N->data);
     N->data = NULL;

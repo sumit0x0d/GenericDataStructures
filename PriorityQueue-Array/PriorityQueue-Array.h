@@ -6,16 +6,16 @@
 
 typedef struct PriorityQueueA PriorityQueueA;
 
-PriorityQueueA* PriorityQueueACreate(size_t data_size, size_t priority_size, size_t capacity,
+PriorityQueueA* PriorityQueueA_Create(size_t data_size, size_t priority_size, size_t capacity,
     int (*compare_function)(void* priority1, void* priority2));
-bool PriorityQueueAChangeCapacity(PriorityQueueA* PQ, size_t capacity);
-void PriorityQueueADestroy(PriorityQueueA* PQ);
-size_t PriorityQueueASize(PriorityQueueA* PQ);
-bool PriorityQueueAEmpty(PriorityQueueA* PQ);
-bool PriorityQueueAFull(PriorityQueueA *PQ);
-void* PriorityQueueAFront(PriorityQueueA* PQ);
-void* PriorityQueueABack(PriorityQueueA* PQ);
-void PriorityQueueAEnqueue(PriorityQueueA* PQ, void* data, void* priority);
-void PriorityQueueADequeue(PriorityQueueA* PQ);
+bool PriorityQueueA_ChangeCapacity(PriorityQueueA* PQ, size_t capacity);
+void PriorityQueueA_Destroy(PriorityQueueA* PQ);
+size_t PriorityQueueA_Size(PriorityQueueA* PQ);
+bool PriorityQueueA_Empty(PriorityQueueA* PQ);
+bool PriorityQueueA_Full(PriorityQueueA *PQ);
+void* PriorityQueueA_Front(PriorityQueueA* PQ);
+void* PriorityQueueA_Back(PriorityQueueA* PQ);
+void PriorityQueueA_Enqueue(PriorityQueueA* PQ, void* data, void* priority);
+void PriorityQueueA_Dequeue(PriorityQueueA* PQ);
 
 #endif

@@ -13,7 +13,7 @@ struct QueueA {
     size_t size;
 };
 
-QueueA* QueueACreate(size_t data_size, size_t capacity)
+QueueA* QueueA_Create(size_t data_size, size_t capacity)
 {
     QueueA* Q = (QueueA*)malloc(sizeof (QueueA));
     if(!Q) {
@@ -32,7 +32,7 @@ QueueA* QueueACreate(size_t data_size, size_t capacity)
     return Q;
 }
 
-bool QueueAChangeCapacity(QueueA* Q, size_t capacity)
+bool QueueA_ChangeCapacity(QueueA* Q, size_t capacity)
 {
     void* array = realloc(Q->array, Q->data_size * capacity);
     if(!array) {
@@ -47,7 +47,7 @@ bool QueueAChangeCapacity(QueueA* Q, size_t capacity)
     return true;
 }
 
-void QueueADestroy(QueueA* Q)
+void QueueA_Destroy(QueueA* Q)
 {
     free(Q->array);
     Q->array = NULL;
@@ -55,12 +55,12 @@ void QueueADestroy(QueueA* Q)
     Q = NULL;
 }
 
-size_t QueueASize(QueueA* Q)
+size_t QueueA_Size(QueueA* Q)
 {
     return Q->size;
 }
 
-bool QueueAEmpty(QueueA* Q)
+bool QueueA_Empty(QueueA* Q)
 {
     if(Q->size) {
         return false;
@@ -68,7 +68,7 @@ bool QueueAEmpty(QueueA* Q)
     return true;
 }
 
-bool QueueAFull(QueueA* Q)
+bool QueueA_Full(QueueA* Q)
 {
     if(Q->size != Q->capacity) {
         return false;
@@ -81,17 +81,17 @@ static inline void* DataAt(QueueA* Q, size_t index)
     return (char*)Q->array + (Q->data_size * index);
 }
 
-void* QueueAFront(QueueA* Q)
+void* QueueA_Front(QueueA* Q)
 {
     return DataAt(Q, Q->front);
 }
 
-void* QueueABack(QueueA* Q)
+void* QueueA_Back(QueueA* Q)
 {
     return DataAt(Q, Q->back - 1);
 }
 
-void QueueAEnqueue(QueueA* Q, void* data)
+void QueueA_Enqueue(QueueA* Q, void* data)
 {
     if(Q->back == Q->capacity) {
         memmove(DataAt(Q, 0), DataAt(Q, Q->front), Q->size);
@@ -103,7 +103,7 @@ void QueueAEnqueue(QueueA* Q, void* data)
     Q->size = Q->size + 1;
 }
 
-void QueueADequeue(QueueA* Q)
+void QueueA_Dequeue(QueueA* Q)
 {
     Q->front = Q->front + 1;
     Q->size = Q->size - 1;

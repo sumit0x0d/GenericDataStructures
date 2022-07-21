@@ -12,7 +12,7 @@ struct GraphAL {
     size_t size;
 };
 
-GraphAL* GraphALCreate(size_t data_size)
+GraphAL* GraphAL_Create(size_t data_size)
 {
     GraphAL* G = (GraphAL*)malloc(sizeof (GraphAL));
     if(!G) {
@@ -25,7 +25,7 @@ GraphAL* GraphALCreate(size_t data_size)
     return G;
 }
 
-void GraphALDestroy(GraphAL* G)
+void GraphAL_Destroy(GraphAL* G)
 {
     free(G->adjacency_list);
     G->adjacency_list = NULL;
@@ -33,7 +33,7 @@ void GraphALDestroy(GraphAL* G)
     G->size = 0;
 }
 
-// void adjacency_listCreate(Vertex *adjacency_list)
+// void adjacency_list_Create(Vertex *adjacency_list)
 // {
 //     if(!adjacency_list) {
 //         adjacency_list = malloc(sizeof (Vertex));
@@ -41,7 +41,7 @@ void GraphALDestroy(GraphAL* G)
 //     }
 // }
 
-// Vertex *GraphAL_vertexSearch(GraphAL* G, void* data)
+// Vertex *GraphAL_vertex_Search(GraphAL* G, void* data)
 // {
 //     Vertex *vertex = G->adjacency_list;
 
@@ -52,12 +52,12 @@ void GraphALDestroy(GraphAL* G)
 // }
 
 
-// void vertexDestroy(Vertex *vertex)
+// void vertex_Destroy(Vertex *vertex)
 // {
 
 // }
 
-int GraphAL_vertexInsert(GraphAL* G, void* data)
+int GraphAL_vertex_Insert(GraphAL* G, void* data)
 {
     if(!G->adjacency_list) {
         G->adjacency_list = (Vertex*)malloc(sizeof (Vertex));
@@ -73,7 +73,7 @@ int GraphAL_vertexInsert(GraphAL* G, void* data)
         }
         G->adjacency_list = adjacency_list;
     }
-    Vertex *vertex = VertexCreate(G->data_size);
+    Vertex *vertex = Vertex_Create(G->data_size);
     if(!vertex) {
         return false;
     }
@@ -86,17 +86,17 @@ int GraphAL_vertexInsert(GraphAL* G, void* data)
     return true;
 }
 
-// void graph_vertexDestroy(Vertex *vertex)
+// void graph_vertex_Destroy(Vertex *vertex)
 // {
 
 // }
 
-// void GraphAL_vertexRemove(GraphAL* G)
+// void GraphAL_vertex_Remove(GraphAL* G)
 // {
 
 // }
 
-// int GraphAL_edgeInsert(GraphAL* G, Vertex *vertex_source, Vertex *vertex_destination, unsigned long weight)
+// int GraphAL_edge_Insert(GraphAL* G, Vertex *vertex_source, Vertex *vertex_destination, unsigned long weight)
 // {
     
 // }

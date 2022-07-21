@@ -14,7 +14,7 @@ struct HashTableOA {
     int (*compare_function)(void* key1, void* key2);
 };
 
-HashTableOA* HashTableOACreate(size_t key_size, size_t value_size, size_t bucket_count,
+HashTableOA* HashTableOA_Create(size_t key_size, size_t value_size, size_t bucket_count,
     size_t (*hash_function)(void* key, size_t key_size, size_t bucket_count),
     int (*compare_function)(void* key1, void* key2))
 {
@@ -22,7 +22,7 @@ HashTableOA* HashTableOACreate(size_t key_size, size_t value_size, size_t bucket
     if(!HT) {
         return NULL;
     }
-    HT->array = (void*)calloc(bucket_count, (key_size + value_size));
+    HT->array = calloc(bucket_count, (key_size + value_size));
     if(!HT->array) {
         free(HT);
         return NULL;
@@ -36,7 +36,7 @@ HashTableOA* HashTableOACreate(size_t key_size, size_t value_size, size_t bucket
     return HT;
 }
 
-void HashTableOADestroy(HashTableOA* HT)
+void HashTableOA_Destroy(HashTableOA* HT)
 {
     free(HT->array);
     HT->array = NULL;
@@ -44,12 +44,12 @@ void HashTableOADestroy(HashTableOA* HT)
     HT = NULL;
 }
 
-size_t HashTableOASize(HashTableOA* HT)
+size_t HashTableOA_Size(HashTableOA* HT)
 {
     return HT->size;
 }
 
-bool HashTableOAEmpty(HashTableOA* HT)
+bool HashTableOA_Empty(HashTableOA* HT)
 {
     if(HT->size) {
         return false;
@@ -57,7 +57,7 @@ bool HashTableOAEmpty(HashTableOA* HT)
     return true;
 }
 
-bool HashTableOAFull(HashTableOA* HT)
+bool HashTableOA_Full(HashTableOA* HT)
 {
     if(HT->size != HT->bucket_count) {
         return false;
@@ -65,46 +65,46 @@ bool HashTableOAFull(HashTableOA* HT)
     return true;
 }
 
-static inline void* KeyAt(HashTableOA* HT, size_t index)
+static inline void* Key_At(HashTableOA* HT, size_t index)
 {
     return (char*)HT->array + ((HT->key_size + HT->value_size) * index);
 }
 
-static inline void* ValueAt(HashTableOA* HT, size_t index)
+static inline void* Value_At(HashTableOA* HT, size_t index)
 {
     return (char*)HT->array + ((HT->key_size + HT->value_size) * index) + HT->key_size;
 }
 
-void* HashTableOASearch(HashTableOA* HT, void* key)
+void* HashTableOA_Search(HashTableOA* HT, void* key)
 {
     size_t index = HT->hash_function(key, HT->key_size, HT->bucket_count);
-    while(*(size_t*)KeyAt(HT, index)) {
-        int compare_function = HT->compare_function(key, KeyAt(HT, index));
+    while(*(size_t*)Key_At(HT, index)) {
+        int compare_function = HT->compare_function(key, Key_At(HT, index));
         if(!compare_function) {
-            return KeyAt(HT, index);
+            return Key_At(HT, index);
         }
         index = (index + 1) % HT->bucket_count;
     }
     return NULL;
 }
 
-void HashTableOAInsert(HashTableOA* HT, void* key, void* value)
+void HashTableOA_Insert(HashTableOA* HT, void* key, void* value)
 {
     size_t index = HT->hash_function(key, HT->key_size, HT->bucket_count);
-    while(*(size_t*)KeyAt(HT, index)) {
+    while(*(size_t*)Key_At(HT, index)) {
         index = (index + 1) % HT->bucket_count;
     }
-    memcpy(KeyAt(HT, index), key, HT->key_size);
-    memcpy(ValueAt(HT, index), value, HT->value_size);
+    memcpy(Key_At(HT, index), key, HT->key_size);
+    memcpy(Value_At(HT, index), value, HT->value_size);
 }
 
-void HashTableOARemove(HashTableOA* HT, void* key)
+void HashTableOA_Remove(HashTableOA* HT, void* key)
 {
     size_t index = HT->hash_function(key, HT->key_size, HT->bucket_count);
-    while(*(size_t*)KeyAt(HT, index)) {
-        int compare_function = HT->compare_function(key, KeyAt(HT, index));
+    while(*(size_t*)Key_At(HT, index)) {
+        int compare_function = HT->compare_function(key, Key_At(HT, index));
         if(!compare_function) {
-            memset(KeyAt(HT, index), 0, HT->key_size);
+            memset(Key_At(HT, index), 0, HT->key_size);
             break;
         }
         index = (index + 1) % HT->bucket_count;

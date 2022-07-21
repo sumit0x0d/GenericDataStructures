@@ -11,7 +11,7 @@ struct ThreadedBinaryTree {
     size_t size;
 };
 
-ThreadedBinaryTree* ThreadedBinaryTreeCreate(size_t data_size)
+ThreadedBinaryTree* ThreadedBinaryTree_Create(size_t data_size)
 {
     ThreadedBinaryTree* BT = (ThreadedBinaryTree*)malloc(sizeof (ThreadedBinaryTree));
     if(!BT) {
@@ -23,9 +23,9 @@ ThreadedBinaryTree* ThreadedBinaryTreeCreate(size_t data_size)
     return BT;
 }
 
-Node* ThreadedBinaryTreeInsert(ThreadedBinaryTree* BT, void* data)
+Node* ThreadedBinaryTree_Insert(ThreadedBinaryTree* BT, void* data)
 {
-    Node* node = NodeCreate(BT->data_size);
+    Node* node = Node_Create(BT->data_size);
     if(!node) {
         return NULL;
     }
@@ -34,7 +34,7 @@ Node* ThreadedBinaryTreeInsert(ThreadedBinaryTree* BT, void* data)
     return node;
 }
 
-void* ThreadedBinaryTree_root(ThreadedBinaryTree* BT)
+void* ThreadedBinaryTree_Root(ThreadedBinaryTree* BT)
 {
     return BT->root->data;
 }

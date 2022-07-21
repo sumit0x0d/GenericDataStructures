@@ -6,14 +6,14 @@
 
 typedef struct GraphAL GraphAL;
 
-GraphAL* GraphALCreate(size_t data_size);
-void GraphALDestroy(GraphAL* G);
-void* GraphALSize(GraphAL* G);
-int GraphALInsert(GraphAL* G, void* data);
-int GraphALRemove(GraphAL* G, void* data);
-// int GraphAL_edgeInsert(GraphAL* G, GraphALVertex *vertex_source,
+GraphAL* GraphAL_Create(size_t data_size);
+void GraphAL_Destroy(GraphAL* G);
+void* GraphAL_Size(GraphAL* G);
+int GraphAL_Insert(GraphAL* G, void* data);
+int GraphAL_Remove(GraphAL* G, void* data);
+// int GraphAL_edge_Insert(GraphAL* G, GraphALVertex *vertex_source,
 //     GraphALVertex *vertex_destination, unsigned long weight);
-// int GraphAL_edgeRemove(GraphAL* G, GraphALVertex *vertex_source,
+// int GraphAL_edge_Remove(GraphAL* G, GraphALVertex *vertex_source,
 //     GraphALVertex *vertex_destination);
 
 #endif

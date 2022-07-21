@@ -6,14 +6,14 @@
 
 typedef struct QueueLL QueueLL;
 
-QueueLL* QueueLLCreate(size_t data_size);
-void QueueLLDestroy(QueueLL* Q);
-size_t QueueLLSize(QueueLL* Q);
-bool QueueLLEmpty(QueueLL* Q);
-void* QueueLLFront(QueueLL* Q);
-void* QueueLLBack(QueueLL* Q);
-bool QueueLLEnqueue(QueueLL* Q, void* data);
-void QueueLLDequeue(QueueLL* Q);
-void QueueLLTraverse(QueueLL* Q, void (*function)(void* data));
+QueueLL* QueueLL_Create(size_t data_size);
+void QueueLL_Destroy(QueueLL* Q);
+size_t QueueLL_Size(QueueLL* Q);
+bool QueueLL_Empty(QueueLL* Q);
+void* QueueLL_Front(QueueLL* Q);
+void* QueueLL_Back(QueueLL* Q);
+bool QueueLL_Enqueue(QueueLL* Q, void* data);
+void QueueLL_Dequeue(QueueLL* Q);
+void QueueLL_Traverse(QueueLL* Q, void (*function)(void* data));
 
 #endif

@@ -6,11 +6,11 @@
 
 typedef struct ThreadedBinaryTree ThreadedBinaryTree;
 
-ThreadedBinaryTree* ThreadedBinaryTreeCreate(size_t data_size);
-void ThreadedBinaryTreeDestroy(ThreadedBinaryTree* bt);
+ThreadedBinaryTree* ThreadedBinaryTree_Create(size_t data_size);
+void ThreadedBinaryTree_Destroy(ThreadedBinaryTree* bt);
 
-// ThreadedBinaryTreeNode* ThreadedBinaryTreeInsert(ThreadedBinaryTree* bt, void* data);
+// ThreadedBinaryTreeNode* ThreadedBinaryTree_Insert(ThreadedBinaryTree* bt, void* data);
 
-void* ThreadedBinaryTree_root(ThreadedBinaryTree* BT);
+void* ThreadedBinaryTree_Root(ThreadedBinaryTree* BT);
 
 #endif

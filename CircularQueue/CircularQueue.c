@@ -13,7 +13,7 @@ struct CircularQueue {
     size_t size;
 };
 
-CircularQueue* CircularQueueCreate(size_t data_size, size_t capacity)
+CircularQueue* CircularQueue_Create(size_t data_size, size_t capacity)
 {
     CircularQueue* CQ = (CircularQueue*)malloc(sizeof (CircularQueue));
     if(!CQ) {
@@ -33,7 +33,7 @@ CircularQueue* CircularQueueCreate(size_t data_size, size_t capacity)
     return CQ;
 }
 
-void CircularQueueDestroy(CircularQueue *CQ)
+void CircularQueue_Destroy(CircularQueue *CQ)
 {
     free(CQ->array);
     CQ->array = NULL;
@@ -41,12 +41,12 @@ void CircularQueueDestroy(CircularQueue *CQ)
     CQ = NULL;
 }
 
-size_t CircularQueueSize(CircularQueue *CQ)
+size_t CircularQueue_Size(CircularQueue *CQ)
 {
     return CQ->size;
 }
 
-bool CircularQueueEmpty(CircularQueue *CQ)
+bool CircularQueue_Empty(CircularQueue *CQ)
 {
     if(CQ->size) {
         return false;
@@ -54,7 +54,7 @@ bool CircularQueueEmpty(CircularQueue *CQ)
     return true;
 }
 
-bool CircularQueueFull(CircularQueue *CQ)
+bool CircularQueue_Full(CircularQueue *CQ)
 {
     if(CQ->size != CQ->capacity) {
         return false;
@@ -67,24 +67,24 @@ static inline void* DataAt(CircularQueue* CQ, size_t index)
     return (char*)CQ->array + (CQ->data_size * index);
 }
 
-void* CircularQueueFront(CircularQueue* CQ)
+void* CircularQueue_Front(CircularQueue* CQ)
 {
     return DataAt(CQ, CQ->front);
 }
 
-void* CircularQueueBack(CircularQueue* CQ)
+void* CircularQueue_Back(CircularQueue* CQ)
 {
     return DataAt(CQ, CQ->back - 1);
 }
 
-void CircularQueueEnqueue(CircularQueue* CQ, void* data)
+void CircularQueue_Enqueue(CircularQueue* CQ, void* data)
 {
     memcpy(DataAt(CQ, CQ->back), data, CQ->data_size);
     CQ->back = (CQ->back + 1) % CQ->capacity;
     CQ->size = CQ->size + 1;
 }
 
-void CircularQueueDequeue(CircularQueue* CQ)
+void CircularQueue_Dequeue(CircularQueue* CQ)
 {
     CQ->front = (CQ->front + 1) % CQ->capacity;
     CQ->size = CQ->size - 1;

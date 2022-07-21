@@ -13,7 +13,7 @@ struct LinkedList {
     int (*compare_function)(void* data1, void* data2);
 };
 
-LinkedList* LinkedListCreate(size_t data_size, int (*compare_function)(void* data1, void* data2))
+LinkedList* LinkedList_Create(size_t data_size, int (*compare_function)(void* data1, void* data2))
 {
     LinkedList* LL = (LinkedList*)malloc(sizeof (LinkedList));
     if(!LL) {
@@ -27,7 +27,7 @@ LinkedList* LinkedListCreate(size_t data_size, int (*compare_function)(void* dat
     return LL;
 }
 
-bool LinkedListEmpty(LinkedList* LL)
+bool LinkedList_Empty(LinkedList* LL)
 {
     if(LL->size) {
         return false;
@@ -35,12 +35,12 @@ bool LinkedListEmpty(LinkedList* LL)
     return true;
 }
 
-size_t LinkedListSize(LinkedList* LL)
+size_t LinkedList_Size(LinkedList* LL)
 {
     return LL->size;
 }
 
-void* LinkedListHead(LinkedList* LL)
+void* LinkedList_Head(LinkedList* LL)
 {
     return LL->head->data;
 }
@@ -50,7 +50,7 @@ void* LinkedListBack(LinkedList* LL)
     return LL->tail->data;
 }
 
-void* LinkedListSearch(LinkedList* LL, void* data)
+void* LinkedList_Search(LinkedList* LL, void* data)
 {
     Node* node = (Node*)malloc(sizeof (Node));
     while(node) {
@@ -62,9 +62,9 @@ void* LinkedListSearch(LinkedList* LL, void* data)
     return NULL;
 }
 
-bool LinkedListPushHead(LinkedList* LL, void* data)
+bool LinkedList_PushHead(LinkedList* LL, void* data)
 {
-    Node* node = NodeCreate(LL->data_size);
+    Node* node = Node_Create(LL->data_size);
     if(!node) {
         return false;
     }
@@ -83,9 +83,9 @@ bool LinkedListPushHead(LinkedList* LL, void* data)
     return true;
 }
 
-bool LinkedListPushTail(LinkedList* LL, void* data)
+bool LinkedList_PushTail(LinkedList* LL, void* data)
 {
-    Node* node = NodeCreate(LL->data_size);
+    Node* node = Node_Create(LL->data_size);
     if(!node) {
         return false;
     }
@@ -104,19 +104,19 @@ bool LinkedListPushTail(LinkedList* LL, void* data)
     return true;
 }
 
-bool LinkedListInsert(LinkedList* LL, size_t index, void* data)
+bool LinkedList_Insert(LinkedList* LL, size_t index, void* data)
 {
-    Node* node = NodeCreate(LL->data_size);
+    Node* node = Node_Create(LL->data_size);
     Node* node_previous = LL->head;
     if(!node) {
         return false;
     }
     memcpy(node->data, data, LL->data_size);
     if(!index) {
-        LinkedListPushHead(LL, data);
+        LinkedList_PushHead(LL, data);
     }
     else if(index == LL->size) {
-        LinkedListPushTail(LL, data);
+        LinkedList_PushTail(LL, data);
     }
     else {
         for(size_t i = 0; i < index-1; ++i) {
@@ -131,16 +131,16 @@ bool LinkedListInsert(LinkedList* LL, size_t index, void* data)
     return true;
 }
 
-bool LinkedListSortedInsert(LinkedList* LL, void* data)
+bool LinkedList_SortedInsert(LinkedList* LL, void* data)
 {
     if(LL->size || LL->compare_function(data, LL->head->data) < 0) {
-        return LinkedListPushHead(LL, data);
+        return LinkedList_PushHead(LL, data);
     }
     if(LL->compare_function(data, LL->tail->data) > 0) {
-        return LinkedListPushTail(LL, data);
+        return LinkedList_PushTail(LL, data);
     }
     Node* node_previous = LL->head;
-    Node* node = NodeCreate(LL->data_size);
+    Node* node = Node_Create(LL->data_size);
     if(!node) {
         return false;
     }
@@ -157,32 +157,32 @@ bool LinkedListSortedInsert(LinkedList* LL, void* data)
     return true;
 }
 
-void LinkedListPopHead(LinkedList* LL)
+void LinkedListPop_Head(LinkedList* LL)
 {
     Node* node = LL->head;
     LL->head = LL->head->next;
     if(!LL->head) {
         LL->tail = NULL;
     }
-    NodeDestroy(node);
+    Node_Destroy(node);
     LL->size = LL->size - 1;
 }
 
-bool LinkedListPopTail(LinkedList* LL)
+bool LinkedListPop_Tail(LinkedList* LL)
 {
     Node* node = LL->tail;
     LL->tail = LL->tail->previous;
     if(LL->tail) {
         LL->tail->next = NULL;
     }
-    NodeDestroy(node);
+    Node_Destroy(node);
     LL->size = LL->size - 1;
 }
 
-void LinkedListErase(LinkedList* LL, size_t index)
+void LinkedList_Erase(LinkedList* LL, size_t index)
 {
     if(index == 1) {
-        LinkedListPopHead(LL);
+        LinkedListPop_Head(LL);
     }
     Node* node = LL->head;
     for(size_t i = 0; i < index-1; i++) {
@@ -193,7 +193,7 @@ void LinkedListErase(LinkedList* LL, size_t index)
     free(node);
 }
 
-void LinkedListRemove(LinkedList* LL, void* data)
+void LinkedList_Remove(LinkedList* LL, void* data)
 {
     Node* node = LL->head;
     size_t count = 0;
@@ -204,10 +204,10 @@ void LinkedListRemove(LinkedList* LL, void* data)
         count = count + 1;
         node = node->next;
     }
-    LinkedListErase(LL, count);
+    LinkedList_Erase(LL, count);
 }
 
-void LinkedListTraverse(LinkedList* LL, void (*function)(void *))
+void LinkedList_Traverse(LinkedList* LL, void (*function)(void *))
 {
     Node* node = LL->head;
     while(node) {

@@ -9,7 +9,7 @@ all:
 	$(CC) $(CFLAGS) \
 	./Array/Array.c \
 	./AVLTree/AVLTree.c \
-	./BinarySearchTree/BinarySearchTree.c \
+	./Binary_SearchTree/Binary_SearchTree.c \
 	./BloomFilter/BloomFilter.c \
 	./CircularQueue/CircularQueue.c \
 	./Deque-Array/Deque-Array.c \

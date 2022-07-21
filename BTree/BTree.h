@@ -7,11 +7,11 @@
 
 typedef struct BinaryTree BTree;
 
-BTree* BTreeCreate(size_t data_size);
-void BTreeDestroy(BTree* BT);
+BTree* BTree_Create(size_t data_size);
+void BTree_Destroy(BTree* BT);
 
-// BTreeNode* BTreeInsert(BTree* BT, void* data, size_t data_size);
+// BTreeNode* BTree_Insert(BTree* BT, void* data, size_t data_size);
 
-void* BTree_root(BTree* BT);
+void* BTree_Root(BTree* BT);
 
 #endif

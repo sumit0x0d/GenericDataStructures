@@ -12,7 +12,7 @@ struct QueueLL {
     size_t size;
 };
 
-QueueLL* QueueLLCreate(size_t data_size)
+QueueLL* QueueLL_Create(size_t data_size)
 {
     QueueLL* Q = (QueueLL*)malloc(sizeof (QueueLL));
     if(!Q) {
@@ -25,16 +25,16 @@ QueueLL* QueueLLCreate(size_t data_size)
     return Q;
 }
 
-void QueueLLDestroy(QueueLL* Q)
+void QueueLL_Destroy(QueueLL* Q)
 {
     Node* node = Q->front;
     while(node) {
         if(node->next) {
-            QueueLLDequeue(Q);
+            QueueLL_Dequeue(Q);
             node = Q->front;   
         }
         else {
-            QueueLLDequeue(Q);
+            QueueLL_Dequeue(Q);
             break;
         }
     }
@@ -42,12 +42,12 @@ void QueueLLDestroy(QueueLL* Q)
     Q = NULL;
 }
 
-size_t QueueLLSize(QueueLL* Q)
+size_t QueueLL_Size(QueueLL* Q)
 {
     return Q->size;
 }
 
-bool QueueLLEmpty(QueueLL* Q)
+bool QueueLL_Empty(QueueLL* Q)
 {
     if(Q->size) {
         return false;
@@ -55,19 +55,19 @@ bool QueueLLEmpty(QueueLL* Q)
     return true;
 }
 
-void* QueueLLFront(QueueLL* Q)
+void* QueueLL_Front(QueueLL* Q)
 {
     return Q->front->data;
 }
 
-void* QueueLLBack(QueueLL* Q)
+void* QueueLL_Back(QueueLL* Q)
 {
     return Q->back->data;
 }
 
-bool QueueLLEnqueue(QueueLL* Q, void* data)
+bool QueueLL_Enqueue(QueueLL* Q, void* data)
 {
-    Node* node = NodeCreate(Q->data_size);
+    Node* node = Node_Create(Q->data_size);
     if(!node) {
         return false;
     }
@@ -83,18 +83,18 @@ bool QueueLLEnqueue(QueueLL* Q, void* data)
     return true;
 }
 
-void QueueLLDequeue(QueueLL* Q)
+void QueueLL_Dequeue(QueueLL* Q)
 {
     Node* node = Q->front;
     Q->front = Q->front->next;
     if(!Q->front) {
         Q->back = NULL;
     }
-    NodeDestroy(node);
+    Node_Destroy(node);
     Q->size = Q->size - 1;
 }
 
-void QueueLLTraverse(QueueLL* Q, void (*function)(void* data))
+void QueueLL_Traverse(QueueLL* Q, void (*function)(void* data))
 {
     Node* node = Q->front;
     while(node) {

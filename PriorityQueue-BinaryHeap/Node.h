@@ -11,7 +11,7 @@ typedef struct Node {
     struct Node* parent;
 } Node;
 
-static Node* NodeCreate(size_t data_size, size_t priority_size)
+static Node* Node_Create(size_t data_size, size_t priority_size)
 {
     Node* node = (Node*)malloc(sizeof (Node));
     if(!node) {
@@ -33,7 +33,7 @@ static Node* NodeCreate(size_t data_size, size_t priority_size)
     return node;
 }
 
-// static void nodeDestroy(Node* node)
+// static void node_Destroy(Node* node)
 // {
     
 // }

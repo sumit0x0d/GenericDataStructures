@@ -14,7 +14,7 @@ struct RedBlackTree {
     int (*compare_function)(void* data1, void* data2);
 };
 
-RedBlackTree* RedBlackTreeCreate(size_t data_size, int (*compare_function)(void* data1, void* data2))
+RedBlackTree* RedBlackTree_Create(size_t data_size, int (*compare_function)(void* data1, void* data2))
 {
     RedBlackTree* RBT = (RedBlackTree*)malloc(sizeof (RedBlackTree));
     if(!RBT) {
@@ -27,17 +27,17 @@ RedBlackTree* RedBlackTreeCreate(size_t data_size, int (*compare_function)(void*
     return RBT;
 }
 
-// void RedBlackTreeDestroy(RedBlackTree* RBT)
+// void RedBlackTree_Destroy(RedBlackTree* RBT)
 // {
 
 // }
 
-size_t RedBlackTreeSize(RedBlackTree* RBT)
+size_t RedBlackTree_Size(RedBlackTree* RBT)
 {
     return RBT->size;
 }
 
-bool RedBlackTreeEmpty(RedBlackTree* RBT)
+bool RedBlackTree_Empty(RedBlackTree* RBT)
 {
     if(RBT->size) {
         return false;
@@ -45,12 +45,12 @@ bool RedBlackTreeEmpty(RedBlackTree* RBT)
     return true;
 }
 
-void* RedBlackTree_root(RedBlackTree* RBT)
+void* RedBlackTree_Root(RedBlackTree* RBT)
 {
     return RBT->root->data;
 }
 
-void* RedBlackTreeSearch(RedBlackTree* RBT, void* data)
+void* RedBlackTree_Search(RedBlackTree* RBT, void* data)
 {
     Node* node = RBT->root;
     int compare_function;
@@ -74,7 +74,7 @@ void* RedBlackTreeSearch(RedBlackTree* RBT, void* data)
 
 // }
 
-static void RedBlackTree_rebalance(RedBlackTree* RBT, Node* node)
+static void Rebalance(RedBlackTree* RBT, Node* node)
 {
     while(node) {
         if(node->color == 0) {
@@ -110,10 +110,10 @@ static void RedBlackTree_rebalance(RedBlackTree* RBT, Node* node)
     }
 }
 
-bool RedBlackTreeInsert(RedBlackTree* RBT, void* data)
+bool RedBlackTree_Insert(RedBlackTree* RBT, void* data)
 {
     if(!RBT->size) {
-        RBT->root = NodeCreate(RBT->data_size);
+        RBT->root = Node_Create(RBT->data_size);
         if(!RBT->root) {
             return false;
         }
@@ -139,7 +139,7 @@ bool RedBlackTreeInsert(RedBlackTree* RBT, void* data)
             node = node->right;
         }
     }
-    node = NodeCreate(RBT->data_size);
+    node = Node_Create(RBT->data_size);
     if(!node) {
         return false;
     }
@@ -152,24 +152,24 @@ bool RedBlackTreeInsert(RedBlackTree* RBT, void* data)
     else {
         node_parent->right = node;
     }
-    RedBlackTree_rebalance(RBT, node_parent);
+    Rebalance(RBT, node_parent);
     RBT->size = RBT->size + 1;
     return true;
 }
 
-// void RedBlackTreeRemove(RedBlackTree* RBT, int data)
+// void RedBlackTree_Remove(RedBlackTree* RBT, int data)
 // {
 
 // }
 
 
-void RedBlackTreeTraverse_preorder(RedBlackTree* RBT, void (*function)(void* data))
+void RedBlackTree_TraversePreorder(RedBlackTree* RBT, void (*function)(void* data))
 {
     Node* node = RBT->root;
-    Stack* stack = StackCreate(RBT->size);
+    Stack* stack = Stack_Create(RBT->size);
     while(node || stack->size) {
         if(node) {
-            StackPush(stack, node);
+            Stack_Push(stack, node);
             function(node->data);
             node = node->left;
         }
@@ -179,16 +179,16 @@ void RedBlackTreeTraverse_preorder(RedBlackTree* RBT, void (*function)(void* dat
             node = node->right;
         }
     }
-    StackDestroy(stack);
+    Stack_Destroy(stack);
 }
 
-void RedBlackTreeTraverse_inorder(RedBlackTree* RBT, void (*function)(void* data))
+void RedBlackTree_TraverseInorder(RedBlackTree* RBT, void (*function)(void* data))
 {
     Node* node = RBT->root;
-    Stack* stack = StackCreate(RBT->size);
+    Stack* stack = Stack_Create(RBT->size);
     while(node || stack->size) {
         if(node) {
-            StackPush(stack, node);
+            Stack_Push(stack, node);
             node = node->left;
         }
         else {
@@ -198,19 +198,19 @@ void RedBlackTreeTraverse_inorder(RedBlackTree* RBT, void (*function)(void* data
             node = node->right;
         }
     }
-    StackDestroy(stack);
+    Stack_Destroy(stack);
 }
 
-// static void preorderTraverse(RedBlackTree* RBT)
+// static void preorder_Traverse(RedBlackTree* RBT)
 // {
-//     if(RedBlackTreeEmpty(RBT)) {
+//     if(RedBlackTree_Empty(RBT)) {
 //         return;
 //     }
 //     Node* node = RBT->root;
-//     StackLL* S = StackLLCreate(sizeof (RedBlackTreeNode));
+//     StackLL* S = StackLL_Create(sizeof (RedBlackTreeNode));
 //     while(node || S->size) {
 //         if(node) {
-//             StackLLPush(S, node);
+//             StackLL_Push(S, node);
 //             printf("%d(%d) ", *(int*)node->data, node->balance_factor);
 //             node = node->left;
 //         }
@@ -222,23 +222,23 @@ void RedBlackTreeTraverse_inorder(RedBlackTree* RBT, void (*function)(void* data
 //     }
 // }
 
-void RedBlackTreeTraverse_levelorder(RedBlackTree* RBT, void (*function)(void* data))
+void RedBlackTree_TraverseLevelorder(RedBlackTree* RBT, void (*function)(void* data))
 {
-    CircularQueue* circular_queue = CircularQueueCreate(RBT->size);
+    CircularQueue* circular_queue = CircularQueue_Create(RBT->size);
     Node* node = RBT->root;
     function(node->data);
-    CircularQueueEnqueue(circular_queue, node);
+    CircularQueue_Enqueue(circular_queue, node);
     while(circular_queue->size) {
         node = CircularQueueFront(circular_queue);
-        CircularQueueDequeue(circular_queue);
+        CircularQueue_Dequeue(circular_queue);
         if(node->left) {
             function(node->data);
-            CircularQueueEnqueue(circular_queue, node->left);
+            CircularQueue_Enqueue(circular_queue, node->left);
         }
         if(node->right) {
             function(node->data);
-            CircularQueueEnqueue(circular_queue, node->right);
+            CircularQueue_Enqueue(circular_queue, node->right);
         }
     }
-    CircularQueueDestroy(circular_queue);
+    CircularQueue_Destroy(circular_queue);
 }

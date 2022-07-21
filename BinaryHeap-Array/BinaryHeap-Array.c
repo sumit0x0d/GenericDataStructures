@@ -12,24 +12,24 @@ struct BinaryHeapA {
     int (*compare_function)(void* data1, void* data2);
 };
 
-BinaryHeapA* BinaryHeapACreate(size_t data_size, size_t capacity,
+BinaryHeapA* BinaryHeapA_Create(size_t data_size, size_t capacity,
     int (*compare_function)(void* data1, void* data2))
 {
     BinaryHeapA* BH;
     return BH;
 }
 
-size_t BinaryHeapBTSize(BinaryHeapA* BH)
+size_t BinaryHeapBT_Size(BinaryHeapA* BH)
 {
     return BH->size;
 }
 
-void BinaryHeapAInsert(BinaryHeapA* BH, void* data)
+void BinaryHeapA_Insert(BinaryHeapA* BH, void* data)
 {
 
 }
 
-void BinaryHeapARemove(BinaryHeapA* BH, void* data)
+void BinaryHeapA_Remove(BinaryHeapA* BH, void* data)
 {
 
 }

@@ -10,13 +10,13 @@ typedef struct Vertex {
     struct Vertex *edge;
 } Vertex;
 
-static inline Vertex *VertexCreate(size_t data_size)
+static inline Vertex *Vertex_Create(size_t data_size)
 {
     Vertex* V = (Vertex*)malloc(sizeof (Vertex));
     if(!V) {
         return NULL;
     }
-    V->data = (void*)malloc(data_size);
+    V->data = malloc(data_size);
     if(!V->data) {
         free(V);
         return NULL;

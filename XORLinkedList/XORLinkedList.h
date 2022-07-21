@@ -6,23 +6,23 @@
 
 typedef struct XORLinkedList XORLinkedList;
 
-XORLinkedList* XORLinkedListCreate(size_t data_size, int (*compare_function)(void* data1, void* data2));
-void XORLinkedListDestroy(XORLinkedList* XORLL);
-size_t XORLinkedListSize(XORLinkedList* XORLL);
-bool XORLinkedListEmpty(XORLinkedList* XORLL);
-void* XORLinkedListHead(XORLinkedList* XORLL);
-void* XORLinkedListTail(XORLinkedList* XORLL);
-void* XORLinkedListAt(XORLinkedList* XORLL, size_t index);
-void* XORLinkedListSearch(XORLinkedList* XORLL, void* data);
-bool XORLinkedListPushFront(XORLinkedList* XORLL, void* data);
-bool XORLinkedListPushBack(XORLinkedList* XORLL, void* data);
-bool XORLinkedListInsert(XORLinkedList* XORLL, size_t index, void* data);
-bool XORLinkedListSortedInsert(XORLinkedList* XORLL, void* data);
-bool XORLinkedListPopFront(XORLinkedList* XORLL);
-bool XORLinkedListPopBack(XORLinkedList* XORLL);
-bool XORLinkedListRemove(XORLinkedList* XORLL, void* data);
-bool XORLinkedListErase(XORLinkedList* XORLL, size_t index);
-bool XORLinkedListUpdate(XORLinkedList* SXORLL, size_t index, void* data);
+XORLinkedList* XORLinkedList_Create(size_t data_size, int (*compare_function)(void* data1, void* data2));
+void XORLinkedList_Destroy(XORLinkedList* XORLL);
+size_t XORLinkedList_Size(XORLinkedList* XORLL);
+bool XORLinkedList_Empty(XORLinkedList* XORLL);
+void* XORLinkedList_Head(XORLinkedList* XORLL);
+void* XORLinkedList_Tail(XORLinkedList* XORLL);
+void* XORLinkedList_At(XORLinkedList* XORLL, size_t index);
+void* XORLinkedList_Search(XORLinkedList* XORLL, void* data);
+bool XORLinkedList_PushFront(XORLinkedList* XORLL, void* data);
+bool XORLinkedList_PushBack(XORLinkedList* XORLL, void* data);
+bool XORLinkedList_Insert(XORLinkedList* XORLL, size_t index, void* data);
+bool XORLinkedList_SortedInsert(XORLinkedList* XORLL, void* data);
+bool XORLinkedList_PopFront(XORLinkedList* XORLL);
+bool XORLinkedList_PopBack(XORLinkedList* XORLL);
+bool XORLinkedList_Remove(XORLinkedList* XORLL, void* data);
+bool XORLinkedList_Erase(XORLinkedList* XORLL, size_t index);
+bool XORLinkedList_Update(XORLinkedList* SXORLL, size_t index, void* data);
 
 
 #endif

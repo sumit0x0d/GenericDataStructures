@@ -25,18 +25,18 @@ size_t hash_function(void* key, size_t bucket_count)
 //     } while(node);
 
 //     printf("\b");
-//     printf("\n[Size]\t: %zu\n", stack_linked_listSize(S));
+//     printf("\n[_Size]\t: %zu\n", stack_linked_list_Size(S));
 // // }
 
 
-// void inorderTraverse(AVLTree* AVLT)
+// void inorder_Traverse(AVLTree* AVLT)
 // {
 //     if(!AVLT->size) return;
 //     AVLTreeNode* node = AVLT->root;
-//     StackLL* S = StackLLCreate(sizeof (AVLTreeNode));
+//     StackLL* S = StackLL_Create(sizeof (AVLTreeNode));
 //     while(node || S->size) {
 //         if(node) {
-//             StackLLPush(S, node);
+//             StackLL_Push(S, node);
 //             node = node->left;
 //         }
 //         else {
@@ -51,7 +51,7 @@ size_t hash_function(void* key, size_t bucket_count)
 // void array_print(Array* A)
 // {
 //     for(size_t i = 0; i < A->size; i++) {
-//         printf("%d ", *(int*)ArrayAt(A, i));
+//         printf("%d ", *(int*)Array_At(A, i));
 //     }
 // }
 
@@ -59,27 +59,27 @@ int main()
 {
     // int a[24] = {10, 20, 30, 40, 50, 60, 70, 80, 930, 31100, 1010, 1024, 145, 25, 465, 1723, 536, 6404, 8013, 330, 9230, 31011, 1011, 12};
     // int a[24] = {10, 20, 15, 40, 50, 60, 70, 80, 930, 31100, 1010, 1024, 145, 25, 465, 1723, 536, 6404, 8013, 330, 9230, 31011, 1011, 12};
-    // AVLTree *AVLT = AVLTreeCreate(sizeof (int), compare_function);
+    // AVLTree *AVLT = AVLTree_Create(sizeof (int), compare_function);
     // for(int i = 1; i <= 100; i++) {
-    //     if(!AVLTreeInsert(AVLT, &i)) {
+    //     if(!AVLTree_Insert(AVLT, &i)) {
     //         break;
     //     }
     // }
     int a1 = 32;
     int a2 = 319;
-    StackLL* S = StackLLCreate(sizeof (int));
-    StackLLPush(S, &a1);
-    StackLLPush(S, &a2);
+    StackLL* S = StackLL_Create(sizeof (int));
+    StackLL_Push(S, &a1);
+    StackLL_Push(S, &a2);
     printf("%d", *(int*)StackLL_top(S));
-    QueueLL* Q = QueueLLCreate(sizeof (int));
-    QueueLLEnqueue(Q, &a1);
-    QueueLLEnqueue(Q, &a2);
-    printf("%d", *(int*)QueueLLFront(Q));
-    // if(!avl_treeInsert(AVLT, &a)) {
+    QueueLL* Q = QueueLL_Create(sizeof (int));
+    QueueLL_Enqueue(Q, &a1);
+    QueueLL_Enqueue(Q, &a2);
+    printf("%d", *(int*)QueueLL_Front(Q));
+    // if(!avl_tree_Insert(AVLT, &a)) {
     //     printf("error");
     // }
     // for(int i = 0; i < 5; i++) {
-    //     if(!avl_treeInsert(AVLT, &a[i])) {
+    //     if(!avl_tree_Insert(AVLT, &a[i])) {
     //         break;
     //     }
     // }
@@ -87,43 +87,43 @@ int main()
     // int pa = 0;
     // int db = 15;
     // int pb = 15;
-    // PriorityQueueA* PQ = PriorityQueueACreate(sizeof (int), sizeof (int), 10, compare_function);
-    // PriorityQueueAEnqueue(PQ, &da, &pa);
-    // PriorityQueueAEnqueue(PQ, &db, &pb);
-    // PriorityQueueADequeue(PQ);
-    // printf("%d", *(int *)PriorityQueueAFront(PQ));
-    // BloomFilter* BF = BloomFilterCreate();
+    // PriorityQueueA* PQ = PriorityQueueA_Create(sizeof (int), sizeof (int), 10, compare_function);
+    // PriorityQueueA_Enqueue(PQ, &da, &pa);
+    // PriorityQueueA_Enqueue(PQ, &db, &pb);
+    // PriorityQueueA_Dequeue(PQ);
+    // printf("%d", *(int *)PriorityQueueA_Front(PQ));
+    // BloomFilter* BF = BloomFilter_Create();
     // int b = 20;
     // int a = 21;
     // int c = 11;
     // int c1 = 12;
     // int c2 = 13;
     // int c5 = 1000;
-    // Matrix* M = MatrixCreate(sizeof (char), 10, 10);
-    // MatrixInsert(M, 0, 1, &b);
-    // QueueADequeue(S);
-    // HashTableOA *HT = HashTableOACreate(sizeof (char), sizeof (int), 10, hash_function, compare_function);
-    // HashTableOAInsert(HT, &b, &c);
-    // Array* A = ArrayCreate(sizeof (int), 10, compare_function);
-    // ArraySortedInsert(A, &b);
-    // ArraySortedInsert(A, &a);
-    // ArraySortedInsert(A, &c1);
-    // ArraySortedInsert(A, &c2);
-    // ArraySortedInsert(A, &c);
-    // ArraySortedInsert(A, &c);
-    // ArraySortedInsert(A, &c5);
+    // Matrix* M = Matrix_Create(sizeof (char), 10, 10);
+    // Matrix_Insert(M, 0, 1, &b);
+    // QueueA_Dequeue(S);
+    // HashTableOA *HT = HashTableOA_Create(sizeof (char), sizeof (int), 10, hash_function, compare_function);
+    // HashTableOA_Insert(HT, &b, &c);
+    // Array* A = Array_Create(sizeof (int), 10, compare_function);
+    // Array_SortedInsert(A, &b);
+    // Array_SortedInsert(A, &a);
+    // Array_SortedInsert(A, &c1);
+    // Array_SortedInsert(A, &c2);
+    // Array_SortedInsert(A, &c);
+    // Array_SortedInsert(A, &c);
+    // Array_SortedInsert(A, &c5);
     // array_print(A);
-    // printf("%d", *(int*)QueueAFront(S));
+    // printf("%d", *(int*)QueueA_Front(S));
     // int d = 2;
-    // binarySearch_treeRemove(BST, &b);
+    // binary_Search_tree_Remove(BST, &b);
     // binary_tree_preorder_traversal(AVLT);
-    // HashTableSCInsert(HT, &a, &b);
-    // HashTableSCInsert(HT, &c, &d);
-    // int* i = HashTableSCSearch(HT, &a);
+    // HashTableSC_Insert(HT, &a, &b);
+    // HashTableSC_Insert(HT, &c, &d);
+    // int* i = HashTableSC_Search(HT, &a);
     // if(i)
     // printf("%d", *i);
-    // inorderTraverse(AVLT);
-    // avl_treeRemove(AVLT, &a[3]);
+    // inorder_Traverse(AVLT);
+    // avl_tree_Remove(AVLT, &a[3]);
 
 
 }

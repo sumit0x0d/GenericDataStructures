@@ -15,7 +15,7 @@ struct BinaryHeapBT {
     int (*compare_function)(void* data1, void* data2);
 };
 
-BinaryHeapBT* BinaryHeapBTCreate(size_t data_size, int (*compare_function)(void* data1, void* data2))
+BinaryHeapBT* BinaryHeapBT_Create(size_t data_size, int (*compare_function)(void* data1, void* data2))
 {
     BinaryHeapBT* BH = (BinaryHeapBT*)malloc(sizeof (BinaryHeapBT));
     if(!BH) {
@@ -27,27 +27,27 @@ BinaryHeapBT* BinaryHeapBTCreate(size_t data_size, int (*compare_function)(void*
     return BH;
 }
 
-void BinaryHeapBTDestroy(BinaryHeapBT* BH)
+void BinaryHeapBT_Destroy(BinaryHeapBT* BH)
 {
 
 }
 
-size_t BinaryHeapBTSize(BinaryHeapBT* BH)
+size_t BinaryHeapBT_Size(BinaryHeapBT* BH)
 {
     return BH->size;
 }
 
-void* BinaryHeapBT_root(BinaryHeapBT* BH)
+void* BinaryHeapBT_Root(BinaryHeapBT* BH)
 {
     return BH->root->data;
 }
 
-bool BinaryHeapBTInsert(BinaryHeapBT* BH, void* data)
+bool BinaryHeapBT_Insert(BinaryHeapBT* BH, void* data)
 {
     return true;
 }
 
-void BinaryHeapBTRemove(BinaryHeapBT* BH)
+void BinaryHeapBT_Remove(BinaryHeapBT* BH)
 {
 
 }

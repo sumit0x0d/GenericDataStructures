@@ -6,13 +6,13 @@
 
 typedef struct GraphAM GraphAM;
 
-GraphAM *graphAMCreate(size_t data_size, unsigned long vertex_count);
-void GraphAMDestroy(GraphAM *G);
+GraphAM *graphAM_Create(size_t data_size, unsigned long vertex_count);
+void GraphAM_Destroy(GraphAM *G);
 bool GraphAM_adjacent(GraphAM *G, unsigned long vertex);
 bool GraphAM_neighbors(GraphAM *G, unsigned long vertex);
-bool GraphAMInsert_vertex(GraphAM *G, unsigned long vertex);
-bool GraphAMRemove_vertex(GraphAM *G, unsigned long vertex);
-bool GraphAMInsert_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_dest);
-bool GraphAMRemove_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_dest);
+bool GraphAM_Insert_vertex(GraphAM *G, unsigned long vertex);
+bool GraphAM_Remove_vertex(GraphAM *G, unsigned long vertex);
+bool GraphAM_Insert_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_dest);
+bool GraphAM_Remove_edge(GraphAM *G, unsigned long vertex_source, unsigned long vertex_dest);
 
 #endif

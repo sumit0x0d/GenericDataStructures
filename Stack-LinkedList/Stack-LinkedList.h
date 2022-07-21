@@ -6,13 +6,13 @@
 
 typedef struct StackLL StackLL;
 
-StackLL* StackLLCreate(size_t data_size);
-void StackLLDestroy(StackLL* S);
-size_t StackLLSize(StackLL* S);
-bool StackLLEmpty(StackLL* S);
-void* StackLLTop(StackLL* S);
-bool StackLLPush(StackLL* S, void* data);
+StackLL* StackLL_Create(size_t data_size);
+void StackLL_Destroy(StackLL* S);
+size_t StackLL_Size(StackLL* S);
+bool StackLL_Empty(StackLL* S);
+void* StackLL_Top(StackLL* S);
+bool StackLL_Push(StackLL* S, void* data);
 void StackLLPop(StackLL* S);
-void StackLLTraverse(StackLL* S, void (*function)(void* data));
+void StackLL_Traverse(StackLL* S, void (*function)(void* data));
 
 #endif

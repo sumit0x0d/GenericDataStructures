@@ -13,7 +13,7 @@ struct DynamicArray {
     int (*compare_function)(void* data1, void* data2);
 };
 
-DynamicArray* DynamicArrayCreate(size_t data_size, size_t capacity, double growth_factor,
+DynamicArray* DynamicArray_Create(size_t data_size, size_t capacity, double growth_factor,
     int (*compare_function)(void* data1, void* data2))
 {
     if((size_t)(capacity * growth_factor) <= capacity) {
@@ -37,7 +37,7 @@ DynamicArray* DynamicArrayCreate(size_t data_size, size_t capacity, double growt
     return DA;
 }
 
-static bool DynamicArrayChangeCapacity(DynamicArray* DA, size_t capacity)
+static bool DynamicArray_ChangeCapacity(DynamicArray* DA, size_t capacity)
 {
     void* array = realloc(DA->array, DA->data_size * DA->capacity);
     if(!array) {
@@ -48,7 +48,7 @@ static bool DynamicArrayChangeCapacity(DynamicArray* DA, size_t capacity)
     return true;
 }
 
-void DynamicArrayDestroy(DynamicArray* DA)
+void DynamicArray_Destroy(DynamicArray* DA)
 {
     free(DA->array);
     DA->array = NULL;
@@ -57,12 +57,12 @@ void DynamicArrayDestroy(DynamicArray* DA)
     DA = NULL;
 }
 
-size_t DynamicArraySize(DynamicArray* DA)
+size_t DynamicArray_Size(DynamicArray* DA)
 {
     return DA->size;
 }
 
-bool DynamicArrayEmpty(DynamicArray* DA)
+bool DynamicArray_Empty(DynamicArray* DA)
 {
     if(DA->size) {
         return false;
@@ -85,12 +85,12 @@ void* DynamicArrayBack(DynamicArray* DA)
     return DataAt(DA, DA->size - 1);
 }
 
-void* DynamicArrayAt(DynamicArray* DA, size_t index)
+void* DynamicArray_At(DynamicArray* DA, size_t index)
 {
     return DataAt(DA, index);
 }
 
-void* DynamicArraySearch(DynamicArray* DA, void* data)
+void* DynamicArray_Search(DynamicArray* DA, void* data)
 {
     size_t left = 0;
     size_t right = DA->size;
@@ -110,10 +110,10 @@ void* DynamicArraySearch(DynamicArray* DA, void* data)
     return NULL;
 }
 
-bool DynamicArrayPushFront(DynamicArray* DA, void* data)
+bool DynamicArray_PushFront(DynamicArray* DA, void* data)
 {
     if(DA->size == DA->capacity) {
-        if(!DynamicArrayChangeCapacity(DA, DA->capacity * DA->growth_factor)) {
+        if(!DynamicArray_ChangeCapacity(DA, DA->capacity * DA->growth_factor)) {
             return false;
         }
     }
@@ -123,10 +123,10 @@ bool DynamicArrayPushFront(DynamicArray* DA, void* data)
     return true;
 }
 
-bool DynamicArrayPushBack(DynamicArray* DA, void* data)
+bool DynamicArray_PushBack(DynamicArray* DA, void* data)
 {
     if(DA->size == DA->capacity) {
-        if(!DynamicArrayChangeCapacity(DA, DA->capacity * DA->growth_factor)) {
+        if(!DynamicArray_ChangeCapacity(DA, DA->capacity * DA->growth_factor)) {
             return false;
         }
     }
@@ -135,10 +135,10 @@ bool DynamicArrayPushBack(DynamicArray* DA, void* data)
     return true;
 }
 
-bool DynamicArrayInsert(DynamicArray* DA, size_t index, void* data)
+bool DynamicArray_Insert(DynamicArray* DA, size_t index, void* data)
 {
     if(DA->size == DA->capacity) {
-        if(!DynamicArrayChangeCapacity(DA, DA->capacity * DA->growth_factor)) {
+        if(!DynamicArray_ChangeCapacity(DA, DA->capacity * DA->growth_factor)) {
             return false;
         }
     }
@@ -148,7 +148,7 @@ bool DynamicArrayInsert(DynamicArray* DA, size_t index, void* data)
     return true;
 }
 
-bool DynamicArraySortedInsert(DynamicArray* DA, void* data)
+bool DynamicArray_SortedInsert(DynamicArray* DA, void* data)
 {
     if(!DA->size) {
         memcpy(DataAt(DA, 0), data, DA->data_size);
@@ -156,7 +156,7 @@ bool DynamicArraySortedInsert(DynamicArray* DA, void* data)
         return true;
     }
     if(DA->size == DA->capacity) {
-        if(!DynamicArrayChangeCapacity(DA, DA->capacity * DA->growth_factor)) {
+        if(!DynamicArray_ChangeCapacity(DA, DA->capacity * DA->growth_factor)) {
             return false;
         }
     }
@@ -196,10 +196,10 @@ bool DynamicArraySortedInsert(DynamicArray* DA, void* data)
     return true;
 }
 
-bool DynamicArrayPopFront(DynamicArray* DA)
+bool DynamicArray_PopFront(DynamicArray* DA)
 {
     if(DA->size == DA->capacity / DA->growth_factor) {
-        if(!DynamicArrayChangeCapacity(DA, DA->capacity / DA->growth_factor)) {
+        if(!DynamicArray_ChangeCapacity(DA, DA->capacity / DA->growth_factor)) {
             return false;
         }
     }
@@ -208,10 +208,10 @@ bool DynamicArrayPopFront(DynamicArray* DA)
     return true;
 }
 
-bool DynamicArrayPopBack(DynamicArray* DA)
+bool DynamicArray_PopBack(DynamicArray* DA)
 {
     if(DA->size == DA->capacity / DA->growth_factor) {
-        if(!DynamicArrayChangeCapacity(DA, DA->capacity / DA->growth_factor)) {
+        if(!DynamicArray_ChangeCapacity(DA, DA->capacity / DA->growth_factor)) {
             return false;
         }
     }
@@ -219,10 +219,10 @@ bool DynamicArrayPopBack(DynamicArray* DA)
     return true;
 }
 
-bool DynamicArrayRemove(DynamicArray* DA, void* data)
+bool DynamicArray_Remove(DynamicArray* DA, void* data)
 {
     if(DA->size == DA->capacity / DA->growth_factor) {
-        if(!DynamicArrayChangeCapacity(DA, DA->capacity / DA->growth_factor)) {
+        if(!DynamicArray_ChangeCapacity(DA, DA->capacity / DA->growth_factor)) {
             return false;
         }
     }
@@ -247,10 +247,10 @@ bool DynamicArrayRemove(DynamicArray* DA, void* data)
     return true;
 }
 
-bool DynamicArrayErase(DynamicArray* DA, size_t index)
+bool DynamicArray_Erase(DynamicArray* DA, size_t index)
 {
     if(DA->size == DA->capacity / DA->growth_factor) {
-        if(!DynamicArrayChangeCapacity(DA, DA->capacity / DA->growth_factor)) {
+        if(!DynamicArray_ChangeCapacity(DA, DA->capacity / DA->growth_factor)) {
             return false;
         }
     }

@@ -6,13 +6,13 @@
 
 typedef struct PriorityQueueLL PriorityQueueLL;
 
-PriorityQueueLL* PriorityQueueLLCreate(size_t data_size);
-void PriorityQueueLLDestroy(PriorityQueueLL* PQ);
-size_t PriorityQueueLLSize(PriorityQueueLL* PQ);
-bool PriorityQueueLLEmpty(PriorityQueueLL* PQ);
-void* PriorityQueueLLFront(PriorityQueueLL* PQ);
-void* PriorityQueueLLBack(PriorityQueueLL* PQ);
-bool PriorityQueueLLEnqueue(PriorityQueueLL* PQ, void* data, void* priority);
-void PriorityQueueLLDequeue(PriorityQueueLL* PQ);
+PriorityQueueLL* PriorityQueueLL_Create(size_t data_size);
+void PriorityQueueLL_Destroy(PriorityQueueLL* PQ);
+size_t PriorityQueueLL_Size(PriorityQueueLL* PQ);
+bool PriorityQueueLL_Empty(PriorityQueueLL* PQ);
+void* PriorityQueueLL_Front(PriorityQueueLL* PQ);
+void* PriorityQueueLL_Back(PriorityQueueLL* PQ);
+bool PriorityQueueLL_Enqueue(PriorityQueueLL* PQ, void* data, void* priority);
+void PriorityQueueLL_Dequeue(PriorityQueueLL* PQ);
 
 #endif

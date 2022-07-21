@@ -12,7 +12,7 @@ struct Array {
     int (*compare_function)(void* data1, void* data2);
 };
 
-Array* ArrayCreate(size_t data_size, size_t capacity, int (*compare_function)(void* data1, void* data2))
+Array* Array_Create(size_t data_size, size_t capacity, int (*compare_function)(void* data1, void* data2))
 {
     Array* A = (Array*)malloc(sizeof (Array));
     if(!A) {
@@ -31,7 +31,7 @@ Array* ArrayCreate(size_t data_size, size_t capacity, int (*compare_function)(vo
     return A;
 }
 
-bool ArrayChangeCapacity(Array* A, size_t capacity)
+bool Array_ChangeCapacity(Array* A, size_t capacity)
 {
     void* array = realloc(A->array, A->data_size * capacity);
     if(!array) {
@@ -42,7 +42,7 @@ bool ArrayChangeCapacity(Array* A, size_t capacity)
     return true;
 }
 
-void ArrayDestroy(Array* A)
+void Array_Destroy(Array* A)
 {
     free(A->array);
     A->array = NULL;
@@ -50,12 +50,12 @@ void ArrayDestroy(Array* A)
     A = NULL;
 }
 
-size_t ArraySize(Array* A)
+size_t Array_Size(Array* A)
 {
     return A->size;
 }
 
-bool ArrayEmpty(Array* A)
+bool Array_Empty(Array* A)
 {
     if(A->size) {
         return false;
@@ -63,7 +63,7 @@ bool ArrayEmpty(Array* A)
     return true;
 }
 
-bool ArrayFull(Array* A)
+bool Array_Full(Array* A)
 {
     if(A->size != A->capacity) {
         return false;
@@ -86,12 +86,12 @@ void* ArrayBack(Array* A)
     return DataAt(A, A->size - 1);
 }
 
-void* ArrayAt(Array* A, size_t index)
+void* Array_At(Array* A, size_t index)
 {
     return DataAt(A, index);
 }
 
-void* ArraySearch(Array* A, void* data)
+void* Array_Search(Array* A, void* data)
 {
     size_t left = 0;
     size_t right = A->size;
@@ -111,27 +111,27 @@ void* ArraySearch(Array* A, void* data)
     return NULL;
 }
 
-void ArrayPushFront(Array* A, void* data)
+void Array_PushFront(Array* A, void* data)
 {
     memmove(DataAt(A, 1), DataAt(A, 0), A->data_size * A->size);
     memcpy(DataAt(A, 0), data, A->data_size);
     A->size = A->size + 1;
 }
 
-void ArrayPushBack(Array* A, void* data)
+void Array_PushBack(Array* A, void* data)
 {
     memcpy(DataAt(A, A->size), data, A->data_size);
     A->size = A->size + 1;
 }
 
-void ArrayInsert(Array* A, size_t index, void* data)
+void Array_Insert(Array* A, size_t index, void* data)
 {
     memmove(DataAt(A, index), DataAt(A, index + 1), A->data_size * (A->size - index - 1));
     memcpy(DataAt(A, index), data, A->data_size);
     A->size = A->size + 1;
 }
 
-void ArraySortedInsert(Array* A, void* data)
+void Array_SortedInsert(Array* A, void* data)
 {
     if(!A->size) {
         memcpy(DataAt(A, 0), data, A->data_size);
@@ -173,18 +173,18 @@ void ArraySortedInsert(Array* A, void* data)
     A->size = A->size + 1;
 }
 
-void ArrayPopFront(Array* A)
+void Array_PopFront(Array* A)
 {
     memmove(DataAt(A, 0), DataAt(A, 1), A->data_size * (A->size - 1));
     A->size = A->size - 1;
 }
 
-void ArrayPopBack(Array* A)
+void Array_PopBack(Array* A)
 {
     A->size = A->size - 1;
 }
 
-void ArrayRemove(Array* A, void* data)
+void Array_Remove(Array* A, void* data)
 {
     size_t left = 0;
     size_t right = A->size;
@@ -206,7 +206,7 @@ void ArrayRemove(Array* A, void* data)
     }
 }
 
-void ArrayErase(Array* A, size_t index)
+void Array_Erase(Array* A, size_t index)
 {
     memmove(DataAt(A, index), DataAt(A, index + 1), A->data_size * (A->size - index + 1));
     A->size = A->size - 1;

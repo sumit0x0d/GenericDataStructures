@@ -12,7 +12,7 @@ struct BloomFilter {
     size_t (*hash_function)(void* data, size_t data_size, size_t bucket_count);
 };
 
-BloomFilter* BloomFilterCreate(size_t data_size, size_t bucket_count,
+BloomFilter* BloomFilter_Create(size_t data_size, size_t bucket_count,
     size_t (*hash_function)(void* data, size_t data_size, size_t bucket_count))
 {
     BloomFilter* BF = (BloomFilter*)malloc(sizeof (BloomFilter));
@@ -31,7 +31,7 @@ BloomFilter* BloomFilterCreate(size_t data_size, size_t bucket_count,
     return BF;
 }
 
-void BloomFilterDestroy(BloomFilter* BF)
+void BloomFilter_Destroy(BloomFilter* BF)
 {
     free(BF->array);
     BF->array = NULL;
@@ -39,7 +39,7 @@ void BloomFilterDestroy(BloomFilter* BF)
     BF = NULL;
 }
 
-bool BloomFilterSearch(BloomFilter* BF, void* data)
+bool BloomFilter_Search(BloomFilter* BF, void* data)
 {
     size_t index = BF->hash_function(data, BF->data_size, BF->bucket_count);
     if(BF->array[index]) {
@@ -48,7 +48,7 @@ bool BloomFilterSearch(BloomFilter* BF, void* data)
     return false;
 }
 
-void BloomFilterInsert(BloomFilter* BF, void* data)
+void BloomFilter_Insert(BloomFilter* BF, void* data)
 {
     size_t index = BF->hash_function(data, BF->data_size, BF->bucket_count);
     memset(BF->array + index, 1, sizeof (char));

@@ -6,17 +6,17 @@
 
 typedef struct BinarySearchTree BinarySearchTree;
 
-BinarySearchTree* BinarySearchTreeCreate(size_t data_size, int (*compare_function)(void* data1, void* data2));
-void BinarySearchTreeDestroy(BinarySearchTree* BST);
-size_t BinarySearchTreeSize(BinarySearchTree* BST);
-bool BinarySearchTreeEmpty(BinarySearchTree* BST);
-void* BinarySearchTree_root(BinarySearchTree* BST);
-void* BinarySearchTreeSearch(BinarySearchTree* BST, void* data);
-bool BinarySearchTreeInsert(BinarySearchTree* BST, void* data);
-bool BinarySearchTreeRemove(BinarySearchTree* BST, void* data);
-void BinarySearchTreeTraverse_preorder(BinarySearchTree* BST, void (*function)(void* data));
-void BinarySearchTreeTraverse_inorder(BinarySearchTree* BST, void (*function)(void* data));
-void BinarySearchTreeTraverse_postorder(BinarySearchTree* BST, void (*function)(void* data));
-void BinarySearchTreeTraverse_levelorder(BinarySearchTree* BST, void (*function)(void* data));
+BinarySearchTree* BinarySearchTree_Create(size_t data_size, int (*compare_function)(void* data1, void* data2));
+void BinarySearchTree_Destroy(BinarySearchTree* BST);
+size_t BinarySearchTree_Size(BinarySearchTree* BST);
+bool BinarySearchTree_Empty(BinarySearchTree* BST);
+void* BinarySearchTree_Root(BinarySearchTree* BST);
+void* BinarySearchTree_Search(BinarySearchTree* BST, void* data);
+bool BinarySearchTree_Insert(BinarySearchTree* BST, void* data);
+bool BinarySearchTree_Remove(BinarySearchTree* BST, void* data);
+void BinarySearchTree_TraversePreorder(BinarySearchTree* BST, void (*function)(void* data));
+void BinarySearchTree_TraverseInorder(BinarySearchTree* BST, void (*function)(void* data));
+void BinarySearchTree_TraversePostorder(BinarySearchTree* BST, void (*function)(void* data));
+void BinarySearchTree_TraverseLevelorder(BinarySearchTree* BST, void (*function)(void* data));
 
 #endif

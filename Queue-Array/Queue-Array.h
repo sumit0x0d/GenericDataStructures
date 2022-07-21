@@ -6,15 +6,15 @@
 
 typedef struct QueueA QueueA;
 
-QueueA* QueueACreate(size_t data_size, size_t capacity);
-bool QueueAChangeCapacity(QueueA* Q, size_t capacity);
-void QueueADestroy(QueueA* Q);
-size_t QueueASize(QueueA* Q);
-void* QueueAFront(QueueA* Q);
-void* QueueABack(QueueA* Q);
-bool QueueAEmpty(QueueA* Q);
-bool QueueAFull(QueueA* Q);
-void QueueAEnqueue(QueueA* Q, void* data);
-void QueueADequeue(QueueA* Q);
+QueueA* QueueA_Create(size_t data_size, size_t capacity);
+bool QueueA_ChangeCapacity(QueueA* Q, size_t capacity);
+void QueueA_Destroy(QueueA* Q);
+size_t QueueA_Size(QueueA* Q);
+void* QueueA_Front(QueueA* Q);
+void* QueueA_Back(QueueA* Q);
+bool QueueA_Empty(QueueA* Q);
+bool QueueA_Full(QueueA* Q);
+void QueueA_Enqueue(QueueA* Q, void* data);
+void QueueA_Dequeue(QueueA* Q);
 
 #endif

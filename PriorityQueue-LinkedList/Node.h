@@ -9,7 +9,7 @@ typedef struct Node {
     struct Node* next;
 } Node;
 
-static Node* NodeCreate(size_t data_size, size_t priority_size)
+static Node* Node_Create(size_t data_size, size_t priority_size)
 {
     Node* node = (Node*)malloc(sizeof (Node));
     if(!node) {
@@ -29,7 +29,7 @@ static Node* NodeCreate(size_t data_size, size_t priority_size)
     return node;
 }
 
-static void NodeDestroy(Node* node)
+static void Node_Destroy(Node* node)
 {
     free(node->data);
     node->data = NULL;

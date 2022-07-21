@@ -6,9 +6,9 @@
 
 typedef struct Trie Trie;
 
-Trie *trieCreate();
-char* trieSearch(Trie *trie, char* string);
-int trieInsert(Trie *trie, char* string);
-int trieRemove(Trie *trie, char* string);
+Trie *trie_Create();
+char* trie_Search(Trie *trie, char* string);
+int trie_Insert(Trie *trie, char* string);
+int trie_Remove(Trie *trie, char* string);
 
 #endif
