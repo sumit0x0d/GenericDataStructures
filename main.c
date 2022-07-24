@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-int compare_function(void* data1, void* data2) {
+int compare(void* data1, void* data2) {
     if(*(int*)data1 < *(int*)data2)
         return -1;
     if(*(int *)data1 > *(int *)data2)
@@ -10,7 +10,7 @@ int compare_function(void* data1, void* data2) {
     return false;
 }
 
-size_t hash_function(void* key, size_t bucket_count)
+size_t hash(void* key, size_t bucket_count)
 {
     return *(size_t *)key % bucket_count;
 }
@@ -59,7 +59,7 @@ int main()
 {
     // int a[24] = {10, 20, 30, 40, 50, 60, 70, 80, 930, 31100, 1010, 1024, 145, 25, 465, 1723, 536, 6404, 8013, 330, 9230, 31011, 1011, 12};
     // int a[24] = {10, 20, 15, 40, 50, 60, 70, 80, 930, 31100, 1010, 1024, 145, 25, 465, 1723, 536, 6404, 8013, 330, 9230, 31011, 1011, 12};
-    // AVLTree *AVLT = AVLTree_Create(sizeof (int), compare_function);
+    // AVLTree *AVLT = AVLTree_Create(sizeof (int), compare);
     // for(int i = 1; i <= 100; i++) {
     //     if(!AVLTree_Insert(AVLT, &i)) {
     //         break;
@@ -87,7 +87,7 @@ int main()
     // int pa = 0;
     // int db = 15;
     // int pb = 15;
-    // PriorityQueueA* PQ = PriorityQueueA_Create(sizeof (int), sizeof (int), 10, compare_function);
+    // PriorityQueueA* PQ = PriorityQueueA_Create(sizeof (int), sizeof (int), 10, compare);
     // PriorityQueueA_Enqueue(PQ, &da, &pa);
     // PriorityQueueA_Enqueue(PQ, &db, &pb);
     // PriorityQueueA_Dequeue(PQ);
@@ -102,9 +102,9 @@ int main()
     // Matrix* M = Matrix_Create(sizeof (char), 10, 10);
     // Matrix_Insert(M, 0, 1, &b);
     // QueueA_Dequeue(S);
-    // HashTableOA *HT = HashTableOA_Create(sizeof (char), sizeof (int), 10, hash_function, compare_function);
+    // HashTableOA *HT = HashTableOA_Create(sizeof (char), sizeof (int), 10, hash, compare);
     // HashTableOA_Insert(HT, &b, &c);
-    // Array* A = Array_Create(sizeof (int), 10, compare_function);
+    // Array* A = Array_Create(sizeof (int), 10, compare);
     // Array_SortedInsert(A, &b);
     // Array_SortedInsert(A, &a);
     // Array_SortedInsert(A, &c1);

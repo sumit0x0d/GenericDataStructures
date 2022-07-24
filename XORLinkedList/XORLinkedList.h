@@ -6,7 +6,7 @@
 
 typedef struct XORLinkedList XORLinkedList;
 
-XORLinkedList* XORLinkedList_Create(size_t data_size, int (*compare_function)(void* data1, void* data2));
+XORLinkedList* XORLinkedList_Create(size_t data_size, int (*compare)(void* data1, void* data2));
 void XORLinkedList_Destroy(XORLinkedList* XORLL);
 size_t XORLinkedList_Size(XORLinkedList* XORLL);
 bool XORLinkedList_Empty(XORLinkedList* XORLL);

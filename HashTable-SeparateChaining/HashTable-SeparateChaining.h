@@ -7,7 +7,7 @@
 typedef struct HashTableSC HashTableSC;
 
 HashTableSC* HashTableSC_Create(size_t key_size, size_t value_size, size_t bucket_count,
-    size_t (*hash_function)(void* key, size_t key_size, size_t bucket_count));
+    size_t (*hash)(void* key, size_t key_size, size_t bucket_count));
 void HashTableSC_Destroy(HashTableSC* HT);
 size_t HashTableSC_Size(HashTableSC* HT);
 bool HashTableSC_Empty(HashTableSC* HT);

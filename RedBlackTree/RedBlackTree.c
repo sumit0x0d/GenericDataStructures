@@ -11,10 +11,10 @@ struct RedBlackTree {
     Node* root;
     size_t data_size;
     size_t size;
-    int (*compare_function)(void* data1, void* data2);
+    int (*compare)(void* data1, void* data2);
 };
 
-RedBlackTree* RedBlackTree_Create(size_t data_size, int (*compare_function)(void* data1, void* data2))
+RedBlackTree* RedBlackTree_Create(size_t data_size, int (*compare)(void* data1, void* data2))
 {
     RedBlackTree* RBT = (RedBlackTree*)malloc(sizeof (RedBlackTree));
     if(!RBT) {
@@ -23,7 +23,7 @@ RedBlackTree* RedBlackTree_Create(size_t data_size, int (*compare_function)(void
     RBT->root = NULL;
     RBT->size = 0;
     RBT->data_size = data_size;
-    RBT->compare_function = compare_function;
+    RBT->compare = compare;
     return RBT;
 }
 
@@ -53,13 +53,13 @@ void* RedBlackTree_Root(RedBlackTree* RBT)
 void* RedBlackTree_Search(RedBlackTree* RBT, void* data)
 {
     Node* node = RBT->root;
-    int compare_function;
+    int compare;
     while(node) {
-        compare_function = RBT->compare_function(data, node->data);
-        if(compare_function == 0) {
+        compare = RBT->compare(data, node->data);
+        if(compare == 0) {
             return node;
         }
-        else if(compare_function < 0) {
+        else if(compare < 0) {
             node = node->left;
         }
         else {
@@ -125,14 +125,14 @@ bool RedBlackTree_Insert(RedBlackTree* RBT, void* data)
     }
     Node* node = RBT->root;
     Node* node_parent = NULL;
-    int compare_function;
+    int compare;
     while(node) {
-        compare_function = RBT->compare_function(data, node->data);
-        if(compare_function == 0) {
+        compare = RBT->compare(data, node->data);
+        if(compare == 0) {
             return true;
         }
         node_parent = node;
-        if(compare_function < 0) {
+        if(compare < 0) {
             node = node->left;
         }
         else {

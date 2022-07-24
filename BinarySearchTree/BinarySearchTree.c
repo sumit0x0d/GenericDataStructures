@@ -11,11 +11,11 @@ struct BinarySearchTree {
     Node* root;
     size_t data_size;
     size_t size;
-    int (*compare_function)(void* data1, void* data2);
+    int (*compare)(void* data1, void* data2);
 };
 
 BinarySearchTree* BinarySearchTree_Create(size_t data_size,
-    int (*compare_function)(void* data1, void* data2))
+    int (*compare)(void* data1, void* data2))
 {
     BinarySearchTree* BST = (BinarySearchTree*)malloc(sizeof (BinarySearchTree));
     if(!BST) {
@@ -24,7 +24,7 @@ BinarySearchTree* BinarySearchTree_Create(size_t data_size,
     BST->root = NULL;
     BST->data_size = data_size;
     BST->size = 0;
-    BST->compare_function = compare_function;
+    BST->compare = compare;
     return BST;
 }
 
@@ -55,11 +55,11 @@ void* BinarySearchTree_Search(BinarySearchTree* BST, void* data)
 {
     Node* node = BST->root;
     while(node) {
-        int compare_function = BST->compare_function(data, node->data);
-        if(compare_function == 0) {
+        int compare = BST->compare(data, node->data);
+        if(compare == 0) {
             return node;
         }
-        if(compare_function < 0) {
+        if(compare < 0) {
             node = node->left;
         }
         else {
@@ -82,14 +82,14 @@ bool BinarySearchTree_Insert(BinarySearchTree* BST, void* data)
     }
     Node* node = BST->root;
     Node* node_parent = NULL;
-    int compare_function;
+    int compare;
     while(node) {
-        compare_function = BST->compare_function(data, node->data);
-        if(compare_function == 0) {
+        compare = BST->compare(data, node->data);
+        if(compare == 0) {
             return false;
         }
         node_parent = node;
-        if(compare_function < 0) {
+        if(compare < 0) {
             node = node->left;
         }
         else {
@@ -101,7 +101,7 @@ bool BinarySearchTree_Insert(BinarySearchTree* BST, void* data)
         return false;
     }
     memcpy(node->data, data, BST->data_size);
-    if(compare_function < 0) {
+    if(compare < 0) {
         node_parent->left = node;
     }
     else {
@@ -118,14 +118,14 @@ bool BinarySearchTree_Remove(BinarySearchTree* BST, void* data)
     }
     Node* node = BST->root;
     Node* node_parent = NULL; 
-    int compare_function;
+    int compare;
     while(node) {
-        compare_function = BST->compare_function(data, node->data);
-        if(compare_function == 0) {
+        compare = BST->compare(data, node->data);
+        if(compare == 0) {
             break;
         }
         node_parent = node;
-        if(compare_function < 0) {
+        if(compare < 0) {
             node = node->left;
         }
         else {

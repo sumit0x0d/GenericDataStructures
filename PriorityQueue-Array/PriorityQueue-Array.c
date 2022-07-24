@@ -12,11 +12,11 @@ struct PriorityQueueA {
     size_t back;
     size_t capacity;
     size_t size;
-    int (*compare_function)(void* priority1, void* priority2);
+    int (*compare)(void* priority1, void* priority2);
 };
 
 PriorityQueueA* PriorityQueueA_Create(size_t data_size, size_t priority_size, size_t capacity,
-    int (*compare_function)(void* priority1, void* priority2))
+    int (*compare)(void* priority1, void* priority2))
 {
     PriorityQueueA* PQ = (PriorityQueueA*)malloc(sizeof (PriorityQueueA));
     if(!PQ) {
@@ -32,7 +32,7 @@ PriorityQueueA* PriorityQueueA_Create(size_t data_size, size_t priority_size, si
     PQ->back = 0;
     PQ->capacity = capacity;
     PQ->size = 0;
-    PQ->compare_function = compare_function;
+    PQ->compare = compare;
     return PQ;
 }
 
@@ -108,14 +108,14 @@ void PriorityQueueA_Enqueue(PriorityQueueA* PQ, void* data, void* priority)
         PQ->front = 0;
         PQ->back = PQ->size;
     }
-    if(PQ->compare_function(data, priority_At(PQ, PQ->front)) < 0) {
+    if(PQ->compare(data, priority_At(PQ, PQ->front)) < 0) {
         memmove(DataAt(PQ, 1), DataAt(PQ, 0), (PQ->data_size + PQ->priority_size) * PQ->size);
         memcpy(DataAt(PQ, 0), data, PQ->data_size);
         memcpy(priority_At(PQ, 0), priority, PQ->priority_size);
         PQ->size = PQ->size + 1;
         return;
     }
-    if(PQ->compare_function(data, priority_At(PQ, PQ->back - 1)) > 0) {
+    if(PQ->compare(data, priority_At(PQ, PQ->back - 1)) > 0) {
         memcpy(DataAt(PQ, PQ->back), data, PQ->data_size);
         memcpy(priority_At(PQ, PQ->back), priority, PQ->priority_size);
         PQ->back = PQ->back + 1;
@@ -126,8 +126,8 @@ void PriorityQueueA_Enqueue(PriorityQueueA* PQ, void* data, void* priority)
     size_t right = PQ->back - 1;
     while(left <= right) {
         size_t middle = left + ((right - left) / 2);
-        int compare_function = PQ->compare_function(data, priority_At(PQ, middle));
-        if(!compare_function) {
+        int compare = PQ->compare(data, priority_At(PQ, middle));
+        if(!compare) {
             memmove(DataAt(PQ, middle + 2), DataAt(PQ, middle + 1),
                 (PQ->data_size + PQ->priority_size) * (PQ->back - middle - 1));
             memcpy(DataAt(PQ, middle + 1), data, PQ->data_size);
@@ -136,7 +136,7 @@ void PriorityQueueA_Enqueue(PriorityQueueA* PQ, void* data, void* priority)
             PQ->size = PQ->size + 1;
             return;
         }
-        else if(compare_function < 0) {
+        else if(compare < 0) {
             right = middle - 1;
         }
         else {

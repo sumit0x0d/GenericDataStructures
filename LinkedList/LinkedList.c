@@ -10,10 +10,10 @@ struct LinkedList {
     Node* tail;
     size_t data_size;
     size_t size;
-    int (*compare_function)(void* data1, void* data2);
+    int (*compare)(void* data1, void* data2);
 };
 
-LinkedList* LinkedList_Create(size_t data_size, int (*compare_function)(void* data1, void* data2))
+LinkedList* LinkedList_Create(size_t data_size, int (*compare)(void* data1, void* data2))
 {
     LinkedList* LL = (LinkedList*)malloc(sizeof (LinkedList));
     if(!LL) {
@@ -23,7 +23,7 @@ LinkedList* LinkedList_Create(size_t data_size, int (*compare_function)(void* da
     LL->tail = NULL;
     LL->data_size = data_size;
     LL->size = 0;
-    LL->compare_function = compare_function;
+    LL->compare = compare;
     return LL;
 }
 
@@ -54,7 +54,7 @@ void* LinkedList_Search(LinkedList* LL, void* data)
 {
     Node* node = (Node*)malloc(sizeof (Node));
     while(node) {
-        if(!LL->compare_function(data, node->data)) {
+        if(!LL->compare(data, node->data)) {
             return node;
         }
         node = node->next;
@@ -133,10 +133,10 @@ bool LinkedList_Insert(LinkedList* LL, size_t index, void* data)
 
 bool LinkedList_SortedInsert(LinkedList* LL, void* data)
 {
-    if(LL->size || LL->compare_function(data, LL->head->data) < 0) {
+    if(LL->size || LL->compare(data, LL->head->data) < 0) {
         return LinkedList_PushHead(LL, data);
     }
-    if(LL->compare_function(data, LL->tail->data) > 0) {
+    if(LL->compare(data, LL->tail->data) > 0) {
         return LinkedList_PushTail(LL, data);
     }
     Node* node_previous = LL->head;
@@ -144,7 +144,7 @@ bool LinkedList_SortedInsert(LinkedList* LL, void* data)
     if(!node) {
         return false;
     }
-    while(LL->compare_function(data, node_previous->data) < 0) {
+    while(LL->compare(data, node_previous->data) < 0) {
         node_previous = node_previous->next;
     }
     node->next = node_previous->next;
@@ -198,7 +198,7 @@ void LinkedList_Remove(LinkedList* LL, void* data)
     Node* node = LL->head;
     size_t count = 0;
     while(node) {
-        if(!LL->compare_function(data, node->data)) {
+        if(!LL->compare(data, node->data)) {
             break;
         }
         count = count + 1;

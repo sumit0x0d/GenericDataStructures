@@ -6,7 +6,7 @@
 
 typedef struct BinarySearchTree BinarySearchTree;
 
-BinarySearchTree* BinarySearchTree_Create(size_t data_size, int (*compare_function)(void* data1, void* data2));
+BinarySearchTree* BinarySearchTree_Create(size_t data_size, int (*compare)(void* data1, void* data2));
 void BinarySearchTree_Destroy(BinarySearchTree* BST);
 size_t BinarySearchTree_Size(BinarySearchTree* BST);
 bool BinarySearchTree_Empty(BinarySearchTree* BST);

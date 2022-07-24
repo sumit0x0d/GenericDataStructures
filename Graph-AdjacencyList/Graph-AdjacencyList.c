@@ -6,7 +6,7 @@
 #include <string.h>
 
 struct GraphAL {
-    struct Vertex* adjacency_list;
+    Vertex* adjacency_list;
     size_t data_size;
     unsigned long vertex_count;
     size_t size;

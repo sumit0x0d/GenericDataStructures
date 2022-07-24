@@ -11,11 +11,11 @@ struct PriorityQueueBH {
     size_t data_size;
     size_t priority_size;
     size_t size;
-    int (*compare_function)(void* priority1, void* priority2);
+    int (*compare)(void* priority1, void* priority2);
 };
 
 PriorityQueueBH* PriorityQueueBH_Create(size_t data_size, size_t priority_size,
-    int (*compare_function)(void* priority1, void* priority2))
+    int (*compare)(void* priority1, void* priority2))
 {
     PriorityQueueBH* PQ = (PriorityQueueBH*)malloc(sizeof (PriorityQueueBH));
     if(!PQ) {
@@ -25,7 +25,7 @@ PriorityQueueBH* PriorityQueueBH_Create(size_t data_size, size_t priority_size,
     PQ->data_size = data_size;
     PQ->priority_size = priority_size;
     PQ->size = 0;
-    PQ->compare_function = compare_function;
+    PQ->compare = compare;
     return PQ;
 }
 

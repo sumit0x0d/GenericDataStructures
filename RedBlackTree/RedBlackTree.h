@@ -6,7 +6,7 @@
 
 typedef struct RedBlackTree RedBlackTree;
 
-RedBlackTree* RedBlackTree_Create(size_t data_size, int (*compare_function)(void* data1, void* data2));
+RedBlackTree* RedBlackTree_Create(size_t data_size, int (*compare)(void* data1, void* data2));
 void RedBlackTree_Destroy(RedBlackTree* RBT);
 size_t RedBlackTree_Size(RedBlackTree* RBT);
 bool RedBlackTree_Empty(RedBlackTree* RBT);

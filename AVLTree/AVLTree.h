@@ -6,7 +6,7 @@
 
 typedef struct AVLTree AVLTree;
 
-AVLTree* AVLTree_Create(size_t data_size, int (*compare_function)(void* data1, void* data2));
+AVLTree* AVLTree_Create(size_t data_size, int (*compare)(void* data1, void* data2));
 void AVLTree_Destroy(AVLTree* AVLT);
 size_t AVLTree_Size(AVLTree* AVLT);
 bool AVLTree_Empty(AVLTree* AVLT);

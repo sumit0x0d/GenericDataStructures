@@ -7,7 +7,7 @@
 typedef struct DynamicArray DynamicArray;
 
 DynamicArray* DynamicArray_Create(size_t data_size, size_t capacity, double growth_factor,
-    int (*compare_function)(void* data1, void* data2));
+    int (*compare)(void* data1, void* data2));
 void DynamicArray_Destroy(DynamicArray* DA);
 size_t DynamicArray_Size(DynamicArray* DA);
 bool DynamicArray_Empty(DynamicArray* DA);

@@ -10,10 +10,10 @@ struct XORLinkedList {
     struct Node* tail;
     size_t data_size;
     size_t size;
-    int (*compare_function)(void* data1, void* data2);
+    int (*compare)(void* data1, void* data2);
 };
 
-XORLinkedList* XORLinkedList_Create(size_t data_size, int (*compare_function)(void* data1, void* data2))
+XORLinkedList* XORLinkedList_Create(size_t data_size, int (*compare)(void* data1, void* data2))
 {
     XORLinkedList* XORLL = (XORLinkedList*)malloc(sizeof (XORLinkedList));
     if(!XORLL) {
@@ -23,7 +23,7 @@ XORLinkedList* XORLinkedList_Create(size_t data_size, int (*compare_function)(vo
     XORLL->tail = NULL;
     XORLL->data_size = data_size;
     XORLL->size = 0;
-    XORLL->compare_function = compare_function;
+    XORLL->compare = compare;
     return XORLL;
 }
 
@@ -58,7 +58,7 @@ void* XORLinkedList_Search(XORLinkedList* XORLL, void* data)
     Node* node = XORLL->head;
     Node* node_previous = NULL;
     while(node) {
-        if(!XORLL->compare_function(data, node->data)) {
+        if(!XORLL->compare(data, node->data)) {
             return node;
         }
         node_previous = node;

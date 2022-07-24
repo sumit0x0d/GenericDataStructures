@@ -6,7 +6,7 @@
 
 typedef struct Array Array;
 
-Array* Array_Create(size_t data_size, size_t capacity, int (*compare_function)(void* data1, void* data2));
+Array* Array_Create(size_t data_size, size_t capacity, int (*compare)(void* data1, void* data2));
 bool Array_ChangeCapacity(Array* A, size_t capacity);
 void Array_Destroy(Array* A);
 size_t Array_Size(Array* A);

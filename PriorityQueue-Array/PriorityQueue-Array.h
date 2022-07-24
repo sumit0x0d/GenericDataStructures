@@ -7,7 +7,7 @@
 typedef struct PriorityQueueA PriorityQueueA;
 
 PriorityQueueA* PriorityQueueA_Create(size_t data_size, size_t priority_size, size_t capacity,
-    int (*compare_function)(void* priority1, void* priority2));
+    int (*compare)(void* priority1, void* priority2));
 bool PriorityQueueA_ChangeCapacity(PriorityQueueA* PQ, size_t capacity);
 void PriorityQueueA_Destroy(PriorityQueueA* PQ);
 size_t PriorityQueueA_Size(PriorityQueueA* PQ);

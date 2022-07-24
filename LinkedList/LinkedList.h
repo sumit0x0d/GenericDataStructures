@@ -6,7 +6,7 @@
 
 typedef struct LinkedList LinkedList;
 
-LinkedList* LinkedList_Create(size_t data_size, int (*compare_function)(void* data1, void* data2));
+LinkedList* LinkedList_Create(size_t data_size, int (*compare)(void* data1, void* data2));
 void LinkedList_Destroy(LinkedList* LL);
 size_t LinkedList_Size(LinkedList* LL);
 bool LinkedList_Empty(LinkedList* LL);

@@ -9,11 +9,11 @@ struct BinaryHeapA {
     size_t data_size;
     size_t capacity;
     size_t size;
-    int (*compare_function)(void* data1, void* data2);
+    int (*compare)(void* data1, void* data2);
 };
 
 BinaryHeapA* BinaryHeapA_Create(size_t data_size, size_t capacity,
-    int (*compare_function)(void* data1, void* data2))
+    int (*compare)(void* data1, void* data2))
 {
     BinaryHeapA* BH;
     return BH;

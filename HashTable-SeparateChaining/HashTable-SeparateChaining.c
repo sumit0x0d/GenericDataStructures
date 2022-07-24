@@ -11,11 +11,11 @@ struct HashTableSC {
     size_t value_size;
     size_t bucket_count;
     size_t size;
-    size_t (*hash_function)(void* key, size_t key_size, size_t bucket_count);
+    size_t (*hash)(void* key, size_t key_size, size_t bucket_count);
 };
 
 HashTableSC* HashTableSC_Create(size_t key_size, size_t value_size, size_t bucket_count,
-    size_t (*hash_function)(void* key, size_t key_size, size_t bucket_count))
+    size_t (*hash)(void* key, size_t key_size, size_t bucket_count))
 {
     HashTableSC* HT = (HashTableSC*)malloc(sizeof (HashTableSC));
     if(!HT) {
@@ -30,7 +30,7 @@ HashTableSC* HashTableSC_Create(size_t key_size, size_t value_size, size_t bucke
     HT->value_size = value_size;
     HT->bucket_count = bucket_count;
     HT->size = 0;
-    HT->hash_function = hash_function;
+    HT->hash = hash;
     return HT;
 }
 
@@ -57,7 +57,7 @@ bool HashTableSC_Empty(HashTableSC* HT)
 
 void* HashTableSC_Search(HashTableSC* HT, void* key)
 {
-    size_t index = HT->hash_function(key, HT->key_size, HT->bucket_count);
+    size_t index = HT->hash(key, HT->key_size, HT->bucket_count);
     if(!HT->array[index].key) {
         return NULL;
     }
@@ -73,7 +73,7 @@ bool HashTableSC_Insert(HashTableSC* HT, void* key, void* value)
     memcpy(pair->key, key, HT->key_size);
     memcpy(pair->value, value, HT->value_size);
     pair->next = NULL;
-    size_t index = HT->hash_function(key, HT->key_size, HT->bucket_count);
+    size_t index = HT->hash(key, HT->key_size, HT->bucket_count);
     if(1) {
         Pair* pair_previous = HT->array + index;
         while(pair_previous->next) {
@@ -90,5 +90,5 @@ bool HashTableSC_Insert(HashTableSC* HT, void* key, void* value)
 
 // int HashTableSC_Remove(HashTableSC* HT, void* key)
 // {
-//     size_t index = HT->hash_function(key, HT->bucket_count);
+//     size_t index = HT->hash(key, HT->bucket_count);
 // }

@@ -10,11 +10,11 @@ struct DynamicArray {
     size_t capacity;
     double growth_factor;
     size_t size;
-    int (*compare_function)(void* data1, void* data2);
+    int (*compare)(void* data1, void* data2);
 };
 
 DynamicArray* DynamicArray_Create(size_t data_size, size_t capacity, double growth_factor,
-    int (*compare_function)(void* data1, void* data2))
+    int (*compare)(void* data1, void* data2))
 {
     if((size_t)(capacity * growth_factor) <= capacity) {
         return NULL;
@@ -32,7 +32,7 @@ DynamicArray* DynamicArray_Create(size_t data_size, size_t capacity, double grow
     DA->data_size = data_size;
     DA->capacity = capacity;
     DA->growth_factor = growth_factor;
-    DA->compare_function = compare_function;
+    DA->compare = compare;
     DA->size = 0;
     return DA;
 }
@@ -96,11 +96,11 @@ void* DynamicArray_Search(DynamicArray* DA, void* data)
     size_t right = DA->size;
     while(left <= right) {
         size_t middle = left + ((right - left) / 2);
-        int compare_function = DA->compare_function(data, DataAt(DA, middle));
-        if(!compare_function) {
+        int compare = DA->compare(data, DataAt(DA, middle));
+        if(!compare) {
             return DataAt(DA, middle);
         }
-        else if(compare_function < 0) {
+        else if(compare < 0) {
             right = middle - 1;
         }
         else {
@@ -160,13 +160,13 @@ bool DynamicArray_SortedInsert(DynamicArray* DA, void* data)
             return false;
         }
     }
-    if(DA->compare_function(data, DataAt(DA, 0)) < 0) {
+    if(DA->compare(data, DataAt(DA, 0)) < 0) {
         memmove(DataAt(DA, 1), DataAt(DA, 0), DA->data_size * DA->size);
         memcpy(DataAt(DA, 0), data, DA->data_size);
         DA->size = DA->size + 1;
         return true;
     }
-    if(DA->compare_function(data, DataAt(DA, DA->size - 1)) > 0) {
+    if(DA->compare(data, DataAt(DA, DA->size - 1)) > 0) {
         memcpy(DataAt(DA, DA->size), data, DA->data_size);
         DA->size = DA->size + 1;
         return true;
@@ -175,15 +175,15 @@ bool DynamicArray_SortedInsert(DynamicArray* DA, void* data)
     size_t right = DA->size - 1;
     while(left <= right) {
         size_t middle = left + ((right - left) / 2);
-        int compare_function = DA->compare_function(data, DataAt(DA, middle));
-        if(!compare_function) {
+        int compare = DA->compare(data, DataAt(DA, middle));
+        if(!compare) {
             memmove(DataAt(DA, middle + 2), DataAt(DA, middle + 1),
                 DA->data_size * (DA->size - middle - 1));
             memcpy(DataAt(DA, middle + 1), data, DA->data_size);
             DA->size = DA->size + 1;
             return true;
         }
-        else if(compare_function < 0) {
+        else if(compare < 0) {
             right = middle - 1;
         }
         else {
@@ -230,14 +230,14 @@ bool DynamicArray_Remove(DynamicArray* DA, void* data)
     size_t right = DA->size;
     while(left <= right) {
         size_t middle = left + ((right - left) / 2);
-        int compare_function = DA->compare_function(data, DataAt(DA, middle));
-        if(!compare_function) {
+        int compare = DA->compare(data, DataAt(DA, middle));
+        if(!compare) {
             memmove(DataAt(DA, middle), DataAt(DA, middle + 1),
                 DA->data_size * (DA->size - middle + 1));
             DA->size = DA->size - 1;
             break;
         }
-        else if(compare_function < 0) {
+        else if(compare < 0) {
             right = middle - 1;
         }
         else {

@@ -6,7 +6,7 @@
 
 typedef struct BinaryHeapBT BinaryHeapBT;
 
-BinaryHeapBT* BinaryHeapBT_Create(size_t data_size, int (*compare_function)(void* data1, void* data2));
+BinaryHeapBT* BinaryHeapBT_Create(size_t data_size, int (*compare)(void* data1, void* data2));
 void BinaryHeapBT_Destroy(BinaryHeapBT* BH);
 size_t BinaryHeapBT_Size(BinaryHeapBT* BH);
 void* BinaryHeapBT__Root(BinaryHeapBT* BH);

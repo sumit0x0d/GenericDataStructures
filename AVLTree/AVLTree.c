@@ -11,10 +11,10 @@ struct AVLTree {
     Node* root;
     size_t data_size;
     size_t size;
-    int (*compare_function)(void* data1, void* data2);
+    int (*compare)(void* data1, void* data2);
 };
 
-AVLTree* AVLTree_Create(size_t data_size, int (*compare_function)(void* data1, void* data2))
+AVLTree* AVLTree_Create(size_t data_size, int (*compare)(void* data1, void* data2))
 {
     AVLTree* AVLT = (AVLTree*)malloc(sizeof (AVLTree));
     if(!AVLT) {
@@ -23,7 +23,7 @@ AVLTree* AVLTree_Create(size_t data_size, int (*compare_function)(void* data1, v
     AVLT->root = NULL;
     AVLT->data_size = data_size;
     AVLT->size = 0;
-    AVLT->compare_function = compare_function;
+    AVLT->compare = compare;
     return AVLT;
 }
 
@@ -130,13 +130,13 @@ static void Rebalance(AVLTree* AVLT, Node* node, CircularQueue* circular_queue)
 void* AVLTree_Search(AVLTree* AVLT, void* data)
 {
     Node* node = AVLT->root;
-    int compare_function;
+    int compare;
     while(node) {
-        compare_function = AVLT->compare_function(data, node->data);
-        if(compare_function == 0) {
+        compare = AVLT->compare(data, node->data);
+        if(compare == 0) {
             return node;
         }
-        else if(compare_function < 0) {
+        else if(compare < 0) {
             node = node->left;
         }
         else {
@@ -160,14 +160,14 @@ bool AVLTree_Insert(AVLTree* AVLT, void* data)
     }
     Node* node = AVLT->root;
     Node* node_parent = NULL;
-    int compare_function;
+    int compare;
     while(node) {
-        compare_function = AVLT->compare_function(data, node->data);
-        if(!compare_function) {
+        compare = AVLT->compare(data, node->data);
+        if(!compare) {
             return false;
         }
         node_parent = node;
-        if(compare_function < 0) {
+        if(compare < 0) {
             node = node->left;
         }
         else {
@@ -184,7 +184,7 @@ bool AVLTree_Insert(AVLTree* AVLT, void* data)
     }
     memcpy(node->data, data, AVLT->data_size);
     node->parent = node_parent;
-    if(compare_function < 0) {
+    if(compare < 0) {
         node_parent->left = node;
     }
     else {
@@ -199,14 +199,14 @@ bool AVLTree_Remove(AVLTree* AVLT, void* data)
 {
     Node* node = AVLT->root;
     Node* node_parent = NULL; 
-    int compare_function;
+    int compare;
     while(node) {
-        compare_function = AVLT->compare_function(data, node->data);
-        if(!compare_function) {
+        compare = AVLT->compare(data, node->data);
+        if(!compare) {
             break;
         }
         node_parent = node;
-        if(compare_function < 0) {
+        if(compare < 0) {
             node = node->left;
         }
         else {
